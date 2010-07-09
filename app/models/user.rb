@@ -12,5 +12,7 @@ class User
   field :name, :type => String
   field :nickname, :type => String 
   field :accepted_terms, :type => Boolean  
-  belongs_to_related :referrer, :class_name => User  
+
+  belongs_to_related :referrer
+  has_many_related :referred, :class_name => "User", :foreign_key => :referrer_id
 end

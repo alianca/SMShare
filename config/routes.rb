@@ -1,4 +1,6 @@
 Smshare::Application.routes.draw do |map|
+  devise_for :users
+
   root :to => "home#index"
 
   # The priority is based upon order of creation:

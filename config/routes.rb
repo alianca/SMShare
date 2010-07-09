@@ -1,6 +1,9 @@
 Smshare::Application.routes.draw do |map|
-  devise_for :users
-
+  # Rotas do Devise
+  # TODO atualizar isso quando a DSL de rotas do Devise 1.1 estiver estavel
+  devise_for :users, :path => "/", :path_names => { :sign_in => "login", :sign_out => "logout", :password => "login/esqueci_senha" }, :skip => [:registration]    
+  devise_for :users, :path => "cadastro", :path_names => { :sign_up => "" }, :skip => [:sessions, :password]
+  
   root :to => "home#index"
 
   # The priority is based upon order of creation:

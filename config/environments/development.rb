@@ -17,4 +17,7 @@ Smshare::Application.configure do
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  
+  # Ocultar deprecation warnings enquanto as gems ainda não estão 100% rails3
+  config.active_support.deprecation = :log
 end

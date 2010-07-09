@@ -5,6 +5,7 @@ defaults: &defaults
   #     port: 27018
   #   - host: slave2.local
   #     port: 27019
+  use_object_ids: true
 
 development:
   <<: *defaults

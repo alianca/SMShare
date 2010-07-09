@@ -25,6 +25,9 @@ gem 'rails', '3.0.0.beta4'
 gem 'mongoid', '>= 2.0.0.beta9'
 gem 'bson_ext', '1.0.1'
 
+# Devise
+gem 'devise', '>= 1.1.rc2'
+
 # Bundle gems for certain environments:
 group :test do
   gem 'rspec', '>= 2.0.0.beta.15'

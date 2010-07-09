@@ -25,10 +25,6 @@ body {
 	color: #9c938a;
 }
 
-#footer-container {
-
-}
-
 #footer #menu {
 	height: 112px;
 	padding: 35px 53px;
@@ -54,13 +50,8 @@ body {
 	font-size: 15px;
 }
 
-#footer #menu .section .special-s {
-	text-decoration: underline;
-}
-
-#footer #menu .section .special-s span {
-	text-decoration: overline;
-}
+.special-s { text-decoration: underline; }
+.special-s span { text-decoration: overline; }
 
 #footer #menu .section ul {
 	margin: 3px 0 0 0;

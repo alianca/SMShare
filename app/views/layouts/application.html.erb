@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>smShare</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
+  <%= title_tag "smShare - Serviço smsharing" %>
+  <%= stylesheet_link_tag "application", stylesheet_for_controller %>
+  <%= javascript_include_tag "jquery", "rails", "application", javascript_for_controller %>
   <%= csrf_meta_tag %>
 </head>
 <body>
+  
+<div id="header" class="container">
+  <%= render :partial => "layouts/header" %>
+</div>
 
 <div id="main-container" class="container">
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
   
-  <%= yield %>
+  <%= yield %>  
+</div>
+
+<div id="search" class="container">
+  <%= render :partial => "layouts/search" %>
 </div>
 
 <div id="footer">

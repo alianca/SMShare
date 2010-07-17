@@ -1,14 +1,14 @@
 <div id="footer-container" class="container">
-  <div id="menu">
-    <%= render :partial => "layouts/menu" %>
+  <div id="footer-menu">
+    <%= render :partial => "layouts/menus/footer" %>
   </div>
   
   <div id="logos">
-    <%= image_tag "layouts/logos/talk.jpg", :id => :talk %>
-    <%= image_tag "layouts/logos/alianca.jpg", :id => :alianca %>    
-    <%= image_tag "layouts/logos/certisign.jpg", :id => :certisign %>
-    <%= image_tag "layouts/logos/twitter.jpg", :id => :twitter %>
-    <%= image_tag "layouts/logos/rss.jpg", :id => :rss %>
+    <%= link_to image_tag("layouts/logos/talk.jpg"), "", :id => :talk %>
+    <%= link_to image_tag("layouts/logos/alianca.jpg"), "", :id => :alianca %>    
+    <%= link_to image_tag("layouts/logos/certisign.jpg"), "", :id => :certisign %>
+    <%= link_to image_tag("layouts/logos/twitter.jpg"), "", :id => :twitter %>
+    <%= link_to image_tag("layouts/logos/rss.jpg"), "", :id => :rss %>
   </div>
   
   <div id="copyright">
@@ -16,8 +16,8 @@
     
     <br />
     
-    <span id="policy">Política de privacidade</span>
+    <%= link_to "Política de privacidade", "", :id => "policy" %>
     |
-    <span id="terms-of-use">Termos de serviço</span>
+    <%= link_to "Termos de serviço", "", :id => "terms-of-use" %>
   </div>
 </div>

@@ -1,0 +1,11 @@
+<div id="search-ad">
+  <p id="ad-line1">Atrás de algum arquivo?</p>
+  <p id="ad-line2">Procure em nosso banco de dados...</p>
+</div>
+
+<% form_tag "", :id => "search-form" do %>
+  <%= link_to "Insira nossa busca no Firefox", "", :id => "firefox-addon" %>
+
+  <%= text_field_tag :q, "", :title => "O que está procurando...?", :class => "clear-on-focus" %>
+  <%= submit_tag "Buscar", :id => "search-button" %>
+<% end %>

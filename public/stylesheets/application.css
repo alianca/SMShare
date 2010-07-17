@@ -1,0 +1,337 @@
+/* @group Defaults */
+
+img {
+  border: 0;
+}
+
+body {
+  margin: 0;
+  background: url(/images/layouts/fundo.jpg) repeat-x;
+  background-position-x: 50%;
+  font-family: 'Trebuchet MS', Arial;
+  font-size: 13px;
+}
+
+.container {
+  width: 950px;
+  margin: 0 auto;
+}
+
+.special-s {
+  text-decoration: underline;
+}
+
+.special-s span {
+  text-decoration: overline;
+}
+
+/* @end */
+
+/* @group Header */
+
+#header {
+  height: 111px;
+}
+
+#header img {
+  float: left;
+}
+
+/* @group Header Login */
+
+#header #header-login {
+  float: right;
+  margin: 27px 95px 0 0;
+}
+
+#header #header-login li {
+  display: inline;
+  padding-left: 22px;
+  font-size: 13px;
+}
+
+#header #header-login a {
+  color: #34378A;
+  text-decoration: none;
+  border-bottom: 1px dotted #34378A;
+}
+
+#header #header-login a:hover {
+  color: #A5784B;
+}
+
+#header #header-login #login-link {
+  background: url(/images/layouts/login.png) no-repeat 0 0;
+  padding-right: 8px;
+  border-right: 1px solid #b7dee3;
+}
+
+#header #header-login #signup-link {
+  background: url(/images/layouts/registrar.png) no-repeat;
+  margin-left: 3px;
+}
+
+/* @end */
+
+/* @group Header Menu */
+
+#header #header-menu {
+  clear: right;
+  float: right;
+  margin: 30px 96px 0 0;
+  padding: 0;
+}
+
+#header #header-menu a {
+  color: inherit;
+  text-decoration: none;  
+}
+
+#header #header-menu .title {
+  display: inline-block;
+  color: #f27f00;
+  width: 115px;
+  height: 44px;
+  margin-left: 1px;
+}
+
+#header #header-menu .title.active, #header #header-menu .title.active:hover {
+  color: white;
+}
+
+#header #header-menu .title:hover {
+  color: white;
+}
+
+#header #header-menu .title > a, #header #header-menu .title > span {
+  display: block;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 13px 0 10px 7px;
+}
+
+/* @group No Dropdown */
+
+#header #header-menu .title.no-dropdown { 
+  background: url(/images/layouts/menu/nodropdown.png) no-repeat;
+}
+
+#header #header-menu .title.no-dropdown.active, #header #header-menu .title.no-dropdown.active:hover { 
+  background: url(/images/layouts/menu/nodropdown-active.png) no-repeat;
+}
+
+#header #header-menu .title.no-dropdown:hover { 
+  background: url(/images/layouts/menu/nodropdown-over.png) no-repeat;
+}
+
+/* @end */
+
+/* @group Dropdown */
+
+#header #header-menu .title.dropdown { 
+  background: url(/images/layouts/menu/dropdown.png) no-repeat;
+}
+
+#header #header-menu .title.dropdown.active, #header #header-menu .title.dropdown.active:hover { 
+  background: url(/images/layouts/menu/dropdown-active.png) no-repeat;
+}
+
+#header #header-menu .title.dropdown:hover { 
+  background: url(/images/layouts/menu/dropdown-over.png) no-repeat;
+}
+
+#header #header-menu .dropdown ul {
+  display: none;
+  position: absolute;
+  z-index: 999;
+  padding: 2px;
+  background-color: white;
+}
+
+#header #header-menu .dropdown a {
+  width: 100%;
+}
+
+#header #header-menu .dropdown li {
+  color: #34378A;
+  padding: 2px 8px 2px 6px;
+  list-style-image: url(/images/layouts/menu/bullet-normal.gif);
+  list-style-position: inside;
+}
+
+#header #header-menu .dropdown li:hover {
+  background-color: #f27f00;
+  color: white;
+  padding: 2px 6px;
+  list-style-image: url(/images/layouts/menu/bullet-mouseover.gif);
+}
+
+/* @end */
+
+/* @end */
+
+/* @end */
+
+/* @group Main Container */
+
+#main-container {
+  min-height: 236px;
+}
+
+/* @end */
+
+/* @group Search */
+
+#search {
+  height: 75px;
+}
+
+#search #search-ad {
+  float: left;
+  margin: 19px 0 0 47px;
+  width: 376px;
+}
+
+#search #search-ad #ad-line1 {
+  margin: 0;
+  text-align: left;
+  color: #F37F00;
+  font-weight: bold;
+  font-size: 24px;
+  letter-spacing: -1px;
+}
+
+#search #search-ad #ad-line2 {
+  margin: 0;
+  text-align: right;
+  color: #7cb9ce;
+  font-size: 23px;
+  letter-spacing: -1px;
+}
+
+#search #firefox-addon { 
+  float: right;
+  padding: 0 0 0 10px;
+  margin: 23px 10px 0 0;
+  font-size: 11px;
+  color: #8E8E8E;
+  background: url(/images/layouts/plus-sign.png) no-repeat 0 50%;
+  text-decoration: none;
+}
+
+#search #search-form {
+  float: right;
+  margin: 0 68px 0 0;
+  width: 430px;
+  height: 75px;
+  background: url(/images/layouts/fundo-busca.gif);
+}
+
+#search #search-form #q {
+  width: 222px;
+  border: 0 solid transparent;
+  background-color: transparent;
+  color: #8E8E8E;
+  height: 23px;
+  margin: 8px 0 0 73px;
+}
+
+#search #search-form #search-button {
+  color: white;
+  font-size: 12px;
+  border: 0 solid transparent;
+  width: 121px;
+  height: 23px;
+  background: url(/images/layouts/botao-off.png);
+}
+
+/* @end */
+
+/* @group Footer */
+
+#footer {
+  height: 245px;
+  width: 100%;
+  background: url(/images/layouts/rodape.jpg) repeat-x;
+  color: #9c938a;
+}
+
+#footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* @group Footer Menu */
+
+#footer #footer-menu {
+  height: 112px;
+  padding: 35px 53px;
+}
+
+#footer #footer-menu .section {
+  padding-left: 30px;
+  float: left;
+}
+
+#footer #footer-menu #smshare-menu {
+  padding-left: 25px;
+  padding-right: 5px;
+}
+
+#footer #footer-menu #institutional-menu {
+  padding-left: 35px;
+}
+
+#footer #footer-menu .section .title {
+  color: #a5784b;
+  font-weight: bold;
+  font-size: 15px;
+  margin: 1px 0 4px 0;
+}
+
+#footer #footer-menu .section ul {
+  margin: 3px 0 0 0;
+  padding-left: 0px;
+}
+
+#footer #footer-menu .section li {
+  list-style-type: none;
+  font-size: 13px;
+}
+
+#footer #footer-menu .section li.active {
+  color: #a5784b;
+  list-style-image: url(/images/layouts/menu_bullet.gif);
+}
+
+/* @end */
+
+/* @group Footer Logos */
+
+#footer #logos {
+  padding: 0 65px 0 23px;
+}
+
+#footer #logos #talk, #footer #logos #alianca {
+  float: left;
+}
+
+#footer #logos #rss, #footer #logos #twitter, 
+#footer #logos #certisign {
+  float: right;
+}
+
+#footer #copyright {
+  padding-top: 5px;
+  text-align: center;
+  font-size: 12px;
+}
+
+#footer #copyright #policy, #footer #copyright #terms-of-use {
+  font-weight: bold;
+}
+
+/* @end */
+
+/* @end */

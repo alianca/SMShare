@@ -184,6 +184,7 @@ body {
 /* @group Search */
 
 #search {
+  clear: both;
   height: 75px;
 }
 

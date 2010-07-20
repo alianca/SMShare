@@ -1,0 +1,180 @@
+/* @group TV */
+
+#tv { 
+  width: 859px;
+  height: 142px;
+  background: url(/images/home/fundo-tv.png) no-repeat;
+  margin: 0 24px;
+  padding: 8px 9px;
+  color: #404040;
+}
+
+/* @group Slide */
+
+#tv .slide { 
+  float: left;
+  display: none;
+  width: 570px;
+  height: 142px;
+}
+
+#tv #slide-1 { display: block; }
+
+#tv .slide .number { 
+  float: left;
+  width: 90px;
+  height: 83px;
+  background: #f27f00;
+  border: 2px solid white;
+  color: white;
+  font-size: 72px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#tv #slide-1 .number { 
+  padding-left: 7px;
+  width: 83px;
+}
+
+#tv .slide .title { 
+  float: left;
+  font-size: 30px;
+  margin: 18px 0 0 14px;
+  width: 230px;
+  line-height: 28px;
+}
+
+#tv .slide .line { 
+  clear: left; float: left;
+  width:  553px;
+  margin: 3px 0 0 0;
+  padding: 0 8px;
+}
+
+#tv .slide .line-1 { 
+  background: #7cbacf;
+  color: white;
+  line-height: 27px;
+  font-size: 18px;
+}
+
+#tv .slide .line-2 {
+  background: white;
+  line-height: 24px;
+  font-size: 12px;
+}
+
+/* @end */
+
+/* @group Menu */
+
+#tv #tv-menu { 
+  float: right;
+  margin-right: 34px;
+}
+
+#tv #tv-menu p { 
+  font-size: 16px;
+  font-weight: bold;
+  color: #f27f00;
+  margin: 6px 0 4px 0;
+}
+
+#tv #tv-menu a { 
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
+
+#tv #tv-menu ol { 
+  padding: 0;
+  margin: 0 0 0 7px;
+}
+
+#tv #tv-menu ol li {
+  list-style-type: decimal-leading-zero;
+  list-style-position: inside;
+  font-size: 14px;
+  font-weight: bold;
+  color: #34378A;
+  height: 19px;
+  padding: 1px 4px;
+  margin: 2px;
+}
+
+#tv #tv-menu ol li:hover { 
+  background: #deeef4;
+}
+
+#tv #tv-menu ol li.active { 
+  background: #f27f00;
+  color: white;
+}
+
+#tv #tv-menu ol li span { 
+  font-weight: normal;
+}
+
+/* @end */
+
+/* @end */
+
+/* @group Signup */
+
+#signup-button {
+  float: left;
+  display: inline-block;
+  width: 309px;
+  height: 67px;
+  background: url(/images/home/registrar.png) no-repeat;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+
+  margin: 5px 0 0 44px;
+}
+
+#signup-button #signup-line1 { 
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0;
+  padding-top: 5px;
+}
+
+#signup-button #signup-line2 { 
+  font-size: 22px;
+  margin-top: -4px;
+}
+
+/* @end */
+
+/* @group News */
+
+#news { 
+  float: left;
+  margin-left: 10px;
+  width: 540px;
+  height: 91px;
+}
+
+#news .title { 
+  color: #f27f00;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 7px 0 0 15px;
+  padding: 11px 30px 0 0;
+  height: 15px;
+  line-height: 10px;
+  background: url(/images/home/news.png) no-repeat 143px 0;
+}
+
+#news .body {
+  color: #404040; 
+  font-size: 12px;
+  margin: 3px 29px;
+  line-height: 18px;
+}
+
+/* @end */

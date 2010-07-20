@@ -1,1 +1,16 @@
+<div id="tv">
+  <%= render :partial => "tv" %>
+</div>
 
+<% link_to new_user_registration_path, :id => "signup-button" do %>
+  <p id="signup-line1">Registre-se agora</p>
+  <p id="signup-line2">e comece a lucrar!</p>
+<% end %>
+
+<div id="news">
+  <p class="title">Últimas novidades</p>
+  <p class="body">
+    Bem vindo ao smShare, navegue em nosso site e conheça esse novo serviço de compartilhamento que lhe permite ganhar com seus downloads.
+    <%= link_to "Ler Mais...", "", :class => "more" %>
+  </p>
+</div>

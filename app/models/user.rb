@@ -15,4 +15,12 @@ class User
 
   belongs_to_related :referrer
   has_many_related :referred, :class_name => "User", :foreign_key => :referrer_id
+  
+  def self.find_for_authentication(conditions={})
+    unless conditions[:email] =~ /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i # email regex
+      conditions[:nickname] = conditions.delete(:email)
+    end
+    super
+  end
+  
 end

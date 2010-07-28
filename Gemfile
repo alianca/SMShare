@@ -21,7 +21,7 @@ gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # Mongoid
 gem 'mongoid', '>= 2.0.0.beta9'
-gem 'bson_ext', '1.0.1'
+gem 'bson_ext', '>= 1.0.1'
 
 # Devise
 gem 'devise', :git => 'git://github.com/plataformatec/devise.git'

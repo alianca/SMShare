@@ -1,5 +1,15 @@
 /* @group Defaults */
 
+a, a:visited, a:active {
+  color:#34378A;
+  text-decoration: none;
+}
+
+a:hover {
+  color:#A5784B;
+  text-decoration:none;
+}
+
 img {
   border: 0;
 }

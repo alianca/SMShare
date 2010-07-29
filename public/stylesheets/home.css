@@ -76,14 +76,14 @@
 
 #tv #tv-menu {
   float: right;
-  margin-right: 33px;
+  margin-right: 31px;
 }
 
 #tv #tv-menu p {
   font-size: 16px;
   font-weight: bold;
   color: #f27f00;
-  margin: 11px 0 7px 0;
+  margin: 11px 0 6px 0;
 }
 
 #tv #tv-menu a {
@@ -95,7 +95,7 @@
 
 #tv #tv-menu ol {
   padding: 0;
-  margin: 0 0 0 7px;
+  margin: 0 0 0 10px;
 }
 
 #tv #tv-menu ol li {
@@ -104,8 +104,8 @@
   font-size: 14px;
   font-weight: bold;
   color: #34378A;
-  height: 19px;
-  padding: 1px 4px;
+  line-height: 19px;
+  padding: 1px 6px 1px 1px;
   margin: 2px;
 }
 

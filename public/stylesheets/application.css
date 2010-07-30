@@ -1,5 +1,15 @@
 /* @group Defaults */
 
+a, a:visited, a:active {
+  color:#34378A;
+  text-decoration: none;
+}
+
+a:hover {
+  color:#A5784B;
+  text-decoration:none;
+}
+
 img {
   border: 0;
 }
@@ -13,7 +23,7 @@ body {
 }
 
 .container {
-  width: 950px;
+  width: 940px;
   margin: 0 auto;
 }
 
@@ -34,6 +44,7 @@ body {
 }
 
 #header img {
+  padding: 24px 0 0 44px;
   float: left;
 }
 
@@ -41,13 +52,13 @@ body {
 
 #header #header-login {
   float: right;
-  margin: 27px 95px 0 0;
+  margin: 22px 45px 0 0;
 }
 
 #header #header-login li {
   display: inline;
   padding-left: 22px;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 #header #header-login a {
@@ -78,7 +89,7 @@ body {
 #header #header-menu {
   clear: right;
   float: right;
-  margin: 30px 96px 0 0;
+  margin: 35px 66px 0 0;
   padding: 0;
 }
 
@@ -156,7 +167,7 @@ body {
 #header #header-menu .dropdown li {
   color: #34378A;
   padding: 2px 8px 2px 6px;
-  list-style-image: url(/images/layouts/menu/bullet-normal.gif);
+  list-style-image: url(/images/layouts/menu/bullet-normal.png);
   list-style-position: inside;
 }
 
@@ -164,7 +175,7 @@ body {
   background-color: #f27f00;
   color: white;
   padding: 2px 6px;
-  list-style-image: url(/images/layouts/menu/bullet-mouseover.gif);
+  list-style-image: url(/images/layouts/menu/bullet-mouseover.png);
 }
 
 /* @end */
@@ -176,7 +187,7 @@ body {
 /* @group Main Container */
 
 #main-container {
-  min-height: 236px;
+  min-height: 249px;
 }
 
 /* @end */
@@ -190,7 +201,7 @@ body {
 
 #search #search-ad {
   float: left;
-  margin: 19px 0 0 47px;
+  margin: 17px 0 0 60px;
   width: 376px;
 }
 
@@ -214,7 +225,7 @@ body {
 #search #firefox-addon { 
   float: right;
   padding: 0 0 0 10px;
-  margin: 23px 10px 0 0;
+  margin: 9px 10px 0 0;
   font-size: 11px;
   color: #8E8E8E;
   background: url(/images/layouts/plus-sign.png) no-repeat 0 50%;
@@ -223,14 +234,14 @@ body {
 
 #search #search-form {
   float: right;
-  margin: 0 68px 0 0;
-  width: 430px;
-  height: 75px;
-  background: url(/images/layouts/fundo-busca.gif);
+  margin: 14px 50px 0 0;
+  width: 426px;
+  height: 61px;
+  background: url(/images/layouts/fundo-busca.png);
 }
 
 #search #search-form #q {
-  width: 222px;
+  width: 228px;
   border: 0 solid transparent;
   background-color: transparent;
   color: #8E8E8E;
@@ -242,7 +253,7 @@ body {
   color: white;
   font-size: 12px;
   border: 0 solid transparent;
-  width: 121px;
+  width: 114px;
   height: 23px;
   background: url(/images/layouts/botao-off.png);
 }
@@ -252,9 +263,11 @@ body {
 /* @group Footer */
 
 #footer {
-  height: 245px;
+  height: 238px;
+  margin-top: 16px;
   width: 100%;
-  background: url(/images/layouts/rodape.jpg) repeat-x;
+  background: url(/images/layouts/rodape.png) repeat-x;
+  background-position-x: 50%;
   color: #9c938a;
 }
 
@@ -267,11 +280,11 @@ body {
 
 #footer #footer-menu {
   height: 112px;
-  padding: 35px 53px;
+  padding: 24px 47px;
 }
 
 #footer #footer-menu .section {
-  padding-left: 30px;
+  padding-left: 29px;
   float: left;
 }
 
@@ -292,16 +305,17 @@ body {
 }
 
 #footer #footer-menu .section ul {
-  margin: 3px 0 0 0;
+  margin: 6px 0 0 0;
   padding-left: 0px;
 }
 
 #footer #footer-menu .section li {
   list-style-type: none;
   font-size: 13px;
+  line-height: 18px;
 }
 
-#footer #footer-menu .section li.active {
+#footer #footer-menu .section li.active, #footer #footer-menu .section li:hover {
   color: #a5784b;
   list-style-image: url(/images/layouts/menu_bullet.gif);
 }
@@ -311,25 +325,42 @@ body {
 /* @group Footer Logos */
 
 #footer #logos {
-  padding: 0 65px 0 23px;
+  padding: 0 50px 0 45px;
 }
 
-#footer #logos #talk, #footer #logos #alianca {
+#footer #logos #talk {
+  margin-top: 22px;
   float: left;
 }
 
-#footer #logos #rss, #footer #logos #twitter, 
+#footer #logos #alianca {
+  margin: 19px 0 0 36px;
+  float: left;
+}
+
+#footer #logos #rss {
+		margin: 11px 23px 0 0;
+  float: right;
+}
+
+#footer #logos #twitter {
+	margin: 11px 27px 0 0;
+  float: right;
+}
+ 
 #footer #logos #certisign {
+  margin-top: 9px;
   float: right;
 }
 
 #footer #copyright {
-  padding-top: 5px;
+  margin: 21px 0 0 302px;
   text-align: center;
   font-size: 12px;
 }
 
 #footer #copyright #policy, #footer #copyright #terms-of-use {
+  line-height: 18px;
   font-weight: bold;
 }
 

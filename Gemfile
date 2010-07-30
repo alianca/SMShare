@@ -3,32 +3,22 @@ source 'http://rubygems.org'
 # Bundle edge Rails instead:
 gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
 # To use debugger
-# gem 'ruby-debug'
-
-# Bundle the extra gems:
-# gem 'bj'
-# gem 'nokogiri', '1.4.1'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'aws-s3', :require => 'aws/s3'
+gem 'ruby-debug'
 
 # Mongoid
-gem 'mongoid', '>= 2.0.0.beta9'
-gem 'bson_ext', '>= 1.0.1'
+gem 'mongoid', :git => 'git://github.com/durran/mongoid.git'
+gem 'bson_ext', '>= 1.0.4'
 
 # Devise
 gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
 
 # Bundle gems for certain environments:
 group :test do
-  gem 'rspec', '>= 2.0.0.beta.15'
-  gem 'rspec-rails', '>= 2.0.0.beta.15'
+  gem "rspec-rails",        :git => "git://github.com/rspec/rspec-rails.git"
+  gem "rspec",              :git => "git://github.com/rspec/rspec.git"
+  gem "rspec-core",         :git => "git://github.com/rspec/rspec-core.git"
+  gem "rspec-expectations", :git => "git://github.com/rspec/rspec-expectations.git"
+  gem "rspec-mocks",        :git => "git://github.com/rspec/rspec-mocks.git"
   gem 'database_cleaner', '>= 0.5.2'
 end

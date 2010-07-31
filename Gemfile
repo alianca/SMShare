@@ -6,6 +6,9 @@ gem 'rails', :git => 'git://github.com/rails/rails.git'
 # To use debugger
 gem 'ruby-debug'
 
+# Formtastic
+gem 'formtastic', :git => "http://github.com/justinfrench/formtastic.git", :branch => "rails3"
+
 # Mongoid
 gem 'mongoid', :git => 'git://github.com/durran/mongoid.git'
 gem 'bson_ext', '>= 1.0.4'

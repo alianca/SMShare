@@ -40,5 +40,13 @@ describe UserFile do
     it "should restore the file" do
       @file.file.file.read.should == "Hello World!"
     end
+    
+    it "should cache the filetype" do
+      @file.filetype.should == "binary/octet-stream"
+    end
+    
+    it "should cache the filesize" do
+      @file.filesize.should == 12.bytes
+    end
   end
 end

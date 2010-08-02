@@ -13,7 +13,7 @@ class User
   field :nickname, :type => String 
   field :accepted_terms, :type => Boolean  
 
-  belongs_to_related :referrer
+  belongs_to_related :referrer, :class_name => "User"
   has_many_related :referred, :class_name => "User", :foreign_key => :referrer_id
   
   def self.find_for_authentication(conditions={})

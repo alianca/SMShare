@@ -7,4 +7,7 @@ class UserFile
   field :categories, :type => Array
   field :tags, :type => Array
   field :description, :type => String
+  
+  # Usuario
+  belongs_to_related :owner, :class_name => "User"
 end

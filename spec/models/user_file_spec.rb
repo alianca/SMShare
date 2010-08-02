@@ -8,7 +8,7 @@ describe UserFile do
       @file = UserFile.create! :owner => @user
     end
   
-    it "should be able to store the owner User" do    
+    it "should store the owner User" do    
       @file.reload
       @file.owner.should == @user
     end

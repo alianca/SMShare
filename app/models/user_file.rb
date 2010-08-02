@@ -3,7 +3,7 @@ class UserFile
   include Mongoid::Timestamps
   
   # Define o esquema logico db.user_files
-  # filename, filetype, e filesize vão ser criados e matidos pelo CarrierWave
+  # filename já é criado pelo CarrierWave
   field :categories, :type => Array
   field :tags, :type => Array
   field :description, :type => String
@@ -14,7 +14,7 @@ class UserFile
   belongs_to_related :owner, :class_name => "User"
   
   # Arquivo
-  mount_uploader :file, UserFileUploader, :mount_on => "filename"
+  mount_uploader :file, UserFileUploader, :mount_on => :filename
   after_save :cache_filetype, :cache_filesize # TODO descobrir como fazer isso em um unico passo  
   
   private

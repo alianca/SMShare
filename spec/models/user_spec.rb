@@ -8,17 +8,15 @@ describe User do
       @new_user = User.create! :name => "Flamesquawk Jellyeyes", 
           :email => "flamesquawk@example.com", :password => "123456",
           :referrer => @old_user
-          
-      # just to make sure
-      @old_user.reload 
-      @new_user.reload
     end
     
     it "should be able to record the user that refered the new user" do
+      @new_user.reload # just to make sure
       @new_user.referrer.should == @old_user
     end
     
     it "should be able to find all the user an user refered" do
+      @old_user.reload # just to make sure
       @old_user.referred.should include(@new_user)
     end
   end

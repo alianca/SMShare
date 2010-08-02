@@ -10,4 +10,7 @@ class UserFile
   
   # Usuario
   belongs_to_related :owner, :class_name => "User"
+  
+  # Arquivo
+  mount_uploader :file, UserFileUploader, :mount_on => "filename"
 end

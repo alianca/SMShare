@@ -13,6 +13,9 @@ gem 'formtastic', :git => "http://github.com/justinfrench/formtastic.git", :bran
 gem 'mongoid', :git => 'git://github.com/durran/mongoid.git'
 gem 'bson_ext', '>= 1.0.4'
 
+# CarierWave
+gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git'
+
 # Devise
 gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
 

@@ -11,10 +11,12 @@ describe User do
     end
     
     it "should be able to record the user that refered the new user" do
-      @new_user.referrer.should be @old_user
+      @new_user.reload # just to make sure
+      @new_user.referrer.should == @old_user
     end
     
     it "should be able to find all the user an user refered" do
+      @old_user.reload # just to make sure
       @old_user.referred.should include(@new_user)
     end
   end

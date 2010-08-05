@@ -1,27 +1,24 @@
 source 'http://rubygems.org'
 
 # Bundle edge Rails instead:
-gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails', '>= 3.0.0.rc'
 
 # To use debugger
 gem 'ruby-debug'
 
 # Mongoid
-gem 'mongoid', :git => 'git://github.com/durran/mongoid.git'
+gem 'mongoid', '>= 2.0.0.beta9'
 gem 'bson_ext', '>= 1.0.4'
 
 # CarierWave
-gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git'
+gem 'carrierwave', '>= 0.5.0.beta2'
 
 # Devise
-gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
+gem 'devise', '>= 1.1.rc2'
 
 # Bundle gems for certain environments:
 group :test do
-  gem "rspec-rails",        :git => "git://github.com/rspec/rspec-rails.git"
-  gem "rspec",              :git => "git://github.com/rspec/rspec.git"
-  gem "rspec-core",         :git => "git://github.com/rspec/rspec-core.git"
-  gem "rspec-expectations", :git => "git://github.com/rspec/rspec-expectations.git"
-  gem "rspec-mocks",        :git => "git://github.com/rspec/rspec-mocks.git"
+  gem 'rspec-rails', '>= 2.0.0.beta.19'
+  gem 'rspec', '>= 2.0.0.beta.19'
   gem 'database_cleaner', '>= 0.5.2'
 end

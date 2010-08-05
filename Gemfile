@@ -7,7 +7,7 @@ gem 'rails', '>= 3.0.0.rc'
 gem 'ruby-debug'
 
 # Mongoid
-gem 'mongoid', '>= 2.0.0.beta9'
+gem 'mongoid', '>= 2.0.0.beta.15'
 gem 'bson_ext', '>= 1.0.4'
 
 # CarierWave

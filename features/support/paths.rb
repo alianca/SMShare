@@ -10,6 +10,10 @@ module NavigationHelpers
 
     when /raiz do site/
       '/'
+      
+    when /download do arquivo/
+      download_path(:id => @file.id)
+
     when /pagina inicial/
       url_for(:controller => :home, :action => :index, :only_path => true)
       

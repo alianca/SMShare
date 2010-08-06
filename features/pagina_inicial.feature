@@ -1,7 +1,7 @@
 # language: pt
 
 Funcionalidade: Pagina Inicial
-  Para que os usuario não fiquem perdidos ao chegar ao site
+  Para que os usuarios não fiquem perdidos ao chegar ao site
   Como um visitante
   Eu quero ser recebido com uma pagina inicial
   

@@ -4,7 +4,7 @@ source 'http://rubygems.org'
 gem 'rails', '>= 3.0.0.rc'
 
 # To use debugger
-gem 'ruby-debug'
+gem 'ruby-debug', :group => :development
 
 # Mongoid
 gem 'mongoid', '>= 2.0.0.beta.15'

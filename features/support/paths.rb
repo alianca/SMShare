@@ -18,7 +18,7 @@ module NavigationHelpers
       new_user_session_path
       
     when /pagina de upload/
-      new_file_path
+      new_user_file_path
 
     when /pagina inicial/
       url_for(:controller => :home, :action => :index, :only_path => true)

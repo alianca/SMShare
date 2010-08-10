@@ -5,7 +5,7 @@ Smshare::Application.routes.draw do |map|
   devise_for :users, :path => "cadastro", :path_names => { :sign_up => "" }, :skip => [:sessions, :password]
   
   match 'download/:id' => "download#index", :as => :download
-  resources :arquivos, :as=> :files, :controller => :files
+  resources :arquivos, :as=> :user_files, :controller => :user_files
   
   root :to => "home#index"
 

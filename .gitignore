@@ -2,7 +2,7 @@
 .rvmrc
 db/*.sqlite3
 log/*.log
-tmp/**/*
+tmp
 public/uploads/**/*
 Gemfile.lock
 vendor/bundle

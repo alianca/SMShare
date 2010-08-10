@@ -9,6 +9,7 @@ class UserFile
   field :description, :type => String
   field :filetype, :type => String
   field :filesize, :type => Integer
+  field :public, :type => Boolean
   
   # Usuario
   belongs_to_related :owner, :class_name => "User"

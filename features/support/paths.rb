@@ -12,7 +12,7 @@ module NavigationHelpers
       '/'
       
     when /download do arquivo/
-      download_path(:id => @file.id)
+      download_user_file_path(:id => @file.id)
       
     when /pagina de login/
       new_user_session_path

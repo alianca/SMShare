@@ -1,6 +1,6 @@
 Dado /^que eu esteja logado como um usuario$/ do
   # Cria o usuario
-  user = User.create! :name => "Sage Darkfire", 
+  @user = User.create! :name => "Sage Darkfire", 
       :email => "sage.darkfire@example.com", :password => "123456"
   
   # Loga o usuario    
@@ -17,9 +17,14 @@ Dado /^que exista um arquivo de teste$/ do
 end
 
 Quando /^eu preencho o arquivo com o arquivo de teste$/ do
-  Quando %{eu preencho "file" com "#{Rails.root + "tmp/test_file.txt"}"}
+  Quando %{eu preencho "user_file[file]" com "#{Rails.root + "tmp/test_file.txt"}"}
 end
 
 Quando /^eu preencho a descrição com "([^"]*)"$/ do |description|
-  Quando %{eu preencho "description" com "#{description}"}
+  Quando %{eu preencho "user_file[description]" com "#{description}"}
+end
+
+Então /^o arquivo deve ser salvo$/ do
+  file = @user.files.first
+  file.file.file.read.should == "Hello World!"
 end

@@ -13,4 +13,4 @@ Funcionalidade: Upload
     E eu preencho a descrição com "Arquivo de Teste"
     E eu marco "Arquivo público"
     E eu aperto "Enviar"
-    Então eu devo baixar o arquivo
+    Então o arquivo deve ser salvo

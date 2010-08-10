@@ -10,6 +10,10 @@ Dado /^que eu esteja logado como um usuario$/ do
   E %{eu aperto "Sign in"}
 end
 
+Dado /^que eu não esteja logado$/ do
+  Quando %{eu vou para pagina de logout}
+end
+
 Dado /^que exista um arquivo de teste$/ do
   open(Rails.root + "tmp/test_file.txt", "w") do |f|
     f.write("Hello World!")

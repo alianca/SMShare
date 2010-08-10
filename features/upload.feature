@@ -14,3 +14,8 @@ Funcionalidade: Upload
     E eu marco "Arquivo público"
     E eu aperto "Enviar"
     Então o arquivo deve ser salvo
+    
+  Cenário: Upload de arquivo deslogado
+    Dado que eu não esteja logado
+    Quando eu vou para a pagina de upload
+    Então eu devo estar na pagina de login

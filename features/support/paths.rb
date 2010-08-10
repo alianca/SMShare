@@ -17,6 +17,9 @@ module NavigationHelpers
     when /pagina de login/
       new_user_session_path
       
+    when /pagina de logout/
+      destroy_user_session_path
+      
     when /pagina de upload/
       new_user_file_path
 

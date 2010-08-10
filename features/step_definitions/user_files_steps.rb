@@ -20,13 +20,13 @@ Então /^eu devo receber um erro de arquivo não encontrado$/ do
 end
 
 Dado /^que exista um arquivo de teste$/ do
-  open(Rails.root + "tmp/test_file.txt", "w") do |f|
-    f.write("Hello World!")
-  end
+  @testfile = open(Rails.root + "tmp/test_file.txt", "w")
+  @testfile.write("Hello World!")
+  @testfile.flush
 end
 
 Quando /^eu preencho o arquivo com o arquivo de teste$/ do
-  Quando %{eu preencho "user_file[file]" com "#{Rails.root + "tmp/test_file.txt"}"}
+  Quando %{eu preencho "user_file[file]" com "#{@testfile.path}"}
 end
 
 Quando /^eu preencho a descrição com "([^"]*)"$/ do |description|

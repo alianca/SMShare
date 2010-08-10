@@ -1,10 +1,19 @@
 # language: pt
 
-Funcionalidade: Upload
+Funcionalidade: Arquivos
   Para que os usuarios possam ficar ricos
-  Como um usuario
-  Eu quero poder enviar arquivos
+  Eu quero poder ter arquvos no smShare
   
+  Cenário: Download de arquivo valido
+    Dado que exista o arquivo
+    Quando eu vou para o download do arquivo
+    Então eu devo baixar o arquivo
+    
+  Cenário: Download de arquivo invalido
+    Dado que não exista o arquivo
+    Quando eu vou para o download do arquivo
+    Então eu devo receber um erro de arquivo não encontrado
+    
   Cenário: Upload de arquivo como um usuario logado
     Dado que eu esteja logado como um usuario
     E que exista um arquivo de teste
@@ -14,7 +23,7 @@ Funcionalidade: Upload
     E eu marco "Arquivo público"
     E eu aperto "Enviar"
     Então o arquivo deve ser salvo
-    
+
   Cenário: Upload de arquivo deslogado
     Dado que eu não esteja logado
     Quando eu vou para a pagina de upload

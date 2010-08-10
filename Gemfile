@@ -16,6 +16,9 @@ gem 'carrierwave', '>= 0.5.0.beta2'
 # Devise
 gem 'devise', '>= 1.1.rc2'
 
+# Formtastic
+gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git', :branch => "rails3"
+
 # Bundle gems for certain environments:
 group :test do
   gem 'rspec-rails', '>= 2.0.0.beta.19'

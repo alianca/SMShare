@@ -5,7 +5,7 @@ Funcionalidade: Upload
   Como um usuario
   Eu quero poder enviar arquivos
   
-  Cenário: Upload de um Arquivo
+  Cenário: Upload de arquivo como um usuario logado
     Dado que eu esteja logado como um usuario
     E que exista um arquivo de teste
     Quando eu vou para a pagina de upload

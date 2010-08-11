@@ -3,8 +3,7 @@ require 'spec_helper'
 describe UserFile do
   describe "Ownership" do
     before(:each) do
-      @user = User.create! :name => "Sage Darkfire", 
-          :email => "sage.darkfire@example.com", :password => "123456"
+      @user = Factory.create :user
       @file = UserFile.create! :owner => @user
     end
   

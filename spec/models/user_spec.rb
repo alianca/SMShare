@@ -3,11 +3,10 @@ require 'spec_helper'
 describe User do
   describe "Referers" do
     before(:each) do
-      @old_user = User.create! :name => "Sage Darkfire", 
-          :email => "sage.darkfire@example.com", :password => "123456"
-      @new_user = User.create! :name => "Flamesquawk Jellyeyes", 
-          :email => "flamesquawk@example.com", :password => "123456",
-          :referrer => @old_user
+      @old_user = Factory.create :user, :name => "Sage Darkfire", 
+          :email => "sage.darkfire@example.com"
+      @new_user = Factory.create :user, :name => "Flamesquawk Jellyeyes", 
+          :email => "flamesquawk@example.com", :referrer => @old_user
     end
     
     it "should be able to record the user that refered the new user" do
@@ -23,7 +22,7 @@ describe User do
   
   describe "Authentication" do
     before(:each) do
-      @user = User.create! :name => "Robin Sage", :nickname => "sage",
+      @user = Factory.create :user, :name => "Robin Sage", :nickname => "sage",
           :email => "sage@ihaveyoursecrets.com", :password => "123456"
     end
     

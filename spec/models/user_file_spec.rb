@@ -4,7 +4,7 @@ describe UserFile do
   describe "Ownership" do
     before(:each) do
       @user = Factory.create :user
-      @file = UserFile.create! :owner => @user
+      @file = Factory.create :user_file, :owner => @user
     end
   
     it "should store the owner User" do    
@@ -24,7 +24,7 @@ describe UserFile do
       @tempfile.write("Hello World!")
       @tempfile.flush
       
-      @file = UserFile.create!(:file => @tempfile)
+      @file = Factory.create :user_file, :file => @tempfile
       @file.reload
     end
     

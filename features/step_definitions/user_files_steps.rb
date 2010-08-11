@@ -3,7 +3,7 @@ Dado /^que exista o arquivo$/ do
   @tempfile.write("Hello World!")
   @tempfile.flush
   
-  @file = UserFile.create!(:file => @tempfile)
+  @file = Factory.create :user_file, :file => @tempfile
 end
 
 Então /^eu devo baixar o arquivo$/ do

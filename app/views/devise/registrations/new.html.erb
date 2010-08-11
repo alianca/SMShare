@@ -1,18 +1,17 @@
-<h2>Sign up</h2>
+<h2>Cadastro</h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+<% semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <% f.inputs do %>
+    <%= f.input :name, :label => "Seu nome completo:" %>
+    <%= f.input :email, :label => "Seu e-mail (válido):" %>
+    <%= f.input :nickname, :label => "Escolha um login:" %>
+    <%= f.input :password, :label => "Escolha uma senha:" %>
+    <%= f.input :password_confirmation, :label => "Confirme a senha:" %>
+    <%= f.input :accepted_terms, :as => :boolean, :label => "Declaro que li e concordo com os Termos e Condições." %>
+  <% end %>
+  
+  <% f.buttons do %>
+    <%= f.commit_button "Confirmar" %>
+  <% end %>
 
-  <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
-
-  <p><%= f.label :password %><br />
-  <%= f.password_field :password %></p>
-
-  <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
-
-  <p><%= f.submit "Sign up" %></p>
 <% end %>
-
-<%= render :partial => "devise/shared/links" %>

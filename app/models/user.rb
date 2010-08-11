@@ -20,6 +20,11 @@ class User
   # Arquivos
   has_many_related :files, :class_name => "UserFile", :foreign_key => :owner_id
   
+  # Validações
+  validates_presence_of :name
+  validates_presence_of :nickname
+  validates_acceptance_of :accepted_terms, :accept => true
+  
   def self.find_for_authentication(conditions={})
     unless conditions[:email] =~ /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i # email regex
       conditions[:nickname] = conditions.delete(:email)

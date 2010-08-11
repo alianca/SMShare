@@ -11,6 +11,9 @@ module NavigationHelpers
     when /raiz do site/
       '/'
       
+    when /página de cadastro/
+      new_user_registration_path
+      
     when /download do arquivo/
       download_user_file_path(:id => @file.id)
       

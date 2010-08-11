@@ -1,4 +1,4 @@
-Factory.define :user, :class => User do |u|
+Factory.define :user do |u|
   u.name "Sage Darkfire"
   u.email "sage.darkfire@example.com"
   u.nickname "sage"

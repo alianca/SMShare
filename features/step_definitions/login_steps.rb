@@ -1,7 +1,6 @@
 Dado /^que eu esteja logado como um usuario$/ do
   # Cria o usuario
-  @user = User.create! :name => "Sage Darkfire", 
-      :email => "sage.darkfire@example.com", :password => "123456"
+  @user = Factory.create :user, :email => "sage.darkfire@example.com", :password => "123456"
   
   # Loga o usuario    
   Quando %{eu vou para pagina de login}

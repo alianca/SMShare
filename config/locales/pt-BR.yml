@@ -139,8 +139,8 @@ pt-BR:
       two_words_connector: " e "
       last_word_connector: " e "
     
-  # ActiveRecord
-  activerecord:
+  # ActiveModel
+  activemodel:
     errors:
       template:
         header:
@@ -149,7 +149,7 @@ pt-BR:
       messages:
         inclusion: "não está incluído na lista"
         exclusion: "não está disponível"
-        invalid: "não é válido"
+        invalid: "é inválido"
         confirmation: "não está de acordo com a confirmação"
         accepted: "deve ser aceito"
         empty: "não pode ficar vazio"

@@ -23,6 +23,8 @@ class User
   # Validações
   validates_presence_of :name
   validates_presence_of :nickname
+  validates_uniqueness_of :nickname
+  validates_length_of :nickname, :within => 4..32
   validates_acceptance_of :accepted_terms, :accept => true
   
   def self.find_for_authentication(conditions={})

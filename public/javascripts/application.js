@@ -34,4 +34,33 @@ $(document).ready(function() {
   $("#header-menu > li").mouseout(function () {
     $("ul", this).hide();
   });
+  
+  /* Mosta as notificações */
+  hasAlert = $(".alert").html() != ""
+  hasNotice = $(".notice").html() != ""
+  if(hasAlert && hasNotice) {
+    $(".alert").slideDown("slow", function () {
+      setTimeout(function () {
+        $(".alert").slideUp("slow", function () {
+          $(".notice").slideDown("slow", function () {
+            setTimeout(function () {
+              $(".notice").slideUp("slow");
+            }, 3000);
+          });
+        });
+      }, 3000);
+    });
+  } else if(hasAlert) {
+    $(".alert").slideDown("slow", function () {
+      setTimeout(function () {
+        $(".alert").slideUp("slow");
+      }, 3000);
+    });
+  } else if(hasNotice) {
+    $(".notice").slideDown("slow", function () {
+      setTimeout(function () {
+        $(".notice").slideUp("slow");
+      }, 3000);
+    });
+  }
 });

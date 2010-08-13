@@ -1,13 +1,29 @@
-<h2>Novo Arquivo</h2>
+<h2>Enviar arquivos</h2>
 
-<% semantic_form_for @file, :html => {:multipart => true} do |f| %>
-  <% f.inputs do %>
-    <%= f.input :file %>
-    <%= f.input :description, :as => :text %>
-    <%= f.input :public, :as => :boolean, :label => "Arquivo público" %>
-  <% end %>
+
+<ul class="tabs tabs-menu">
+  <li class="tab-menu web-tab">Via Web</li>
+  <li class="tab-menu ftp-tab">Via FTP</li>
+  <li class="tab-menu remote-tab">Upload remoto</li>
+</ul>
   
-  <% f.buttons do %>
-    <%= f.commit_button "Enviar" %>
-  <% end %>
-<% end %>
+<ul class="tabs tabs-contents">
+  <li class="tab-content web-tab">
+    <% semantic_form_for @file, :html => {:multipart => true} do |f| %>
+      <% f.inputs :id => :file_fields do %>
+        <%= f.input :file %>
+        <%= f.input :description, :input_html => { :title => "Digite uma descrição objetiva para seu arquivo.", :class => "clear-on-focus" } %>
+        
+        <p id="more-files"><%= link_to "Enviar mais Arquivos" %></p>
+      <% end %>
+
+      <% f.inputs :id => :public_field do %>
+        <%= f.input :public, :as => :boolean, :default => true, :label => "Arquivo público (?)" %>
+      <% end %>
+
+      <% f.buttons do %>
+        <%= f.commit_button "Enviar" %>
+      <% end %>
+    <% end %>
+  </li>
+</ul>

@@ -1,10 +1,5 @@
 defaults: &defaults
   host: localhost
-  # slaves:
-  #   - host: slave1.local
-  #     port: 27018
-  #   - host: slave2.local
-  #     port: 27019
 
 development:
   <<: *defaults
@@ -14,11 +9,8 @@ test:
   <<: *defaults
   database: smshare_test
 
-# set these environment variables on your prod server
 production:
   <<: *defaults
-  host: <%= ENV['MONGOID_HOST'] %>
-  port: <%= ENV['MONGOID_PORT'] %>
-  username: <%= ENV['MONGOID_USERNAME'] %>
-  password: <%= ENV['MONGOID_PASSWORD'] %>
-  database: <%= ENV['MONGOID_DATABASE'] %>
+  username: smshare
+  password: 482D4DE1-72A8-4CA3-9265-C4EA72E2C957
+  database: smshare_production

@@ -52,6 +52,7 @@ body {
 
 #header #header-login {
   float: right;
+  height: 16px;
   margin: 22px 45px 0 0;
 }
 
@@ -80,6 +81,21 @@ body {
 #header #header-login #signup-link {
   background: url(/images/layouts/registrar.png) no-repeat;
   margin-left: 3px;
+}
+
+#header #header-login #profile-link { 
+  padding-right: 4px;
+  border-right: 1px solid #b7dee3;
+  color: #645C54;
+}
+
+#header #header-login #profile-link a { 
+  font-weight: bold;
+}
+
+#header #header-login #logout-link {
+  background: url(/images/layouts/logout.png) no-repeat;
+  margin-left: 8px;
 }
 
 /* @end */

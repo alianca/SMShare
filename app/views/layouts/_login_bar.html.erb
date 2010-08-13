@@ -1,0 +1,12 @@
+<ul id="header-login">
+  <% if user_signed_in? %>
+    <li id="profile-link">
+      Bem vindo
+      <%= link_to current_user.name %>
+    </li>
+    <li id="logout-link"><%= link_to "Sair", destroy_user_session_path %></li>
+  <% else %>
+    <li id="login-link"><%= link_to "Login", new_user_session_path %></li>
+    <li id="signup-link"><%= link_to "Registrar Gratuitamente", new_user_registration_path %></li>
+  <% end %>
+</ul>

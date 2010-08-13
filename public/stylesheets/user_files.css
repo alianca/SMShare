@@ -17,11 +17,14 @@ ul.tabs-menu {
 li.tab-menu {
   display: block;
   float: left;
-  color: white;
   text-align: center;
-  font-size: 18px;
-  font-weight: bold;
   margin-right: 5px;
+}
+
+li.tab-menu a {
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 li.tab-menu.web-tab {
@@ -51,9 +54,9 @@ li.tab-content {
 
 li.tab-content.web-tab {
   width: 625px;
-  height: 82px;
-  padding: 25px 15px;
-  background: url(/images/user_files/fundo_web.png);  
+  height: 90px;
+  padding: 21px 15px;
+  background: url(/images/user_files/fundo_web.png);
 }
 
 #new_user_file fieldset li {

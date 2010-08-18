@@ -1,6 +1,6 @@
 <h2>Enviar arquivos</h2>
 
-
+<%# TODO Abas Hardcoded por enquanto %>
 <ul class="tabs tabs-menu">
   <li class="tab-menu web-tab"><%= link_to "Via Web" %></li>
   <li class="tab-menu ftp-tab"><%= link_to "Via FTP" %></li>
@@ -14,7 +14,7 @@
         <%= f.input :file %>
         <%= f.input :description, :input_html => { :title => "Digite uma descrição objetiva para seu arquivo.", :class => "clear-on-focus" } %>
         
-        <p id="more-files"><%= link_to "Enviar mais Arquivos" %></p>
+        <p id="more-files"><%= link_to "Enviar mais arquivos" %></p>
       <% end %>
 
       <% f.inputs :id => :public_field do %>

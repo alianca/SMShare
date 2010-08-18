@@ -1,0 +1,9 @@
+pt-BR:
+  activemodel:
+    models:
+      user: Usuário
+      user_file: Arquivos
+    attributes:
+      user_file:
+        file: Arquivo
+        description: Descrição

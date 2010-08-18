@@ -279,6 +279,7 @@ body {
 /* @group Footer */
 
 #footer {
+  clear: both;
   height: 238px;
   margin-top: 16px;
   width: 100%;

@@ -8,6 +8,8 @@ end
 
 Então /^eu devo baixar o arquivo$/ do
   page.body.should == "Hello World!"
+  page.response_headers["Content-Disposition"].should include("attachment")
+  page.response_headers["Content-Disposition"].should include("somefile.txt")
 end
 
 Dado /^que não exista o arquivo$/ do

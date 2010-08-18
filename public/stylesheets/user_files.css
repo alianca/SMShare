@@ -69,6 +69,10 @@ li.tab-content.web-tab {
   padding: 1px;
 }
 
+#new_user_file .inline-errors { 
+  display: none;
+}
+
 #new_user_file #file_fields label {
   display: none;
 }

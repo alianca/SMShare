@@ -8,7 +8,14 @@ class UserFilesController < ApplicationController
     respond_with(@file = UserFile.new)
   end
   
-  def create
-    respond_with(@file = current_user.files.create(params[:user_file]))
+  def create    
+    respond_with(@file = current_user.files.create(params[:user_file])) do |format|
+      if @file.valid?
+        flash[:notice] = "Arquivo enviado com sucesso."
+      else
+        flash[:alert] = @file.errors.full_messages.first
+        format.html { render :action => :new, :layout => 'user_panel' }
+      end
+    end
   end
 end

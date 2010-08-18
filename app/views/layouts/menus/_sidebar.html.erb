@@ -1,0 +1,18 @@
+<%# TODO Sidebar Hardcoded por enquanto %>
+<ul id="sidebar">
+  <li class="no-dropdown">
+    <%= link_to "Página principal", root_path %>
+  </li>
+    
+  <li class="active">Meus arquivos</li>
+  
+  <ul class="dropdown">
+    <li class="active"><%= link_to "Enviar arquivos", new_user_file_path %></li>
+    <li><%= link_to "Gerenciar arquivos" %></li>
+    <li><%= link_to "Verificar validade" %></li>
+  </ul>
+   
+  <li>Relatórios</li>    
+  <li>Ferramentas</li>
+  <li>Dados da conta</li>
+</ul>

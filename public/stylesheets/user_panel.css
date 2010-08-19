@@ -9,12 +9,12 @@ body {
 /* @group Header */
 
 #header {
-  height: 89px;
+  height: 90px;
 }
 
 #header img {
-  padding: 21px 0 0 42px;
-  float: left;
+  top: 22px;
+  left: 42px;
 }
 
 /* @end */

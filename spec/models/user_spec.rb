@@ -34,4 +34,82 @@ describe User do
       User.find_for_authentication(:email => "sage").should be_valid_password("123456")
     end
   end
+  
+  describe "Validations" do
+    it "should require a name" do
+      user = Factory.build :user, :name => nil
+      user.should_not be_valid
+      user.errors[:name].should_not be_empty
+    end
+    
+    it "should require an email" do
+      user = Factory.build :user, :email => nil
+      user.should_not be_valid
+      user.errors[:email].should_not be_empty
+    end
+    
+    it "should require the email to be unique" do
+      old_user = Factory.create :user, :email => "goodolduser@example.com"
+      new_user = Factory.build :user, :email => "goodolduser@example.com"
+      new_user.should_not be_valid
+      new_user.errors[:email].should_not be_empty
+    end
+    
+    it "should require the email to be valid" do
+      user = Factory.build :user, :email => "notanemail.com"
+      user.should_not be_valid
+      user.errors[:email].should_not be_empty
+    end
+    
+    it "should require a password" do
+      user = Factory.build :user, :password => nil
+      user.should_not be_valid
+      user.errors[:password].should_not be_empty
+    end
+    
+    it "should require the password to be between 5 and 42 characters long" do
+      user = Factory.build :user, :password => "abcd"
+      user.should_not be_valid
+      user.errors[:password].should_not be_empty
+      
+      user = Factory.build :user, :password => "1234567890123456789012345678901234567890123"
+      user.should_not be_valid
+      user.errors[:password].should_not be_empty
+    end
+    
+    it "should require the password confirmation to be the same as the password" do
+      user = Factory.build :user, :password => "123456", :password_confirmation => "124356"
+      user.should_not be_valid
+      user.errors[:password].should_not be_empty
+    end
+    
+    it "should require a nickname" do
+      user = Factory.build :user, :nickname => nil
+      user.should_not be_valid
+      user.errors[:nickname].should_not be_empty
+    end
+    
+    it "should require the nickname to be unique" do
+      old_user = Factory.create :user, :nickname => "goodolduser"
+      new_user = Factory.build :user, :nickname => "goodolduser"
+      new_user.should_not be_valid
+      new_user.errors[:nickname].should_not be_empty
+    end
+    
+    it "should require the nickname to be between 4 and 32 characters long" do
+      user = Factory.build :user, :nickname => "abc"
+      user.should_not be_valid
+      user.errors[:nickname].should_not be_empty
+      
+      user = Factory.build :user, :nickname => "123456789012345678901234567890123"
+      user.should_not be_valid
+      user.errors[:nickname].should_not be_empty
+    end
+    
+    it "should require the user to accept the terms" do
+      user = Factory.build :user, :accepted_terms => false
+      user.should_not be_valid
+      user.errors[:accepted_terms].should_not be_empty
+    end    
+  end
 end

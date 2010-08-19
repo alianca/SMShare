@@ -16,6 +16,8 @@
   display: none;
   width: 570px;
   height: 142px;
+  position: relative;
+  z-index: 2;
 }
 
 #tv #slide-1 {

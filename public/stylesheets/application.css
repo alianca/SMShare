@@ -44,8 +44,20 @@ body {
 }
 
 #header img {
-  padding: 24px 0 0 44px;
   float: left;
+  position: relative;
+  top: 24px;
+  left: 44px;
+  z-index: 1;
+}
+
+#dove { 
+  background: url(/images/layouts/pomba.png);
+  width: 157px;
+  height: 179px;
+  position: relative;
+  top: 8px;
+  left: 222px;
 }
 
 /* @group Header Login */

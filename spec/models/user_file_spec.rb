@@ -52,19 +52,19 @@ describe UserFile do
   describe "Validations" do
     it "should require a file" do
       file = Factory.build :user_file, :file => nil
-      file.save.should be_false
+      file.should_not be_valid
       file.errors[:file].should_not be_empty
     end
     
     it "should require a description" do
       file = Factory.build :user_file, :description => nil      
-      file.save.should be_false
+      file.should_not be_valid
       file.errors[:description].should_not be_empty
     end
     
     it "should ignore the default description" do
       file = Factory.build :user_file, :description => "Digite uma descrição objetiva para seu arquivo."
-      file.save.should be_false
+      file.should_not be_valid
       file.errors[:description].should_not be_empty
       file.description.should be_nil
     end

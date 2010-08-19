@@ -50,6 +50,12 @@ describe UserFile do
   end
   
   describe "Validations" do
+    it "should require an owner" do
+      file = Factory.build :user_file, :owner => nil
+      file.should_not be_valid
+      file.errors[:owner].should_not be_empty
+    end
+    
     it "should require a file" do
       file = Factory.build :user_file, :file => nil
       file.should_not be_valid

@@ -18,6 +18,7 @@ class UserFile
   mount_uploader :file, UserFileUploader, :mount_on => :filename
   after_save :cache_filetype, :cache_filesize # TODO descobrir como fazer isso em um unico passo  
   
+  validates_presence_of :owner
   validates_presence_of :file
   validates_presence_of :description
   before_validation :cleanup_description

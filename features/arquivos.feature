@@ -14,7 +14,7 @@ Funcionalidade: Arquivos
     Quando eu vou para o download do arquivo
     Então eu devo receber um erro de arquivo não encontrado
     
-  Cenário: Upload de arquivo como um usuario logado
+  Cenário: Upload de arquivo valido como um usuario logado
     Dado que eu esteja logado como um usuario
     E que exista um arquivo de teste
     Quando eu vou para a pagina de upload
@@ -23,6 +23,21 @@ Funcionalidade: Arquivos
     E eu marco "Arquivo público"
     E eu aperto "Enviar"
     Então o arquivo deve ser salvo
+    
+  Cenário: Upload de arquivo invalido como um usuario logado
+    Dado que eu esteja logado como um usuario
+    Quando eu vou para a pagina de upload
+    E eu aperto "Enviar"
+    Então eu devo ver /Arquivo não pode ficar em branco/
+    
+  Cenário: Upload de arquivo com descrição invalida como um usuario logado
+    Dado que eu esteja logado como um usuario
+    E que exista um arquivo de teste
+    Quando eu vou para a pagina de upload
+    E eu preencho o arquivo com o arquivo de teste
+    E eu marco "Arquivo público"
+    E eu aperto "Enviar"
+    Então eu devo ver /Descrição não pode ficar em branco/
 
   Cenário: Upload de arquivo deslogado
     Dado que eu não esteja logado

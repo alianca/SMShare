@@ -39,3 +39,11 @@ Então /^o arquivo deve ser salvo$/ do
   file = @user.files.first
   file.file.file.read.should == "Hello World!"
 end
+
+Quando /^eu clicar no link para o arquivo$/ do
+  page.find("a[rel~=\"smshare\"]").click
+end
+
+Então /^eu devo ver a caixa de download$/ do
+  page.should have_css(".download_box")
+end

@@ -14,9 +14,6 @@ module NavigationHelpers
     when /página de cadastro/
       new_user_registration_path
       
-    when /download do arquivo/
-      download_user_file_path(:id => @file.id)
-      
     when /pagina de login/
       new_user_session_path
       
@@ -25,6 +22,18 @@ module NavigationHelpers
       
     when /pagina de upload/
       new_user_file_path
+      
+    when /pagina de exemplo do arquivo/
+      example_user_file_path(:id => @file.id)
+      
+    when /caixa de download do arquivo/
+      download_box_user_file_path(:id => @file.id)
+      
+    when /download do arquivo/
+      download_user_file_path(:id => @file.id)
+      
+    when /pagina do arquivo/
+      user_file_path(:id => @file.id)
 
     when /pagina inicial/
       url_for(:controller => :home, :action => :index, :only_path => true)

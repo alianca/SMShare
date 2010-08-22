@@ -1,3 +1,36 @@
+function install_clear_on_focus(context) {
+  /* Escreve o texto do title no text_field, dessa maneira fazendo com que se o usuario desabilitou o javascript o text_field não vai conter lixo */
+  $(context + " .clear-on-focus").each(function () {
+    if($(this).val() == "")
+      $(this).val($(this).attr("title"));
+  })
+  
+  /* Limpa quando o text_field ganhar o foco */
+  $(context + " .clear-on-focus").focus(function() {
+    if($(this).val() == $(this).attr("title"))
+      $(this).val("");
+  });
+
+  /* Retorna ao texto se o text_field está vazio quando ele perder o foco */
+  $(context + " .clear-on-focus").blur(function() {
+    if($(this).val() == "")
+      $(this).val($(this).attr("title"));
+  });
+}
+
+function after_create_box(box) {
+  install_clear_on_focus(box)
+  
+  /* Fecha após o download do arquivo */
+  $(box + " form").submit(function () {
+    $(box).hide();
+    setTimeout(function () {
+      $(box).remove();
+    }, 200);       
+    return true;
+  });
+}
+
 $(document).ready(function() {
   $("a[rel~=\"smshare\"]").click(function (sender) {
     /* Pega os dados do link */
@@ -6,8 +39,7 @@ $(document).ready(function() {
     
     /* Verifica se já está aberto para poder fechar */
     if($("#download_box-" + user_file_id)[0]) {
-      $("#download_box-" + user_file_id).remove();      
-      
+      $("#download_box-" + user_file_id).remove();    
       return false;
     }
     
@@ -21,35 +53,9 @@ $(document).ready(function() {
       }
     });
     
-    /* TODO Posiciona a caixa perto do link */
+    /* Executa as funções após a criação da caixa */
+    after_create_box("#download_box-" + user_file_id); 
     
-    /* Escreve o texto do title no text_field, dessa maneira fazendo com que se o usuario desabilitou o javascript o text_field não vai conter lixo */
-    $(".clear-on-focus").each(function () {
-      if($(this).val() == "")
-        $(this).val($(this).attr("title"));
-    })
-    
-    /* Limpa quando o text_field ganhar o foco */
-    $(".clear-on-focus").focus(function() {
-      if($(this).val() == $(this).attr("title"))
-        $(this).val("");
-    });
-
-    /* Retorna ao texto se o text_field está vazio quando ele perder o foco */
-    $(".clear-on-focus").blur(function() {
-      if($(this).val() == "")
-        $(this).val($(this).attr("title"));
-    });
-    
-    /* Fecha após o download do arquivo */
-    $("#download_box-" + user_file_id + " form").submit(function () {
-      $("#download_box-" + user_file_id).hide();
-      setTimeout(function () {
-        $("#download_box-" + user_file_id).remove();
-      }, 200);       
-      return true;
-    });
-        
     /* Retorna falso para o link não ser seguido caso tudo tenha dado certo */
     return false;
   });

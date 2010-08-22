@@ -14,4 +14,12 @@ class UserFilesController < ApplicationController
     flash[:alert] = @file.errors.full_messages.first unless @file.valid?    
     respond_with(@file)
   end
+  
+  def example
+    respond_with(@file = UserFile.find(params[:id]), :layout => nil)
+  end
+  
+  def download_box
+    respond_with(@file = UserFile.find(params[:id]), :layout => nil)
+  end
 end

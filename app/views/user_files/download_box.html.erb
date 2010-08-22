@@ -1,0 +1,14 @@
+<div id="download_box-<%= @file.id %>" class="download_box">
+  <p class="filename"><em>Arquivo:</em> <%= @file.filename %></p>  
+  <p class="filesize">(<%= number_to_human_size(@file.filesize) %>)</p>
+  
+  <p class="call-to-action">Para baixar o arquivo, envie um SMS com a palavra</p>
+  <p class="sms"><em>SMSHARE</em> para <em>49094*</em></p>
+  <p class="price">*custo de R$ 0,86 + impostos</p>
+  
+  <% form_tag download_user_file_url(@file), :method => :get do %>
+    <%= label_tag :code, "Codigo recebido" %>
+    <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "clear-on-focus" %>
+    <%= submit_tag "Download" %>
+  <% end %>
+</div>

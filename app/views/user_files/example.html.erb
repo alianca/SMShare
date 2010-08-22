@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Exemplo da Caixa de Download</title>
+  <%= javascript_include_tag "jquery", "download_box" %>
+</head>
+<body>
+  
+<%= link_to "Baixe o Arquivo Aqui!", user_file_url(@file), :rel => "smshare" %>
+
+</body>
+</html>

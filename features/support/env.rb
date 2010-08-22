@@ -22,8 +22,17 @@ require 'capybara/session'
 # steps to use the XPath syntax.
 Capybara.default_selector = :css
 
-require 'capybara/envjs'
-Capybara.javascript_driver = :envjs
+require "selenium-webdriver"
+Capybara.javascript_driver = :selenium
+Capybara::Driver::Selenium.class_eval do
+  def self.driver
+    unless @driver
+      @driver = Selenium::WebDriver.for :chrome
+      at_exit { @driver.quit }
+    end
+    @driver
+  end
+end
 
 # If you set this to false, any error raised from within your app will bubble 
 # up to your step definition and out to cucumber unless you catch it somewhere

@@ -19,6 +19,8 @@
 /* @end */
 
 .download_box { 
+  position: absolute;
+  z-index: 9999;
   background:  url(/images/download_box/fundo.png);
   width: 342px !important;
   height: 165px !important;

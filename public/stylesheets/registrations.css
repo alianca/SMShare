@@ -87,6 +87,7 @@
 
 #user_new #terms_field ol li { 
   margin-bottom: 12px;
+  overflow: hidden;
 }
 
 #user_new .buttons input { 

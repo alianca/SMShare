@@ -60,6 +60,15 @@ $(document).ready(function() {
     return false;
   });
   
+  /* TODO Pegar base url da url do link */
+  
+  var css = document.createElement('link');
+  css.type = 'text/css';
+  css.rel = 'stylesheet';
+  css.href = '/stylesheets/download_box.css';
+  css.media = 'screen';
+  document.getElementsByTagName("head")[0].appendChild(css);
+  
   /* Faz cache das imagems para a caixa */
   $.each(["/images/download_box/logo.png", "/images/download_box/fundo.png", "/images/download_box/input.png", "/images/download_box/botao-off.png", "/images/download_box/botao-on.png"], function (i, val) {
     (new Image()).src = val;

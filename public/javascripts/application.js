@@ -63,6 +63,12 @@ $(document).ready(function() {
       }, 3000);
     });
   }
+  
+  /* Arruma o menu no Webkit */
+  if($.browser.webkit) {
+    $("#header #header-menu .title > a").css("padding-bottom", "9px");
+    $("#header #header-menu .title > span").css("padding-bottom", "9px");
+  }
 });
 
 $.cacheImages = function () {

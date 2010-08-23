@@ -1,10 +1,10 @@
 $(document).ready(function() {
   /* TV */
-  $("#tv-menu a").each(function (i, element) {
+  $("#tv-menu li").each(function (i, element) {
     $(element).click(function (sender) {
       /* Menu */
-      $("#tv-menu a li").removeClass("active");
-      $("#tv-menu a:nth(" + i + ") li").addClass("active");
+      $("#tv-menu li").removeClass("active");
+      $("#tv-menu li:nth(" + i + ")").addClass("active");
       /* Slide */
       $(".slide").hide();
       $(".slide:nth(" + i + ")").show();

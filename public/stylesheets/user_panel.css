@@ -1,7 +1,7 @@
 /* @group Defaults */
 
 body {
-  background: url(/images/user_panel/fundo.jpg) no-repeat;
+  background: url(/images/user_panel/fundo.jpg) no-repeat 50% 0;
 }
 
 /* @end */

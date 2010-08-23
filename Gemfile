@@ -19,6 +19,9 @@ gem 'devise', '>= 1.1.rc2'
 # Formtastic
 gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git', :branch => "rails3"
 
+# Capistrano
+gem 'capistrano'
+
 # Bundle gems for certain environments:
 group :test do
   gem 'rspec-rails', '>= 2.0.0.beta.19'

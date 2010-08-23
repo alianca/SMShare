@@ -11,8 +11,10 @@ $(document).ready(function() {
   
   /* Arruma o file_field no Firefox */
   if($.browser.mozilla) {
-      $("#new_user_file #user_file_file").attr("size", 46);
-      $("#new_user_file #user_file_file_input").css("padding", "7px 8px");
+      $("#new_user_file #user_file_file").attr("size", 51);
+      $("#new_user_file #user_file_file").css("font-size", "12px");
+      $("#new_user_file #user_file_file").css("height", "auto");
+      $("#new_user_file #user_file_file_input").css("padding", "6px 8px 5px 8px");
       $("#new_user_file #user_file_file_input").css("background", "url(/images/user_files/campo.png)");
   }
 });

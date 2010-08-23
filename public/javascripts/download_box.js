@@ -59,4 +59,9 @@ $(document).ready(function() {
     /* Retorna falso para o link não ser seguido caso tudo tenha dado certo */
     return false;
   });
+  
+  /* Faz cache das imagems para a caixa */
+  $.each(["/images/download_box/logo.png", "/images/download_box/fundo.png", "/images/download_box/input.png", "/images/download_box/botao-off.png", "/images/download_box/botao-on.png"], function (i, val) {
+    (new Image()).src = val;
+  });  
 });

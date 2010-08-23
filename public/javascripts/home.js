@@ -10,5 +10,7 @@ $(document).ready(function() {
       $(".slide:nth(" + i + ")").show();
     });
   });
-  
 });
+
+/* Faz pre-cache das imagens da pagina inicial */
+$.cacheImages("/images/layouts/botao-on.png");

@@ -9,3 +9,6 @@ $(document).ready(function() {
     $(this).css("background", "url(/images/layouts/botao-off.png)")
   });  
 });
+
+/* Faz pre-cache das imagens do cadastro */
+$.cacheImages("/images/layouts/botao-on.png");

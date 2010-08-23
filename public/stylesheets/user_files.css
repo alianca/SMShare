@@ -80,20 +80,12 @@ li.tab-content.web-tab {
 
 #new_user_file #file_fields input {
   border: 0 transparent;
+  min-width: 465px;
   width: 465px;
   background: url(/images/user_files/campo.png);
   color: #8e8e8e;
-}
-
-#new_user_file #file_fields #user_file_file {
   height: 19px;
   padding: 7px 8px;
-}
-
-#new_user_file #file_fields #user_file_description {
-  max-width: 465px;
-  height: 33px;
-  padding: 0 8px;
 }
 
 #new_user_file #public_field {

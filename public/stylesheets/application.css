@@ -136,6 +136,7 @@ body {
   width: 115px;
   height: 44px;
   margin-left: 1px;
+  cursor: pointer;
 }
 
 #header #header-menu .title.active, #header #header-menu .title.active:hover {

@@ -19,6 +19,16 @@ class UserFilesController < ApplicationController
     respond_with(@file = UserFile.find(params[:id]), :layout => nil)
   end
   
+  def download
+    begin
+      user_file = UserFile.find(params[:id])
+      headers["Content-Disposition"] = "attachment; filename=\"#{user_file.filename}\""
+      render :text => user_file.file.file.read, :content_type => user_file.filetype
+    rescue Mongoid::Errors::DocumentNotFound
+      render :file => Rails.root + 'public/404.html', :status => 404
+    end
+  end
+  
   def download_box
     respond_with(@file = UserFile.find(params[:id]), :layout => nil)
   end

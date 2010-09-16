@@ -10,6 +10,7 @@ Então /^eu devo baixar o arquivo$/ do
   page.body.should == "Hello World!"
   page.response_headers["Content-Disposition"].should include("attachment")
   page.response_headers["Content-Disposition"].should include("somefile.txt")
+  page.driver.response.content_type.should include("binary/octet-stream")  
 end
 
 Dado /^que não exista o arquivo$/ do
@@ -18,7 +19,8 @@ end
 
 Então /^eu devo receber um erro de arquivo não encontrado$/ do
   page.driver.response.status.should == 404
-  page.driver.response.content_type.should == "text/html"
+  page.driver.response.content_type.should include("text/html")
+  page.body.should == open(File.expand_path(Rails.root + 'public/404.html')).read
 end
 
 Dado /^que exista um arquivo de teste$/ do

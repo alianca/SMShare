@@ -8,7 +8,7 @@ gem 'ruby-debug', :group => :development
 
 # Mongoid
 gem 'mongoid', '>= 2.0.0.beta.18'
-gem 'bson_ext', '1.0.7'
+gem 'bson_ext', '1.0.4'
 
 # CarierWave
 gem 'carrierwave', '>= 0.5.0.beta2'

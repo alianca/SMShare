@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # Bundle edge Rails instead:
-gem 'rails', '>= 3.0.0.rc'
+gem 'rails', '>= 3.0.0'
 
 # To use debugger
 gem 'ruby-debug', :group => :development

@@ -88,4 +88,4 @@ $.cacheImages = function () {
 };
 
 /* Faz pre-cache das imagens do menu */
-$.cacheImages("/images/layouts/menu/bullet-normal.png", "/images/layouts/menu/bullet-mouseover.png", "/images/layouts/menu/dropdown-over.png", "/images/layouts/menu/nodropdown-over.png", "/images/layouts/login/botao-on.png");
+$.cacheImages("/images/layouts/menu/bullet-normal.png", "/images/layouts/menu/bullet-mouseover.png", "/images/layouts/menu/dropdown-over.png", "/images/layouts/menu/nodropdown-over.png", "/images/layouts/login/botao-on.png", "/images/layouts/login/campo.png");

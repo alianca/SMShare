@@ -6,7 +6,18 @@
     </li>
     <li id="logout-link"><%= link_to "Sair", destroy_user_session_path %></li>
   <% else %>
-    <li id="login-link"><%= link_to "Login", new_user_session_path %></li>
+    <li id="login-link">
+      <%= link_to "Login", new_user_session_path %>
+      <%= form_for :user, :url => user_session_path, :html => {:id =>"login-form"} do |f| %>
+        <%= label_tag :login_email, "Email" %>
+        <%= f.text_field :email, :id => :login_email, :class => "clear-on-focus", :title => "Email ou Login" %>
+        <%= label_tag :login_password, "Senha" %>
+        <%= f.password_field :password, :id => :login_password, :class => "clear-on-focus", :title => "Senha" %>
+        
+        <%= f.submit "Entrar" %>
+      <% end %>
+    </li>
+
     <li id="signup-link"><%= link_to "Registrar Gratuitamente", new_user_registration_path %></li>
   <% end %>
 </ul>

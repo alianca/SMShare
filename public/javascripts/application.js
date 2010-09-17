@@ -35,6 +35,16 @@ $(document).ready(function() {
     $("ul", this).hide();
   });
   
+  /* Formulário de Login */
+  $("#login-link a").click(function () {
+    if($("#login-form").css("display") == "none") {
+      $("#login-form").css("display", "inline");
+      return false;
+    } else { /* Caso o formulario já esteja aberto vai para a pagina de login */
+      return true;
+    }    
+  });
+  
   /* Mosta as notificações */
   hasAlert = $(".alert").html() != ""
   hasNotice = $(".notice").html() != ""
@@ -78,4 +88,4 @@ $.cacheImages = function () {
 };
 
 /* Faz pre-cache das imagens do menu */
-$.cacheImages("/images/layouts/menu/bullet-normal.png", "/images/layouts/menu/bullet-mouseover.png", "/images/layouts/menu/dropdown-over.png", "/images/layouts/menu/nodropdown-over.png");
+$.cacheImages("/images/layouts/menu/bullet-normal.png", "/images/layouts/menu/bullet-mouseover.png", "/images/layouts/menu/dropdown-over.png", "/images/layouts/menu/nodropdown-over.png", "/images/layouts/login/botao-on.png");

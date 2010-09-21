@@ -8,7 +8,44 @@
 
 #user_new .inline-hints { 
   display: none;
+  position: absolute;
+  width: 128px;
+  margin-left: 380px;  
+  font-size: 10px;
+  line-height: 12px;
+  padding: 8px 8px 8px 18px;
 }
+
+#user_new #user_name_input .inline-hints { 
+  background: url(/images/registrations/balao-nome.png);
+  height: 36px;
+  top: 204px;
+}
+
+#user_new #user_email_input .inline-hints { 
+  background: url(/images/registrations/balao-email.png);
+  height: 72px;
+  top: 220px;
+}
+
+#user_new #user_nickname_input .inline-hints { 
+  background: url(/images/registrations/balao-email.png);
+  height: 72px;
+  top: 252px;
+}
+
+#user_new #user_password_input .inline-hints { 
+  background: url(/images/registrations/balao-senha.png);
+  height: 96px;
+  top: 254px;
+}
+
+#user_new #user_password_confirmation_input .inline-hints { 
+  background: url(/images/registrations/balao-confirmacao.png);
+  height: 60px;
+  top: 290px;
+}
+
 
 #user_new .title { 
   float: left;

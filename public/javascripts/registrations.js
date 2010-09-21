@@ -7,7 +7,15 @@ $(document).ready(function() {
   /* Volta o fundo padrão quando perde o mouse over */
   $("#user_new #user_submit").mouseout(function () {
     $(this).css("background", "url(/images/layouts/botao-off.png)")
-  });  
+  });
+  
+  $("#user_new #user_fields input").focus(function () {
+    $(this).siblings(".inline-hints").show();
+  });
+  
+  $("#user_new #user_fields input").blur(function () {
+    $(this).siblings(".inline-hints").hide();
+  });
 });
 
 /* Faz pre-cache das imagens do cadastro */

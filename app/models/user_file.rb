@@ -16,7 +16,10 @@ class UserFile
   
   # Arquivo
   mount_uploader :file, UserFileUploader, :mount_on => :filename
-  after_save :cache_filetype, :cache_filesize # TODO descobrir como fazer isso em um unico passo  
+  after_save :cache_filetype, :cache_filesize # TODO descobrir como fazer isso em um unico passo
+  
+  # Downloads
+  has_many_related :downloads, :foreign_key => :file_id
   
   validates_presence_of :owner
   validates_presence_of :file

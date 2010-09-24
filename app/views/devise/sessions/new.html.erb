@@ -1,17 +1,29 @@
-<h2>Sign in</h2>
+<%= semantic_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+  <div class="title">
+    <p class="line1">Login</p>
+    <p class="line2">Acesse sua conta</p>
+  </div>
+  
+  <p class="call-to-action">
+    Digite seu nome de usuário e senha abaixo para acessar o painel do usuário.
+    <br />
+    Se você ainda não é cadastrado, 
+    <%= link_to "clique aqui e cadastra-se agora mesmo!", new_user_registration_path %>
+  </p>
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
-
-  <p><%= f.label :password %><br />
-  <%= f.password_field :password %></p>
-
-  <% if devise_mapping.rememberable? -%>
-    <p><%= f.check_box :remember_me %> <%= f.label :remember_me %></p>
-  <% end -%>
-
-  <p><%= f.submit "Sign in" %></p>
+  <%= f.inputs :id => :login_fields do %>
+    <%= f.input :email, :label => "Usuário:" %>
+    <%= f.input :password, :label => "Senha:" %>
+    <p><%= link_to "Esqueceu sua senha?", new_user_password_path %></p>
+  <% end %>
+  
+  <% if devise_mapping.rememberable? %>
+    <%= f.inputs :id => :remember_field do %>
+      <%= f.input :remember_me, :as => :boolean, :label => "Lembrar-me" %>
+    <% end %>
+  <% end %>
+  
+  <%= f.buttons do %>
+    <%= f.commit_button "Acessar" %>
+  <% end %>
 <% end %>
-
-<%= render :partial => "devise/shared/links" %>

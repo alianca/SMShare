@@ -8,6 +8,9 @@ require 'rspec/rails'
 # in ./support/ and its subdirectories.
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
+# Resets i18n to english for the tests
+I18n.locale = :en
+
 RSpec.configure do |config|
   # == Mock Framework
   #

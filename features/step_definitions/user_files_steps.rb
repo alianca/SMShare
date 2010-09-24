@@ -29,6 +29,10 @@ Dado /^que exista um arquivo de teste$/ do
   @testfile.flush
 end
 
+Dado /^que o arquivo nunca tenha sido baixado$/ do
+  @file.downloads.should be_empty
+end
+
 Quando /^eu preencho o arquivo com o arquivo de teste$/ do
   Quando %{eu preencho "user_file[file]" com "#{@testfile.path}"}
 end
@@ -48,4 +52,16 @@ end
 
 Então /^eu devo ver a caixa de download$/ do
   page.should have_css(".download_box")
+end
+
+Então /^o contador de downloads deve estar em (\d+)$/ do |i|
+  @file.downloads.length.should == i.to_i
+end
+
+Então /^deve estar guardado a data do download$/ do
+  @file.downloads.last.downloaded_at.should be_instance_of(Time)
+end
+
+Então /^deve estar guardado o ip de origem do download$/ do
+  @file.downloads.last.downloaded_by_ip.should =~ /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
 end

@@ -1,6 +1,7 @@
 class UserFilesController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!, :only => [:new, :create]
+  after_filter :save_download_info, :only => [:download]
   
   layout 'user_panel', :only => [:new, :create]
   
@@ -21,9 +22,9 @@ class UserFilesController < ApplicationController
   
   def download
     begin
-      user_file = UserFile.find(params[:id])
-      headers["Content-Disposition"] = "attachment; filename=\"#{user_file.filename}\""
-      render :text => user_file.file.file.read, :content_type => user_file.filetype
+      @file = UserFile.find(params[:id])
+      headers["Content-Disposition"] = "attachment; filename=\"#{@file.filename}\""
+      render :text => @file.file.file.read, :content_type => @file.filetype
     rescue Mongoid::Errors::DocumentNotFound
       render :file => Rails.root + 'public/404.html', :status => 404
     end
@@ -32,4 +33,9 @@ class UserFilesController < ApplicationController
   def download_box
     respond_with(@file = UserFile.find(params[:id]), :layout => nil)
   end
+  
+  private
+    def save_download_info
+      Download.create(:file => @file, :downloaded_by_ip => request.env['REMOTE_ADDR'])
+    end
 end

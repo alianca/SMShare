@@ -34,6 +34,9 @@ module NavigationHelpers
       
     when /pagina do arquivo/
       user_file_path(:id => @file.id)
+      
+    when /pagina inicial do painel/
+      user_panel_path
 
     when /pagina inicial/
       url_for(:controller => :home, :action => :index, :only_path => true)

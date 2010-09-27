@@ -16,7 +16,7 @@ Funcionalidade: Cadastro
     E eu marco "Declaro que li e concordo com os Termos e Condições."
     E eu aperto "Confirmar"
     Então o usuário deve ser salvo
-    E eu devo estar na pagina inicial
+    E eu devo estar na pagina inicial do painel
   
   
   Cenário: Campos em branco

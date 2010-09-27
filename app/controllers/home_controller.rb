@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    # Estatico por enquanto, em proximos releases vai ter noticias.
+    redirect_to user_panel_path if user_signed_in?
   end
 end

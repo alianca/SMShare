@@ -12,6 +12,8 @@ Smshare::Application.routes.draw do |map|
     end
   end
   
+  resource :painel, :as=> :user_panel, :controller => :user_panel, :only => [:show]
+  
   root :to => "home#index"
 
   # The priority is based upon order of creation:

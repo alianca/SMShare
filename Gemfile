@@ -4,31 +4,37 @@ source 'http://rubygems.org'
 gem 'rails', '>= 3.0.0'
 
 # To use debugger
-gem 'ruby-debug', :group => :development
+gem 'ruby-debug', :group => [:development, :test]
 
-# Mongoid
-gem 'mongoid', '>= 2.0.0.beta.18'
-gem 'bson_ext', '1.0.4'
+# To use Mongoid
+gem 'mongoid', '>= 2.0.0.beta.19'
+gem 'bson_ext'
 
-# CarierWave
-gem 'carrierwave', '>= 0.5.0.beta2'
+# To use Devise
+gem 'devise'
 
-# Devise
-gem 'devise', '>= 1.1.2'
+# To use Formtastic
+gem 'formtastic'
 
-# Formtastic
-gem 'formtastic', '>= 1.1.0'
+# To use Carrierwave
+gem 'carrierwave'
 
-# Capistrano
+# To use jQuery
+gem 'jquery-rails'
+
+# Deploy with Capistrano
 gem 'capistrano'
 
+# DelayedJob
+gem 'delayed_job', '>= 2.1.0.pre2'
+
 # Bundle gems for certain environments:
-group :test do
-  gem 'rspec-rails', '>= 2.0.0.beta.22'
-  gem 'rspec', '>= 2.0.0.beta.22'
+group :development, :test do
+  gem 'rspec-rails', '>= 2.0.0.rc'
+  gem 'rspec', '>= 2.0.0.rc'
   gem 'capybara'
   gem 'cucumber-rails'
   gem 'cucumber'
-  gem 'database_cleaner', '>= 0.5.2'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
 end

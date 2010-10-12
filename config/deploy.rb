@@ -7,8 +7,8 @@ set :scm, :git
 set :repository,  "git@github.com:rafaelgaspar/SMShare.git"
 
 # Run Options
-set :user, "root"
-set :use_sudo, false
+set :user, "smshare"
+set :use_sudo, true
 default_run_options[:pty] = true
 
 # Servers
@@ -28,7 +28,8 @@ end
 # Bundler Recipes
 namespace :bundler do
   task :create_symlink, :roles => :app do
-    run("mkdir -p #{File.join(shared_path, 'bundle')} && ln -s #{File.join(shared_path, 'bundle')} #{File.join(current_release, '.bundle')}")
+    run "mkdir -p #{File.join(shared_path, 'bundle')}"
+    run "ln -s #{File.join(shared_path, 'bundle')} #{File.join(current_release, '.bundle')}"
   end
   
   task :install, :roles => :app do
@@ -41,7 +42,17 @@ after "deploy:symlink", "bundler:install"
 # MongoDB Recipes
 namespace :deploy do
   task :migrate, :only => {:primary => true}, :roles => :db do; end # Ignore Migrations
+  
+  task :seed do
+    run "cd #{current_path}; rake db:seed RAILS_ENV=production"
+  end
+  
+  task :create_indexes do
+    run "cd #{current_path}; rake db:create_indexes RAILS_ENV=production"
+  end
 end
+after "deploy:symlink", "deploy:seed"
+after "deploy:symlink", "deploy:create_indexes"
 
 # NginX Recipes
 namespace :nginx do
@@ -50,4 +61,5 @@ namespace :nginx do
           run "#{try_sudo} chown -R www-data:www-data #{deploy_to}" 
   end
 end
+after "deploy:setup", "nginx:fix_owner"
 after "deploy:symlink", "nginx:fix_owner"

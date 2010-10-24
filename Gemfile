@@ -28,6 +28,9 @@ gem 'capistrano'
 # DelayedJob
 gem 'delayed_job', '>= 2.1.0.pre2'
 
+# GoogleChart
+gem 'gchartrb', :require => 'google_chart'
+
 # Bundle gems for certain environments:
 group :development, :test do
   gem 'rspec-rails', '>= 2.0.0.rc'

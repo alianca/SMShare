@@ -49,6 +49,17 @@ describe UserFile do
     end
   end
   
+  describe "Statistics" do
+    before(:each) do
+      @file = Factory.create :user_file
+    end
+    
+    it "should have the file's statistics" do
+      @file.statistics.should be_instance_of(UserFileStatistic)
+    end
+  end
+  
+  
   describe "Validations" do
     it "should require an owner" do
       file = Factory.build :user_file, :owner => nil

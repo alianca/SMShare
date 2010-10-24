@@ -1,9 +1,3 @@
-h2 {
-  font-size: 30px;
-  color: #423b35;
-  margin: 0 0 16px 3px;
-}
-
 ul.tabs {
   padding: 0;
   margin: 0;
@@ -57,70 +51,4 @@ li.tab-content.web-tab {
   height: 90px;
   padding: 21px 15px;
   background: url(/images/user_files/fundo_web.png);
-}
-
-#new_user_file fieldset li {
-  margin-bottom: 7px;
-  overflow: hidden
-}
-
-#new_user_file fieldset#file_fields {
-  float: left;
-  width: 481px;
-  padding: 1px;
-}
-
-#new_user_file .inline-errors { 
-  display: none;
-}
-
-#new_user_file #file_fields label {
-  display: none;
-}
-
-#new_user_file #file_fields input {
-  border: 0 transparent;
-  min-width: 465px;
-  width: 465px;
-  background: url(/images/user_files/campo.png);
-  color: #8e8e8e;
-  height: 19px;
-  padding: 7px 8px;
-}
-
-#new_user_file #public_field {
-  float: right;
-}
-
-#new_user_file #public_field label {
-  padding: 9px 3px 0 0;
-  color: #34378A;
-}
-
-#new_user_file #public_field li {
-  height: 34px;
-}
-
-#new_user_file .buttons {
-  clear: right;
-  float: right;
-  padding-left: 0;
-}
-
-#new_user_file .buttons li {
-  padding-right: 0;
-}
-
-#new_user_file .buttons #user_file_submit {
-  border: 0;
-  width: 132px;
-  height: 33px;
-  color: white;
-  background: url(/images/user_files/botao-off.png);
-}
-
-#new_user_file #more-files {
-  background: url(/images/user_files/mais_arquivos.png) no-repeat 3px 4px;
-  font-size: 14px;
-  padding: 2px 0 0 25px;
 }

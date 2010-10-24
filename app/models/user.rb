@@ -19,6 +19,12 @@ class User
   
   # Arquivos
   has_many_related :files, :class_name => "UserFile", :foreign_key => :owner_id
+  has_many_related :file_downloads, :class_name => "Download", :foreign_key => :file_owner_id
+  
+  # Estatisticas
+  embeds_one :statistics, :class_name => "UserStatistic"
+  after_create :build_statistics
+  embeds_many :daily_statistics, :class_name => "UserDailyStatistic"# , :order => :date.asc
   
   # Validações
   validates_presence_of :name

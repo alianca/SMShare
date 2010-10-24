@@ -21,12 +21,17 @@ class UserFile
   # Downloads
   has_many_related :downloads, :foreign_key => :file_id
   
+  # Estatisticas
+  embeds_one :statistics, :class_name => "UserFileStatistic"
+  after_create :build_statistics
+  
+  # Validações  
   validates_presence_of :owner
   validates_presence_of :file
   validates_presence_of :description
   before_validation :cleanup_description
   
-  private
+  private  
     def cache_filetype
       self.filetype = self.file.file.content_type
       save if changed?

@@ -35,6 +35,20 @@ describe User do
     end
   end
   
+  describe "Statistics" do
+    before(:each) do
+      @user = Factory.create :user
+    end
+    
+    it "should have the user's statistics" do
+      @user.statistics.should be_instance_of(UserStatistic)
+    end
+    
+    it "should have the user's daily statistics" do
+      @user.daily_statistics.should be_instance_of(Array)
+    end
+  end
+  
   describe "Validations" do
     it "should require a name" do
       user = Factory.build :user, :name => nil

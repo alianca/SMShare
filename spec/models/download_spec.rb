@@ -24,4 +24,26 @@ describe Download do
       @download.downloaded_at.should be_instance_of(Time)
     end
   end
+  
+  describe "File Owner" do
+    before(:each) do
+      @download = Factory.create :download
+      @owner = @download.file.owner
+    end
+    
+    it "should store the file owner" do
+      @download.file_owner.should == @owner
+    end
+    
+    it "should be found on User's file donwloads list" do
+      @owner.file_downloads.should include(@download)
+    end
+  end
+  
+  describe "Filesize" do
+    it "should store the filesize of the file downloaded" do
+      @download = Factory.create :download
+      @download.filesize.should == @download.file.filesize
+    end
+  end
 end

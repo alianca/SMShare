@@ -24,6 +24,10 @@ class UserFile
   # Estatisticas
   embeds_one :statistics, :class_name => "UserFileStatistic"
   after_create :build_statistics
+
+  # Upload Remoto
+  attr_writer :url
+  before_validation :download_file_from_url
   
   # Validações  
   validates_presence_of :owner
@@ -40,6 +44,16 @@ class UserFile
     def cache_filesize
       self.filesize = self.file.file.file_length
       save if changed?
+    end
+
+    def download_file_from_url
+      if @url
+        uri = URI.parse(@url)
+        tempfile = Tempfile.new(uri.path)        
+        tempfile.write Net::HTTP.get_response(uri).body
+        tempfile.flush
+        self.file = tempfile
+      end
     end
     
     def cleanup_description

@@ -48,6 +48,14 @@ describe UserFile do
       @file.filesize.should == 12.bytes
     end
   end
+
+  describe "Remote Upload" do
+    it "should download the file if an url is passed as attribute" do
+      file = Factory.create :user_file, :file => nil, :url => "http://www.example.com/"
+      file.filetype.should == "binary/octet-stream"
+      file.filesize.should == 596.bytes
+    end 
+  end
   
   describe "Statistics" do
     before(:each) do

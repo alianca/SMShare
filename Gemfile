@@ -1,13 +1,13 @@
 source 'http://rubygems.org'
 
 # Bundle edge Rails instead:
-gem 'rails', '>= 3.0.0'
+gem 'rails', '>= 3.0.3'
 
 # To use debugger
 gem 'ruby-debug', :group => [:development, :test]
 
 # To use Mongoid
-gem 'mongoid', '>= 2.0.0.beta.19'
+gem 'mongoid', '>= 2.0.0.beta.20'
 gem 'bson_ext'
 
 # To use Devise
@@ -26,15 +26,15 @@ gem 'jquery-rails'
 gem 'capistrano'
 
 # DelayedJob
-gem 'delayed_job', '>= 2.1.0.pre2'
+gem 'delayed_job'
 
 # GoogleChart
 gem 'gchartrb', :require => 'google_chart'
 
 # Bundle gems for certain environments:
 group :development, :test do
-  gem 'rspec-rails', '>= 2.0.0.rc'
-  gem 'rspec', '>= 2.0.0.rc'
+  gem 'rspec-rails'
+  gem 'rspec'
   gem 'capybara'
   gem 'cucumber-rails'
   gem 'cucumber'

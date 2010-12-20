@@ -13,7 +13,7 @@
       <p class="stat_observation">por todos os arquivos</p>
     </div>
   </div>
-  <div id="downlaods">
+  <div id="downloads">
     <p class="title">Total de Downlaods</span>
     <div class="stats_box downlaods">
       <p class="stat"><%= number_with_delimiter(current_user.statistics.downloads) %></p>
@@ -24,13 +24,13 @@
     <p class="title">Lucro Total</span>
     <div class="stats_box revenue">
       <p class="stat"><%= revenue_for_stat(current_user.statistics.revenue) %></p>
-      <p class="stat_observation"></p>
+      <p class="stat_observation">incluindo 2º nível</p>
     </div>
   </div>  
 </div>
 
-<div class="upload">
-  <h3>Enviar arquivos</h3>
+<div class="upload index">
+  <h3>Envie seus arquivos!</h3>
   
   <% semantic_form_for @file, :html => {:multipart => true} do |f| %>
     <% f.inputs :id => :file_fields do %>
@@ -56,20 +56,6 @@
   <%= link_to "Upload por FTP", nil, :class => "ftp" %>
 </div>
 
-<div id="most_downloaded">
-  <h3>Arquivos mais baixados</h3>
-  <table>
-    <tbody>
-      <% @most_downloaded_files.each do |file| %>
-        <tr>
-          <td><%= link_to file.filename, file %></td>
-          <td><%= file.statistics.downloads %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-
 <div id="report">
   <h3>Relátorio resumido</h3>
   <table>
@@ -82,31 +68,45 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr class="today">
         <td>Hoje:</td>
         <td><%= current_user.daily_statistics.today_downloads %></td>
         <td><%= current_user.daily_statistics.today_referred_downloads %></td>
-        <td><%= number_to_currency(current_user.daily_statistics.today_revenue) %></td>
+        <td class="revenue"><%= number_to_currency(current_user.daily_statistics.today_revenue) %></td>
       </tr>
       <tr>
         <td>Ontem:</td>
         <td><%= current_user.daily_statistics.yesterday_downloads %></td>
         <td><%= current_user.daily_statistics.yesterday_referred_downloads %></td>
-        <td><%= number_to_currency(current_user.daily_statistics.yesterday_revenue) %></td>
+        <td class="revenue"><%= number_to_currency(current_user.daily_statistics.yesterday_revenue) %></td>
       </tr>
       <tr>
         <td>Este mês:</td>
         <td><%= current_user.daily_statistics.this_month_downloads %></td>
         <td><%= current_user.daily_statistics.this_month_referred_downloads %></td>
-        <td><%= number_to_currency(current_user.daily_statistics.this_month_revenue) %></td>
+        <td class="revenue"><%= number_to_currency(current_user.daily_statistics.this_month_revenue) %></td>
       </tr>
       <tr>
         <td>Mês passado:</td>
         <td><%= current_user.daily_statistics.last_month_downloads %></td>
         <td><%= current_user.daily_statistics.last_month_referred_downloads %></td>
-        <td><%= number_to_currency(current_user.daily_statistics.last_month_revenue) %></td>
+        <td class="revenue"><%= number_to_currency(current_user.daily_statistics.last_month_revenue) %></td>
       </tr>
     </tbody>      
+  </table>
+</div>
+
+<div id="most_downloaded">
+  <h3>Arquivos mais baixados</h3>
+  <table>
+    <tbody>
+      <% @most_downloaded_files.each do |file| %>
+        <tr>
+          <td class="filename"><%= link_to file.filename, file %></td>
+          <td class="count"><%= file.statistics.downloads %></td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
 </div>
 

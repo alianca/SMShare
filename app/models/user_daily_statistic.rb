@@ -23,7 +23,7 @@ class UserDailyStatistic
   
   def self.last_7_days_graph
     daily_statistics = self.order_by(:date.desc).limit(7)
-    graph = GoogleChart::LineChart.new("300x150", nil, false)
+    graph = GoogleChart::LineChart.new("280x150", nil, false)
     graph.data "Downloads", daily_statistics.collect(&:downloads), "82BACE"
     graph.line_style(0, :line_thickness => 4)
     graph.shape_marker(:circle, :color => "EC7D14", :pixel_size => 6, :data_set_index => 0)

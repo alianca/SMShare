@@ -181,6 +181,7 @@ body {
 #main_statistics { 
   height: 73px;
   text-align: center;
+  background: url(/images/user_panel/barras.png) no-repeat 2px 8px;
 }
 
 #main_statistics .title { 
@@ -263,7 +264,7 @@ body {
   clear: left;
   float: left;
   margin: 0;
-  padding: 19px 10px;
+  padding: 19px 10px 0 10px;
   width: 288px;
 }
 
@@ -272,14 +273,26 @@ body {
   font-size: 18px;
 }
 
-#main-container #more_upload a {
+#main-container #more_upload a.link {
   font-size: 14px; 
   border-bottom: 1px dotted #34378A;
   width: 98px;
   margin-top: 23px;
-  margin-left: 42px;
   display: inline-block;
 }
+
+#main-container #more_upload a { 
+  float: left;
+}
+
+#main-container #more_upload a.image { 
+  padding: 15px 5px 0 0;
+}
+
+#main-container #more_upload a.image.ftp { 
+  padding-left: 13px;
+}
+
 
 #main-container #most_downloaded { 
   clear: left;

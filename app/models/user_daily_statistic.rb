@@ -47,8 +47,8 @@ class UserDailyStatistic
   end
   
   def generate_statistics!
-    self.downloads = user.file_downloads.where(:downloaded_at.gte => date.to_time.beginning_of_day).where(:downloaded_at.lte => date.to_time.end_of_day).count
-    self.referred_downloads = Download.where(:file_owner_id.in => user.referred.collect(&:_id)).where(:downloaded_at.gte => date.to_time.beginning_of_day).where(:downloaded_at.lte => date.to_time.end_of_day).count
+    self.downloads = user.file_downloads.where(:downloaded_at.gte => date.to_time.utc.beginning_of_day).where(:downloaded_at.lte => date.to_time.utc.end_of_day).count
+    self.referred_downloads = Download.where(:file_owner_id.in => user.referred.collect(&:_id)).where(:downloaded_at.gte => date.to_time.utc.beginning_of_day).where(:downloaded_at.lte => date.to_time.utc.end_of_day).count
     
     self.revenue = downloads * 0.0 # needs to be defined with Came
     self.referred_revenue = referred_downloads * 0.0 # needs to be defined with Came

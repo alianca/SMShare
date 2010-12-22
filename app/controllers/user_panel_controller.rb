@@ -1,5 +1,8 @@
 class UserPanelController < ApplicationController
-  layout 'user_panel'
+  respond_to :html
+  before_filter :authenticate_user!
+  
+  layout 'user_panel'  
   
   def show
     @file = UserFile.new

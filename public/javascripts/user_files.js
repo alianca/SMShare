@@ -8,23 +8,6 @@ $(document).ready(function() {
   $("#new_user_file #user_file_submit").mouseout(function () {
     $(this).css("background", "url(/images/user_files/botao-off.png)")
   });
-  
-  /* Arruma o file_field no Firefox */
-  if($.browser.mozilla || $.browser.msie) {
-      $("#new_user_file #user_file_file").css("font-size", "12px");
-      $("#new_user_file #user_file_file").css("height", "22px");
-      $("#new_user_file #user_file_file").css("background", "none");
-      $("#new_user_file #user_file_file_input").css("background", "url(/images/user_files/campo.png)");
-      
-      if($.browser.mozila) {
-        $("#new_user_file #user_file_file").attr("size", 51);
-        $("#new_user_file #user_file_file_input").css("padding", "6px 8px 5px 8px");
-      }
-      if($.browser.msie) {
-        $("#new_user_file #user_file_file").css("width", "475px");
-        $("#new_user_file #user_file_file_input").css("padding", "6px 8px 3px 0");
-      }
-  }
 });
 
 /* Faz pre-cache das imagens do cadastro */

@@ -11,7 +11,7 @@ class UserFileStatistic
   def generate_statistics!
     self.downloads = file.downloads.count  
     self.bandwidth = file.downloads.where(:filesize.gt => 0).sum(:filesize) || 0
-    self.revenue = downlaods * 0.0
+    self.revenue = downloads * 0.0
     
     self.updated_at = Time.now.utc
     save! if changed?

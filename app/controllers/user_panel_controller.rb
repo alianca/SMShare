@@ -6,7 +6,7 @@ class UserPanelController < ApplicationController
   
   def show
     @file = UserFile.new
-    @most_downloaded_files = current_user.files.order_by(:"statistics.downloads").limit(10)
+    @most_downloaded_files = current_user.files.order_by(:"statistics.downloads").limit(10).to_a.sort { |x, y| y.statistics.downloads <=> x.statistics.downloads }
   end  
   
   def manage

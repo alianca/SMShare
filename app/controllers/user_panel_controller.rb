@@ -5,4 +5,13 @@ class UserPanelController < ApplicationController
     @file = UserFile.new
     @most_downloaded_files = current_user.files.order_by(:"statistics.downloads").limit(10)
   end  
+  
+  def manage
+    @files = current_user.files.order_by(:name).paginate(:per_page => 10, :page => params[:page])
+  end
+  
+  def destroy
+    UserFile.where(:_id.in => (params[:files].collect { |id| BSON::ObjectId(id) })).destroy_all if params[:files]
+    redirect_to :back
+  end
 end

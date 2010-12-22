@@ -13,7 +13,7 @@ class UserFilesController < ApplicationController
     @file = current_user.files.create(params[:user_file])
     flash[:notice] = "Arquivo enviado com sucesso." if @file.valid?
     flash[:alert] = @file.errors.full_messages.first unless @file.valid?    
-    respond_with(@file)
+    respond_with(@file, :location => manage_user_panel_path)
   end
   
   def example

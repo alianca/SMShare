@@ -1,0 +1,57 @@
+<h2>Gerenciar Arquivos</h2>
+
+<%= form_tag user_panel_path, :method => :delete do %>
+  <ul class="actions_menu">
+    <li>
+      <%= image_submit_tag "user_panel/remover.png" %>
+      <%= submit_tag "remover" %>
+    </li>
+  </ul>
+  
+
+  <table class="file_list">
+    <thead>
+      <tr class="titles">
+        <td class="select"><%= check_box_tag :all_files, 1, false %></td>
+        <td class="name">Nome</td>
+        <td class="size">Tamanho</td>
+        <td class="created_at">Enviado</td>
+        <td class="downloads">Downloads</td>
+        <td class="revenue">Ganhos</td>
+      </tr>
+      <tr class="order">
+        <td class="select"></td>
+        <td class="name"></td>
+        <td class="size"></td>
+        <td class="created_at"></td>
+        <td class="downloads"></td>
+        <td class="revenue"></td>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr class="order">
+        <td class="select"></td>
+        <td class="name"></td>
+        <td class="size"></td>
+        <td class="created_at"></td>
+        <td class="downloads"></td>
+        <td class="revenue"></td>
+      </tr>
+      <tr class="pagination">
+        <td colspan="6"><%= will_paginate @files %></td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <% @files.each do |f| %>
+        <tr>
+          <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file" %></td>
+          <td class="name"><%= f.filename %></td>
+          <td class="size"><%= filesize_for_stat(f.filesize)%></td>
+          <td class="created_at"><%= f.created_at.strftime("%d/%m/%Y") %></td>
+          <td class="downloads"><%= f.statistics.downloads %></td>
+          <td class="revenue"><%= revenue_for_stat(f.statistics.revenue) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

@@ -373,3 +373,97 @@ body {
 }
 
 /* @end */
+
+/* @group Manage */
+
+table.file_list { 
+  width: 655px;
+  background-color: rgba(190,210,218,0.5);
+  border-radius: 7px;
+  border-spacing: 1px 0;
+}
+
+table.file_list td { 
+  margin: 0 2px;
+}
+
+table.file_list thead .titles td { 
+  padding: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+table.file_list thead .order td {
+  height: 7px;
+  background-color: white;
+  border-radius: 7px 7px 0 0;
+}
+
+table.file_list tfoot .order td { 
+  height: 7px;
+  background-color: white;
+  border-radius: 0 0 7px 7px;
+}
+
+table.file_list tfoot .pagination td { 
+  padding: 10px 5px;
+}
+
+
+table.file_list tbody td { 
+  background-color: white;
+  font-size: 12px;
+}
+
+table.file_list td { 
+  text-align: center;
+  padding: 1px 5px;
+}
+
+table.file_list td.name { 
+  text-align: left;
+}
+
+.pagination a, .pagination span { 
+  display: inline-block;
+  background: white;
+  padding: 3px 5px;
+  border-radius: 3px;
+}
+
+.pagination em, .pagination a:hover { 
+  font-style: normal;
+  color: white;
+  background: #82bace;
+  padding: 3px 5px;
+  border-radius: 3px;
+}
+
+.pagination .previous_page { 
+  margin-right: 15px;
+}
+
+.pagination .next_page { 
+  margin-left: 15px;
+}
+
+.actions_menu {
+  list-style-type: none;
+  padding: 0 10px;
+}
+
+.actions_menu li { 
+  width: 60px;
+  text-align: center;
+}
+
+.actions_menu input[type=image] { 
+  
+}
+
+.actions_menu input[type=submit] { 
+  background: transparent;
+  border: 0;
+}
+
+/* @end */

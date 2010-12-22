@@ -31,6 +31,9 @@ gem 'delayed_job'
 # GoogleChart
 gem 'gchartrb', :require => 'google_chart'
 
+# To use pagination
+gem "will_paginate", "~> 3.0.pre2"
+
 # Bundle gems for certain environments:
 group :development, :test do
   gem 'rspec-rails'

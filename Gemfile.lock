@@ -194,3 +194,4 @@ DEPENDENCIES
   rspec
   rspec-rails
   ruby-debug
+  will_paginate (~> 3.0.pre2)

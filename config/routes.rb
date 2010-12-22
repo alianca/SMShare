@@ -12,7 +12,11 @@ Smshare::Application.routes.draw do |map|
     end
   end
   
-  resource :painel, :as=> :user_panel, :controller => :user_panel, :only => [:show]
+  resource :painel, :as=> :user_panel, :controller => :user_panel, :only => [:show, :destroy] do
+    member do
+      get :manage
+    end
+  end
   
   root :to => "home#index"
 

@@ -40,7 +40,7 @@ class UserDailyStatistic
       elsif method_sym.to_s =~ /^this_month_(.*)$/
         self.where(:date.gte => Time.now.beginning_of_month.to_date).where(:date.lte => Time.now.end_of_month.to_date).sum($1.to_sym)
       elsif method_sym.to_s =~ /^last_month_(.*)$/
-        self.where(:date.gte => 1.month.ago.beginning_of_month.to_date).where(:date.lte => 1.month.ago.end_of_month.to_date).sum($1.to_sym)
+        self.where(:date.lte => 1.month.ago.end_of_month.to_date).sum($1.to_sym) # TODO improve this
       else
         super
       end

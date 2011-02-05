@@ -52,3 +52,10 @@ li.tab-content.web-tab {
   padding: 21px 15px;
   background: url(/images/user_files/fundo_web.png);
 }
+
+li.tab-content.remote-tab {
+  width: 625px;
+  height: 116px;
+  padding: 8px 15px;
+  background: url(/images/user_files/fundo_web.png);
+}

@@ -3,9 +3,13 @@ class UserFilesController < ApplicationController
   before_filter :authenticate_user!, :only => [:new, :create]
   after_filter :save_download_info, :only => [:download]
   
-  layout 'user_panel', :only => [:new, :create]
+  layout 'user_panel', :only => [:new, :create, :remote_upload]
   
   def new
+    respond_with(@file = UserFile.new)
+  end
+  
+  def remote_upload
     respond_with(@file = UserFile.new)
   end
   

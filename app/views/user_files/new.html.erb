@@ -2,9 +2,9 @@
 
 <%# TODO Abas Hardcoded por enquanto %>
 <ul class="tabs tabs-menu">
-  <li class="tab-menu web-tab"><%= link_to "Via Web" %></li>
+  <li class="tab-menu web-tab"><%= link_to "Via Web", new_user_file_path %></li>
   <li class="tab-menu ftp-tab"><%= link_to "Via FTP" %></li>
-  <li class="tab-menu remote-tab"><%= link_to "Upload remoto" %></li>
+  <li class="tab-menu remote-tab"><%= link_to "Upload remoto", remote_upload_user_files_path %></li>
 </ul>
   
 <ul class="tabs tabs-contents">

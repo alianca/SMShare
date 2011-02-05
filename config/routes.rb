@@ -10,6 +10,10 @@ Smshare::Application.routes.draw do |map|
       get :example
       match :download_box
     end
+    
+    collection do
+      get :upload_remoto, :action => :remote_upload, :as => :remote_upload
+    end  
   end
   
   resource :painel, :as=> :user_panel, :controller => :user_panel, :only => [:show, :destroy] do

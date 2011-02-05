@@ -26,7 +26,7 @@ class UserFile
   after_create :build_statistics
 
   # Upload Remoto
-  attr_writer :url
+  attr_accessor :url
   before_validation :download_file_from_url
   
   # Validações  
@@ -49,7 +49,7 @@ class UserFile
     def download_file_from_url
       if @url
         uri = URI.parse(@url)
-        tempfile = Tempfile.new(uri.path)        
+        tempfile = Tempfile.new(uri.path.match(/.*\/(.*)$/)[1])        
         tempfile.write Net::HTTP.get_response(uri).body
         tempfile.flush
         self.file = tempfile

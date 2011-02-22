@@ -35,6 +35,15 @@ class UserFile
   validates_presence_of :description
   before_validation :cleanup_description
   
+  def self.search query_string
+    fields_to_search = ["filename", "filetype", "description", "tags", "categories"]
+
+    regex_for_query = Regexp.new query_string.gsub(" ", "|"), "i"
+
+    mongodb_query = { "$or" => fields_to_search.collect { |f| { f => regex_for_query } } }
+    self.where(mongodb_query)
+  end
+  
   private  
     def cache_filetype
       self.filetype = self.file.file.content_type

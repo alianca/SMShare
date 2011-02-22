@@ -1,5 +1,5 @@
 <div id="search-header">
-  <% form_tag "", :id => "header-search-form" do %>
+  <% form_tag search_path, :id => "header-search-form", :method => :get do %>
     <%= link_to "Insira nossa busca no Firefox", "", :id => "firefox-addon" %>
 
     <%= text_field_tag :q, "", :title => "O que está procurando...?", :class => "clear-on-focus" %>
@@ -7,12 +7,14 @@
   <% end %>
 </div>
 
-<% if params[:q].blank? %>
-  <h3>Sua busca não pode ser vazia</h3>
-<% elsif @files.empty? %>
-  <h3>Nenhum arquivo foi encontrado para sua busca</h3>
-<% else %>
-  <div id="search-results">
+<div id="search-results">
+  <% if params[:q].blank? %>
+    <p class="search-info">Sua busca não pode ser vazia</p>
+  <% else %>
+    <p class="search-info"><%= search_pagination_info @files, params[:q] %></p>
+  
     <%= render :partial => "result", :collection => @files %>
-  </div>
-<% end %>
+  
+    <%= will_paginate @files %>  
+  <% end %>
+</div>

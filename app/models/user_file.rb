@@ -30,9 +30,9 @@ class UserFile
   before_validation :download_file_from_url
   
   # Validações  
-  validates_presence_of :owner
-  validates_presence_of :file
-  validates_presence_of :description
+  validates :owner, :presence => true
+  validates :file, :presence => true
+  validates :description, :presence => true
   before_validation :cleanup_description
   
   def self.search query_string

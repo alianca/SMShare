@@ -12,8 +12,8 @@ class Download
   belongs_to_related :file_owner, :class_name => "User"
   before_create :set_file_owner
   
-  validates_presence_of :downloaded_by_ip
-  validates_presence_of :file
+  validates :downloaded_by_ip, :presence => true
+  validates :file, :presence => true
 
   private
     def set_downloaded_at

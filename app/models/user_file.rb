@@ -56,6 +56,7 @@ class UserFile
     end
 
     def download_file_from_url
+      require "net/http"
       if @url
         uri = URI.parse(@url)
         tempfile = Tempfile.new(uri.path.match(/.*\/(.*)$/)[1])        

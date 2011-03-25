@@ -46,6 +46,36 @@
   top: 290px;
 }
 
+#user_new .inline-errors { 
+  position: absolute;
+  overflow: hidden;
+  width: 128px;
+  margin-left: 390px;  
+  font-size: 10px;
+  line-height: 11px;
+  height: 22px;
+  background: #CC0000;
+  color: white;
+  padding: 3px 8px 3px 8px;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+}
+
+#user_new #user_name_input .inline-errors {
+  top: 206px;  
+}
+
+#user_new #user_email_input .inline-errors { 
+  top: 239px;
+}
+
+#user_new #user_nickname_input .inline-errors { 
+  top: 272px;
+}
+
+#user_new #user_password_input .inline-errors { 
+  top: 306px;
+}
 
 #user_new .title { 
   float: left;

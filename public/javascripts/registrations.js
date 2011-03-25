@@ -21,17 +21,23 @@ $(document).ready(function() {
   });
   
   /* Disabilita o Botão até que o aceito termos seja aceita */
-  $("#user_new #user_submit").attr("disabled", true);
-  $("#user_new #user_submit").css("background", "url(/images/layouts/botao-disabled.png)")
-  $("#user_new #terms_field #user_accepted_terms_input input[type=checkbox]").change(function () {
+  if($("#user_new #terms_field #user_accepted_terms").is(':checked')) {
+    $("#user_new #user_submit").attr("disabled", false);
+    $("#user_new #user_submit").css("background", "url(/images/layouts/botao-off.png)")
+  } else {
+    $("#user_new #user_submit").attr("disabled", true);
+    $("#user_new #user_submit").css("background", "url(/images/layouts/botao-disabled.png)")
+  }    
+  
+  /* Atualiza o botão baseado no estado do checkbox dos termos*/
+  $("#user_new #terms_field #user_accepted_terms").change(function () {
     if($(this).is(':checked')) {
       $("#user_new #user_submit").attr("disabled", false);
       $("#user_new #user_submit").css("background", "url(/images/layouts/botao-off.png)")
     } else {
       $("#user_new #user_submit").attr("disabled", true);
       $("#user_new #user_submit").css("background", "url(/images/layouts/botao-disabled.png)")
-    }
-    
+    }    
   });
     
   /* Faz Validãções em Ajax */

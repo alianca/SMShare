@@ -1,0 +1,197 @@
+#search-container {
+  width: 840px;
+  margin: 0 39px;
+  padding: 8px 9px;
+  background: rgba(180, 217, 230, 0.5);
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+}
+
+#search-header {
+  float: right;
+  height: 141px;
+  width: 616px;
+  z-index: 2;
+}
+
+#search-header #firefox-addon { 
+  float: right;
+  padding: 0 0 0 10px;
+  margin: 45px 18px 0 0;
+  font-size: 11px;
+  color: #8E8E8E;
+  background: url(/images/layouts/plus-sign.png) no-repeat 0 50%;
+  text-decoration: none;
+}
+
+#search-header #header-search-form {
+  height: 127px;
+  background: url(/images/search/fundo-formulario.png);
+}
+
+#search-header #header-search-form #q {
+  width: 352px;
+  border: 0 solid transparent;
+  background-color: transparent;
+  color: #8E8E8E;
+  height: 23px;
+  margin: 7px 0 0 125px;
+}
+
+#search-header #header-search-form #search-button {
+  color: white;
+  font-size: 12px;
+  border: 0 solid transparent;
+  width: 114px;
+  height: 23px;
+  background: url(/images/layouts/botao-off.png);
+}
+
+#search-order {
+  float: left;
+  width: 222px;
+}
+
+#search-order ul {
+  list-style-type: none;
+  padding-left: 5px;
+  margin: 9px 0;
+}
+
+#search-order ul li {
+  padding: 5px 5px 5px 28px;
+  margin: 3px 0;
+  width: 184px;
+  height: 15px;
+  background: white;
+  color: #EC7D14;
+  border-radius: 7px 0 0 7px;
+  -moz-border-radius: 7px 0 0 7px;
+}
+
+#search-order ul li.order-by-date {
+  background: white url(/images/search/icone-data.png) no-repeat 5px 3px;
+}
+
+#search-order ul li.order-by-downloads {
+  background: white url(/images/search/icone-downloads.png) no-repeat 5px 3px;
+}
+
+#search-order ul li.order-by-comments {
+  background: white url(/images/search/icone-comentarios.png) no-repeat 5px 3px;
+}
+
+#search-order ul li.order-by-rate {
+  background: white url(/images/search/icone-nota.png) no-repeat 5px 3px;
+}
+
+#search-results {
+  clear: right;
+  width: 608px;
+  margin-left: 224px;
+  padding: 4px;
+}
+
+#search-results .search-info {
+  text-align: right;
+  margin-top: 0;
+}
+
+#search-results .search-result {
+  padding-top: 5px;
+  height: 90px;
+  border-bottom: 1px dotted black;
+}
+
+#search-results .search-result img {
+  float: left;
+  width: 90px;
+  height: 68px;
+  margin: 5px 9px 5px 0;
+}
+
+#search-results .search-result h5 {
+  float: left;
+  width: 310px;
+  height: 16px;
+  font-size: 16px;
+  line-height: 16px;
+  margin: 0;
+  overflow: hidden;  
+  color: #383289;  
+}
+
+#search-results .search-result .description {
+  float: left;
+  width: 310px;
+  height: 32px;
+  font-size: 12px;
+  line-height: 16px;
+  margin: 5px 0;
+  overflow: hidden;  
+}
+
+#search-results .search-result .download {
+  float: left;
+  width: 310px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+  background: url(/images/search/icone-download.png) no-repeat;
+}
+
+#search-results .search-result .download a {
+  margin-left: 20px;
+  border-bottom: 1px dotted #34378A;
+}
+
+#search-results .search-result .download .donwload-link {
+  float: left;
+}
+
+#search-results .search-result .download .filesize {
+  float: right;
+}
+
+#search-results .search-result .owner, #search-results .search-result .comments,
+#search-results .search-result .rate, #search-results .search-result .statistics {
+  float: right;
+  width: 165px;
+  height: 17px;
+  padding: 3px 0 0 25px;
+  margin: 0;
+  font-size: 12px;
+  overflow: hidden;
+}
+
+#search-results .search-result .owner {
+  padding-top: 1px;
+  background: url(/images/search/icone-data.png) no-repeat;
+}
+
+#search-results .search-result .comments {
+  clear: right;
+  background: url(/images/search/icone-comentarios.png) no-repeat;
+}
+
+#search-results .search-result .rate {
+  clear: right;
+  background: url(/images/search/icone-nota.png) no-repeat;
+}
+
+#search-results .search-result .statistics {
+  clear: right;
+  background: url(/images/search/icone-downloads.png) no-repeat;
+}
+
+#search-results .pagination {
+  margin: 15px 0 5px 0;
+  text-align: center;
+}
+
+
+
+
+
+
+

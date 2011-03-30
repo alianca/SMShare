@@ -1,20 +1,31 @@
-<div id="search-header">
-  <% form_tag search_path, :id => "header-search-form", :method => :get do %>
-    <%= link_to "Insira nossa busca no Firefox", "", :id => "firefox-addon" %>
-
-    <%= text_field_tag :q, "", :title => "O que está procurando...?", :class => "clear-on-focus" %>
-    <%= submit_tag "Buscar", :id => "search-button" %>
-  <% end %>
-</div>
-
-<div id="search-results">
-  <% if params[:q].blank? %>
-    <p class="search-info">Sua busca não pode ser vazia</p>
-  <% else %>
-    <p class="search-info"><%= search_pagination_info @files, params[:q] %></p>
+<div id="search-container" class="container">
+  <div id="search-order">
+    <ul>
+      <li class="order-by-date"><%= link_to "Arquivos recentes" %></li>
+      <li class="order-by-downloads"><%= link_to "Arquivos mais baixados" %></li>
+      <li class="order-by-comments"><%= link_to "Arquivos mais comentados" %></li>
+      <li class="order-by-rate"><%= link_to "Arquivos favoritos" %></li>
+    </ul>
+  </div>
   
-    <%= render :partial => "result", :collection => @files %>
-  
-    <%= will_paginate @files %>  
-  <% end %>
+  <div id="search-header">
+    <% form_tag search_path, :id => "header-search-form", :method => :get do %>
+      <%= link_to "Insira nossa busca no Firefox", "", :id => "firefox-addon" %>
+
+      <%= text_field_tag :q, "", :title => "O que está procurando...?", :class => "clear-on-focus" %>
+      <%= submit_tag "Buscar", :id => "search-button" %>
+    <% end %>
+  </div>
+
+  <div id="search-results">
+    <% if params[:q].blank? %>
+      <p class="search-info">Sua busca não pode ser vazia</p>
+    <% else %>
+      <p class="search-info"><%= search_pagination_info @files, params[:q] %></p>
+
+      <%= render :partial => "result", :collection => @files %>
+
+      <%= will_paginate @files %>  
+    <% end %>
+  </div>  
 </div>

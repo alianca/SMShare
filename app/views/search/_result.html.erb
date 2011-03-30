@@ -1,16 +1,17 @@
 <div id="search-result-<%= result._id %>" class="search-result">
+  <img class"filetype" />
   <h5 class="filename"><%= result.filename %></h5>
-  <p class="description"><%= result.description %></p>
-  <p class="download">
-    <span class="download-link"><%= link_to "Baixar Arquivo", download_user_file_path(result) %></span>
-    <span class="filesize"><%= filesize_for_stat(result.filesize) %></span>
-  </p>
   <p class="owner">
     <span class="when">Hà <%= distance_of_time_in_words_to_now(result.created_at) %></span>
     por
     <span class="user"><%= result.owner.name %></span>
   </p>
+  <p class="description"><%= result.description %><br/>Foo Teste</p>
   <p class="comments">0 comentários</p>
   <p class="rate">Nota 5.0</p>
-  <p class="statistics"><%= pluralize(result.statistics.downloads, "download") %></p>
+  <p class="download">
+    <span class="download-link"><%= link_to "Baixar Arquivo", download_user_file_path(result) %></span>
+    <span class="filesize"><%= filesize_for_stat(result.filesize) %></span>
+  </p>
+  <p class="statistics"><%= pluralize(result.statistics.downloads, "download") %></p>  
 </div>

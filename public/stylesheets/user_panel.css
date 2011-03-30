@@ -437,29 +437,6 @@ table.file_list td.name {
   text-align: left;
 }
 
-.pagination a, .pagination span { 
-  display: inline-block;
-  background: white;
-  padding: 3px 5px;
-  border-radius: 3px;
-}
-
-.pagination em, .pagination a:hover { 
-  font-style: normal;
-  color: white;
-  background: #82bace;
-  padding: 3px 5px;
-  border-radius: 3px;
-}
-
-.pagination .previous_page { 
-  margin-right: 15px;
-}
-
-.pagination .next_page { 
-  margin-left: 15px;
-}
-
 .actions_menu {
   list-style-type: none;
   padding: 0 10px;

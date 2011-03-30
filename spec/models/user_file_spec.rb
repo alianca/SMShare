@@ -51,10 +51,15 @@ describe UserFile do
 
   describe "Remote Upload" do
     it "should download the file if an url is passed as attribute" do
-      file = Factory.create :user_file, :file => nil, :url => "http://www.example.com/"
-      file.filetype.should == "binary/octet-stream"
-      file.filesize.should == 596.bytes
+      file = Factory.create :user_file, :file => nil, :url => "http://www.google.com/robots.txt"
+      file.filetype.should == "text/plain"
+      file.filesize.should >= 1.kilobyte
     end 
+    
+    it "should remove the temporary file after it's saved" do
+      file = Factory.create :user_file, :file => nil, :url => "http://www.google.com/robots.txt"
+      File.should_not be_directory(Rails.root + "tmp/tempfiles/user_file/#{file.id}")
+    end
   end
   
   describe "Statistics" do

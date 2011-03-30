@@ -28,6 +28,7 @@ class UserFile
   # Upload Remoto
   attr_accessor :url
   before_validation :download_file_from_url
+  after_save :cleanup_tempfile
   
   # Validações  
   validates :owner, :presence => true
@@ -59,10 +60,19 @@ class UserFile
       require "net/http"
       if @url
         uri = URI.parse(@url)
-        tempfile = Tempfile.new(uri.path.match(/.*\/(.*)$/)[1])        
+        filename = uri.path.match(/.*\/(.*)/)[1]
+        filename = uri.host if filename.blank?
+        FileUtils.mkdir_p(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
+        tempfile = File.open(Rails.root + "tmp/tempfiles/user_file/#{self.id}/#{filename}", "w")
         tempfile.write Net::HTTP.get_response(uri).body
         tempfile.flush
         self.file = tempfile
+      end
+    end
+    
+    def cleanup_tempfile
+      if File.directory?(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
+        FileUtils.remove_dir(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
       end
     end
     

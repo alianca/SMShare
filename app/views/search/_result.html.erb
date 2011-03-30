@@ -1,12 +1,12 @@
 <div id="search-result-<%= result._id %>" class="search-result">
-  <img class"filetype" />
+  <img class="filetype" />
   <h5 class="filename"><%= result.filename %></h5>
   <p class="owner">
-    <span class="when">Hà <%= distance_of_time_in_words_to_now(result.created_at) %></span>
+    <span class="when">Há <%= distance_of_time_in_words_to_now(result.created_at) %></span>
     por
     <span class="user"><%= result.owner.name %></span>
   </p>
-  <p class="description"><%= result.description %><br/>Foo Teste</p>
+  <p class="description"><%= result.description %><br/></p>
   <p class="comments">0 comentários</p>
   <p class="rate">Nota 5.0</p>
   <p class="download">

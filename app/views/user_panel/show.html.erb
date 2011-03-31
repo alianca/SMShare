@@ -15,7 +15,7 @@
   </div>
   <div id="downloads">
     <p class="title">Total de Downlaods</span>
-    <div class="stats_box downlaods">
+    <div class="stats_box downloads">
       <p class="stat"><%= number_with_delimiter(current_user.statistics.downloads) %></p>
       <p class="stat_observation">desde <%= current_user.created_at.strftime("%B de %Y") %></p>
     </div>
@@ -59,7 +59,7 @@
 </div>
 
 <div id="report">
-  <h3>Relátorio resumido</h3>
+  <h3>Relatório resumido</h3>
   <table>
     <thead>
       <tr>

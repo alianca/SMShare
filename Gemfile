@@ -25,8 +25,9 @@ gem 'jquery-rails'
 # Deploy with Capistrano
 gem 'capistrano'
 
-# DelayedJob
-gem 'delayed_job'
+# Resque
+gem 'resque'
+gem 'resque-retry'
 
 # GoogleChart
 gem 'gchartrb', :require => 'google_chart'

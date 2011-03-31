@@ -1,5 +1,6 @@
 class UserFileStatisticsJob
-  def perform
+  @queue = :user_file_statistics
+  def self.perform
     UserFile.all.each do |file|
       file.statistics.generate_statistics!
     end

@@ -12,6 +12,7 @@ class User
   field :name, :type => String
   field :nickname, :type => String 
   field :accepted_terms, :type => Boolean  
+  field :admin, :type => Boolean
 
   # Indicações
   belongs_to_related :referrer, :class_name => "User"

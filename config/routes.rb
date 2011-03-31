@@ -27,6 +27,10 @@ Smshare::Application.routes.draw do |map|
   
   get :smsearch, :controller => :search, :action => :index, :as => :search
   
+  namespace :admin do
+    resources :news
+  end
+  
   root :to => "home#index"
 
   # The priority is based upon order of creation:

@@ -3,7 +3,7 @@
   <p id="ad-line2">Procure em nosso banco de dados...</p>
 </div>
 
-<% form_tag search_path, :id => "search-form", :method => :get do %>
+<%= form_tag search_path, :id => "search-form", :method => :get do %>
   <%= link_to "Insira nossa busca no Firefox", "", :id => "firefox-addon" %>
 
   <%= text_field_tag :q, "", :title => "O que está procurando...?", :class => "clear-on-focus" %>

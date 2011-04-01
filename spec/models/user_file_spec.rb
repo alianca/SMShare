@@ -99,4 +99,16 @@ describe UserFile do
       file.description.should be_nil
     end
   end
+  
+  describe "Tags" do
+    it "should return a sentenced list of tags" do
+      file = Factory.build :user_file, :tags => ["foo", "boo", "bar"]
+      file.sentenced_tags.should == "foo, boo, bar"
+    end
+    
+    it "should store the sentenced tags as an array" do
+      file = Factory.build :user_file, :sentenced_tags => "foo, boo, bar"
+      file.tags.should == ["foo", "boo", "bar"]
+    end
+  end
 end

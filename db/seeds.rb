@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+
+CATEGORIES = ["Desenhos e Animações", "Filmes e Televisão", "Jogos e Emulados",
+  "Músicas e Podcast", "Programas e Softwares", "Videos e Clipes", "Outras"]
+  
+CATEGORIES.each do |name|
+  Category.create(:name => name)
+end

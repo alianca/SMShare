@@ -2,9 +2,11 @@ class UserFile
   include Mongoid::Document
   include Mongoid::Timestamps
   
+  require "lib/sentenced_fields"
+  include SentencedFields
+  
   # Define o esquema logico db.user_files
   # filename já é criado pelo CarrierWave
-  field :categories, :type => Array
   field :tags, :type => Array
   field :description, :type => String
   field :filetype, :type => String
@@ -13,6 +15,9 @@ class UserFile
   
   # Usuario
   belongs_to_related :owner, :class_name => "User"
+  
+  # Categoria
+  has_many_related :categories, :stored_as => :array
   
   # Arquivo
   mount_uploader :file, UserFileUploader, :mount_on => :filename
@@ -30,11 +35,17 @@ class UserFile
   before_validation :download_file_from_url
   after_save :cleanup_tempfile
   
+  # Limpa as tags
+  before_save :normalize_tags
+  
   # Validações  
   validates :owner, :presence => true
   validates :file, :presence => true
   validates :description, :presence => true
   before_validation :cleanup_description
+  
+  # Sentenced Fields para as Tags
+  sentenced_fields :tags
   
   def self.search query_string
     fields_to_search = ["filename", "filetype", "description", "tags", "categories"]
@@ -78,5 +89,12 @@ class UserFile
     
     def cleanup_description
       self.description = nil if self.description == "Digite uma descrição objetiva para seu arquivo."
+    end
+    
+    def normalize_tags
+      tags.collect! do |tag|
+        tag.strip.parameterize
+      end
+      tags.delete("")
     end
 end

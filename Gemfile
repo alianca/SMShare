@@ -28,9 +28,10 @@ gem 'jquery-rails'
 # Deploy with Capistrano
 gem 'capistrano'
 
-# Resque
+# To use Resque
 gem 'resque'
 gem 'resque-retry'
+gem 'SystemTimer'
 
 # GoogleChart
 gem 'gchartrb', :require => 'google_chart'

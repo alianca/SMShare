@@ -39,6 +39,9 @@ gem 'gchartrb', :require => 'google_chart'
 # To use pagination
 gem "will_paginate", "~> 3.0.pre2"
 
+# To use Curl
+gem 'curb', :require => 'curl'
+
 # Bundle gems for certain environments:
 group :development, :test do
   gem 'rspec-rails'

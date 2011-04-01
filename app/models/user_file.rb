@@ -64,7 +64,7 @@ class UserFile
         filename = uri.host if filename.blank?
         FileUtils.mkdir_p(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
         tempfile = File.open(Rails.root + "tmp/tempfiles/user_file/#{self.id}/#{filename}", "w")
-        tempfile.write Net::HTTP.get_response(uri).body
+        tempfile.write Curl::Easy.perform(uri.to_s).body_str
         tempfile.flush
         self.file = tempfile
       end

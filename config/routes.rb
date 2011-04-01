@@ -11,6 +11,7 @@ Smshare::Application.routes.draw do |map|
     member do
       get :download
       get :example
+      get :categorizar, :action => :categorize, :as => :categorize
       match :download_box
     end
     

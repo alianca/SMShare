@@ -10,7 +10,7 @@
 <div id="news">
   <p class="title">Últimas novidades</p>
   <p class="body">
-    Bem vindo ao smShare, navegue em nosso site e conheça esse novo serviço de compartilhamento que lhe permite ganhar com seus downloads.
+    <%= Noticia.last.resumida %>
     <%= link_to "Ler Mais...", "", :class => "more" %>
   </p>
 </div>

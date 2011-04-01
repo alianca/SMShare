@@ -1,1 +1,10 @@
-<textarea class = "mceEditor"></textarea>
+<% if (flash[:error]) %>
+<p class="error"> <%= flash[:error] %> </p>
+<% end %>
+
+<%= form_for @noticia, :as => :noticia, :url => { :action => 'create' } do |f| %>
+  Notícia resumida: <br/> <%= f.text_area :resumida %> <br/>
+  Notícia completa: <br/> <%= f.text_area :completa, :class => 'mceEditor' %> <br/>
+  <%= submit_tag "Enviar", :id => 'enviar_noticia' %>
+<% end %>
+

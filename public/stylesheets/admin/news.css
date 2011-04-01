@@ -1,0 +1,27 @@
+#noticia_completa {
+  width: 800px;
+  height: 300px;
+}
+
+p.error {
+  color: red;
+}
+
+#noticia_resumida {
+  width: 800px;
+  height: 50px;
+  display: block;
+  position: relative;
+  margin-bottom: 20px;
+  border: 1px solid #cccccc;
+  z-index: 1;
+  resize: none;
+}
+
+#enviar_noticia {
+  display: block;
+  position: relative;
+  width: 100px;
+  height: 30px;
+  margin-top: 10px;
+}

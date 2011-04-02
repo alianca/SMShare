@@ -16,12 +16,12 @@ class Admin::NewsController < ApplicationController
   end
   
   def create
-    resumida = params['noticia']['resumida']
-    completa = params['noticia']['completa']
+    short= params['news']['short']
+    full = params['news']['full']
     redirect_to '/admin/news'
-    if (resumida != '' && completa != '')
-      Noticia.create(:resumida => params['noticia']['resumida'],
-                     :completa => params['noticia']['completa'])
+    if (short != '' && full != '')
+      News.create(:short => short,
+                  :full => full)
       flash[:notice] = 'Notícia enviada.'
     else
       flash[:error] = 'Notícia vazia.'

@@ -1,4 +1,4 @@
-#noticia_completa {
+#news_full {
   width: 800px;
   height: 300px;
 }
@@ -7,7 +7,7 @@ p.error {
   color: red;
 }
 
-#noticia_resumida {
+#news_short {
   width: 800px;
   height: 50px;
   display: block;
@@ -18,7 +18,7 @@ p.error {
   resize: none;
 }
 
-#enviar_noticia {
+#send_news {
   display: block;
   position: relative;
   width: 100px;

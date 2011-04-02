@@ -1,4 +1,15 @@
 Smshare::Application.routes.draw do |map|
+
+  get "faq/uploading"
+
+  get "faq/finances"
+
+  get "faq/general"
+
+  get "faq/panel"
+  
+  get "faq/downloading"
+
   # Rotas do Devise
   # TODO atualizar isso quando a DSL de rotas do Devise 1.1 estiver estavel
   devise_for :users, :path => "/", :path_names => { :sign_in => "login", :sign_out => "logout", :password => "login/esqueci_senha" }, :skip => [:registration]    

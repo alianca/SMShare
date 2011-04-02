@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <%= title_tag "smShare - Serviço smsharing" %>
+  <%= stylesheet_link_tag "application", "faq", stylesheet_for_controller %>
+  <%= javascript_include_tag "jquery", "rails", "application", javascript_for_controller %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+  
+<div id="header" class="container">
+  <%= link_to image_tag("layouts/logos/smshare.png"), root_path %>
+  <%= render :partial => "layouts/login_bar" %>
+  <%= render :partial => "layouts/menus/header" %>
+  <div id="dove"></div>
+</div>
+
+<div id="main-container" class="container">
+  <p class="notifications notice"><%= notice %></p>
+  <p class="notifications alert"><%= alert %></p>
+  
+  <div id="faq-container">
+    <div id="faq-header">
+      <%= image_tag "faq/faq.png", :id => "faq-image" %>
+      <p>Nesta seção você encontrará as respostas para as perguntas mais frequentes sobre nossos serviços e sobre o funcionamento de nosso sistema. As questões levantadas abaixo são bastante específicas, por isso, se deseja encontrar um levantamento mais amplo de como funcionam nossos serviços, acesse nosso <%= link_to "Guia Geral", "#" %>.</p>      
+    </div>
+  
+    <ul id="faq-tab-bar">
+      <li class="tab active">
+        <%= link_to "Geral", '/faq/general' %>
+      </li>
+        
+      <li class="tab">
+        <%= link_to "Enviando", '/faq/uploading' %>
+      </li> 
+       
+      <li class="tab">
+        <%= link_to "Baixando", '/faq/downloading' %>
+      </li> 
+        
+      <li class="tab">
+        <%= link_to "Painel do Usuário", '/faq/panel' %>
+      </li> 
+      
+      <li class="tab">
+        <%= link_to "Financeiro", '/faq/finances' %>
+      </li> 
+    </ul>
+    <%= yield %>
+  </div>
+</div>
+
+<div id="search" class="container">
+  <%= render :partial => "layouts/search" %>
+</div>
+
+<div id="footer">
+  <%= render :partial => "layouts/footer" %>
+</div>
+
+</body>
+</html>

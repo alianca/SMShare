@@ -46,6 +46,10 @@ ul#faq-tab-bar li {
   bottom: 4px;
 }
 
+ul#faq-tab-bar li:hover {
+  color: #7bbacf;
+}
+
 ul#faq-tab-bar .tab.active {
   position: relative;
   bottom: 9px;

@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <%= title_tag "smShare - Serviço smsharing" %>
   <%= stylesheet_link_tag "application", "faq", stylesheet_for_controller %>
-  <%= javascript_include_tag "jquery", "rails", "application", javascript_for_controller %>
+  <%= javascript_include_tag "jquery", "rails", "application", "faq", javascript_for_controller %>
   <%= csrf_meta_tag %>
 </head>
 <body>
@@ -27,25 +27,22 @@
     </div>
   
     <ul id="faq-tab-bar">
-      <li class="tab active">
-        <%= link_to "Geral", '/faq/general' %>
-      </li>
-        
-      <li class="tab">
-        <%= link_to "Enviando", '/faq/uploading' %>
-      </li> 
-       
-      <li class="tab">
-        <%= link_to "Baixando", '/faq/downloading' %>
-      </li> 
-        
-      <li class="tab">
-        <%= link_to "Painel do Usuário", '/faq/panel' %>
-      </li> 
-      
-      <li class="tab">
-        <%= link_to "Financeiro", '/faq/finances' %>
-      </li> 
+      <% [{:en => :general, :pt => "Geral"},
+          {:en => :uploading, :pt => "Enviando"},
+          {:en => :downloading, :pt => "Baixando"},
+          {:en => :panel, :pt => "Painel do Usuário"},
+          {:en => :finances, :pt => "Financeiro"}].each do |tab| %>
+        <a href="/faq/<%= tab[:en].to_s %>">
+          <% if @active_tab == tab[:en] %>
+            <li class="tab active">
+          <% else %>
+            <li class="tab">
+          <% end %>
+            <%= tab[:pt] %>
+          </li>
+        </a>
+      <% end %>
+
     </ul>
     <%= yield %>
   </div>

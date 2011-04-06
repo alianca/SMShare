@@ -1,5 +1,7 @@
 Smshare::Application.routes.draw do |map|
 
+  get "guide/index"
+
   get "faq/uploading"
 
   get "faq/finances"

@@ -1,0 +1,27 @@
+<div id="news">
+  <div id="news-banner">
+    Notícias
+    <span id="news-banner-sub">
+      Últimas novidades
+    </span>
+  </div>
+  
+  <div id="news-items">
+    <% @news.each do |n| %>
+      <div class="news-item">
+        <div class="date">
+          <%= n.date.strftime("%d") %>
+          <span class="month">
+            <%= n.date.strftime("%b") %>
+          </span>
+        </div>
+        <h1><%= n.title %></h1>
+        <div class="news-text">
+          <%= n.short %> <%= link_to "Ler mais...", news_read_path(:id => n.id) %>
+        </div>        
+      </div>
+    <% end %>
+    <%= link_to "« Ver todas as notícias", news_all_path %>
+  </div>
+</div>
+

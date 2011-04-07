@@ -5,5 +5,5 @@
     <%= link_to "Deletar", {:action => 'destroy', :id => n.id}, :method => :delete %>
     <%= link_to "Editar", {:action => 'edit', :id => n.id} %>
   </span>
-  <%= link_to n.short, admin_news_path(n) %><br/>
+  <%= link_to n.title, admin_news_path(n) %><br/>
 <% end %>

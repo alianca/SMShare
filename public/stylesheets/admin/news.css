@@ -7,6 +7,17 @@ p.error {
   color: red;
 }
 
+#news_title {
+  width: 800px;
+  height: 20px;
+  display: block;
+  position: relative;
+  margin-bottom: 20px;
+  border: 1px solid #cccccc;
+  z-index: 1;
+  resize: none;
+}
+
 #news_short {
   width: 800px;
   height: 50px;

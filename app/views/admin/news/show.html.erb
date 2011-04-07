@@ -2,5 +2,6 @@
 <%= link_to "Editar", {:action => 'edit', :id => @item.id} %><br/>
 <%= link_to "Deletar", {:action => 'destroy', :id => @item.id}, :method => :delete %><br/>
 
-<h1><%= @item.short %></h1>
+<h1><%= @item.title %></h1>
+<h2><%= @item.short %></h2>
 <%= @item.full.html_safe %>

@@ -1,5 +1,11 @@
 Smshare::Application.routes.draw do |map|
 
+  get "news/index"
+
+  get "news/read"
+
+  get "news/all"
+
   get "guide/index"
 
   get "faq/uploading"

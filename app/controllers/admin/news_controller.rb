@@ -29,6 +29,7 @@ class Admin::NewsController < ApplicationController
   
   def create
     news = News.new(params['news'])
+    news.date = Time.new
     if (news.save)
       flash[:notice] = 'Notícia enviada.'
       redirect_to admin_news_path(news.id)

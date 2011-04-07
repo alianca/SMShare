@@ -21,3 +21,19 @@ Dado /^que eu esteja logado como administrador$/ do
   E %{eu preencho "Senha" com "123456"}
   E %{eu aperto "Entrar"}
 end
+
+Dado /^que exista uma notícia$/ do
+  @noticia = News.create(:short => "Notícia original", :full => "Notícia original")
+end
+
+Então /^a notícia deve ser modificada$/ do
+  @news = News.last
+  @news.short.should == "Notícia modificada"
+  @news.full.should == "Notícia modificada"
+end
+
+Então /^a notícia deve ser deletada$/ do
+  @news = News.last
+  @news.should == nil
+end
+

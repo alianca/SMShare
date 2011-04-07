@@ -1,10 +1,9 @@
-<% if (flash[:error]) %>
-<p class="error"> <%= flash[:error] %> </p>
-<% end %>
+<%= link_to "Nova", new_admin_news_path %><br/><br/>
 
-<%= form_for @news, :as => :news, :url => { :action => 'create' } do |f| %>
-  Notícia resumida: <br/> <%= f.text_area :short %> <br/>
-  Notícia completa: <br/> <%= f.text_area :full, :class => 'mceEditor' %> <br/>
-  <%= submit_tag "Enviar", :id => 'send_news' %>
+<% @news.each do |n| %>
+  <span class="actions">
+    <%= link_to "Deletar", {:action => 'destroy', :id => n.id}, :method => :delete %>
+    <%= link_to "Editar", {:action => 'edit', :id => n.id} %>
+  </span>
+  <%= link_to n.short, admin_news_path(n) %><br/>
 <% end %>
-

@@ -41,6 +41,18 @@ module NavigationHelpers
     when /pagina inicial/
       url_for(:controller => :home, :action => :index, :only_path => true)
       
+    when /página de administrador/
+      url_for(:controller => "admin/news", :action => :index, :only_path => true)
+      
+    when /página de nova notícia/
+      new_admin_news_path
+      
+    when /página de edição da notícia/
+      edit_admin_news_path(:id => News.last.id)
+      
+    when /página de visualização da notícia/
+      admin_news_path(:id => News.last.id)
+      
     else
       begin
         page_name =~ /the (.*) page/

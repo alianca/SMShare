@@ -1,0 +1,8 @@
+<%= link_to "Lista de notícias", admin_news_index_path %><br/><br/>
+
+<%= form_for @news, :as => :news, :url => { :action => 'create' } do |f| %>
+  Título: <br/> <%= f.text_area :title %> <br/>
+  Notícia resumida: <br/> <%= f.text_area :short %> <br/>
+  Notícia completa: <br/> <%= f.text_area :full, :class => 'mceEditor' %> <br/>
+  <%= submit_tag "Enviar", :id => 'send_news' %>
+<% end %>

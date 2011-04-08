@@ -1,4 +1,4 @@
-#noticia_completa {
+#news_full {
   width: 800px;
   height: 300px;
 }
@@ -7,7 +7,18 @@ p.error {
   color: red;
 }
 
-#noticia_resumida {
+#news_title {
+  width: 800px;
+  height: 20px;
+  display: block;
+  position: relative;
+  margin-bottom: 20px;
+  border: 1px solid #cccccc;
+  z-index: 1;
+  resize: none;
+}
+
+#news_short {
   width: 800px;
   height: 50px;
   display: block;
@@ -18,10 +29,17 @@ p.error {
   resize: none;
 }
 
-#enviar_noticia {
+#send_news {
   display: block;
   position: relative;
   width: 100px;
   height: 30px;
   margin-top: 10px;
 }
+
+.actions a {
+  text-decoration: none;
+  color: gray;
+  font-size: 10px;
+}
+

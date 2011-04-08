@@ -22,6 +22,11 @@ class User
   has_many_related :files, :class_name => "UserFile", :foreign_key => :owner_id
   has_many_related :file_downloads, :class_name => "Download", :foreign_key => :file_owner_id
   
+  # Pastas
+  has_many_related :folders, :foreign_key => :owner_id
+  belongs_to_related :root_folder, :class_name => "Folder"
+  before_save :build_root_folder
+  
   # Estatisticas
   embeds_one :statistics, :class_name => "UserStatistic"
   after_create :build_statistics
@@ -38,4 +43,9 @@ class User
     end
     super
   end
+  
+  private
+    def build_root_folder
+      self.root_folder = Folder.find_or_create_by(:owner_id => self._id, :path => "/") unless root_folder
+    end  
 end

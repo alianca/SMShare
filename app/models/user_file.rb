@@ -12,12 +12,22 @@ class UserFile
   field :filetype, :type => String
   field :filesize, :type => Integer
   field :public, :type => Boolean, :default => true
+  field :path, :type => String, :default => "/"
   
   # Usuario
   belongs_to_related :owner, :class_name => "User"
   
   # Categoria
   has_many_related :categories, :stored_as => :array
+  
+  # Pasta
+  def folder
+    owner.folders.where(:path => path).first
+  end
+  
+  def folder= a_folder
+    # TODO
+  end
   
   # Arquivo
   mount_uploader :file, UserFileUploader, :mount_on => :filename

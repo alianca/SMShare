@@ -2,7 +2,7 @@
   <% if user_signed_in? %>
     <li id="profile-link">
       Bem vindo
-      <%= link_to current_user.name %>
+      <%= link_to current_user.name, user_panel_path %>
     </li>
     <li id="logout-link"><%= link_to "Sair", destroy_user_session_path %></li>
   <% else %>

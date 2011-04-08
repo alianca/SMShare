@@ -6,20 +6,21 @@
   <ul id="categories-list">
     <% Category.all.each do |category| %>
     <li>
-      <%= category.name %>
-      <%= check_box_tag "user_file[category_ids][]", :value => category._id %>
+      <p class="name"><%= category.name %></p>
+      <%= check_box_tag "user_file[category_ids][]", category._id %>
     </li>
     <% end %>
   </ul>
 
   <%= semantic_form_for @file do |f| %>
     <%= f.inputs do %>
+      <p class="filename"><%= @file.filename %></p>
       <%= f.input :sentenced_tags, :label => "Tags", :input_html => { :title => "Ex.: zumbi, mortos-vivos, apocalipse, suspense", :class => "clear-on-focus" } %>
-      <%= f.input :categories, :as => :check_boxes %>
+      <%= f.input :categories, :as => :check_boxes, :collection => Category.all.collect { |c| [nil, c._id] } %>
     <% end %>
 
     <%= f.buttons do %>
-      <%= f.commit_button "Salvar" %>
+      <%= f.commit_button "Confirmar" %>
     <% end %>
   <% end %>
 </div>    

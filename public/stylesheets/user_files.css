@@ -61,13 +61,119 @@ li.tab-content.remote-tab {
 }
 
 #categorize-container {
-  width: 625px;
+  width: 635px;
   background: rgba(180, 217, 230, 0.5);
-  padding: 8px 15px;
+  padding: 8px 10px;
   border-radius: 7px;
   -moz-border-radius: 7px;
 }
 
 #categorize-container p.categorize-info {
-  padding: 0 15px;
+  padding: 0 20px 20px 20px;
 }
+
+#categorize-container #categories-list {
+  list-style-type: none;
+  width: 389px;
+  padding: 0;
+  background: url(/images/user_files/categorizar/fundo-cabecalho.png);
+  margin: 0 0 0 241px;
+  padding-left: 7px;
+}
+
+#categorize-container #categories-list li {
+  display: inline-block;
+  width: 52px;
+  text-align: center;
+  margin: 0;
+}
+
+#categorize-container #categories-list .name {
+  font-size: 10px;
+  height: 20px;
+}
+
+#categorize-container form #user_file_sentenced_tags_input label {
+  display: none;
+} 
+
+#categorize-container form #user_file_sentenced_tags_input label,
+#categorize-container form #user_file_categories_input .label {
+  display: none;
+  width: 0;
+}
+
+#categorize-container form fieldset {
+  overflow: hidden;
+}
+
+#categorize-container form fieldset.inputs {
+  background: url(/images/user_files/categorizar/fundo-arquivo.png) repeat-y;
+  width: 638px;
+  height: 58px;
+  border-radius: 0 0 7px 7px;
+  -moz-border-radius: 0 0 7px 7px;
+}
+
+#categorize-container form .filename {
+  float: left;
+  font-weight: bold;
+  color: white;
+  width: 227px;
+  padding: 5px 7px;
+}
+
+#categorize-container form #user_file_sentenced_tags_input {
+  clear: both;
+  float: left;
+  width: 242px;
+}
+
+#categorize-container form #user_file_sentenced_tags_input input {
+  background: transparent;
+  border: 0;
+  width: 232px;
+  max-width: 232px;
+  height: 32px;
+  margin-top: 1px;
+  padding: 0 5px;
+  font-size: 11px;
+  overflow: hidden;
+}
+
+#categorize-container form #user_file_categories_input {
+  float: left;
+  width: 392px;
+  padding-left: 4px;
+}
+
+
+#categorize-container form #user_file_categories_input ol {
+  list-style-type: none;
+  width: 392px;
+  padding: 0;
+}
+
+#categorize-container form #user_file_categories_input li {
+  display: inline-block;
+  width: 56px;
+  height: 32px;
+  text-align: center;
+  margin: 0;
+  padding: 5px 0;
+}
+
+#categorize-container .buttons {
+  margin: 10px 0 0 345px;
+}
+
+#categorize-container .buttons #user_file_submit {
+  border: 0;
+  width: 132px;
+  height: 33px;
+  color: white;
+  background: url(/images/user_files/botao-off.png);
+}
+
+
+

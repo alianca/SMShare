@@ -1,11 +1,4 @@
 Smshare::Application.routes.draw do |map|
-
-  get "news/index"
-
-  get "news/read"
-
-  get "news/all"
-
   get "guide/index"
 
   get "faq/uploading"
@@ -50,6 +43,8 @@ Smshare::Application.routes.draw do |map|
   namespace :admin do
     resources :news
   end
+  
+  resources :news, :only => [:index, :show]
   
   root :to => "home#index"
 

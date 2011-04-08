@@ -1,25 +1,9 @@
 class NewsController < ApplicationController
-  ItemsPerPage = 3
-
-  def index
-    if params[:page]
-      @page = params[:page].to_i
-    else
-      @page = 0
-    end
-    
-    if (News.count % ItemsPerPage == 0)
-      @last_page = News.count / ItemsPerPage - 1
-    else
-      @last_page = News.count / ItemsPerPage
-    end
-    
-    @news = News.find(:sort => [:date, :desc],
-                      :skip => @page*ItemsPerPage,
-                      :limit => ItemsPerPage)
+  def index    
+    @news = News.paginate(:page => params[:page], :per_page => 3)
   end
 
-  def read
+  def show
     @news = News.find(params[:id])
   end
 end

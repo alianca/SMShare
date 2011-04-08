@@ -1,0 +1,12 @@
+<div class="news-item">
+  <div class="date">
+    <%= news.date.strftime("%d") %>
+    <span class="month">
+      <%= news.date.strftime("%b") %>
+    </span>
+  </div>
+  <h1 class="title"><%= news.title %></h1>
+  <span class="news-text">
+    <%= news.short %> <%= link_to "Ler mais...", news_path(:id => news.id) %>
+  </span>
+</div>

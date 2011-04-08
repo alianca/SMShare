@@ -1,4 +1,4 @@
-#wrapper {
+#news-container {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -97,7 +97,7 @@
   left: 15px;
 }
 
-#wrapper a {
+#news-container a {
   font-weight: bold;
   border-bottom: 1px dotted #34378A;
 }
@@ -120,9 +120,27 @@
   margin-bottom: -80px;
 }
 
-.navigation {
+#news-container .navigation,
+#news-container .pagination {
   color: #000088;
   position: relative;
   left: 330px;
 }
+
+#news-container .pagination .disabled {
+  display: none;
+}
+
+#news-container .pagination a,
+#news-container .pagination span {
+  background: none;
+  margin: 0;
+  border-radius: 0;
+  -moz-border-radius: 0;
+}
+
+#news-container .pagination span.separator {
+  color: black;
+}
+
 

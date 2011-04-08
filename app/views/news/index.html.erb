@@ -1,4 +1,4 @@
-<div id="wrapper" class="list">
+<div id="news-container" class="list">
   <div id="news-banner">
     Notícias
     <span id="news-banner-sub">
@@ -7,30 +7,9 @@
   </div>
   
   <div id="news-items">
-    <% @news.each do |n| %>
-      <div class="news-item">
-        <div class="date">
-          <%= n.date.strftime("%d") %>
-          <span class="month">
-            <%= n.date.strftime("%b") %>
-          </span>
-        </div>
-        <h1 class="title"><%= n.title %></h1>
-        <span class="news-text">
-          <%= n.short %> <%= link_to "Ler mais...", news_read_path(:id => n.id) %>
-        </span>
-      </div>
-    <% end %>
+    <%= render :partial => "news", :collection => @news %>
   </div>
   <span class="navigation">
-    <% if @page > 0 %>
-      <%= link_to "« Anterior", :action => :index, :page => (@page - 1) %>
-    <% end %>
-    <% if @page > 0 && @page < @last_page %>
-    |
-    <% end %>
-    <% if @page < @last_page %>
-      <%= link_to "Próxima »", :action => :index, :page => (@page + 1) %>
-    <% end %>
+    <%= will_paginate :page_links => false, :previous_label => "&laquo; Anterior", :next_label => "Próximo &raquo;", :separator => "<span class=\"separator\">|</span>" %>
   </span>
 </div>

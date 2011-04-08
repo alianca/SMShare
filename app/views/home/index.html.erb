@@ -11,6 +11,6 @@
   <p class="title">Últimas novidades</p>
   <p class="body">
     <%= News.last.short %>
-    <%= link_to "Ler Mais...", "", :class => "more" %>
+    <%= link_to "Ler Mais...", news_read_path(:id => News.last.id), :class => "more" %>
   </p>
 </div>

@@ -1,4 +1,4 @@
-<div id="news">
+<div id="wrapper" class="list">
   <div id="news-banner">
     Notícias
     <span id="news-banner-sub">
@@ -15,13 +15,22 @@
             <%= n.date.strftime("%b") %>
           </span>
         </div>
-        <h1><%= n.title %></h1>
-        <div class="news-text">
+        <h1 class="title"><%= n.title %></h1>
+        <span class="news-text">
           <%= n.short %> <%= link_to "Ler mais...", news_read_path(:id => n.id) %>
-        </div>        
+        </span>
       </div>
     <% end %>
-    <%= link_to "« Ver todas as notícias", news_all_path %>
   </div>
+  <span class="navigation">
+    <% if @page > 0 %>
+      <%= link_to "« Anterior", :action => :index, :page => (@page - 1) %>
+    <% end %>
+    <% if @page > 0 && @page < @last_page %>
+    |
+    <% end %>
+    <% if @page < @last_page %>
+      <%= link_to "Próxima »", :action => :index, :page => (@page + 1) %>
+    <% end %>
+  </span>
 </div>
-

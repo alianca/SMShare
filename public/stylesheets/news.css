@@ -1,17 +1,15 @@
-#news {
+#wrapper {
   display: block;
   margin-left: auto;
   margin-right: auto;
   background-color: rgba(180,217,230,0.48);
   border-radius: 10px;
   padding: 15px;
-  width: 90%;
-  height: 250px;
+  width: 93%;
 }
 
 #news-banner {
   display: block;
-  float: left;
   width: 180px;
   height: 80px;
   font-family: "Trebuchet MS";
@@ -24,7 +22,6 @@
 
 #news-banner-sub {
   display: block;
-  float: bottom;
   position: relative;
   bottom: -1px;
   width: 180px;
@@ -39,8 +36,8 @@
 .date {
   display: block;
   float: left;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 55px;
   font-family: "Trebuchet MS";
   font-size: 30px;
   font-weight: bold;
@@ -48,14 +45,14 @@
   margin-right: 10px;
   color: #7bbacf;
   background-color: #ffffff;
+  box-shadow: 1px 4px 2px 2px rgba(50,50,50,0.05);
 }
 
 .month {
   display: block;
-  float: bottom;
   position: relative;
   bottom: -1px;
-  width: 50px;
+  width: 45px;
   height: 20px;
   font-size: 16px;
   line-height: 20px;
@@ -65,11 +62,11 @@
 }
 
 .news-item {
-  margin-top: -12px;
   height: 80px;
+  margin-top: -12px;
 }
 
-.news-item h1 {
+.title {
   display: block;
   color: #4e4338;
   font-size: 20px;
@@ -78,23 +75,54 @@
 
 .news-text {
   display: block;
-  float: right;
-  width: 450px;
+  position: relative;
+  width: 97%;
   height: 30px;
   font-size: 12px;
   line-height: 18px;
   text-align: justify;
   margin-top: -8px;
-  margin-left: 10px; 
+  left: 15px;
 }
-.news-text a {
+
+.full-text{
+  display: block;
+  position: relative;
+  width: 85%;
+  margin-left: 60px;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: justify;
+  margin-top: -8px;
+  left: 15px;
+}
+
+#wrapper a {
   font-weight: bold;
+  border-bottom: 1px dotted #34378A;
 }
 
 #news-items {
   display: block;
   position: relative;
   width: 62%;
-  height: 100%;
-  float: right;
+  left: 330px;
+  top: -70px;
+  margin-bottom: -80px;
 }
+
+#news-full {
+  display: block;
+  position: relative;
+  width: 62%;
+  left: 330px;
+  top: -82px;
+  margin-bottom: -80px;
+}
+
+.navigation {
+  color: #000088;
+  position: relative;
+  left: 330px;
+}
+

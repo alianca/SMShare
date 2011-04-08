@@ -1,2 +1,23 @@
-<h1>News#read</h1>
-<p>Find me in app/views/news/read.html.erb</p>
+<div id="wrapper" class="full">
+  <div id="news-banner">
+    Notícias
+    <span id="news-banner-sub">
+      Últimas novidades
+    </span>
+  </div>
+  
+  <div id="news-full">
+    <div class="date">
+      <%= @news.date.strftime("%d") %>
+      <span class="month">
+        <%= @news.date.strftime("%b") %>
+      </span>
+    </div>
+    <h1 class="title"><%= @news.title %></h1>
+    <span class="full-text">
+      <%= @news.full.html_safe %>
+    </span>
+  </div>
+  
+  <%= link_to "« Ver todas as notícias", news_index_path, :class => "navigation"%>
+</div>

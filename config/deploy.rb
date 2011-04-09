@@ -4,7 +4,7 @@ set :deploy_to, "/var/rails/#{application}"
 
 # Repository
 set :scm, :git
-set :repository,  "git@github.com:rafaelgaspar/SMShare.git"
+set :repository,  "git@github.com:alianca/SMShare.git"
 
 # Run Options
 set :user, "smshare"

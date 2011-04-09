@@ -17,7 +17,29 @@ class Folder
   # has_many_related :files, :class_name => "UserFile", :primary_key => :path, :foreign_key => :path
   def files
     UserFile.where(:path => path, :owner_id => owner_id)
-  end   
+  end
+  
+  def to_param
+    "#{self.path}#{self._id}/".gsub(/^\/|\/$/, "")
+  end
+  
+  def paginate current_page, per_page
+    current_page = current_page.blank? ? 1 : current_page.to_i    
+    total_folders = children.count
+    total_files = files.count
+    total_results = total_folders + total_files
+    WillPaginate::Collection.create(current_page, per_page, total_results) do |pager|
+      if current_page*per_page <= total_folders # só tem pastas
+        results = children.order_by(:name => :asc, :created_at => :asc).offset((current_page-1)*per_page).limit(per_page)
+      elsif (current_page-1)*per_page > total_folders # só tem arquivos
+        results = files.order_by(:name => :asc, :created_at => :asc).offset((current_page-1)*per_page-total_folders).limit(per_page)
+      else # fodeu, tem arquivo e pasta
+        results = children.order_by(:name => :asc, :created_at => :asc).offset((current_page-1)*per_page).limit(total_folders%per_page).to_a
+        results += files.order_by(:name => :asc, :created_at => :asc).offset((current_page-1)*per_page-total_folders+1).limit(per_page-(total_folders%per_page)).to_a
+      end
+      pager.replace(results.to_a)
+    end
+  end
   
   private
     def build_path

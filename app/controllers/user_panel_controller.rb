@@ -10,7 +10,14 @@ class UserPanelController < ApplicationController
   end
   
   def manage
-    @files = current_user.files.order_by(:name).paginate(:per_page => 10, :page => params[:page])
+    if params[:id] =~ /\/?([^\/]*)$/
+      debugger
+      @folder = current_user.folders.where(:path => "/#{params[:id].gsub($1, "")}", :id => BSON::ObjectId($1)).first
+    else
+      @folder = current_user.root_folder
+    end
+    
+    @resources = @folder.paginate(params[:page], 10)
   end
   
   def destroy

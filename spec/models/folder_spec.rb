@@ -47,4 +47,31 @@ describe Folder do
       @file.folder.should == @folder
     end
   end 
+  
+  describe "Paginate" do
+    before(:each) do
+      @user = Factory.create :user
+      Folder.destroy_all # Isolate the test from the creating of the root_folder
+      @root_folder = Factory.create :folder, :owner => @user
+      @folder = []
+      100.times do |i|
+        @folder[i] = Factory.create :folder, :name => "Foo", :parent => @root_folder, :owner => @user
+      end
+      @files = []
+      100.times do |i|
+        @files[i] = Factory.create :user_file, :owner => @user
+      end
+    end
+    
+    it "should be able to paginate bringing the folder first" do
+      @root_folder.paginate(1, 10).to_a[0].should be_instance_of(Folder)
+      @root_folder.paginate(1, 10).to_a[9].should be_instance_of(Folder)
+      @root_folder.paginate(10, 10).to_a[0].should be_instance_of(Folder)
+      @root_folder.paginate(10, 10).to_a[9].should be_instance_of(Folder)    
+      @root_folder.paginate(11, 10).to_a[0].should be_instance_of(UserFile)
+      @root_folder.paginate(11, 10).to_a[9].should be_instance_of(UserFile)
+      @root_folder.paginate(20, 10).to_a[0].should be_instance_of(UserFile)
+      @root_folder.paginate(20, 10).to_a[9].should be_instance_of(UserFile)          
+    end
+  end
 end

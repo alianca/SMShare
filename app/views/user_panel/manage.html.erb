@@ -38,19 +38,30 @@
         <td class="revenue"></td>
       </tr>
       <tr class="pagination">
-        <td colspan="6"><%= will_paginate @files %></td>
+        <td colspan="6"><%= will_paginate @resources %></td>
       </tr>
     </tfoot>
     <tbody>
-      <% @files.each do |f| %>
-        <tr>
-          <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file" %></td>
-          <td class="name"><%= f.filename %></td>
-          <td class="size"><%= filesize_for_stat(f.filesize)%></td>
-          <td class="created_at"><%= f.created_at.strftime("%d/%m/%Y") %></td>
-          <td class="downloads"><%= f.statistics.downloads %></td>
-          <td class="revenue"><%= revenue_for_stat(f.statistics.revenue) %></td>
-        </tr>
+      <% @resources.each do |f| %>
+        <% if f.instance_of? Folder %>
+          <tr>
+            <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file" %></td>
+            <td class="name"><%= link_to f.name, manage_user_panel_path(:id => f) %></td>
+            <td class="size"></td>
+            <td class="created_at"></td>
+            <td class="downloads"></td>
+            <td class="revenue"></td>
+          </tr>
+        <% elsif f.instance_of? UserFile %>
+          <tr>
+            <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file" %></td>
+            <td class="name"><%= f.filename %></td>
+            <td class="size"><%= filesize_for_stat(f.filesize)%></td>
+            <td class="created_at"><%= f.created_at.strftime("%d/%m/%Y") %></td>
+            <td class="downloads"><%= f.statistics.downloads %></td>
+            <td class="revenue"><%= revenue_for_stat(f.statistics.revenue) %></td>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>

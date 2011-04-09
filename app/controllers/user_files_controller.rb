@@ -1,9 +1,9 @@
 class UserFilesController < ApplicationController
   respond_to :html
-  before_filter :authenticate_user!, :only => [:new, :create, :categorize, :update]
+  before_filter :authenticate_user!, :only => [:new, :create, :categorize, :update, :links]
   after_filter :save_download_info, :only => [:download]
   
-  layout 'user_panel', :only => [:new, :create, :remote_upload, :categorize]
+  layout 'user_panel', :only => [:new, :create, :remote_upload, :categorize, :links]
   
   def new
     respond_with(@file = UserFile.new)
@@ -11,6 +11,10 @@ class UserFilesController < ApplicationController
   
   def show
     
+  end
+  
+  def links
+    respond_with(@file = current_user.files.find(params[:id]))
   end
   
   def remote_upload
@@ -34,7 +38,7 @@ class UserFilesController < ApplicationController
     @file = current_user.files.find(params[:id])
     @file.update_attributes(params[:user_file])
     
-    respond_with(@file)
+    respond_with(@file, :location => links_user_file_path(@file))
   end
   
   def example

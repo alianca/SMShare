@@ -3,48 +3,36 @@
 <div id="links-container">
   <p class="links-info">Seus arquivos estão prontos para serem compartilhados, escolha abaixo o meio de implementação. Recomendamos a utilização da ferramenta <%= link_to "shareBox" %>, desenvolvida para converter um maior número de downloads em seus arquivos. Para saber mais como essa opção funciona, acesse nosso <%= link_to "FAQ", general_faq_path %>.</p>
   
-  <div id="links-inner-container">
-    <ul id="link-type-list">
-      <li>
-        <div class="type">
-          Link
-          <br/><input type="radio" name="types">
-        </div>
-      </li>
-      <li>
-        <div class="type">
-          HTML
-          <br/><input type="radio" name="types" checked>
-        </div>
-      </li>
-      <li>
-        <div class="type">
-          Fórum
-          <br/><input type="radio" name="types">
-        </div>
-      </li>
-      <li>
-        <div class="type">
-          shareBox
-          <br/><input type="radio" name="types">
-        </div>
-      </li>
-    </ul>
-    
-    <div id="link-boxes">
-      <div class="link-box">
-        <p class="filename"><%= 
-          l = @file.filename.length
-          if l > 41
-            @file.filename[0,32] + "..." + @file.filename[l-6, l-1]
-          else
-            @file.filename
-          end
-        %></p>
-        <%= text_field_tag :link, "", :class => "link-field" %>
-      </div>
+  <div id="link-type-container">
+    <span class="link-type">Link</span>
+    <span class="link-type">HTML</span>
+    <span class="link-type">Fórum</span>
+    <span class="link-type">shareBox</span>
+  </div>
+  
+  <div id="link-type-buttons-container">
+    <input value="type-link" type="radio" name="link-type-option" checked>
+    <input value="type-html" type="radio" name="link-type-option">
+    <input value="type-forum" type="radio" name="link-type-option">
+    <input value="type-sharebox" type="radio" name="link-type-option">
+  </div>
+  
+  
+  <div id="link-boxes-container">
+    <div class="link-box">
+      <p class="filename"><%= 
+        l = @file.filename.length
+        if l > 41
+          @file.filename[0,32] + "..." + @file.filename[l-6, l-1]
+        else
+          @file.filename
+        end
+      %></p>
+      <%= text_field_tag :link, "", :class => "link-field", 'url-text' => download_user_file_url(@file), :value => download_user_file_url(@file) %>
     </div>
   </div>
-    
-  <%= submit_tag "Confirmar", :id => "confirmar" %>
+  
+  <div id="link-boxes-closing"></div>
+  
+  <%= link_to "Confirmar", user_panel_path(@user), :class => "confirmar" %>
 </div>

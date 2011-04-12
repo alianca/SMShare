@@ -176,4 +176,125 @@ li.tab-content.remote-tab {
 }
 
 
+#links-container {
+  width: 635px;
+  background: rgba(180, 217, 230, 0.5);
+  padding: 8px 10px;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+}
+
+#links-container p.links-info {
+  text-align: justify;
+  text-indent: 30px;
+  width: 94%;
+  margin: 10px auto;
+  font-size: 12px;
+}
+
+#links-container #link-type-container {
+  display: block;
+  position: relative;
+  left: 290px;
+  background-color: rgba(123, 186, 207, 0.2);
+  border-radius: 7px 7px 0 0;
+  width: 345px;
+  height: 32px;
+}
+
+#links-container #link-type-container .link-type {
+  display: block;
+  float: left;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  width: 85px;
+  font-weight: bold;
+  color: white;
+  font-size: 12px;
+}
+
+#links-container #link-type-buttons-container {
+  display: block;
+  position: relative;
+  left: 290px;
+  background-color: rgba(123, 186, 207, 0.2);
+  line-height: 32px;
+  width: 345px;
+  height: 32px;
+}
+
+#links-container #link-type-buttons-container input {
+  display: block;
+  float: left;
+  height: 28px;
+  width: 78px;
+}
+
+#links-container #link-boxes-container {
+  position: relative;
+  width: 345px;
+  left: 290px;
+  top: -33px;
+  margin-bottom: -33px;
+  background-color: rgba(123, 186, 207, 0.2);
+}
+
+#links-container #link-boxes-container .link-box {
+  position: relative;
+  left: -290px;
+  height: 32px;
+  margin-top: 33px;
+}
+
+#links-container #link-boxes-container .link-box .filename {
+  position: relative;
+  background-color: #7bbacf;
+  border-radius: 7px 0 0 0;
+  -moz-border-radius: 7px 0 0 0;
+  width: 280px;
+  height: 48px;
+  line-height: 28px;
+  padding-left: 10px;
+  margin-bottom: 0;
+  top: -28px;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+#links-container #link-boxes-container .link-box .link-field {
+  position: relative;
+  width: 610px;
+  height: 22px;
+  padding: 5px;
+  border-style: none;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  top: -49px;
+  color: #8e8e8e;
+}
+
+#links-container #link-boxes-closing {
+  position: relative;
+  width: 345px;
+  left: 290px;
+  height: 12px;
+  background-color: rgba(123, 186, 207, 0.2);
+  border-radius: 0 0 7px 7px;
+  -moz-border-radius: 0 0 7px 7px;
+}
+
+#links-container a.confirmar {
+  display: block;
+  position: relative;
+  left: 503px;
+  width: 132px;
+  height: 33px;
+  margin-top: 10px;
+  text-align: center;
+  line-height: 33px;
+  color: white;
+  background: url(/images/user_files/botao-off.png);
+}
 

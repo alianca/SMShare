@@ -22,7 +22,7 @@ Smshare::Application.routes.draw do |map|
     end  
   end
   
-  resource :painel, :as=> :user_panel, :controller => :user_panel, :only => [:show, :destroy] do
+  resource :painel, :as=> :user_panel, :controller => :user_panel, :only => [:show, :destroy, :create] do
     member do
       get :manage
     end

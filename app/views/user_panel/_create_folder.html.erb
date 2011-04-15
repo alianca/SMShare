@@ -1,0 +1,9 @@
+<%= semantic_form_for @new_folder, :url => user_panel_path do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :name, :label => "Nome da pasta:" %>
+  <% end %>
+  
+  <%= f.buttons do %>
+    <%= f.commit_button "Confirmar" %>
+  <% end %>
+<% end %>

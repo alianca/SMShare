@@ -11,7 +11,6 @@ class UserPanelController < ApplicationController
   end
   
   def create
-    debugger
     @new_folder = @folder.children.create(:name => params[:folder][:name], :owner => current_user)
     respond_with(@new_folder, :location => manage_user_panel_path)
   end
@@ -25,6 +24,18 @@ class UserPanelController < ApplicationController
     UserFile.where(:_id.in => (params[:files].collect { |id| BSON::ObjectId(id) })).destroy_all if params[:files]
     Folder.where(:_id.in => (params[:files].collect { |id| BSON::ObjectId(id) })).destroy_all if params[:files]
     redirect_to :back
+  end
+  
+  def move
+    params[:user_file][:files].delete_if { |f| f.blank? }    
+    @folder = current_user.folders.find(params[:user_file][:folder])
+    @files = UserFile.where(:_id.in => (params[:user_file][:files].collect { |id| BSON::ObjectId(id) }))
+    @folders = Folder.where(:_id.in => ((params[:user_file][:files]-[params[:user_file][:folder]]).collect { |id| BSON::ObjectId(id) }))
+    
+    @files.each { |file| file.folder = @folder; file.save! }    
+    @folders.each { |folder| folder.parent = @folder; folder.save! }
+    
+    respond_with(@folder, :location => manage_user_panel_path(:folder_id => @folder.parent))
   end
   
   private

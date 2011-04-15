@@ -26,7 +26,7 @@ class UserFile
   end
   
   def folder= a_folder
-    # TODO
+    self.path = a_folder.path
   end
   
   # Arquivo

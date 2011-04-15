@@ -15,9 +15,28 @@ $(document).ready(function() {
     $(this).css("background", "url(/images/layouts/botao-off.png)")
   });
   
+  function show_form(name) {
+    if($("#actions_forms " + name + ":visible")[0]) {
+      $("#actions_forms form").hide();
+      $("#form_placeholder").hide();
+    } else {
+      $("#actions_forms form").hide();
+      $("#actions_forms " + name).show();
+      $("#form_placeholder").show();
+    }  
+  }
+  
   $(".actions_menu .create a").click(function () {
-    $("#actions_forms #new_folder").toggle();
-    $("#form_placeholder").toggle();
+    show_form("#new_folder");
+  });
+  
+  $(".actions_menu .move a").click(function () {
+    show_form("#move");
+  });
+  
+  /* Copia a seleção de arquivos da tabela para a lista oculta */
+  $(".file_list .select_file").change(function () {
+    $("#actions_forms .hidden_file_list input[value=" + this.value + "]").attr("checked", $(this).attr("checked"));
   });
 });
 

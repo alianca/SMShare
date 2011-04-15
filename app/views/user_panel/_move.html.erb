@@ -1,0 +1,13 @@
+<%= semantic_form_for :user_file, :url => move_user_panel_path, :html => { :id => "move" } do |f| %>
+  <%= f.inputs :class => :hidden_file_list do %>
+    <%= f.input :files, :as => :check_boxes, :collection => @resources.collect { |r| [r._id, r._id] } %>
+  <% end %>
+
+  <%= f.inputs do %>
+    <%= f.input :folder, :label => "Destino:", :as => :select, :include_blank => false, :collection => folders_to_move %>
+  <% end %>
+    
+  <%= f.buttons do %>
+    <%= f.commit_button "Confirmar" %>
+  <% end %>
+<% end %>

@@ -25,6 +25,7 @@ Smshare::Application.routes.draw do |map|
   resource :painel, :as=> :user_panel, :controller => :user_panel, :only => [:show, :destroy, :create] do
     member do
       get :manage
+      post :move
     end
   end
   

@@ -394,11 +394,11 @@ table.file_list {
   border-spacing: 1px 0;
 }
 
-table.file_list td { 
+table.file_list td {
   margin: 0 2px;
 }
 
-table.file_list thead .titles td { 
+table.file_list thead .titles td {
   padding: 5px;
   font-size: 14px;
   font-weight: bold;
@@ -462,6 +462,8 @@ table.file_list td.name {
 .actions_menu input[type=submit] { 
   background: transparent;
   border: 0;
+  line-height: 18px;
+  font-size: 11px;
 }
 
 .actions_menu a img {
@@ -506,7 +508,7 @@ table.file_list td.name {
   text-decoration: underline;
 }
 
-#actions_forms #new_folder {
+#actions_forms #new_folder, #actions_forms #move {
   position: absolute;
   display: none;
   top: 201px;
@@ -519,7 +521,7 @@ table.file_list td.name {
   -moz-border-radius: 7px;
 }
 
-#actions_forms #new_folder #folder_name_input label {
+#actions_forms label {
   width: auto;
   padding-right: 15px;
   line-height: 22px;
@@ -534,22 +536,34 @@ table.file_list td.name {
   padding: 5px 7px;
 }
 
-#actions_forms #new_folder .inputs {
+#actions_forms #move #user_file_folder {
+  border: 0;
+  min-width: 140px;
+  max-width: 405px;
+  height: 23px;
+  margin-top: 2px;
+}
+
+#actions_forms .inputs {
   float: left;
 }
 
-#actions_forms #new_folder .buttons {
+#actions_forms .buttons {
   float: left;
   padding: 2px 0 2px 15px !important;
 }
 
-#actions_forms #new_folder #folder_submit {
+#actions_forms input[type=submit] {
   color: white;
   font-size: 12px;
   border: 0 solid transparent;
   width: 114px;
   height: 23px;
   background: url(/images/layouts/botao-off.png);
+}
+
+#actions_forms .hidden_file_list {
+  display: none;
 }
 
 #form_placeholder {

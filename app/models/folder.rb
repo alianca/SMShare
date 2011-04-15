@@ -39,6 +39,6 @@ class Folder
   
   private
     def build_path
-      self.path = "#{parent.path}#{parent._id}/" if parent
+      self.path = "#{parent.path}#{self._id}/" if parent
     end
 end

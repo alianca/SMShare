@@ -38,6 +38,16 @@
       </tr>
     </tfoot>
     <tbody>
+      <% if @folder.parent %>
+        <tr class="folder">
+          <td class="select"><%= check_box_tag "files[]", @folder.parent._id, false, :class => "select_file", :disabled => true %></td>
+          <td class="name"><%= link_to "..", manage_user_panel_path(:folder_id => @folder.parent) %></td>
+          <td class="size"></td>
+          <td class="created_at"></td>
+          <td class="downloads"></td>
+          <td class="revenue"></td>
+        </tr>
+      <% end %>
       <% @resources.each do |f| %>
         <% if f.instance_of? Folder %>
           <tr class="folder">
@@ -65,4 +75,5 @@
 
 <div id="actions_forms">
   <%= render :partial => "create_folder" %>
+  <%= render :partial => "move" %>
 </div>

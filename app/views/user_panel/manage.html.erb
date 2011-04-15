@@ -1,14 +1,10 @@
 <h2>Gerenciar Arquivos</h2>
 
 <%= form_tag user_panel_path, :method => :delete do %>
-  <ul class="actions_menu">
-    <li>
-      <%= image_submit_tag "user_panel/remover.png" %>
-      <%= submit_tag "Remover" %>
-    </li>
-  </ul>
+  <%= render :partial => "actions_menu" %>
   
-
+  <div id="form_placeholder"></div>
+  
   <table class="file_list">
     <thead>
       <tr class="titles">
@@ -44,16 +40,16 @@
     <tbody>
       <% @resources.each do |f| %>
         <% if f.instance_of? Folder %>
-          <tr>
+          <tr class="folder">
             <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file" %></td>
-            <td class="name"><%= link_to f.name, manage_user_panel_path(:id => f) %></td>
+            <td class="name"><%= link_to f.name, manage_user_panel_path(:folder_id => f) %></td>
             <td class="size"></td>
             <td class="created_at"></td>
             <td class="downloads"></td>
             <td class="revenue"></td>
           </tr>
         <% elsif f.instance_of? UserFile %>
-          <tr>
+          <tr class="file">
             <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file" %></td>
             <td class="name"><%= f.filename %></td>
             <td class="size"><%= filesize_for_stat(f.filesize)%></td>
@@ -66,3 +62,7 @@
     </tbody>
   </table>
 <% end %>
+
+<div id="actions_forms">
+  <%= render :partial => "create_folder" %>
+</div>

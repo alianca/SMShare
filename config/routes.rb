@@ -1,15 +1,4 @@
 Smshare::Application.routes.draw do |map|
-  get "guide/index"
-
-  get "faq/uploading"
-
-  get "faq/finances"
-
-  get "faq/general"
-
-  get "faq/panel"
-  
-  get "faq/downloading"
 
   # Rotas do Devise
   # TODO atualizar isso quando a DSL de rotas do Devise 1.1 estiver estavel
@@ -24,6 +13,7 @@ Smshare::Application.routes.draw do |map|
       get :download
       get :example
       get :categorizar, :action => :categorize, :as => :categorize
+      get :links
       match :download_box
     end
     
@@ -45,6 +35,18 @@ Smshare::Application.routes.draw do |map|
   end
   
   resources :news, :only => [:index, :show]
+
+  resources :guide, :only => [:index]
+
+  resource :faq, :controller => :faq, :only => [] do
+    member do
+      get :uploading
+      get :downloading
+      get :general
+      get :panel
+      get :finances
+    end
+  end
   
   root :to => "home#index"
 

@@ -4,6 +4,7 @@
   <%= render :partial => "actions_menu" %>
   
   <div id="form_placeholder"></div>
+  <div id="rename_placeholder"></div>
   
   <table class="file_list">
     <thead>
@@ -61,7 +62,7 @@
         <% elsif f.instance_of? UserFile %>
           <tr class="file">
             <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file" %></td>
-            <td class="name"><%= f.filename %></td>
+            <td class="name"><%= f.alias %></td>
             <td class="size"><%= filesize_for_stat(f.filesize)%></td>
             <td class="created_at"><%= f.created_at.strftime("%d/%m/%Y") %></td>
             <td class="downloads"><%= f.statistics.downloads %></td>
@@ -76,4 +77,5 @@
 <div id="actions_forms">
   <%= render :partial => "create_folder" %>
   <%= render :partial => "move" %>
+  <%= render :partial => "rename" %>
 </div>

@@ -1,0 +1,23 @@
+<%= semantic_form_for :user_file, :url => rename_user_panel_path, :html => { :id => "rename" } do |f| %>
+  <%= f.inputs :class => :hidden_file_list do %>
+    <%= f.input :files, :as => :check_boxes, :collection => @resources.collect { |r| [r._id, r._id] } %>
+  <% end %>
+
+  <%= f.inputs do %>
+    <% @resources.each do |r| %>
+      <div id="<%= r.id %>" class="rename-field hidden-field">
+        <% if r.instance_of? Folder %>
+          <%= f.input "new_name[#{r.id}]", :input_html => { :value => r.name }, :class => "new-name" %>
+        <% elsif r.instance_of? UserFile %>
+          <%= f.input "new_name[#{r.id}]", :input_html => { :value => r.alias }, :class => "new-name" %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+    
+  <%= f.buttons do %>
+    <div class="rename-btn">
+      <%= f.commit_button "Renomear" %>
+    </div>
+  <% end %>
+<% end %>

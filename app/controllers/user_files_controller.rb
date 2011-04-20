@@ -27,6 +27,7 @@ class UserFilesController < ApplicationController
   
   def create
     @file = current_user.files.create(params[:user_file])
+    @file.copy_filename # Copia o filename original para o alias
     flash[:notice] = "Arquivo enviado com sucesso." if @file.valid?
     flash[:alert] = @file.errors.full_messages.first unless @file.valid?    
     respond_with(@file, :location => categorize_user_file_path(@file))
@@ -48,7 +49,7 @@ class UserFilesController < ApplicationController
   def download
     begin
       @file = UserFile.find(params[:id])
-      headers["Content-Disposition"] = "attachment; filename=\"#{@file.filename}\""
+      headers["Content-Disposition"] = "attachment; filename=\"#{@file.alias}\""
       render :text => @file.file.file.read, :content_type => @file.filetype
     rescue Mongoid::Errors::DocumentNotFound
       render :file => Rails.root + 'public/404.html', :status => 404

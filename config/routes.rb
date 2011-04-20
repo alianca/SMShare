@@ -26,6 +26,7 @@ Smshare::Application.routes.draw do |map|
     member do
       get :manage
       post :move
+      post :rename
     end
   end
   

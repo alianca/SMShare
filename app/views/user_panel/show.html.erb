@@ -52,8 +52,8 @@
 
 <div id="more_upload">
   <h3>Outras formas de enviar arquivos!</h3>
-  <%= link_to image_tag("user_panel/remoto.png"), nil, :class => "remote_upload image" %>
-  <%= link_to "Upload Remoto", nil, :class => "remote_upload link" %>
+  <%= link_to image_tag("user_panel/remoto.png"), remote_upload_user_files_path, :class => "remote_upload image" %>
+  <%= link_to "Upload Remoto", remote_upload_user_files_path, :class => "remote_upload link" %>
   <%= link_to image_tag("user_panel/ftp.png"), nil, :class => "ftp image" %>
   <%= link_to "Upload por FTP", nil, :class => "ftp link" %>
 </div>

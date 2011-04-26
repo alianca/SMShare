@@ -18,8 +18,32 @@ function install_clear_on_focus(context) {
   });
 }
 
+function set_box_style(style) {
+  $(".download_box").css("border", "1px solid " + style.box_border);
+  $(".download_box").css("background-color", style.box_background);
+  $(".download_box").css("background", "url(" + style.box_image + ")");
+  $(".download_box .box-header").css("color", style.header_text);
+  $(".download_box .filename").css("color", style.header_text);
+  $(".download_box .filesize").css("color", style.header_text);
+  $(".download_box .box-header").css("background-color", style.header_background);
+  $(".download_box .call-to-action").css("color", style.upper_text);
+  $(".download_box .sms").css("color", style.para_text);
+  $(".download_box .sms em").css("color", style.number_text);
+  $(".download_box .price").css("color", style.cost_text);
+  $(".download_box form").css("background-color", style.form_background);
+  $(".download_box form").css("border", "1px solid " + style.form_border);
+  $(".download_box form .code_field").css("color", style.form_text);
+  $(".download_box form .submit").css("background-color", style.button_background);
+  $(".download_box form .submit").css("color", style.button_text);
+  $(".download_box .have_one").css("color", style.bottom_text);
+}
+
 function after_create_box(box) {
-  install_clear_on_focus(box)
+  install_clear_on_focus(box);
+  
+  var style = jQuery.parseJSON($("#style-data").text());
+  
+  set_box_style(style);
   
   /* Fecha após o download do arquivo */
   $(box + " form").submit(function () {
@@ -70,7 +94,7 @@ $(document).ready(function() {
   document.getElementsByTagName("head")[0].appendChild(css);
   
   /* Faz cache das imagems para a caixa */
-  $.each(["/images/download_box/logo.png", "/images/download_box/fundo.png", "/images/download_box/input.png", "/images/download_box/botao-off.png", "/images/download_box/botao-on.png"], function (i, val) {
+  $.each(["/images/download_box/logo.png", "/images/download_box/fundo_padrao.png", "/images/download_box/botao-brilho.png"], function (i, val) {
     (new Image()).src = val;
   });  
 });

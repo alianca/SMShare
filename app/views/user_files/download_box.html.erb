@@ -1,19 +1,28 @@
 <div id="download_box-<%= @file.id %>" class="download_box">
-  <p class="filename"><em>Arquivo:</em> <%= link_to @file.filename, user_file_url(@file) %></p>  
-  <p class="filesize">(<%= number_to_human_size(@file.filesize) %>)</p>
+  <div class="box-header">
+    <span class="header-glass"></span>
+    <p class="filename"><em>Arquivo:</em> <%= link_to @file.alias, user_file_url(@file) %></p>
+    <p class="filesize"><em>(<%= number_to_human_size(@file.filesize) %>)</em></p>
+  </div>
   
   <p class="call-to-action">Para baixar o arquivo, envie um SMS com a palavra</p>
   <p class="sms"><em>SMSHARE</em> para <em>49094<span class="star">*</span></em></p>
   <p class="price">*custo de R$ 0,86 + impostos</p>
   
-  <% form_tag download_user_file_url(@file), :method => :get do %>
-    <%= label_tag :code, "Codigo recebido" %>
-    <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus" %>
-    <%= submit_tag "Download", :class => "submit" %>
-  <% end %>
+  <div class="code_area">
+    <% form_tag download_user_file_url(@file), :method => :get do %>
+      <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus"%>
+      <%= submit_tag "Download", :class => "submit" %>
+    <% end %>
+  </div>
   
   <%= link_to image_tag("download_box/logo.png"), root_url, :class => :logo %>
   <% link_to root_url, :class => :have_one do %>
     Tenha um desses você também <span>»</span>
   <% end %>
 </div>
+
+<div id="style-data">
+  <%= @style %>
+</div>
+

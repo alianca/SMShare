@@ -44,7 +44,6 @@ body {
 #sidebar { 
   float: left;
   width: 182px;
-  height: 286px;
   margin: 1px 0 0 34px;
   padding: 5px;
   background: url(/images/user_panel/menu.png);
@@ -54,45 +53,49 @@ body {
 #sidebar > li { 
   display: block;
   width: 152px;
-  height: 15px;
   padding: 10px 15px;
   margin-bottom: 5px;
   color: #34378A;
 }
 
-#sidebar > li.no-dropdown { 
-  background: url(/images/user_panel/menu/nodropdown.png);
+#sidebar > li.no-dropdown {
+  background: url(/images/user_panel/menu/nodropdown.png) no-repeat;
 }
 
-#sidebar > li { 
-  background: url(/images/user_panel/menu/dropdown.png);
+#sidebar > li {
+  cursor: pointer;
+  background: url(/images/user_panel/menu/dropdown.png) no-repeat;
 }
 
 #sidebar > li.active { 
   color: white;
-  background: url(/images/user_panel/menu/dropdown-active.png);
+  background: url(/images/user_panel/menu/dropdown-active.png) no-repeat;
 }
 
-#sidebar ul.dropdown { 
+#sidebar li.active ul.dropdown{
   display: block;
+}
+
+#sidebar li ul.dropdown { 
+  display: none;
   width: 147px;
   height: 76px;
-  margin: 0 0 5px 5px;
+  margin: 10px 0 5px -10px;
   padding: 5px 15px;
   background: url(/images/user_panel/menu/fundo-active.png);
 }
 
-#sidebar ul.dropdown li {
+#sidebar li ul.dropdown li {
   list-style-image: url(/images/user_panel/menu/bullet-off.png);
   list-style-position: inside;
   margin: 7px 0;
 }
 
-#sidebar ul.dropdown li.active {
+#sidebar li ul.dropdown li.active {
   list-style-image: url(/images/user_panel/menu/bullet-active.png);
 }
 
-#sidebar ul.dropdown li.active a { 
+#sidebar li ul.dropdown li.active a { 
   color: #f37f00;
 }
 

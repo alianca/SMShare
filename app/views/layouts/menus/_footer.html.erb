@@ -1,52 +1,201 @@
 <div class="section" id="smshare-menu">
   <p class="title">sm<span class="special-s"><span>S</span></span>hare</p>
   <ul>
-    <li class="active"><%= link_to "Página principal", root_path %></li>
-    <li><%= link_to "Notícias", news_index_path %></li>
-    <li><%= link_to "Twitter" %></li>
-    <li><%= link_to "Feed RSS" %></li>
-    <li><%= link_to "Denunciar abuso" %></li>
+    <% if @active_footer == :main %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Página principal", root_path %>
+    </li>
+    
+    <% if @active_footer == :news %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Notícias", news_index_path %>
+    </li>
+    
+    <% if @active_footer == :twitter %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Twitter" %>
+    </li>
+    
+    <% if @active_footer == :rss %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Feed RSS" %>
+    </li>
+    
+    <% if @active_footer == :report %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Denunciar abuso" %>
+    </li>
   </ul>
 </div>
 
 <div class="section" id="webmasters-menu">
   <p class="title">Webmasters</p>
   <ul>
-    <li><%= link_to "Envie seus arquivos", new_user_file_path %></li>
-    <li><%= link_to "Organize seus documentos" %></li>
-    <li><%= link_to "Compartilhe seus arquivos" %></li>
-    <li><%= link_to "Lucre com os downloads $$" %></li>
-    <li><%= link_to "Tenha vantagens" %></li>
+    <% if @active_footer == :send_files %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Envie seus arquivos", new_user_file_path %>
+    </li>
+    
+    <% if @active_footer == :manage_files %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Organize seus documentos" %>
+    </li>
+    
+    <% if @active_footer == :share_files %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Compartilhe seus arquivos" %>
+    </li>
+    
+    <% if @active_footer == :earn_money %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Lucre com os downloads $$" %>
+    </li>
+    
+    <% if @active_footer == :advantages %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Tenha vantagens" %>
+    </li>
   </ul> 
 </div>
 
 <div class="section" id="smsearch-menu">
   <p class="title">sm<span class="special-s"><span>S</span></span>earch</p>
   <ul>
-    <li><%= link_to "Procurar arquivos", search_path %></li>
-    <li><%= link_to "Todas as categorias" %></li>
-    <li><%= link_to "Arquivos mais baixados" %></li>
-    <li><%= link_to "Arquivos mais comentados" %></li>
-    <li><%= link_to "Arquivos favoritos" %></li>
+    <% if @active_footer == :search_files %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Procurar arquivos", search_path %>
+    </li>
+    
+    <% if @active_footer == :categories %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Todas as categorias" %>
+    </li>
+    
+    <% if @active_footer == :most_downloaded %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Arquivos mais baixados" %>
+    </li>
+    
+    <% if @active_footer == :most_commented %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Arquivos mais comentados" %>
+    </li>
+    
+    <% if @active_footer == :favorites %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Arquivos favoritos" %>
+    </li>
   </ul>
 </div>
 
 <div class="section" id="about-menu">
   <p class="title">Sobre</p>
   <ul>
-    <li><%= link_to "Guia geral", guide_index_path %></li>
-    <li><%= link_to "Perguntas frequentes (FAQ)", general_faq_path %></li>
-    <li><%= link_to "Ajuda/Tutoriais" %></li>
+    <% if @active_footer == :guide %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Guia geral", guide_index_path %>
+    </li>
+    
+    <% if @active_footer == :faq %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Perguntas frequentes (FAQ)", general_faq_path %>
+    </li>
+    
+    <% if @active_footer == :tutorials %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Ajuda/Tutoriais" %>
+    </li>
   </ul>
 </div>
 
 <div class="section" id="institutional-menu">
   <p class="title">Institucional</p>  
   <ul>
-    <li><%= link_to "Imprensa" %></li>
-    <li><%= link_to "Trabalhe conosco" %></li>
-    <li><%= link_to "A empresa" %></li>
-    <li><%= link_to "Fale Conosco" %></li>
+    <% if @active_footer == :press %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Imprensa" %>
+    </li>
+    
+    <% if @active_footer == :jobs %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Trabalhe conosco" %>
+    </li>
+    
+    <% if @active_footer == :about_us %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "A empresa" %>
+    </li>
+    
+    <% if @active_footer == :contact %>
+      <li class="active">
+    <% else %>
+      <li>
+    <% end %>
+      <%= link_to "Fale Conosco" %>
+    </li>
   </ul>
 </div>
   

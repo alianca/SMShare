@@ -13,33 +13,26 @@ li.tab-menu {
   float: left;
   text-align: center;
   margin-right: 5px;
+  margin-top: 10px;
+  padding: 0 15px 0 15px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #b4d9e6;
+  border-radius: 7px 7px 0 0;
+  -moz-border-radius: 7px 7px 0 0;
+}
+
+li.tab-menu.active {
+  padding-top: 10px;
+  line-height: 20px;
+  margin-top: 0;
+  background-color: #7bbacf;
 }
 
 li.tab-menu a {
   color: white;
   font-weight: bold;
   font-size: 18px;
-}
-
-li.tab-menu.web-tab {
-  width: 97px;
-  height: 30px;
-  padding: 10px 0 0 0;
-  background: url(/images/user_files/tab_web-on.png);
-}
-
-li.tab-menu.ftp-tab {
-  width: 97px;
-  height: 30px;
-  padding: 15px 0 0 0;
-  background: url(/images/user_files/tab_ftp-off.png) no-repeat 0 10px;
-}
-
-li.tab-menu.remote-tab {
-  width: 147px;
-  height: 30px;
-  padding: 15px 0 0 0;
-  background: url(/images/user_files/tab_remoto-off.png) no-repeat 0 10px;
 }
 
 li.tab-content {
@@ -50,14 +43,18 @@ li.tab-content.web-tab {
   width: 625px;
   height: 90px;
   padding: 21px 15px;
-  background: url(/images/user_files/fundo_web.png);
+  background-color: rgba(180, 217, 230, 0.5);
+  border-radius: 7px;
+  -moz-border-radius: 7px;
 }
 
 li.tab-content.remote-tab {
   width: 625px;
   height: 116px;
   padding: 8px 15px;
-  background: url(/images/user_files/fundo_web.png);
+  background-color: rgba(180, 217, 230, 0.5);
+  border-radius: 7px;
+  -moz-border-radius: 7px;
 }
 
 #categorize-container {
@@ -297,4 +294,3 @@ li.tab-content.remote-tab {
   color: white;
   background: url(/images/user_files/botao-off.png);
 }
-

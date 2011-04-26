@@ -3,16 +3,59 @@
   <li class="no-dropdown">
     <%= link_to "Página principal", root_path %>
   </li>
-    
-  <li class="active">Meus arquivos</li>
   
-  <ul class="dropdown">
-    <li class="active"><%= link_to "Enviar arquivos", new_user_file_path %></li>
-    <li><%= link_to "Gerenciar arquivos", manage_user_panel_path %></li>
-    <li><%= link_to "Verificar validade" %></li>
-  </ul>
-   
-  <li>Relatórios</li>    
-  <li>Ferramentas</li>
-  <li>Dados da conta</li>
+  <% if @active[0] == :files %>
+    <li class="menu active">
+  <% else %>
+    <li class="menu">
+  <% end %>
+    Meus arquivos
+    <ul class="dropdown">
+      <% if @active[1] == :new %>
+        <li class="active">
+      <% else %>
+        <li>
+      <% end %>
+        <%= link_to "Enviar arquivos", new_user_file_path %>
+      </li>
+      <% if @active[1] == :manage %>
+        <li class="active">
+      <% else %>
+        <li>
+      <% end %>
+        <%= link_to "Gerenciar arquivos", manage_user_panel_path %>
+      </li>
+      <% if @active[1] == :verify %>
+        <li class="active">
+      <% else %>
+        <li>
+      <% end %>
+        <%= link_to "Verificar validade" %>
+      </li>
+    </ul>
+  </li>
+  
+  <% if @active[0] == :statistics %>
+    <li class="menu active">
+  <% else %>
+    <li class="menu">
+  <% end %>
+    Relatórios
+  </li>
+  
+  <% if @active[0] == :tools %>
+    <li class="menu active">
+  <% else %>
+    <li class="menu">
+  <% end %>
+    Ferramentas
+  </li>
+  
+  <% if @active[0] == :data %>
+    <li class="menu active">
+  <% else %>
+    <li class="menu">
+  <% end %>
+    Dados da conta
+  </li>
 </ul>

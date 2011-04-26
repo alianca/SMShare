@@ -18,6 +18,8 @@ class UserPanelController < ApplicationController
   def manage
     @new_folder = @folder.children.new(:owner => current_user)
     @resources = @folder.paginate(params[:page], 10)
+    @active = [:files, :manage]
+    @active_footer = :manage_files
   end
   
   def destroy

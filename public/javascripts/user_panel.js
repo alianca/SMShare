@@ -40,18 +40,21 @@ $(document).ready(function() {
     }
   }
   
-  $(".actions_menu .create a").click(function () {
+  $(".actions_menu .create a").click(function (e) {
     show_form("#new_folder");
+    e.stopImmediatePropagation();
   });
   
-  $(".actions_menu .move a").click(function () {
+  $(".actions_menu .move a").click(function (e) {
     show_form("#move");
+    e.stopImmediatePropagation();
   });
   
-  $(".actions_menu .rename a").click(function () {
+  $(".actions_menu .rename a").click(function (e) {
     if (!($(this).hasClass("off"))) {
       show_rename();
     }
+    e.stopImmediatePropagation();
   });
   
   /* Copia a seleção de arquivos da tabela para a lista oculta */
@@ -83,6 +86,21 @@ $(document).ready(function() {
       }
     }
     
+  });
+  
+  
+  /* Dropdown da sidebar */
+  $("#sidebar li.menu").click(function(e) {
+    if (!$(this).hasClass("no-dropdown") && this == e.target) {
+      if ($(this).hasClass("active")) {
+        $(this).children("ul.dropdown").hide("fast");
+        $(this).removeClass("active");
+      } else {
+        $(this).children("ul.dropdown").show("fast");
+        $(this).addClass("active");
+      }
+    }
+    e.stopImmediatePropagation();
   });
 });
 

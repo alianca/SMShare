@@ -1,5 +1,12 @@
 class FaqController < ApplicationController
 
+  before_filter :set_active
+
+  def set_active
+    @active_header_tab = :about
+    @active_footer = :faq
+  end
+
   def downloading
     @active_tab = :downloading;
   end

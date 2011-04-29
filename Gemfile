@@ -36,6 +36,9 @@ gem 'SystemTimer'
 # GoogleChart
 gem 'gchartrb', :require => 'google_chart'
 
+# LazyHighcharts
+gem 'lazy_high_charts'
+
 # To use pagination
 gem "will_paginate", "~> 3.0.pre2"
 

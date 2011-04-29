@@ -6,7 +6,7 @@
 
 /* @group Reset */
 
-.download_box img, .download_box p, .download_box a, .download_box a:hover, .download_box a:visited { 
+.download_box img, .download_box p, .download_box a, .download_box a:hover, .download_box a:visited {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -21,18 +21,40 @@
 .download_box { 
   position: absolute;
   z-index: 9999;
-  background:  url(/images/download_box/fundo.png);
   width: 342px !important;
   height: 165px !important;
   padding: 3px 6px 7px 4px !important;
   font-family: 'Trebuchet MS', Arial !important;
   font-size: 13px !important;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+}
+
+.download_box .box-header {
+  display: block;
+  width: 352px;
+  height: 28px;
+  margin-left: -4px;
+  margin-top: -3px;
+  line-height: 28px;
+  border-bottom: 1px solid rgba(29,29,29,0.5);
+  border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+}
+
+.download_box .box-header .header-glass {
+  display: block;
+  width: 352px;
+  height: 15px;
+  margin-bottom: -15px;
+  border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  background-color: rgba(255,255,255,0.1);
 }
 
 .download_box .filename { 
   float: left;
   margin: 0 !important;
-  color: white !important;
   font-size: 12px !important;
   padding: 6px 3px 6px 14px !important;
   max-width: 243px;
@@ -40,7 +62,6 @@
 }
 
 .download_box .filename a{ 
-  color: white !important;
   text-decoration: none;
 }
 
@@ -52,7 +73,6 @@
 .download_box .filesize { 
   float: right;
   margin: 0 !important;
-  color: white;
   font-size: 12px !important;
   font-weight: bold !important;
   padding: 6px 9px 6px 3px !important;
@@ -61,16 +81,18 @@
   overflow: hidden;
 }
 
+.download_box .filesize em {
+  font-style: normal;
+}
+
 .download_box .call-to-action { 
   clear: both;
-  color: #1d4e5d !important;
   text-align: center;
   margin: 0 !important;
   padding: 9px 0 1px 0 !important;
 }
 
-.download_box .sms { 
-  color: #676568;
+.download_box .sms {
   font-size: 20px !important;
   text-align: center;
   margin: 0 !important;
@@ -80,7 +102,6 @@
 .download_box .sms em {
   font-weight: bold;
   font-style: normal;
-  color: #5596aa;
 }
 
 .download_box .sms .star { 
@@ -88,7 +109,6 @@
 }
 
 .download_box .price { 
-  color: #9c9e9d !important;
   font-size: 10px !important;
   text-align: right;
   margin: 0 !important;
@@ -96,11 +116,12 @@
 }
 
 .download_box form { 
-  background: url(/images/download_box/input.png);
   width: 310px;
   height: 24px;
   margin: 4px 12px !important;
   padding: 5px 4px 4px 6px !important;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
 }
 
 .download_box form .code_field { 
@@ -111,17 +132,18 @@
   width: 194px;
   font-size: 12px !important;
   height: 23px;
-  color: #8e8e8e !important;
 }
 
 .download_box form .submit { 
   float: right;
-  color: white !important;
   font-size: 12px !important;
   border: 0 !important;
   width: 112px;
   height: 23px;
-  background: url(/images/download_box/botao-off.png);
+  background: url(/images/download_box/botao-brilho.png) no-repeat;
+  background-position: 1px 1px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
 }
 
 .download_box form label { 
@@ -136,10 +158,8 @@
 .download_box .have_one {
   float: right;
   margin: 0 !important;
-  color: #5596aa !important;
   text-decoration: none !important;
   padding: 7px 15px 0 0 !important;
-  
 }
 
 .download_box .have_one span { 
@@ -147,3 +167,9 @@
   font-size: 14px !important;
   height: 13px;
 }
+
+#style-data {
+  display: none;
+}
+
+

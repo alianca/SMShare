@@ -44,7 +44,6 @@ body {
 #sidebar { 
   float: left;
   width: 182px;
-  height: 286px;
   margin: 1px 0 0 34px;
   padding: 5px;
   background: url(/images/user_panel/menu.png);
@@ -54,45 +53,49 @@ body {
 #sidebar > li { 
   display: block;
   width: 152px;
-  height: 15px;
   padding: 10px 15px;
   margin-bottom: 5px;
   color: #34378A;
 }
 
-#sidebar > li.no-dropdown { 
-  background: url(/images/user_panel/menu/nodropdown.png);
+#sidebar > li.no-dropdown {
+  background: url(/images/user_panel/menu/nodropdown.png) no-repeat;
 }
 
-#sidebar > li { 
-  background: url(/images/user_panel/menu/dropdown.png);
+#sidebar > li {
+  cursor: pointer;
+  background: url(/images/user_panel/menu/dropdown.png) no-repeat;
 }
 
 #sidebar > li.active { 
   color: white;
-  background: url(/images/user_panel/menu/dropdown-active.png);
+  background: url(/images/user_panel/menu/dropdown-active.png) no-repeat;
 }
 
-#sidebar ul.dropdown { 
+#sidebar li.active ul.dropdown{
   display: block;
+}
+
+#sidebar li ul.dropdown { 
+  display: none;
   width: 147px;
   height: 76px;
-  margin: 0 0 5px 5px;
+  margin: 10px 0 5px -10px;
   padding: 5px 15px;
   background: url(/images/user_panel/menu/fundo-active.png);
 }
 
-#sidebar ul.dropdown li {
+#sidebar li ul.dropdown li {
   list-style-image: url(/images/user_panel/menu/bullet-off.png);
   list-style-position: inside;
   margin: 7px 0;
 }
 
-#sidebar ul.dropdown li.active {
+#sidebar li ul.dropdown li.active {
   list-style-image: url(/images/user_panel/menu/bullet-active.png);
 }
 
-#sidebar ul.dropdown li.active a { 
+#sidebar li ul.dropdown li.active a { 
   color: #f37f00;
 }
 
@@ -449,6 +452,18 @@ table.file_list td.name {
   display: inline-block;
 }
 
+.actions_menu li.rename a.icon {
+  width: 60px;
+  height: 44px;
+  margin-bottom: -7px;
+  margin-left: 13px;
+  background: url(/images/user_panel/botoes/renomear_on.png) no-repeat;
+}
+
+.actions_menu li.rename a.icon.off {
+  background: url(/images/user_panel/botoes/renomear_off.png) no-repeat;
+}
+
 .actions_menu li.separator {
   width: 1px;
   margin: 0 5px 0 5px;
@@ -512,9 +527,21 @@ table.file_list td.name {
   position: absolute;
   display: none;
   top: 201px;
-  width: 604px;
+  width: 648px;
   height: 27px;
-  padding: 3px 25px;
+  padding: 3px 3px;
+  background: white;
+  border: 1px solid #F37F00;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+}
+
+#actions_forms #rename {
+  position: absolute;
+  display: none;
+  top: 201px;
+  width: 648px;
+  padding: 3px 3px;
   background: white;
   border: 1px solid #F37F00;
   border-radius: 7px;
@@ -548,6 +575,50 @@ table.file_list td.name {
   float: left;
 }
 
+#actions_forms #rename .inputs {
+  float: none;
+}
+
+#actions_forms #rename .rename-field {
+  display: block;
+  margin: 3px;
+}
+
+#actions_forms #rename .rename-field label {
+  display: none;
+}
+
+#actions_forms #rename .hidden-field {
+  display: none;
+}
+
+#actions_forms #rename input[type=text] {
+  border: 1px solid #7bbacf;
+  width: 490px;
+  max-width: 490px;
+  height: 17px;
+  padding: 5px 7px;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+}
+
+#actions_forms #rename .rename-btn {
+  display: block;
+  position: absolute;
+  left: 522px;
+  bottom: 13px;
+  color: white;
+  font-size: 12px;
+  border: 0 solid transparent;
+  width: 122px;
+  height: 23px;
+}
+
+#actions_forms #rename input[type=submit] {
+  width: 122px;
+  background: url(/images/user_files/botao-rename-off.png);
+}
+
 #actions_forms .buttons {
   float: left;
   padding: 2px 0 2px 15px !important;
@@ -568,6 +639,10 @@ table.file_list td.name {
 
 #form_placeholder {
   height: 43px;
+  display: none;
+}
+
+#rename_placeholder {
   display: none;
 }
 

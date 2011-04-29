@@ -2,6 +2,9 @@ $(document).ready(function() {
   if($("input#all_files")) {
     $("input#all_files").live("click", function() {
       $("input.select_file").attr("checked", $("input#all_files").attr("checked"));
+      $("input.select_file").each(function() {
+        $(this).change();
+      });
     });
   }
   
@@ -23,20 +26,81 @@ $(document).ready(function() {
       $("#actions_forms form").hide();
       $("#actions_forms " + name).show();
       $("#form_placeholder").show();
-    }  
+    }
   }
   
-  $(".actions_menu .create a").click(function () {
+  function show_rename() {
+    if ($("#actions_forms #rename:visible")[0]) {
+      $("#actions_forms form").hide();
+      $("#rename_placeholder").hide();
+    } else {
+      $("#actions_forms form").hide();
+      $("#actions_forms #rename").show();
+      $("#rename_placeholder").show();
+    }
+  }
+  
+  $(".actions_menu .create a").click(function (e) {
     show_form("#new_folder");
+    e.stopImmediatePropagation();
   });
   
-  $(".actions_menu .move a").click(function () {
+  $(".actions_menu .move a").click(function (e) {
     show_form("#move");
+    e.stopImmediatePropagation();
+  });
+  
+  $(".actions_menu .rename a").click(function (e) {
+    if (!($(this).hasClass("off"))) {
+      show_rename();
+    }
+    e.stopImmediatePropagation();
   });
   
   /* Copia a seleção de arquivos da tabela para a lista oculta */
   $(".file_list .select_file").change(function () {
     $("#actions_forms .hidden_file_list input[value=" + this.value + "]").attr("checked", $(this).attr("checked"));
+    
+    if ($(this).attr("checked")) {
+      $("#" + this.value).removeClass("hidden-field");
+      $("#rename_placeholder").css("margin-bottom", $("#rename").height() + 27);
+    } else {
+      $("#" + this.value).addClass("hidden-field");
+      $("#rename_placeholder").css("margin-bottom", $("#rename").height() + 27);
+    }
+    
+    var has_selected = false;
+    $("#actions_forms .hidden_file_list input[type=checkbox]").each(function() {
+      if ($(this).attr("checked")) {
+        has_selected = true;
+      }
+    });
+    
+    if (has_selected) {
+      $(".actions_menu .rename a").removeClass("off");
+    } else {
+      $(".actions_menu .rename a").addClass("off");
+      if ($("#actions_forms #rename:visible")[0]) {
+        $("#actions_forms form").hide();
+        $("#rename_placeholder").hide();
+      }
+    }
+    
+  });
+  
+  
+  /* Dropdown da sidebar */
+  $("#sidebar li.menu").click(function(e) {
+    if (!$(this).hasClass("no-dropdown") && this == e.target) {
+      if ($(this).hasClass("active")) {
+        $(this).children("ul.dropdown").hide("fast");
+        $(this).removeClass("active");
+      } else {
+        $(this).children("ul.dropdown").show("fast");
+        $(this).addClass("active");
+      }
+    }
+    e.stopImmediatePropagation();
   });
 });
 

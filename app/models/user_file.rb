@@ -7,6 +7,10 @@ class UserFile
   
   # Define o esquema logico db.user_files
   # filename já é criado pelo CarrierWave
+  
+  # O GridFS não permite alterar o nome de um arquivo existente
+  # Então criei um campo alias para poder renomear os arquivos
+  field :alias, :type => String
   field :tags, :type => Array
   field :description, :type => String
   field :filetype, :type => String
@@ -58,7 +62,7 @@ class UserFile
   sentenced_fields :tags
   
   def self.search query_string
-    fields_to_search = ["filename", "filetype", "description", "tags", "categories"]
+    fields_to_search = ["alias", "filename", "filetype", "description", "tags", "categories"]
 
     regex_for_query = Regexp.new query_string.gsub(" ", "|"), "i"
 
@@ -66,6 +70,12 @@ class UserFile
     self.where(mongodb_query)
   end
   
+  
+  def copy_filename
+    self.alias = self.filename
+    self.save!
+  end
+
   private  
     def cache_filetype
       self.filetype = self.file.file.content_type
@@ -95,7 +105,7 @@ class UserFile
         FileUtils.remove_dir(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
       end
     end
-    
+        
     def cleanup_description
       self.description = nil if self.description == "Digite uma descrição objetiva para seu arquivo."
     end

@@ -18,6 +18,8 @@ class UserPanelController < ApplicationController
   def manage
     @new_folder = @folder.children.new(:owner => current_user)
     @resources = @folder.paginate(params[:page], 10)
+    @active = [:files, :manage]
+    @active_footer = :manage_files
   end
   
   def destroy
@@ -32,10 +34,21 @@ class UserPanelController < ApplicationController
     @files = UserFile.where(:_id.in => (params[:user_file][:files].collect { |id| BSON::ObjectId(id) }))
     @folders = Folder.where(:_id.in => ((params[:user_file][:files]-[params[:user_file][:folder]]).collect { |id| BSON::ObjectId(id) }))
     
-    @files.each { |file| file.folder = @folder; file.save! }    
+    @files.each { |file| file.folder = @folder; file.save! }
     @folders.each { |folder| folder.parent = @folder; folder.save! }
     
     respond_with(@folder, :location => manage_user_panel_path(:folder_id => @folder.parent))
+  end
+
+  def rename
+    params[:user_file][:files].delete_if { |f| f.blank? }
+    @files = UserFile.where(:_id.in => (params[:user_file][:files].collect { |id| BSON::ObjectId(id) }))
+    @folders = Folder.where(:_id.in => ((params[:user_file][:files]-[params[:user_file][:folder]]).collect { |id| BSON::ObjectId(id) }))
+    
+    @files.each { |file| file.alias = params[:user_file][:new_name][file.id.to_s]; file.save! }
+    @folders.each { |folder| folder.name = params[:user_file][:new_name][folder.id.to_s]; folder.save! }
+    
+    redirect_to :back
   end
   
   private

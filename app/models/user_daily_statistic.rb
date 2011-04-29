@@ -7,7 +7,7 @@ class UserDailyStatistic
   field :revenue, :type => Float
   field :referred_revenue, :type => Float
   field :updated_at, :type => Time
-  
+    
   embedded_in :user, :inverse_of => :daily_statistics
 
   def self.generate_statistics_for_user! user
@@ -21,14 +21,30 @@ class UserDailyStatistic
     user.daily_statistics.where(:date.lt => 1.month.ago.beginning_of_month).destroy_all
   end
   
-  def self.last_7_days_graph
-    daily_statistics = self.order_by(:date.desc).limit(7)
-    graph = GoogleChart::LineChart.new("280x150", nil, false)
-    graph.data "Downloads", daily_statistics.collect(&:downloads), "82BACE"
-    graph.line_style(0, :line_thickness => 4)
-    graph.shape_marker(:circle, :color => "EC7D14", :pixel_size => 6, :data_set_index => 0)
-    graph.show_legend = false      
-    graph.to_url({:chma => "5,5,5,5"})
+  def self.last_7_days_graph  
+    daily_statistics = self.order_by(:date.desc).limit(7).reverse
+    graph = LazyHighCharts::HighChart.new(:graph) do |g|
+      g.chart(:width => 280, :height => 150, :spacingLeft => -278)
+      g.colors(["#82BACE"])
+      g.series(:name => "Downloads", :data=> daily_statistics.collect { |ds| {:name => ds.date.strftime(I18n.t("date.formats.long")), :y => ds.downloads} })
+      g.xAxis(:categories => daily_statistics.collect(&:date).collect { |d| I18n.t("date.abbr_day_names")[d.wday] })
+      g.yAxis(:title => {:text => "Downloads", :style => {:color => "#82BACE"}}, :allowDecimals => false)
+      g.title nil
+    end
+  end
+  
+  def self.graph(start_date = nil, end_date = nil)
+    start_date ||= 1.month.ago
+    end_date ||= Date.today    
+          
+    daily_statistics = self.where(:date.gte => start_date.to_date).where(:date.lte => end_date.to_date).order_by(:date.desc)
+    graph = LazyHighCharts::HighChart.new(:graph) do |g|
+      g.chart(:width => 650, :height => 200, :spacingLeft => -280, :zoomType => :x)
+      g.series(:name => "Downloads", :data=> daily_statistics.collect { |ds| {:name => ds.date.strftime(I18n.t("date.formats.long")), :y => ds.downloads} })
+      g.xAxis(:categories => daily_statistics.collect(&:date).collect { |d| d.strftime("%d/%m/%Y") })
+      g.yAxis(:title => {:text => "Downloads"}, :allowDecimals => false)
+      g.title nil
+    end
   end
   
   def self.method_missing(method_sym, *arguments, &block)

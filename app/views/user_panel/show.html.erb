@@ -114,5 +114,5 @@
 
 <div id="graph">
   <h3>Estatísticas dos últimos 7 dias</h3>
-  <%= image_tag current_user.daily_statistics.last_7_days_graph %>
+  <%= high_chart("last_7_days_graph", current_user.daily_statistics.last_7_days_graph) %>
 </div>

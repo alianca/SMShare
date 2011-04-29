@@ -33,9 +33,6 @@ gem 'resque'
 gem 'resque-retry'
 gem 'SystemTimer'
 
-# GoogleChart
-gem 'gchartrb', :require => 'google_chart'
-
 # LazyHighcharts
 gem 'lazy_high_charts'
 

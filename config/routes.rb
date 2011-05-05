@@ -30,7 +30,11 @@ Smshare::Application.routes.draw do |map|
     end
   end
   
-  get :smsearch, :controller => :search, :action => :index, :as => :search
+  resources :smsearch, :controller => :search, :as => :search, :only => [:index, :show] do
+    member do
+      post :new_comment
+    end
+  end
   
   namespace :admin do
     resources :news

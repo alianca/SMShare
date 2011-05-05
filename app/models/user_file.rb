@@ -15,6 +15,8 @@ class UserFile
   field :description, :type => String
   field :filetype, :type => String
   field :filesize, :type => Integer
+  field :rate_sum, :type => Integer, :default => 0
+  field :ratings, :type => Integer, :default => 0
   field :public, :type => Boolean, :default => true
   field :path, :type => String, :default => "/"
   
@@ -23,6 +25,9 @@ class UserFile
   
   # Categoria
   has_many_related :categories, :stored_as => :array
+  
+  # Comentários
+  has_many_related :comments, :stored_as => :array
   
   # Pasta
   def folder
@@ -74,6 +79,29 @@ class UserFile
   def copy_filename
     self.alias = self.filename
     self.save!
+  end
+  
+  def filetype_human_readable
+    case self.filetype
+      when "image/png"
+        "Imagem PNG"
+      else
+        self.filetype
+    end
+  end
+  
+  def add_rate(rate)
+    self.rate_sum += rate
+    self.ratings += 1
+    save
+  end
+  
+  def rate
+    if self.ratings > 0
+      self.rate_sum*1.0/self.ratings
+    else
+      0
+    end
   end
 
   private  

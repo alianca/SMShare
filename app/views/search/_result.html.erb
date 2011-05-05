@@ -1,6 +1,6 @@
 <div id="search-result-<%= result._id %>" class="search-result">
   <img class="filetype" />
-  <h5 class="filename"><%= result.filename %></h5>
+  <h5 class="filename"><%= link_to result.alias, search_path(result) %></h5>
   <p class="owner">
     <span class="when">Há <%= distance_of_time_in_words_to_now(result.created_at) %></span>
     por

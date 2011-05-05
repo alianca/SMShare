@@ -4,6 +4,7 @@
   margin-right: auto;
   background-color: rgba(180,217,230,0.48);
   border-radius: 10px;
+  -moz-border-radius: 10px;
   padding: 15px;
   width: 90%;
 }
@@ -34,8 +35,8 @@ ul#faq-tab-bar li {
   display: inline;
   position: relative;
   background-color: #ffffff;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  border-radius: 10px 10px 0 0;
+  -moz-border-radius: 10px 10px 0 0;
   padding: 15px 25px 15px 25px;
   margin-left: 3px;
   margin-right: 3px;

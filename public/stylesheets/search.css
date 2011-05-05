@@ -103,7 +103,8 @@
   border-bottom: 1px dotted black;
 }
 
-#search-results .search-result img {
+#search-results .search-result img,
+#file-container img.filetype  {
   float: left;
   width: 90px;
   height: 68px;
@@ -145,7 +146,7 @@
   border-bottom: 1px dotted #34378A;
 }
 
-#search-results .search-result .download .donwload-link {
+#search-results .search-result .download .download-link {
   float: left;
 }
 
@@ -191,7 +192,224 @@
 
 
 
+/* Página do arquivo */
+
+#file-container {
+  clear: right;
+  width: 608px;
+  margin-left: 224px;
+  padding: 4px;
+}
+
+#file-container .general-info {
+  min-height: 80px;
+  border-bottom: 1px dotted black;
+}
+
+#file-container h5 {
+  width: 310px;
+  height: 16px;
+  font-size: 16px;
+  line-height: 16px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  color: #4f4439;
+}
 
 
+#file-container h5.title {
+  color: #383289;
+  margin-left: 0;
+}
+
+#file-container .images {
+  border-bottom: 1px dotted black;
+}
+
+#file-container .file-info {
+  height: 100px;
+  font-size: 11px;
+  line-height: 20px;
+  width: 608px;
+  border-bottom: 1px dotted black;
+}
+
+#file-container .file-info img {
+  width: 15px;
+  height: 15px;
+}
+
+#file-container .file-info .left {
+  float: left;
+  width: 185px;
+  margin-top: 10px;
+  margin-left: 5px;
+  padding 5px;
+}
+
+#file-container .file-info .right {
+  float: left;
+  width: 155px;
+  margin-top: 10px;
+  margin-left: 30px;
+  padding 5px;
+}
+
+#file-container .file-info .download-button {
+  background: url(/images/search/fundo-download.png) no-repeat;
+  display: block;
+  float: left;
+  height: 80px;
+  width: 230px;
+  margin-top: 10px;
+}
+
+#file-container .file-info .download-button a.download-title {
+  color: white;
+  font-size: 20px;
+  margin-left: 60px;
+  line-height: 60px;
+}
+
+#file-container .file-info .download-button span.virus {
+  display: block;
+  color: white;
+  margin-top: -23px;
+  margin-left: 60px;
+}
+
+#file-container .file-info .download-button span.antivirus {
+  display: block;
+  font-size: 12px;
+  color: gray;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+#file-container .share {
+  display: block;
+  padding-bottom: 15px;  
+  border-bottom: 1px dotted black;
+}
+
+#file-container .share .labels {
+  float: left;
+  display: block;
+  width: 50px;
+  line-height: 29px;
+  text-align: right;
+}
+
+#file-container .share input[type=text] {
+  width: 276px;
+  height: 23px;
+  margin: 1px;
+  margin-left: 5px;
+  padding: 2px;
+  border: none;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+}
+
+#file-container .comments {
+  padding-bottom: 10px;
+}
+
+#file-container .comments h5 span {
+  color: black;
+}
+
+#file-container .comments #new-comment-form {
+  display: block;
+  color: gray;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+#file-container .comments #new-comment-form textarea {
+  width: 600px;
+  height: 80px;
+  border: none;
+  resize: none;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+}
+
+#file-container .comments #new-comment-form .characters {
+  line-height: 24px;
+  height: 24px;
+}
+
+#file-container .comments #new-comment-form .characters .character-counter {
+  color: black;
+}
+
+#file-container .comments #new-comment-form input[type=submit] {
+  display: block;
+  float: right;
+  height: 26px;
+  width: 122px;
+  margin-right: 5px;
+  background: url(/images/search/botao-enviar-off.png) no-repeat;
+  color: white;
+  font-size: 11.5px;
+  border: none;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+#file-container .comments #new-comment-form .rate-file {
+  display: block;
+  float: right;
+  line-height: 24px;
+  height: 24px;
+  margin-right: 15px;
+}
+
+#file-container .comments #new-comment-form .rate-file input[type=radio] {
+  display: none;
+}
+
+#file-container .comments #new-comment-form .rate-file .star {
+  padding: 5px;
+  background: url(/images/search/icone-nota-off.png) no-repeat;
+  margin: 0 -1px;
+}
+
+#file-container .comments .comment {
+  padding: 10px;
+  font-size: 12px;
+}
+
+#file-container .comments .comment .rate-stars {
+  float: right;
+  margin-top: -22px;
+}
+
+#file-container .comments .comment .rate-stars img {
+  margin: 0 1px;
+}
+
+#file-container .comments .comment .texto {
+  display: block;
+  margin-top: 5px;
+  color: #4f4439;
+}
+
+#file-container .comments .comment.odd {
+  background-color: #cce5ed;
+}
+
+#file-container .comments .comment.even {
+  background-color: #e2f0f5;
+}
+
+#file-container .comments .pagination {
+  display: block;
+  margin: 20px 0;
+  text-align: center;
+}
 
 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <%= title_tag "smShare - Serviço smsharing" %>
+  <%= stylesheet_link_tag "formtastic", "formtastic_changes", "application", stylesheet_for_controller %>
+  <%= javascript_include_tag "jquery", "rails", "application", javascript_for_controller %>
+  <%= include_tiny_mce_if_needed %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+  
+<div id="header" class="container">
+  <%= link_to image_tag("layouts/logos/smshare.png"), root_path %>
+  <%= render :partial => "layouts/login_bar" %>
+  <%= render :partial => "layouts/menus/header" %>
+  <div id="dove"></div>
+</div>
+
+<div id="main-container" class="container">
+  <p class="notifications notice"><%= notice %></p>
+  <p class="notifications alert"><%= alert %></p>
+  
+  <div id="search-container" class="container">
+    <div id="search-order">
+      <ul>
+        <li class="order-by-date"><%= link_to "Arquivos recentes" %></li>
+        <li class="order-by-downloads"><%= link_to "Arquivos mais baixados" %></li>
+        <li class="order-by-comments"><%= link_to "Arquivos mais comentados" %></li>
+        <li class="order-by-rate"><%= link_to "Arquivos favoritos" %></li>
+      </ul>
+    </div>
+    
+    <div id="search-header">
+      <%= form_tag search_index_path, :id => "header-search-form", :method => :get do %>
+        <%= link_to "Insira nossa busca no Firefox", "", :id => "firefox-addon" %>
+
+        <%= text_field_tag :q, "", :title => "O que está procurando...?", :class => "clear-on-focus" %>
+        <%= submit_tag "Buscar", :id => "search-button" %>
+      <% end %>
+    </div>
+    
+    <%= yield %>
+      
+  </div>
+</div>
+
+<div id="search" class="container">
+  <%= render :partial => "layouts/search" %>
+</div>
+
+<div id="footer">
+  <%= render :partial => "layouts/footer" %>
+</div>
+
+</body>
+</html>

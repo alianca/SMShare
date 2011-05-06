@@ -16,7 +16,7 @@ $(document).ready(function() {
     for (var i = 1; i <= 5; i++) {
       var element = $("#file-container .comments #new-comment-form .rate-file .star.index" + i);
       console.log(element);
-      element.css('background', 'url(/images/search/icone-nota-' + (i<=index ? 'on.png' : 'off.png') + ') no-repeat');
+      element.css('background', 'url(/images/search/icone-nota-' + (i<=index ? 'on' : 'off') + '.png) no-repeat');
     }
   });
   

@@ -81,14 +81,7 @@ class UserFile
     self.save!
   end
   
-  def filetype_human_readable
-    case self.filetype
-      when "image/png"
-        "Imagem PNG"
-      else
-        self.filetype
-    end
-  end
+  
   
   def add_rate(rate)
     self.rate_sum += rate
@@ -101,6 +94,32 @@ class UserFile
       self.rate_sum*1.0/self.ratings
     else
       0
+    end
+  end
+  
+  def resolve_filetype
+    case self.filetype
+      when /image.*/
+        { :name => "Gráfico", :icon => "search/icone-grafico.png", :thumb => "search/thumb-grafico.png" }
+      when /application.*/
+        case self.filetype 
+          when /application\/(x-gzip|x-tar|x-gzip|zip|x-rar)/
+            { :name => "Compactado", :icon => "search/icone-compactado.png", :thumb => "search/thumb-compactado.png" }
+          when /application\/(word|rtf|pdf|postscript)/
+            { :name => "Documento", :icon => "search/icone-documento.png", :thumb => "search/thumb-documento.png" }
+          else
+            { :name => "Programa", :icon => "search/icone-programa.png", :thumb => "search/thumb-programa.png" }
+        end
+      when /audio.*/
+        { :name => "Áudio", :icon => "search/icone-audio.png", :thumb => "search/thumb-audio.png" }
+      when /video.*/
+        { :name => "Vídeo", :icon => "search/icone-video.png", :thumb => "search/thumb-video.png" }
+      when /text\/(html|javascript|css)/
+        { :name => "Web", :icon => "search/icone-web.png", :thumb => "search/thumb-web.png" }
+      when /application\/(jar|vnd.android.package-archive)/
+        { :name => "Móvel", :icon => "search/icone-mobile.png", :thumb => "search/thumb-mobile.png" }
+      else
+        { :name => self.filetype, :icon => "search/icone-other.png", :thumb => "search/thumb-other.png" }
     end
   end
 
@@ -145,3 +164,4 @@ class UserFile
       tags.delete("")
     end
 end
+

@@ -8,8 +8,10 @@
     <% end %>
   </div>
   <div class="rate-stars">
-    <%= image_tag("search/icone-nota-on.png") * comment['rate'] +
-        image_tag("search/icone-nota-off.png") * (5 - comment['rate']) %>
+    <% if comment['rate'] > 0 %>
+      <%= image_tag("search/icone-nota-on.png") * comment['rate'] +
+          image_tag("search/icone-nota-off.png") * (5 - comment['rate']) %>
+    <% end %>
   </div>
   
   <span class="texto"><%= comment.message %></span>

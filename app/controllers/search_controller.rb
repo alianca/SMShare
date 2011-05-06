@@ -7,8 +7,9 @@ class SearchController < ApplicationController
   
   def show
     @file = UserFile.find(params[:id])
+    @filetype = @file.resolve_filetype
     @comments = @file.comments.paginate(:per_page => 7, :page => params[:page])
-    @images = nil#@file.images
+    @images = []
   end
   
   def new_comment
@@ -21,7 +22,9 @@ class SearchController < ApplicationController
     file.comments << Comment.create(:rate => rate, :message => params[:message], :owner => current_user)
     file.save
     
-    file.add_rate rate.to_i
+    if rate.to_i > 0
+      file.add_rate rate.to_i
+    end
     
     redirect_to :back
   end

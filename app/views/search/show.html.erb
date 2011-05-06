@@ -1,35 +1,40 @@
 <div id="file-container">
   <div class="general-info">
-    <img class="filetype" />
+    <div class="filetype">
+      <div><%= image_tag @filetype[:thumb] %></div>
+      <span><%= File.extname(@file.alias) %></span>
+    </div>
     <h5 class="title"><%= @file.alias %></h5>
     <p class="description"><%= @file.description %></p>
   </div>
   
-  <div class="images">
-    <% @images.each do |img| %>
-      <%= image_tag img %>
-    <% end %>
-  </div>
+  <% if @images.count > 0 %>
+    <div class="images">
+      <% @images.each do |img| %>
+        <%= image_tag img %>
+      <% end %>
+    </div>
+  <% end %>
   
   <div class="file-info">
     <div class="left">
       <%= image_tag "search/icone-data.png" %> Enviado em <%= @file.created_at.strftime "%d/%m/%Y" %><br/>
       <%= image_tag "search/icone-dono.png" %> Enviado por <%= link_to @file.owner.name %><br/>
-      <%= image_tag "search/icone-categoria-video.png" %> Arquivo do tipo <%= @file.filetype_human_readable %><br/>
+      <%= image_tag @filetype[:icon] %> Arquivo do tipo <%= @filetype[:name] %><br/>
       <%= image_tag "search/icone-categoria.png" %> Categoria <%= link_to @file.categories.first.name %><br/>
     </div>
     <div class="right">
       <%= image_tag "search/icone-tamanho.png" %> Tamanho <%= number_to_human_size(@file.filesize, :precision => 3) %><br/>
       <%= image_tag "search/icone-comentarios.png" %> <%= link_to @file.comments.count.to_s + " comentários" %><br/>
-      <%= image_tag "search/icone-nota.png" %> <%= link_to "Nota " + @file.rate.to_s %><br/>
+      <%= image_tag "search/icone-nota.png" %> <%= link_to "Nota %0.1f" % @file.rate %><br/>
       <%= image_tag "search/icone-downloads.png" %> <%= @file.downloads.count %> downloads<br/>
     </div>
     
-    <div class="download-button">
-      <%= link_to "Baixar o arquivo!", download_user_file_url(@file), :class => "download-title" %><br/>
+    <a href="<%= download_user_file_url(@file) %>" class="download-button">
+      <span class="download-title">Baixar o arquivo!</span><br/>
       <span class="virus">Nenhum virus detectado</span>
-      <span class="antivirus">Testado por <%= link_to "Kaspersky Anti-Virus" %></span>
-    </div>
+    </a>
+    <span class="antivirus">Testado por <%= link_to "Kaspersky Anti-Virus" %></span>
   </div>
   
   <div class="share">
@@ -40,9 +45,35 @@
       Forum:<br/>
     </div>
     <div class="fields">
-      <%= text_field_tag "" %><br/>
-      <%= text_field_tag "" %><br/>
-      <%= text_field_tag "" %><br/>
+      <%= text_field_tag :link, download_user_file_url(@file), :class => "link-field" %><br/>
+      <%= text_field_tag :link, "<a href=\""+download_user_file_url(@file)+"\">Link</a>", :class => "html-field" %><br/>
+      <%= text_field_tag :link, "[URL=\"" + download_user_file_url(@file) + "\"]", :class => "forum-field" %><br/>
+    </div>
+    <div class="share-icons">
+      <%= image_tag "search/icones-compartilhar/twitter.png" %>
+      <%= image_tag "search/icones-compartilhar/youtube.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_15.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_16.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_19.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_17.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_20.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_18.png" %>
+      <%= image_tag "search/icones-compartilhar/google.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_11.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_13.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_10.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_8.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_12.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_9.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_14.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_7.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_2.png" %>
+      <%= image_tag "search/icones-compartilhar/facebook.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_5.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_4.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_3.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_6.png" %>
+      <%= image_tag "search/icones-compartilhar/UNK_1.png" %>
     </div>
   </div>  
   

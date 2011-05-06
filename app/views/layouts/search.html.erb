@@ -40,6 +40,20 @@
       <% end %>
     </div>
     
+    <div id="categorias">
+      <h5>Categorias</h5>
+      <ul>
+        <li class="categoria"><%= link_to "Exibir Todas" %></li>
+        <% Category.all.each do |category| %>
+          <li class="categoria"><%= link_to category.name %></li>
+        <% end %>
+      </ul>
+    </div>
+    
+    <div class="filtros">
+    
+    <div>
+    
     <%= yield %>
       
   </div>

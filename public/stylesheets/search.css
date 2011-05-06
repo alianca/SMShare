@@ -228,6 +228,7 @@
 }
 
 #file-container .general-info {
+  color: #4f4439;
   min-height: 80px;
   border-bottom: 1px dotted black;
 }
@@ -269,6 +270,7 @@
 
 #file-container .file-info {
   display: block;
+  color: #4f4439;
   height: 100px;
   font-size: 11px;
   line-height: 20px;
@@ -329,6 +331,7 @@
 }
 
 #file-container .share {
+  color: #4f4439;
   display: block;
   padding-bottom: 15px;  
   border-bottom: 1px dotted black;
@@ -467,5 +470,45 @@
   margin: 20px 0;
   text-align: center;
 }
+
+/* Filtro de categorias */
+
+#categorias {
+  float: left;
+  width: 222px;
+}
+
+#categorias h5 {  
+  width: 310px;
+  height: 16px;
+  font-size: 16px;
+  line-height: 16px;
+  margin-top: 25px;
+  margin-left: 10px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  color: #4f4439;
+}
+
+#categorias .categoria {
+  list-style: none;
+  margin-left: -15px;
+}
+
+#categorias .categoria a {
+  text-decoration: none;
+  border-bottom: 1px dotted #34378a;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 

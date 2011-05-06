@@ -1,0 +1,54 @@
+<h2>Relatório de ganhos</h2>
+
+<%= form_tag user_panel_reports_path, :method => :get do %>
+  <p>
+    Período do dia
+    <%= text_field_tag :start_date, @start_date.strftime("%d/%m/%Y") %>
+    ao dia
+    <%= text_field_tag :end_date, @end_date.strftime("%d/%m/%Y") %>
+    <%= submit_tag "Confirmar" %>
+  </p>
+<% end %>
+
+<div id="report_graph">
+  <%= high_chart("statistics_graph", current_user.daily_statistics.graph(@statistics)) %>
+</div>
+
+<table id="report_header" class="report">
+  <thead>
+    <tr>
+      <td class="date">Data</td>
+      <td class="downloads">Downloads</td>
+      <td class="revenue">Ganhos</td>
+      <td class="referred_downloads">2º Nível</td>
+      <td class="referred_revenue">Ganhos</td>
+      <td class="total">Total</td>
+    </tr>
+  </thead>
+</table>
+<table id="report_body" class="report">
+  <tbody>
+    <% @statistics.each do |statistic| %>
+      <tr>
+        <td class="date"><%= statistic.date.strftime(I18n.t("date.formats.long")) %></td>
+        <td class="downloads"><%= statistic.downloads %></td>
+        <td class="revenue"><%= number_to_currency(statistic.revenue) %></td>
+        <td class="referred_downloads"><%= statistic.referred_downloads %></td>
+        <td class="referred_revenue"><%= number_to_currency(statistic.referred_revenue) %></td>
+        <td class="total"><%= number_to_currency(statistic.revenue + statistic.referred_revenue) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<table id="report_footer" class="report">  
+  <tfoot>
+    <tr>
+      <td class="date"></td>
+      <td class="downloads"><%= @statistics.collect(&:downloads).sum %></td>
+      <td class="revenue"><%= number_to_currency(@statistics.collect(&:revenue).sum) %></td>
+      <td class="referred_downloads"><%= @statistics.collect(&:referred_downloads).sum %></td>
+      <td class="referred_revenue"><%= number_to_currency(@statistics.collect(&:referred_revenue).sum) %></td>
+      <td class="total"><%= number_to_currency(@statistics.collect { |s| s.revenue + s.referred_revenue }.sum) %></td>
+    </tr>
+  </tfoot>
+</table>

@@ -35,12 +35,12 @@
     </ul>
   </li>
   
-  <% if @active[0] == :statistics %>
+  <% if @active[0] == :reports %>
     <li class="menu active">
   <% else %>
     <li class="menu">
   <% end %>
-    Relatórios
+    <%= link_to "Relatórios", user_panel_reports_path %>
   </li>
   
   <% if @active[0] == :tools %>

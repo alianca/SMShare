@@ -69,6 +69,11 @@
   -moz-border-radius: 7px 0 0 7px;
 }
 
+#search-order a.order-by{
+  text-decoration: none;
+  color: #f37f00;
+}
+
 #search-order ul li.order-by-date {
   background: white url(/images/search/icone-data.png) no-repeat 5px 3px;
 }
@@ -499,16 +504,3 @@
   text-decoration: none;
   border-bottom: 1px dotted #34378a;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

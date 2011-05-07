@@ -1,14 +1,21 @@
 class SearchController < ApplicationController
-  def index
-    @files = UserFile.search(params[:q]).paginate(:per_page => 10, :page => params[:page]) if params[:q]
+
+  before_filter :set_active, :only => [:index, :show]
+
+  def set_active
     @active_header_tab = :search
     @active_footer = :search_files
+  end
+  
+  def index
+    @files = UserFile.search(params[:q]).paginate(:per_page => 10, :page => params[:page]) if params[:q]
+    @query = params[:q]
   end
   
   def show
     @file = UserFile.find(params[:id])
     @filetype = @file.resolve_filetype
-    @comments = @file.comments.paginate(:per_page => 7, :page => params[:page])
+    @comments = @file.comments.paginate(:per_page => 6, :page => params[:page])
     @images = []
   end
   

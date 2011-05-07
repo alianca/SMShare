@@ -117,6 +117,7 @@
   vertical-align: center;
   margin: 5px 9px 5px 0;
   background-color: white;
+  box-shadow: 1px 1px 1px 1px rgba(50,50,50,0.05);
 }
 
 #search-results .search-result .filetype span,
@@ -229,10 +230,37 @@
   clear: right;
   width: 608px;
   margin-left: 224px;
-  padding: 4px;
+  padding: 0 4px;
+}
+
+#file-container .go-back {
+  display: block;
+  position: relative;
+  width: 608px;
+  height: 20px;
+  border-bottom: 1px dotted black;
+  top: -8px;
+  padding: 0 0 8px 0;
+}
+
+#file-container .go-back a {
+  line-height: 20px;
+  color: #4f4439;
+}
+
+#file-container .go-back span {
+  height: 15px;
+  padding: 0 15px 0 3px;
+  margin-right: 7px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  background: url(/images/search/voltar.png) no-repeat;
+  background-position: center;
+  background-color: white;
 }
 
 #file-container .general-info {
+  margin-top: -10px;
   color: #4f4439;
   min-height: 80px;
   border-bottom: 1px dotted black;

@@ -1,4 +1,11 @@
 <div id="file-container">
+
+  <div class="go-back">
+    <a href="<%= search_index_path(:q => params[:query]) %>">
+      <span></span>Voltar para o resultado da busca
+    </a>
+  </div>
+
   <div class="general-info">
     <div class="filetype">
       <div><%= image_tag @filetype[:thumb] %></div>
@@ -50,30 +57,30 @@
       <%= text_field_tag :link, "[URL=\"" + download_user_file_url(@file) + "\"]", :class => "forum-field" %><br/>
     </div>
     <div class="share-icons">
-      <%= image_tag "search/icones-compartilhar/twitter.png" %>
-      <%= image_tag "search/icones-compartilhar/youtube.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_15.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_16.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_19.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_17.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_20.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_18.png" %>
-      <%= image_tag "search/icones-compartilhar/google.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_11.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_13.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_10.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_8.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_12.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_9.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_14.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_7.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_2.png" %>
-      <%= image_tag "search/icones-compartilhar/facebook.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_5.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_4.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_3.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_6.png" %>
-      <%= image_tag "search/icones-compartilhar/UNK_1.png" %>
+      <%= image_tag("search/icones-compartilhar/twitter.png")%>
+      <%= image_tag("search/icones-compartilhar/youtube.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_15.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_16.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_19.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_17.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_20.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_18.png")%>
+      <%= image_tag("search/icones-compartilhar/google.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_11.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_13.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_10.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_8.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_12.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_9.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_14.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_7.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_2.png")%>
+      <%= image_tag("search/icones-compartilhar/facebook.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_5.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_4.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_3.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_6.png")%>
+      <%= image_tag("search/icones-compartilhar/UNK_1.png")%>
     </div>
   </div>  
   

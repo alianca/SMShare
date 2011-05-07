@@ -85,8 +85,8 @@
   </div>  
   
   <div class="comments">
-    <h5>Comentários <span>(<%= @comments.count %>)</span></h5>
-    <% if @comments.count > 0 %>
+    <h5>Comentários <span>(<%= @file.comments.count %>)</span></h5>
+    <% if @file.comments.count > 0 %>
       <%= render :partial => "comment", :collection => @comments %>
       <%= will_paginate @comments %>
     <% end %>

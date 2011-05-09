@@ -41,6 +41,15 @@
     <li class="menu">
   <% end %>
     Relatórios
+    <ul class="dropdown">
+      <% if @active[1] == :report %>
+        <li class="active">
+      <% else %>
+        <li>
+      <% end %>
+        <%= link_to "Relatório de ganhos" %>
+      </li>
+    </ul>
   </li>
   
   <% if @active[0] == :tools %>
@@ -49,6 +58,22 @@
     <li class="menu">
   <% end %>
     Ferramentas
+    <ul class="dropdown">
+      <% if @active[1] == :download_box %>
+        <li class="active">
+      <% else %>
+        <li>
+      <% end %>
+        <%= link_to "Caixas de download" %>
+      </li>
+      <% if @active[1] == :press %>
+        <li class="active">
+      <% else %>
+        <li>
+      <% end %>
+        <%= link_to "Peças publicitárias" %>
+      </li>
+    </ul>
   </li>
   
   <% if @active[0] == :data %>

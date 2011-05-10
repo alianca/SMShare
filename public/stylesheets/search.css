@@ -93,6 +93,7 @@
 #search-results {
   clear: right;
   width: 608px;
+  min-height: 200px;
   margin-left: 224px;
   padding: 4px;
 }
@@ -398,7 +399,7 @@
   margin: 1px;
   margin-left: 5px;
   padding: 2px;
-  border: none;
+  border: 1px solid #7bbacf;
   background-color: white;
   color: gray;
   border-radius: 7px;

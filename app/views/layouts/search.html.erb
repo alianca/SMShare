@@ -51,9 +51,9 @@
     <div id="categorias">
       <h5>Categorias</h5>
       <ul>
-        <li class="categoria"><%= link_to "Exibir Todas", search_index_path(:order => 'rate', :q => params[:q], :filter => nil) %></li>
+        <li class="categoria"><%= link_to "Exibir Todas", search_index_path(:order => params[:order], :q => params[:q], :filter => nil) %></li>
         <% Category.all.each do |category| %>
-          <li class="categoria"><%= link_to category.name, search_index_path(:order => 'rate', :q => params[:q], :filter => category._id) %></li>
+          <li class="categoria"><%= link_to category.name, search_index_path(:order => params[:order], :q => params[:q], :filter => category._id) %></li>
         <% end %>
       </ul>
     </div>

@@ -15,17 +15,13 @@ class SearchController < ApplicationController
         order = 'created_at'
       end
       
-      all_files = UserFile.search(params[:q])
+      all_files = UserFile.search(params[:q]).order_by([[order, :desc], [:alias, :asc]]).to_a
       
       if params[:filter]
-        all_files.each do |f|
-          if f.categories.index params[:filter] == nil
-            all_files.remove f
-          end
-        end
+        all_files.delete_if { |f| (f.categories.select { |c| c._id == BSON::ObjectId(params[:filter]) }).empty? }
       end
       
-      @files = all_files.order_by([[order, :desc], [:alias, :asc]]).paginate(:per_page => 10, :page => params[:page])
+      @files = all_files.paginate(:per_page => 10, :page => params[:page])
     end
   end
   

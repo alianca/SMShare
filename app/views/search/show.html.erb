@@ -1,7 +1,7 @@
 <div id="file-container">
 
   <div class="go-back">
-    <a href="<%= search_index_path(:q => params[:q]) %>">
+    <a href="<%= search_index_path(:q => params[:q], :filter => params[:filter], :order => params[:order])%>">
       <span></span>Voltar para o resultado da busca
     </a>
   </div>
@@ -28,7 +28,8 @@
       <%= image_tag "search/icone-data.png" %> Enviado em <%= @file.created_at.strftime "%d/%m/%Y" %><br/>
       <%= image_tag "search/icone-dono.png" %> Enviado por <%= link_to @file.owner.name %><br/>
       <%= image_tag @filetype[:icon] %> Arquivo do tipo <%= @filetype[:name] %><br/>
-      <%= image_tag "search/icone-categoria.png" %> Categoria <%= link_to @file.categories.first.name %><br/>
+      <%= image_tag "search/icone-categoria.png" %> Categoria
+      <%= link_to @file.categories.first.name, search_index_path(:q => params[:q], :filter => params[:filter], :order => params[:order])%><br/>
     </div>
     <div class="right">
       <%= image_tag "search/icone-tamanho.png" %> Tamanho <%= number_to_human_size(@file.filesize, :precision => 3) %><br/>

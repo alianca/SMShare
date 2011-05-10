@@ -93,7 +93,7 @@
     <% end %>
     
     <%= form_tag new_comment_search_path, :id => "new-comment-form", :method => :post do %>
-      <%= text_area_tag "message" %>
+      <%= text_area_tag "message", "", :maxlength => 280 %>
       <span class="characters">Caracteres restantes: <span class="character-counter">280</span></span>
       <%= submit_tag "Enviar" %>
       <span class="rate-file">Avalie esse arquivo:

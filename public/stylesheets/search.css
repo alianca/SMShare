@@ -427,6 +427,7 @@
   border: none;
   resize: none;
   border-radius: 7px;
+  border: 1px solid #7bbacf;
   -moz-border-radius: 7px;
 }
 
@@ -485,10 +486,11 @@
   margin: 0 1px;
 }
 
-#file-container .comments .comment .texto {
+#file-container .comments .comment p {
   display: block;
   margin-top: 5px;
   color: #4f4439;
+  word-wrap: break-word;
 }
 
 #file-container .comments .comment.odd {

@@ -63,8 +63,7 @@ class UserFilesController < ApplicationController
   end
   
   def download_box
-  
-    # Estilo padrão hardcoded por enquanto  
+    # Estilo padrão hardcoded por enquanto
     @style = ({
       :box_image => "/images/download_box/fundo_padrao.png",
       :box_background => "#ffffff",
@@ -89,5 +88,7 @@ class UserFilesController < ApplicationController
   private
     def save_download_info
       Download.create(:file => @file, :downloaded_by_ip => request.env['REMOTE_ADDR'])
+      @file.download_count += 1
+      @file.save
     end
 end

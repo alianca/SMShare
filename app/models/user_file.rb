@@ -20,6 +20,11 @@ class UserFile
   field :public, :type => Boolean, :default => true
   field :path, :type => String, :default => "/"
   
+  # Contadores para a ordenacao
+  field :download_count, :type => Integer, :default => 0
+  field :comment_count, :type => Integer, :default => 0
+  field :rate, :type => Float, :default => 0.0
+  
   # Usuario
   belongs_to_related :owner, :class_name => "User"
   
@@ -57,7 +62,7 @@ class UserFile
   # Limpa as tags
   before_save :normalize_tags
   
-  # Validações  
+  # Validações
   validates :owner, :presence => true
   validates :file, :presence => true
   validates :description, :presence => true
@@ -68,9 +73,9 @@ class UserFile
   
   def self.search query_string
     fields_to_search = ["alias", "filename", "filetype", "description", "tags", "categories"]
-
+    
     regex_for_query = Regexp.new query_string.gsub(" ", "|"), "i"
-
+    
     mongodb_query = { "$or" => fields_to_search.collect { |f| { f => regex_for_query } } }
     self.where(mongodb_query)
   end
@@ -81,20 +86,17 @@ class UserFile
     self.save!
   end
   
-  
-  
-  def add_rate(rate)
-    self.rate_sum += rate
-    self.ratings += 1
-    save
-  end
-  
-  def rate
-    if self.ratings > 0
-      self.rate_sum*1.0/self.ratings
-    else
-      0
+  def add_comment(comment)
+    self.comments << comment
+    self.comment_count += 1
+    
+    if comment.rate > 0
+      self.rate_sum += comment.rate
+      self.ratings += 1
+      self.rate = self.rate_sum*1.0/self.ratings    
     end
+    
+    self.save
   end
   
   def resolve_filetype
@@ -152,7 +154,7 @@ class UserFile
         FileUtils.remove_dir(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
       end
     end
-        
+    
     def cleanup_description
       self.description = nil if self.description == "Digite uma descrição objetiva para seu arquivo."
     end

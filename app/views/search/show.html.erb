@@ -1,7 +1,7 @@
 <div id="file-container">
 
   <div class="go-back">
-    <a href="<%= search_index_path(:q => params[:query]) %>">
+    <a href="<%= search_index_path(:q => params[:q]) %>">
       <span></span>Voltar para o resultado da busca
     </a>
   </div>
@@ -32,9 +32,9 @@
     </div>
     <div class="right">
       <%= image_tag "search/icone-tamanho.png" %> Tamanho <%= number_to_human_size(@file.filesize, :precision => 3) %><br/>
-      <%= image_tag "search/icone-comentarios.png" %> <%= link_to @file.comments.count.to_s + " comentários" %><br/>
+      <%= image_tag "search/icone-comentarios.png" %> <%= link_to @file.comment_count.to_s + " comentários" %><br/>
       <%= image_tag "search/icone-nota.png" %> <%= link_to "Nota %0.1f" % @file.rate %><br/>
-      <%= image_tag "search/icone-downloads.png" %> <%= @file.downloads.count %> downloads<br/>
+      <%= image_tag "search/icone-downloads.png" %> <%= @file.download_count %> downloads<br/>
     </div>
     
     <a href="<%= download_user_file_url(@file) %>" class="download-button">

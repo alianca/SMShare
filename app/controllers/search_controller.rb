@@ -8,8 +8,25 @@ class SearchController < ApplicationController
   end
   
   def index
-    @files = UserFile.search(params[:q]).paginate(:per_page => 10, :page => params[:page]) if params[:q]
-    @query = params[:q]
+    if params[:q]
+      if params[:order]
+        order = params[:order]
+      else
+        order = 'created_at'
+      end
+      
+      all_files = UserFile.search(params[:q])
+      
+      if params[:filter]
+        all_files.each do |f|
+          if f.categories.index params[:filter] == nil
+            all_files.remove f
+          end
+        end
+      end
+      
+      @files = all_files.order_by([[order, :desc], [:alias, :asc]]).paginate(:per_page => 10, :page => params[:page])
+    end
   end
   
   def show
@@ -26,12 +43,7 @@ class SearchController < ApplicationController
     end
     
     file = UserFile.find(params[:id])
-    file.comments << Comment.create(:rate => rate, :message => params[:message], :owner => current_user)
-    file.save
-    
-    if rate.to_i > 0
-      file.add_rate rate.to_i
-    end
+    file.add_comment(Comment.create(:rate => rate.to_i, :message => params[:message], :owner => current_user))
     
     redirect_to :back
   end

@@ -17,21 +17,20 @@ class UserFile
   field :filesize, :type => Integer
   field :rate_sum, :type => Integer, :default => 0
   field :ratings, :type => Integer, :default => 0
+  field :rate, :type => Float, :default => 0.0
   field :public, :type => Boolean, :default => true
   field :path, :type => String, :default => "/"
-  
-  # Contadores para a ordenacao
-  field :download_count, :type => Integer, :default => 0
-  field :comment_count, :type => Integer, :default => 0
-  field :rate, :type => Float, :default => 0.0
   
   # Usuario
   belongs_to_related :owner, :class_name => "User"
   
+  # Imagem
+  has_many_related :images, :stored_as => :array  
+  
   # Categoria
   has_many_related :categories, :stored_as => :array
   
-  # Comentários
+  # Comentário
   has_many_related :comments, :stored_as => :array
   
   # Pasta
@@ -88,12 +87,27 @@ class UserFile
   
   def add_comment(comment)
     self.comments << comment
-    self.comment_count += 1
     
     if comment.rate > 0
       self.rate_sum += comment.rate
       self.ratings += 1
       self.rate = self.rate_sum*1.0/self.ratings    
+    end
+    
+    self.save
+  end
+  
+  def remove_comment(comment)
+    self.comments.delete comment
+    
+    if comment.rate > 0
+      self.rate_sum -= comment.rate
+      self.ratings -= 1
+      if (self.ratings > 0)
+        self.rate = self.rate_sum*1.0/self.ratings
+      else
+        self.rate = 0.0
+      end
     end
     
     self.save

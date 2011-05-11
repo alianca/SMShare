@@ -12,7 +12,7 @@
     <span class="user"><%= result.owner.name %></span>
   </p>
   <p class="description"><%= result.description %><br/></p>
-  <p class="comments"><%= result.comment_count.to_s + " comentários" %></p>
+  <p class="comments"><%= result.comments.count.to_s + " comentários" %></p>
   <p class="rate"><%= "Nota %0.1f" % result.rate %></p>
   <p class="download">
     <span class="download-link"><%= link_to "Baixar Arquivo", download_user_file_path(result) %></span>

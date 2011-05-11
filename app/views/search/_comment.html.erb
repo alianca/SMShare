@@ -3,6 +3,9 @@
     <%= comment.created_at.strftime("%d/%m/%Y") %> |
     <% if comment.owner != nil %>
       <%= comment.owner.name %>
+      <% if comment.owner == current_user %>
+        | <span class="remove"><%= link_to "Remover", remove_comment_search_path(:comment => comment) %></span>
+      <% end %>
     <% else %>
       Anônimo
     <% end %>
@@ -13,6 +16,8 @@
           image_tag("search/icone-nota-off.png") * (5 - comment['rate']) %>
     <% end %>
   </div>
+  
+  
   
   <p><%= comment.message %></p>
 </div>

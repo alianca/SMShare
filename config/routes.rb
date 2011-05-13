@@ -22,11 +22,13 @@ Smshare::Application.routes.draw do |map|
     end  
   end
   
-  resource :painel, :as=> :user_panel, :controller => :user_panel, :only => [:show, :destroy, :create] do
+  resource :painel, :as=> :user_panel, :controller => :user_panel, :only => [:show, :destroy, :edit, :create] do
     member do
       get :manage
       post :move
       post :rename
+      post :create_image
+      get :destroy_image
     end
     
     resource :relatorios, :as => :reports, :controller => :reports, :only => [:show]
@@ -35,6 +37,7 @@ Smshare::Application.routes.draw do |map|
   resources :smsearch, :controller => :search, :as => :search, :only => [:index, :show] do
     member do
       post :new_comment
+      get :remove_comment
     end
   end
   

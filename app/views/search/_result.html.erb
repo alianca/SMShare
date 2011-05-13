@@ -3,15 +3,17 @@
       <div><%= image_tag result.resolve_filetype[:thumb] %></div>
       <span><%= File.extname(result.alias) %></span>
   </div>
-  <h5 class="filename"><%= link_to result.alias, search_path(result) %></h5>
+  <h5 class="filename">
+    <%= link_to result.alias, search_path(result, :q => params[:q], :filter => params[:filter], :order => params[:order]) %>
+  </h5>
   <p class="owner">
     <span class="when">Há <%= distance_of_time_in_words_to_now(result.created_at) %></span>
     por
     <span class="user"><%= result.owner.name %></span>
   </p>
   <p class="description"><%= result.description %><br/></p>
-  <p class="comments">0 comentários</p>
-  <p class="rate">Nota 5.0</p>
+  <p class="comments"><%= result.comments.count.to_s + " comentários" %></p>
+  <p class="rate"><%= "Nota %0.1f" % result.rate %></p>
   <p class="download">
     <span class="download-link"><%= link_to "Baixar Arquivo", download_user_file_path(result) %></span>
     <span class="filesize"><%= filesize_for_stat(result.filesize) %></span>

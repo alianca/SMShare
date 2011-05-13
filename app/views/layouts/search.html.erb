@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <%= title_tag "smShare - Serviço smsharing" %>
-  <%= stylesheet_link_tag "formtastic", "formtastic_changes", "application", stylesheet_for_controller %>
+  <%= stylesheet_link_tag "formtastic", "formtastic_changes", "application", "file", stylesheet_for_controller %>
   <%= javascript_include_tag "jquery", "rails", "application", javascript_for_controller %>
   <%= include_tiny_mce_if_needed %>
   <%= csrf_meta_tag %>
@@ -24,10 +24,18 @@
   <div id="search-container" class="container">
     <div id="search-order">
       <ul>
-        <li class="order-by-date"><%= link_to "Arquivos recentes" %></li>
-        <li class="order-by-downloads"><%= link_to "Arquivos mais baixados" %></li>
-        <li class="order-by-comments"><%= link_to "Arquivos mais comentados" %></li>
-        <li class="order-by-rate"><%= link_to "Arquivos favoritos" %></li>
+        <li class="order-by-date">
+          <%= link_to "Arquivos recentes", search_index_path(:order => 'created_at', :q => params[:q], :filter => params[:filter]), :class => "order-by" %>
+        </li>
+        <li class="order-by-downloads">
+          <%= link_to "Arquivos mais baixados", search_index_path(:order => 'download_count', :q => params[:q], :filter => params[:filter]), :class => "order-by" %>
+        </li>
+        <li class="order-by-comments">
+          <%= link_to "Arquivos mais comentados", search_index_path(:order => 'comment_count', :q => params[:q], :filter => params[:filter]), :class => "order-by" %>
+        </li>
+        <li class="order-by-rate">
+          <%= link_to "Arquivos favoritos", search_index_path(:order => 'rate', :q => params[:q], :filter => params[:filter]), :class => "order-by" %>
+        </li>
       </ul>
     </div>
     
@@ -43,16 +51,12 @@
     <div id="categorias">
       <h5>Categorias</h5>
       <ul>
-        <li class="categoria"><%= link_to "Exibir Todas" %></li>
+        <li class="categoria"><%= link_to "Exibir Todas", search_index_path(:order => params[:order], :q => params[:q], :filter => nil) %></li>
         <% Category.all.each do |category| %>
-          <li class="categoria"><%= link_to category.name %></li>
+          <li class="categoria"><%= link_to category.name, search_index_path(:order => params[:order], :q => params[:q], :filter => category._id) %></li>
         <% end %>
       </ul>
     </div>
-    
-    <div class="filtros">
-    
-    <div>
     
     <%= yield %>
       

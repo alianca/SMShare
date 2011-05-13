@@ -1,15 +1,39 @@
 class SearchController < ApplicationController
-  def index
-    @files = UserFile.search(params[:q]).paginate(:per_page => 10, :page => params[:page]) if params[:q]
+
+  before_filter :set_active, :only => [:index, :show]
+
+  def set_active
     @active_header_tab = :search
     @active_footer = :search_files
+  end
+  
+  def index
+    if params[:q]
+      case params[:order]
+      when 'download_count'
+        order = 'downloads.count'
+      when 'comment_count'
+        order = 'comments.count'
+      when 'rate'
+        order = 'rate'
+      else
+        order = 'created_at'
+      end
+      
+      all_files = UserFile.search(params[:q]).order_by([[order, :desc], [:alias, :asc]]).to_a
+      
+      if params[:filter]
+        all_files.delete_if { |f| (f.categories.select { |c| c._id == BSON::ObjectId(params[:filter]) }).empty? }
+      end
+      
+      @files = all_files.paginate(:per_page => 10, :page => params[:page])
+    end
   end
   
   def show
     @file = UserFile.find(params[:id])
     @filetype = @file.resolve_filetype
-    @comments = @file.comments.paginate(:per_page => 7, :page => params[:page])
-    @images = []
+    @comments = @file.comments.paginate(:per_page => 6, :page => params[:page])
   end
   
   def new_comment
@@ -19,11 +43,17 @@ class SearchController < ApplicationController
     end
     
     file = UserFile.find(params[:id])
-    file.comments << Comment.create(:rate => rate, :message => params[:message], :owner => current_user)
-    file.save
+    file.add_comment(Comment.create(:rate => rate.to_i, :message => params[:message], :owner => current_user))
     
-    if rate.to_i > 0
-      file.add_rate rate.to_i
+    redirect_to :back
+  end
+  
+  def remove_comment
+    comment = Comment.find(params[:comment])
+    if comment.owner == current_user && comment.owner != nil
+      file = UserFile.find(params[:id])
+      file.remove_comment(comment)
+      comment.destroy
     end
     
     redirect_to :back

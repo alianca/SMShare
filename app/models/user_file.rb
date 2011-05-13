@@ -29,7 +29,7 @@ class UserFile
   has_many_related :categories, :stored_as => :array
   
   # Comentários
-  has_many_related :comments, :stored_as => :array
+  embeds_many :comments
   
   # Pasta
   def folder

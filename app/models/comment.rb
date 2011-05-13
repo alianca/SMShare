@@ -5,7 +5,6 @@ class Comment
   field :message, :type => String
   field :rate, :type => Integer
   
-  belongs_to_related :file, :class_name => "UserFile"
+  embedded_in :file, :class_name => "UserFile", :inverse_of => :comments
   belongs_to_related :owner, :class_name => "User"
-  
 end

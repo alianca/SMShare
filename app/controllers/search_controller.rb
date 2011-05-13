@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   def index
-    @files = UserFile.search(params[:q]).paginate(:per_page => 10, :page => params[:page]) if params[:q]
+    @files = UserFile.search(params[:q], :per_page => 10, :page => params[:page]) if params[:q]        
     @active_header_tab = :search
     @active_footer = :search_files
   end
@@ -19,7 +19,7 @@ class SearchController < ApplicationController
     end
     
     file = UserFile.find(params[:id])
-    file.comments << Comment.create(:rate => rate, :message => params[:message], :owner => current_user)
+    file.comments.create(:rate => rate, :message => params[:message], :owner => current_user)
     file.save
     
     if rate.to_i > 0

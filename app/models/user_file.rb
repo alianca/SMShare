@@ -5,9 +5,44 @@ class UserFile
   require "lib/sentenced_fields"
   include SentencedFields
   
-  # Define o esquema logico db.user_files
-  # filename já é criado pelo CarrierWave
+  # Busca
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+  mapping do # TODO ajustar os boosts
+    indexes :id, :type => :string, :analyzed => false
+    indexes :alias, :type => :string, :boost => 10
+    indexes :filetype, :type => :string, :boost => 2    
+    indexes :tags, :type => :string, :index_name => :tag, :boost => 5
+    indexes :categories, :type => :string, :index_name => :category, :boost => 5
+    indexes :description, :type => :string
+    indexes :created_at, :type => :date, :analyzed => false
+    indexes :downloads_count, :type => :integer, :boost => 2
+    indexes :comments_count, :type => :integer
+    indexes :rate, :type => :float, :index_name => :rating, :boost => 3
+  end
   
+  # Gera o JSON para o ElasticSearch
+  def to_indexed_json
+    {
+      :id => self._id.to_s,
+      :alias => self.alias,
+      :filetype => self.filetype,
+      :tag => self.tags,
+      :category => self.categories.collect(&:name),
+      :description => self.description,
+      :created_at => self.created_at,
+      :downloads_count => self.statistics.downloads,
+      :comments_count => self.comments.count,
+      :rate => self.rate,
+      # Campos que precisam ser indexados pois
+      # o ElasticSearch não rematerializa os resultados de busca
+      :owner_id => self.owner_id,
+      :filename => self.filename,
+      }.to_json
+  end
+  
+  # Define o esquema logico db.user_files
+  # filename já é criado pelo CarrierWave  
   field :tags, :type => Array
   field :description, :type => String
   field :filetype, :type => String
@@ -66,24 +101,7 @@ class UserFile
   before_validation :cleanup_description
   
   # Sentenced Fields para as Tags
-  sentenced_fields :tags
-  
-  def self.search query_string
-    fields_to_search = ["alias", "filename", "filetype", "description", "tags", "categories"]
-
-    regex_for_query = Regexp.new query_string.gsub(" ", "|"), "i"
-
-    mongodb_query = { "$or" => fields_to_search.collect { |f| { f => regex_for_query } } }
-    self.where(mongodb_query)
-  end
-  
-  
-  def copy_filename
-    self.alias = self.filename
-    self.save!
-  end
-  
-  
+  sentenced_fields :tags  
   
   def add_rate(rate)
     self.rate_sum += rate

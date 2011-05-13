@@ -42,6 +42,9 @@ gem "will_paginate", "~> 3.0.pre2"
 # To use Curl
 gem 'curb', :require => 'curl'
 
+# To use Tire.rb
+gem 'tire'
+
 # Bundle gems for certain environments:
 group :development, :test do
   gem 'rspec-rails'

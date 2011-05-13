@@ -49,6 +49,7 @@ class UserFile
   field :filesize, :type => Integer
   field :rate_sum, :type => Integer, :default => 0
   field :ratings, :type => Integer, :default => 0
+  field :rate, :type => Float, :default => 0.0
   field :public, :type => Boolean, :default => true
   field :path, :type => String, :default => "/"
   
@@ -59,6 +60,9 @@ class UserFile
   
   # Usuario
   belongs_to_related :owner, :class_name => "User"
+  
+  # Imagem
+  has_many_related :images, :stored_as => :array  
   
   # Categoria
   has_many_related :categories, :stored_as => :array
@@ -94,7 +98,7 @@ class UserFile
   # Limpa as tags
   before_save :normalize_tags
   
-  # Validações  
+  # Validações
   validates :owner, :presence => true
   validates :file, :presence => true
   validates :description, :presence => true
@@ -102,19 +106,33 @@ class UserFile
   
   # Sentenced Fields para as Tags
   sentenced_fields :tags  
-  
-  def add_rate(rate)
-    self.rate_sum += rate
-    self.ratings += 1
-    save
+    
+  def add_comment(comment)
+    self.comments << comment
+    
+    if comment.rate > 0
+      self.rate_sum += comment.rate
+      self.ratings += 1
+      self.rate = self.rate_sum*1.0/self.ratings    
+    end
+    
+    self.save
   end
   
-  def rate
-    if self.ratings > 0
-      self.rate_sum*1.0/self.ratings
-    else
-      0
+  def remove_comment(comment)
+    self.comments.delete comment
+    
+    if comment.rate > 0
+      self.rate_sum -= comment.rate
+      self.ratings -= 1
+      if (self.ratings > 0)
+        self.rate = self.rate_sum*1.0/self.ratings
+      else
+        self.rate = 0.0
+      end
     end
+    
+    self.save
   end
   
   def resolve_filetype
@@ -176,7 +194,7 @@ class UserFile
         FileUtils.remove_dir(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
       end
     end
-        
+    
     def cleanup_description
       self.description = nil if self.description == "Digite uma descrição objetiva para seu arquivo."
     end

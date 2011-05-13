@@ -1,10 +1,4 @@
-<div id="file-container">
-  
-  <div class="go-back">
-    <a href="<%= search_index_path(:q => params[:q], :filter => params[:filter], :order => params[:order])%>">
-      <span></span>Voltar para o resultado da busca
-    </a>
-  </div>
+<div id="file-container" class="edit">
   
   <div class="general-info">
     <div class="filetype">
@@ -12,7 +6,7 @@
       <span><%= File.extname(@file.alias) %></span>
     </div>
     <h5 class="title"><%= @file.alias %></h5>
-    <p class="description"><%= @file.description %></p>
+    <p class="description"><%= text_area_tag :description, @file.description %></p>
   </div>
   
   <div class="images">
@@ -20,6 +14,7 @@
       <% image = (@file.images.select { |img| img.index == i }).first %>
       <% if image %>
         <%= image_tag image.get, :class => "filled index%d" % i %>
+        <%= link_to "Remover", destroy_image_user_panel_path(@file, :image => image) %>
       <% else %>
         <%= image_tag "search/sem-imagem.png", :class => "index%d" % i %>
       <% end %>
@@ -72,32 +67,32 @@
       <%= text_field_tag :link, "[URL=\""+download_user_file_url(@file)+"\"]Link[/URL]", :class => "forum-field" %><br/>
     </div>
     <div class="share-icons">
-      <%= image_tag("search/icones-compartilhar/twitter.png")%>
-      <%= image_tag("search/icones-compartilhar/youtube.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_15.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_16.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_19.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_17.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_20.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_18.png")%>
-      <%= image_tag("search/icones-compartilhar/google.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_11.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_13.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_10.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_8.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_12.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_9.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_14.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_7.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_2.png")%>
-      <%= image_tag("search/icones-compartilhar/facebook.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_5.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_4.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_3.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_6.png")%>
-      <%= image_tag("search/icones-compartilhar/UNK_1.png")%>
+      <%= image_tag("search/icones-compartilhar/twitter.png") %>
+      <%= image_tag("search/icones-compartilhar/youtube.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_15.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_16.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_19.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_17.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_20.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_18.png") %>
+      <%= image_tag("search/icones-compartilhar/google.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_11.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_13.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_10.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_8.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_12.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_9.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_14.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_7.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_2.png") %>
+      <%= image_tag("search/icones-compartilhar/facebook.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_5.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_4.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_3.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_6.png") %>
+      <%= image_tag("search/icones-compartilhar/UNK_1.png") %>
     </div>
-  </div>  
+  </div>
   
   <div class="comments">
     <h5>Comentários
@@ -107,7 +102,7 @@
     </h5>
     
     <% if @file.comments.count > 0 %>
-      <%= render :partial => "comment", :collection => @comments %>
+      <%= render :partial => "search/comment", :collection => @comments %>
       <%= will_paginate @comments %>
     <% else %>
       <div class="no-comments">
@@ -115,20 +110,5 @@
         <p>Seja o primeiro a comentar sobre esse arquivo!</p>
       </div>
     <% end %>
-    
-    <%= form_tag new_comment_search_path, :id => "new-comment-form", :method => :post do %>
-      <%= text_area_tag "message", "", :maxlength => 280 %>
-      <span class="characters">Caracteres restantes: <span class="character-counter">280</span></span>
-      <%= submit_tag "Enviar" %>
-      <span class="rate-file">Avalie esse arquivo:
-        <% for i in 1..5 %>
-          <img class="star index<%= i %>"/>
-          <%= radio_button_tag("rate", i) %>
-        <% end %>
-      </span>
-    <% end %>
   </div>
 </div>
-
-
-

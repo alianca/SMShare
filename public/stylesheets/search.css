@@ -69,6 +69,11 @@
   -moz-border-radius: 7px 0 0 7px;
 }
 
+#search-order a.order-by{
+  text-decoration: none;
+  color: #f37f00;
+}
+
 #search-order ul li.order-by-date {
   background: white url(/images/search/icone-data.png) no-repeat 5px 3px;
 }
@@ -88,6 +93,7 @@
 #search-results {
   clear: right;
   width: 608px;
+  min-height: 200px;
   margin-left: 224px;
   padding: 4px;
 }
@@ -103,8 +109,7 @@
   border-bottom: 1px dotted black;
 }
 
-#search-results .search-result .filetype,
-#file-container .filetype  {
+#search-results .search-result .filetype {
   float: left;
   width: 90px;
   height: 68px;
@@ -112,10 +117,10 @@
   vertical-align: center;
   margin: 5px 9px 5px 0;
   background-color: white;
+  box-shadow: 1px 1px 1px 1px rgba(50,50,50,0.05);
 }
 
-#search-results .search-result .filetype span,
-#file-container .filetype span {
+#search-results .search-result .filetype span {
   display: block;
   position: relative;
   float: right;
@@ -125,8 +130,7 @@
   top: -23px;
 }
 
-#search-results .search-result .filetype div,
-#file-container .filetype div {
+#search-results .search-result .filetype div {
   display: block;
   position: relative;
   height: 50px;
@@ -217,260 +221,6 @@
 }
 
 
-
-/* Página do arquivo */
-
-#file-container {
-  clear: right;
-  width: 608px;
-  margin-left: 224px;
-  padding: 4px;
-}
-
-#file-container .general-info {
-  color: #4f4439;
-  min-height: 80px;
-  border-bottom: 1px dotted black;
-}
-
-#file-container .images {
-  display: block;
-  border-bottom: 1px dotted black;
-  height: 130px;
-  width: 608px;
-  margin: 0;
-}
-
-#file-container .images img {
-  display: inline;
-  margin: 12px 2px 15px 7px;
-  width: 140px;
-  height: 105px;
-}
-
-#file-container h5 {
-  width: 310px;
-  height: 16px;
-  font-size: 16px;
-  line-height: 16px;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-bottom: 15px;
-  overflow: hidden;
-  color: #4f4439;
-}
-
-
-#file-container h5.title {
-  color: #383289;
-  margin-left: 0;
-}
-
-
-
-#file-container .file-info {
-  display: block;
-  color: #4f4439;
-  height: 100px;
-  font-size: 11px;
-  line-height: 20px;
-  width: 608px;
-  border-bottom: 1px dotted black;
-}
-
-#file-container .file-info img {
-  width: 15px;
-  height: 15px;
-}
-
-#file-container .file-info .left {
-  float: left;
-  width: 185px;
-  margin-top: 10px;
-  margin-left: 5px;
-  padding 5px;
-}
-
-#file-container .file-info .right {
-  float: left;
-  width: 155px;
-  margin-top: 10px;
-  margin-left: 30px;
-  padding 5px;
-}
-
-#file-container .file-info a.download-button {
-  background: url(/images/search/fundo-download.png) no-repeat;
-  display: block;
-  float: left;
-  height: 80px;
-  width: 230px;
-  margin-top: 10px;
-}
-
-#file-container .file-info a.download-button .download-title {
-  color: white;
-  font-size: 20px;
-  margin-left: 60px;
-  line-height: 60px;
-}
-
-#file-container .file-info a.download-button span.virus {
-  display: block;
-  color: white;
-  margin-top: -23px;
-  margin-left: 60px;
-}
-
-#file-container .file-info .antivirus {
-  position: relative;
-  font-size: 12px;
-  color: gray;
-  top: -15px;
-  margin-left: 15px;
-}
-
-#file-container .share {
-  color: #4f4439;
-  display: block;
-  padding-bottom: 15px;  
-  border-bottom: 1px dotted black;
-}
-
-#file-container .share .labels {
-  float: left;
-  display: block;
-  width: 50px;
-  line-height: 29px;
-  text-align: right;
-}
-
-#file-container .share .share-icons {
-  display: block;
-  float: right;
-  width: 268px;
-  margin-top: -90px;
-  margin-right: -7px;
-}
-
-#file-container .share .share-icons img {
-  margin: -2px -1px -2px -2px;
-  width: 32px;
-  height: 32px;
-}
-
-#file-container .share input[type=text] {
-  width: 276px;
-  height: 23px;
-  margin: 1px;
-  margin-left: 5px;
-  padding: 2px;
-  border: none;
-  background-color: white;
-  color: gray;
-  border-radius: 7px;
-  -moz-border-radius: 7px;
-}
-
-#file-container .comments {
-  padding-bottom: 10px;
-}
-
-#file-container .comments h5 span {
-  color: black;
-}
-
-#file-container .comments #new-comment-form {
-  display: block;
-  color: gray;
-  font-size: 12px;
-  margin-top: 10px;
-}
-
-#file-container .comments #new-comment-form textarea {
-  width: 600px;
-  height: 80px;
-  border: none;
-  resize: none;
-  border-radius: 7px;
-  -moz-border-radius: 7px;
-}
-
-#file-container .comments #new-comment-form .characters {
-  line-height: 24px;
-  height: 24px;
-}
-
-#file-container .comments #new-comment-form .characters .character-counter {
-  color: black;
-}
-
-#file-container .comments #new-comment-form input[type=submit] {
-  display: block;
-  float: right;
-  height: 26px;
-  width: 122px;
-  margin-right: 5px;
-  background: url(/images/search/botao-enviar-off.png) no-repeat;
-  color: white;
-  font-size: 11.5px;
-  border: none;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-}
-
-#file-container .comments #new-comment-form .rate-file {
-  display: block;
-  float: right;
-  line-height: 24px;
-  height: 24px;
-  margin-right: 15px;
-}
-
-#file-container .comments #new-comment-form .rate-file input[type=radio] {
-  display: none;
-}
-
-#file-container .comments #new-comment-form .rate-file .star {
-  padding: 5px;
-  background: url(/images/search/icone-nota-off.png) no-repeat;
-  margin: 0 -1px;
-}
-
-#file-container .comments .comment {
-  padding: 10px;
-  font-size: 12px;
-}
-
-#file-container .comments .comment .rate-stars {
-  float: right;
-  margin-top: -22px;
-}
-
-#file-container .comments .comment .rate-stars img {
-  margin: 0 1px;
-}
-
-#file-container .comments .comment .texto {
-  display: block;
-  margin-top: 5px;
-  color: #4f4439;
-}
-
-#file-container .comments .comment.odd {
-  background-color: #cce5ed;
-}
-
-#file-container .comments .comment.even {
-  background-color: #e2f0f5;
-}
-
-#file-container .comments .pagination {
-  display: block;
-  margin: 20px 0;
-  text-align: center;
-}
-
 /* Filtro de categorias */
 
 #categorias {
@@ -499,16 +249,3 @@
   text-decoration: none;
   border-bottom: 1px dotted #34378a;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

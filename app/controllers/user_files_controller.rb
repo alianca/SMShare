@@ -6,14 +6,14 @@ class UserFilesController < ApplicationController
   layout 'user_panel', :only => [:new, :create, :remote_upload, :categorize, :links]
   
   def new
-    respond_with(@file = UserFile.new, 
-                 @active = [:files, :new], 
-                 @active_footer = :send_files, 
+    respond_with(@file = UserFile.new,
+                 @active = [:files, :new],
+                 @active_footer = :send_files,
                  @tab_menu_active = :web)
   end
   
   def show
-    
+  
   end
   
   def links
@@ -21,9 +21,9 @@ class UserFilesController < ApplicationController
   end
   
   def remote_upload
-    respond_with(@file = UserFile.new, 
-                 @active = [:files, :new], 
-                 @active_footer = :send_files, 
+    respond_with(@file = UserFile.new,
+                 @active = [:files, :new],
+                 @active_footer = :send_files,
                  @tab_menu_active = :remote)
   end
   
@@ -34,7 +34,7 @@ class UserFilesController < ApplicationController
   def create
     @file = current_user.files.create(params[:user_file])
     flash[:notice] = "Arquivo enviado com sucesso." if @file.valid?
-    flash[:alert] = @file.errors.full_messages.first unless @file.valid?    
+    flash[:alert] = @file.errors.full_messages.first unless @file.valid?
     respond_with(@file, :location => categorize_user_file_path(@file))
   end
   
@@ -62,8 +62,7 @@ class UserFilesController < ApplicationController
   end
   
   def download_box
-  
-    # Estilo padrão hardcoded por enquanto  
+    # Estilo padrão hardcoded por enquanto
     @style = ({
       :box_image => "/images/download_box/fundo_padrao.png",
       :box_background => "#ffffff",
@@ -84,9 +83,10 @@ class UserFilesController < ApplicationController
     
     respond_with(@file = UserFile.find(params[:id]), @style, :layout => nil)
   end
-  
+
   private
     def save_download_info
       Download.create(:file => @file, :downloaded_by_ip => request.env['REMOTE_ADDR'])
+      @file.save
     end
 end

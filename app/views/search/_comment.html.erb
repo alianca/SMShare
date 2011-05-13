@@ -1,11 +1,7 @@
 <div class="comment <%= comment_counter % 2 == 1 ? "odd" : "even" %>">
   <div class="header">
     <%= comment.created_at.strftime("%d/%m/%Y") %> |
-    <% if comment.owner != nil %>
-      <%= comment.owner.name %>
-    <% else %>
-      Anônimo
-    <% end %>
+    <%= comment.owner.name || "Anônimo" %>
   </div>
   <div class="rate-stars">
     <% if comment['rate'] > 0 %>

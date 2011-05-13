@@ -8,9 +8,6 @@ class UserFile
   # Define o esquema logico db.user_files
   # filename já é criado pelo CarrierWave
   
-  # O GridFS não permite alterar o nome de um arquivo existente
-  # Então criei um campo alias para poder renomear os arquivos
-  field :alias, :type => String
   field :tags, :type => Array
   field :description, :type => String
   field :filetype, :type => String
@@ -19,6 +16,11 @@ class UserFile
   field :ratings, :type => Integer, :default => 0
   field :public, :type => Boolean, :default => true
   field :path, :type => String, :default => "/"
+  
+  # O GridFS não permite alterar o nome de um arquivo existente
+  # Então criei um campo alias para poder renomear os arquivos
+  field :alias, :type => String
+  before_save :generate_alias
   
   # Usuario
   belongs_to_related :owner, :class_name => "User"
@@ -122,6 +124,10 @@ class UserFile
         { :name => self.filetype, :icon => "search/icone-other.png", :thumb => "search/thumb-other.png" }
     end
   end
+  
+  def file_extension
+    File.extname(self.alias)
+  end
 
   private  
     def cache_filetype
@@ -162,6 +168,10 @@ class UserFile
         tag.strip.parameterize
       end
       tags.delete("")
+    end
+    
+    def generate_alias
+      self.alias ||= self.filename
     end
 end
 

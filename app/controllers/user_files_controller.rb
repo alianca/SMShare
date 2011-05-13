@@ -33,7 +33,6 @@ class UserFilesController < ApplicationController
   
   def create
     @file = current_user.files.create(params[:user_file])
-    @file.copy_filename # Copia o filename original para o alias
     flash[:notice] = "Arquivo enviado com sucesso." if @file.valid?
     flash[:alert] = @file.errors.full_messages.first unless @file.valid?    
     respond_with(@file, :location => categorize_user_file_path(@file))

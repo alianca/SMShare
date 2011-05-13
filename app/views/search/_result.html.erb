@@ -1,7 +1,7 @@
 <div id="search-result-<%= result._id %>" class="search-result">
   <div class="filetype">
       <div><%= image_tag result.resolve_filetype[:thumb] %></div>
-      <span><%= File.extname(result.alias) %></span>
+      <span><%= result.file_extension %></span>
   </div>
   <h5 class="filename"><%= link_to result.alias, search_path(result) %></h5>
   <p class="owner">

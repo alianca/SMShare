@@ -33,15 +33,27 @@ class UserDailyStatistic
     end
   end
   
-  def self.graph(start_date = nil, end_date = nil)
-    start_date ||= 1.month.ago
-    end_date ||= Date.today    
-          
-    daily_statistics = self.where(:date.gte => start_date.to_date).where(:date.lte => end_date.to_date).order_by(:date.desc)
+  def self.graph(start_date_or_collection = nil, end_date = nil)
+    if start_date_or_collection.instance_of? Mongoid::Criteria
+      daily_statistics = start_date_or_collection
+    else
+      start_date = start_date || 1.month.ago
+      end_date ||= Date.today
+              
+      daily_statistics = self.where(:date.gte => start_date.to_date).where(:date.lte => end_date.to_date).order_by(:date.desc)
+    end
+    
+    dates_array = daily_statistics.collect(&:date).collect { |d| d.strftime("%d/%m") }
+    if dates_array.length > 8
+      dates_array.each_with_index { |d,i| dates_array[i] = "" if i % (dates_array.length/8.0).ceil != 0}
+    end
+        
     graph = LazyHighCharts::HighChart.new(:graph) do |g|
-      g.chart(:width => 650, :height => 200, :spacingLeft => -280, :zoomType => :x)
+      g.chart(:width => 635, :height => 200, :spacingLeft => -280, :zoomType => :x)
       g.series(:name => "Downloads", :data=> daily_statistics.collect { |ds| {:name => ds.date.strftime(I18n.t("date.formats.long")), :y => ds.downloads} })
-      g.xAxis(:categories => daily_statistics.collect(&:date).collect { |d| d.strftime("%d/%m/%Y") })
+      g.series(:name => "2º Nivel", :data=> daily_statistics.collect { |ds| {:name => ds.date.strftime(I18n.t("date.formats.long")), :y => ds.referred_downloads} })
+     
+      g.xAxis(:categories => dates_array)
       g.yAxis(:title => {:text => "Downloads"}, :allowDecimals => false)
       g.title nil
     end

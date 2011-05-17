@@ -1,0 +1,87 @@
+#user_panel-container form input[type=text] {
+  background: url(/images/reports/input.png);
+  border: 0;
+  width: 89px;
+  height: 25px;
+  text-align: center;
+  margin: 0 5px;
+}
+
+#user_panel-container form input[type=submit] {
+  width: 122px;
+  background: url(/images/user_files/botao-rename-off.png) no-repeat;
+  border: 0;
+  height: 25px;
+}
+
+
+#user_panel-container #report_graph {
+  width: 635px;
+}
+
+#user_panel-container table.report {
+  width: 654px;
+}
+
+#user_panel-container table#report_header {
+  background: url(/images/reports/tabela_topo.png);
+  height: 30px;
+  padding-bottom: 17px;
+  margin-top: 25px;
+}
+
+#user_panel-container table#report_header tr {
+  height: 30px;
+}
+
+#user_panel-container table#report_body {
+  background: url(/images/reports/tabela_fundo.png);
+}
+
+#user_panel-container table#report_footer {
+  background: url(/images/reports/tabela_cabecalho.png) no-repeat;
+  height: 29px;
+  padding-bottom: 7px;
+  margin-bottom: 25px;
+}
+
+#user_panel-container table#report_footer tr {
+}
+
+#user_panel-container table.report td {
+  text-align: center; 
+  border: 0;
+}
+
+#user_panel-container table.report td.date {
+  width: 155px;
+}
+
+#user_panel-container table.report td.downloads,
+#user_panel-container table.report td.referred_downloads {
+  width: 100px;
+}
+
+#user_panel-container table.report td.revenue {
+  width: 85px;
+}
+
+#user_panel-container table.report td.referred_revenue {
+  width: 87px;
+}
+
+#user_panel-container table.report td.referred_revenue {
+  width: 103px;
+}
+
+#user_panel-container table.report thead td,
+#user_panel-container table.report tfoot td {
+  font-weight: bold;
+}
+
+#user_panel-container table.report thead td.revenue,
+#user_panel-container table.report thead td.referred_revenue,
+#user_panel-container table.report tfoot td.revenue,
+#user_panel-container table.report tfoot td.referred_revenue {
+  font-weight: normal;
+}

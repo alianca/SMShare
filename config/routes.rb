@@ -28,6 +28,8 @@ Smshare::Application.routes.draw do |map|
       post :move
       post :rename
     end
+    
+    resource :relatorios, :as => :reports, :controller => :reports, :only => [:show]
   end
   
   resources :smsearch, :controller => :search, :as => :search, :only => [:index]

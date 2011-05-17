@@ -22,8 +22,8 @@
   <li class="menu <%= yield(:page).split('_')[1] == "statistics" ? "active" : "" %>">
     Relatórios
     <ul class="dropdown">
-     <li class="<%= yield(:page) == "report_statistics" ? "active" : "" %>">
-        <%= link_to "Relatório de ganhos" %>
+      <li class="<%= yield(:page) == "report_statistics" ? "active" : "" %>">
+        <%= link_to "Relatório de ganhos", user_panel_reports_path %>
       </li>
     </ul>
   </li>

@@ -15,8 +15,6 @@ class UserFile
   field :description, :type => String
   field :filetype, :type => String
   field :filesize, :type => Integer
-  field :rate_sum, :type => Integer, :default => 0
-  field :ratings, :type => Integer, :default => 0
   field :rate, :type => Float, :default => 0.0
   field :public, :type => Boolean, :default => true
   field :path, :type => String, :default => "/"
@@ -79,38 +77,9 @@ class UserFile
     self.where(mongodb_query)
   end
   
-  
   def copy_filename
     self.alias = self.filename
     self.save!
-  end
-  
-  def add_comment(comment)
-    self.comments << comment
-    
-    if comment.rate > 0
-      self.rate_sum += comment.rate
-      self.ratings += 1
-      self.rate = self.rate_sum*1.0/self.ratings    
-    end
-    
-    self.save
-  end
-  
-  def remove_comment(comment)
-    self.comments.delete comment
-    
-    if comment.rate > 0
-      self.rate_sum -= comment.rate
-      self.ratings -= 1
-      if (self.ratings > 0)
-        self.rate = self.rate_sum*1.0/self.ratings
-      else
-        self.rate = 0.0
-      end
-    end
-    
-    self.save
   end
   
   def resolve_filetype
@@ -118,8 +87,8 @@ class UserFile
       when /image.*/
         { :name => "Gráfico", :icon => "search/icone-grafico.png", :thumb => "search/thumb-grafico.png" }
       when /application.*/
-        case self.filetype 
-          when /application\/(x-gzip|x-tar|x-gzip|zip|x-rar)/
+        case self.filetype
+          when /application\/(x-gzip|x-tar|zip|x-rar)/
             { :name => "Compactado", :icon => "search/icone-compactado.png", :thumb => "search/thumb-compactado.png" }
           when /application\/(word|rtf|pdf|postscript)/
             { :name => "Documento", :icon => "search/icone-documento.png", :thumb => "search/thumb-documento.png" }

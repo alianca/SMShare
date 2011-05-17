@@ -4,83 +4,43 @@
     <%= link_to "Página principal", root_path %>
   </li>
   
-  <% if @active[0] == :files %>
-    <li class="menu active">
-  <% else %>
-    <li class="menu">
-  <% end %>
+  <li class="menu <%= yield(:page).split('_')[1] == "files" ? "active" : "" %>">
     Meus arquivos
     <ul class="dropdown">
-      <% if @active[1] == :new %>
-        <li class="active">
-      <% else %>
-        <li>
-      <% end %>
+      <li class="<%= yield(:page) == "send_files" ? "active" : "" %>">
         <%= link_to "Enviar arquivos", new_user_file_path %>
       </li>
-      <% if @active[1] == :manage %>
-        <li class="active">
-      <% else %>
-        <li>
-      <% end %>
+      <li class="<%= yield(:page) == "manage_files" ? "active" : "" %>">
         <%= link_to "Gerenciar arquivos", manage_user_panel_path %>
       </li>
-      <% if @active[1] == :verify %>
-        <li class="active">
-      <% else %>
-        <li>
-      <% end %>
+      <li class="<%= yield(:page) == "verify_files" ? "active" : "" %>">
         <%= link_to "Verificar validade" %>
       </li>
     </ul>
   </li>
   
-  <% if @active[0] == :statistics %>
-    <li class="menu active">
-  <% else %>
-    <li class="menu">
-  <% end %>
+  <li class="menu <%= yield(:page).split('_')[1] == "statistics" ? "active" : "" %>">
     Relatórios
     <ul class="dropdown">
-      <% if @active[1] == :report %>
-        <li class="active">
-      <% else %>
-        <li>
-      <% end %>
+     <li class="<%= yield(:page) == "report_statistics" ? "active" : "" %>">
         <%= link_to "Relatório de ganhos" %>
       </li>
     </ul>
   </li>
   
-  <% if @active[0] == :tools %>
-    <li class="menu active">
-  <% else %>
-    <li class="menu">
-  <% end %>
+  <li class="menu <%= yield(:page).split('_')[1] == "tools" ? "active" : "" %>">
     Ferramentas
     <ul class="dropdown">
-      <% if @active[1] == :download_box %>
-        <li class="active">
-      <% else %>
-        <li>
-      <% end %>
+      <li class="<%= yield(:page) == "download_box_tools" ? "active" : "" %>">
         <%= link_to "Caixas de download" %>
       </li>
-      <% if @active[1] == :press %>
-        <li class="active">
-      <% else %>
-        <li>
-      <% end %>
+      <li class="<%= yield(:page) == "press_tools" ? "active" : "" %>">
         <%= link_to "Peças publicitárias" %>
       </li>
     </ul>
   </li>
   
-  <% if @active[0] == :data %>
-    <li class="menu active">
-  <% else %>
-    <li class="menu">
-  <% end %>
+  <li class="menu <%= yield(:page).split('_')[1] == "data" ? "active" : "" %>">
     Dados da conta
   </li>
 </ul>

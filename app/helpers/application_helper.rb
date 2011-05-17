@@ -14,4 +14,15 @@ module ApplicationHelper
   def title_tag default_title = ""
     content_tag :title, content_for?(:title) ? @_content_for[:title] : default_title
   end
+  
+  # Define a página atual
+  def page a_page
+    content_for :page, a_page
+  end
+  
+  # Define a aba (principal) atual
+  def tab a_tab
+    content_for :tab, a_tab
+  end
+  
 end

@@ -4,7 +4,7 @@
     <% if comment.owner != nil %>
       <%= comment.owner.name %>
       <% if comment.owner == current_user %>
-        | <span class="remove"><%= link_to "Remover", remove_comment_search_path(:comment => comment) %></span>
+        | <span class="remove"><%= link_to "Remover", comment_path(comment), :method => :delete %></span>
       <% end %>
     <% else %>
       Anônimo
@@ -16,8 +16,6 @@
           image_tag("search/icone-nota-off.png") * (5 - comment['rate']) %>
     <% end %>
   </div>
-  
-  
   
   <p><%= comment.message %></p>
 </div>

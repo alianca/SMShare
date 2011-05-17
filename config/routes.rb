@@ -19,7 +19,7 @@ Smshare::Application.routes.draw do |map|
     
     collection do
       get :upload_remoto, :action => :remote_upload, :as => :remote_upload
-    end  
+    end
   end
   
   resource :painel, :as=> :user_panel, :controller => :user_panel, :only => [:show, :destroy, :edit, :create] do
@@ -27,35 +27,22 @@ Smshare::Application.routes.draw do |map|
       get :manage
       post :move
       post :rename
-      post :create_image
-      get :destroy_image
     end
   end
   
-  resources :smsearch, :controller => :search, :as => :search, :only => [:index, :show] do
-    member do
-      post :new_comment
-      get :remove_comment
-    end
-  end
-  
+  resources :smsearch, :controller => :search, :as => :search, :only => [:index]
+    
   namespace :admin do
     resources :news
   end
+    
+  resources :comments, :only => [:create, :destroy]
   
   resources :news, :only => [:index, :show]
 
   resources :guide, :only => [:index]
 
-  resource :faq, :controller => :faq, :only => [] do
-    member do
-      get :uploading
-      get :downloading
-      get :general
-      get :panel
-      get :finances
-    end
-  end
+  resources :faq, :only => [:index]
   
   root :to => "home#index"
 

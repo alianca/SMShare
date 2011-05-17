@@ -1,11 +1,11 @@
 $(document).ready(function() {
   /* Troca o fundo do botão em mouse over */
-  $("#user_file_submit, #links-container a.confirmar").mouseover(function () {
+  $("#user_files_submit, #links-container a.confirmar").mouseover(function () {
     $(this).css("background", "url(/images/user_files/botao-on.png)")
   });
 
   /* Volta o fundo padrão quando perde o mouse over */
-  $("#user_file_submit, #links-container a.confirmar").mouseout(function () {
+  $("#user_files_submit, #links-container a.confirmar").mouseout(function () {
     $(this).css("background", "url(/images/user_files/botao-off.png)")
   });
   
@@ -28,6 +28,23 @@ $(document).ready(function() {
       field.attr('value', field.attr('url-text'));
     }
   });
+  
+  /* marca as estrelas quando seleciona a nota, e seta o campo invisível */
+  $("#file-container .comments #new-comment-form .rate-file .star").click(function() {
+    var index = $(this).attr('class').match(/index(\d+)/)[1];
+    $("#file-container .comments #new-comment-form #comment_rate").attr('value', index);
+    for (var i = 1; i <= 5; i++) {
+      var element = $("#file-container .comments #new-comment-form .rate-file .star.index" + i);
+      element.css('background', 'url(/images/search/icone-nota-' + (i<=index ? 'on' : 'off') + '.png) no-repeat');
+    }
+  });
+  
+  /* Atualiza o contador de caracteres restantes */
+  $("#file-container .comments #new-comment-form #comment_message").keyup(function() {
+    var counter = $("#file-container .comments #new-comment-form .characters .character-counter");
+    counter.text(280 - $(this).val().length);
+  });
+
 });
 
 /* Faz pre-cache das imagens do cadastro */

@@ -3,17 +3,17 @@ class UserFilesController < ApplicationController
   before_filter :authenticate_user!, :only => [:new, :create, :categorize, :update, :links]
   after_filter :save_download_info, :only => [:download]
   
-  layout 'user_panel', :only => [:new, :create, :remote_upload, :categorize, :links]
-  
+  layout :choose_layout
+   
   def new
-    respond_with(@file = UserFile.new,
-                 @active = [:files, :new],
-                 @active_footer = :send_files,
-                 @tab_menu_active = :web)
+    respond_with(@file = UserFile.new)
   end
   
   def show
-  
+    @file = UserFile.find(params[:id])
+    @filetype = @file.resolve_filetype
+    @comment = Comment.new
+    @comments = @file.comments.paginate(:per_page => 6, :page => params[:page])
   end
   
   def links
@@ -21,26 +21,29 @@ class UserFilesController < ApplicationController
   end
   
   def remote_upload
-    respond_with(@file = UserFile.new,
-                 @active = [:files, :new],
-                 @active_footer = :send_files,
-                 @tab_menu_active = :remote)
+    respond_with(@file = UserFile.new)
   end
   
   def categorize
-    respond_with(@file = current_user.files.find(params[:id]))
+    respond_with(@files = current_user.files.find(params[:id]))
   end
   
   def create
-    @file = current_user.files.create(params[:user_file])
-    @file.copy_filename # Copia o filename original para o alias
-    flash[:notice] = "Arquivo enviado com sucesso." if @file.valid?
-    flash[:alert] = @file.errors.full_messages.first unless @file.valid?
-    respond_with(@file, :location => categorize_user_file_path(@file))
+    count = params[:user_files][:count]
+    
+    @files = []
+    for i in 1..count.to_i
+      file = current_user.files.create(params[:user_files]["user_file"+i.to_s])
+      file.copy_filename # Copia o filename original para o alias
+      flash[:notice] = "Arquivo enviado com sucesso." if file.valid?
+      flash[:alert] = file.errors.full_messages.first unless file.valid?
+      @files << file
+    end
+    respond_with(@files, :location => categorize_user_file_path(@files))
   end
   
   def update
-    params[:user_file][:category_ids].delete_if { |c| c.blank? } 
+    params[:user_file][:category_ids].delete_if { |c| c.blank? }
     
     @file = current_user.files.find(params[:id])
     @file.update_attributes(params[:user_file])
@@ -89,5 +92,13 @@ class UserFilesController < ApplicationController
     def save_download_info
       Download.create(:file => @file, :downloaded_by_ip => request.env['REMOTE_ADDR'])
       @file.save
+    end
+    
+    def choose_layout
+      if ['new', 'create', 'remote_upload', 'categorize', 'links'].include? action_name
+        'user_panel'
+      elsif action_name == 'show'
+        'search'
+      end
     end
 end

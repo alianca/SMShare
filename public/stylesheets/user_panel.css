@@ -106,23 +106,21 @@ body {
 .upload { 
   display: block;
   width: 625px;
-  height: 90px;
   padding: 21px 15px;
   background: url(/images/user_files/fundo_web.png);
 }
 
-#new_user_file fieldset li {
+#new_user_file input {
   margin-bottom: 7px;
-  overflow: hidden
+  overflow: hidden;
 }
 
-#new_user_file fieldset#file_fields {
-  float: left;
+#new_user_file #file_fields {
   width: 481px;
   padding: 1px;
 }
 
-#new_user_file .inline-errors { 
+#new_user_file .inline-errors {
   display: none;
 }
 
@@ -140,6 +138,10 @@ body {
   padding: 7px 8px;
 }
 
+#new_user_file .single-file.hidden {
+  display: none;
+}
+
 #new_user_file #public_field {
   float: right;
 }
@@ -149,7 +151,7 @@ body {
   color: #34378A;
 }
 
-#new_user_file #public_field li {
+#new_user_file #public_field {
   height: 34px;
 }
 
@@ -157,13 +159,14 @@ body {
   clear: right;
   float: right;
   padding-left: 0;
+  margin-top: -40px;
 }
 
 #new_user_file .buttons li {
   padding-right: 0;
 }
 
-#new_user_file .buttons #user_file_submit {
+#new_user_file .buttons #user_files_submit {
   border: 0;
   width: 132px;
   height: 33px;
@@ -174,6 +177,7 @@ body {
 #new_user_file #more-files {
   background: url(/images/user_files/mais_arquivos.png) no-repeat 3px 4px;
   font-size: 14px;
+  cursor: pointer;
   padding: 2px 0 0 25px;
 }
 
@@ -195,19 +199,19 @@ body {
   background: url(/images/user_panel/barras.png) no-repeat 2px 8px;
 }
 
-#main_statistics .title { 
+#main_statistics .title {
   font-size: 15px;
   margin: 0;
 }
 
-#main_statistics .stat { 
+#main_statistics .stat {
   margin: 0;
   padding-top: 8px;
   font-size: 22px;
   font-weight: bolder;
 }
 
-#main_statistics .stat_unit { 
+#main_statistics .stat_unit {
   font-size: 16px;
 }
 
@@ -262,7 +266,6 @@ body {
   background: rgba(190,210,218,0.5);
   border-radius: 7px;
   -moz-border-radius: 7px;
-  height: 142px;
   padding: 10px 15px;
 }
 

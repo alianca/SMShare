@@ -1,17 +1,9 @@
 <ul id="header-menu">
-  <% if @active_header_tab == :main %>
-    <li class="title active no-dropdown">
-  <% else %>
-    <li class="title no-dropdown">
-  <% end %>
+  <li class="title no-dropdown <%= yield(:tab) == "main" ? "active" : "" %>">
     <%= link_to "Principal", root_path %>
   </li>
     
-  <% if @active_header_tab == :webmaster %>
-    <li class="title active dropdown">
-  <% else %>
-    <li class="title dropdown">
-  <% end %>
+  <li class="title dropdown <%= yield(:tab) == "webmaster" ? "active" : "" %>">
     <span>Webmaster</span>
     <ul>
       <li><%= link_to "Envie seus arquivos", new_user_file_path %></li>
@@ -22,11 +14,7 @@
     </ul>
   </li> 
    
-  <% if @active_header_tab == :search %>
-    <li class="title active dropdown">
-  <% else %>
-    <li class="title dropdown">
-  <% end %>
+  <li class="title dropdown <%= yield(:tab) == "search" ? "active" : "" %>">
     <span>smSearch</span>
     <ul>
       <li><%= link_to "Procurar arquivos", search_index_path %></li>
@@ -37,15 +25,11 @@
     </ul>
   </li>
     
-  <% if @active_header_tab == :about %>
-    <li class="title active dropdown">
-  <% else %>
-    <li class="title dropdown">
-  <% end %>
+  <li class="title dropdown <%= yield(:tab) == "about" ? "active" : "" %>">
     <span>Sobre</span>
     <ul>
       <li><%= link_to "Guia geral", guide_index_path %></li>
-      <li><%= link_to "Perguntas frequentes", general_faq_path %></li>
+      <li><%= link_to "Perguntas frequentes", faq_index_path %></li>
       <li><%= link_to "Ajuda / Tutoriais" %></li>
     </ul>
   </li>

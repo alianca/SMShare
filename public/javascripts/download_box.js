@@ -18,32 +18,34 @@ function install_clear_on_focus(context) {
   });
 }
 
-function set_box_style(style) {
-  $(".download_box").css("border", "1px solid " + style.box_border);
-  $(".download_box").css("background-color", style.box_background);
-  $(".download_box").css("background", "url(" + style.box_image + ")");
-  $(".download_box .box-header").css("color", style.header_text);
-  $(".download_box .filename").css("color", style.header_text);
-  $(".download_box .filesize").css("color", style.header_text);
-  $(".download_box .box-header").css("background-color", style.header_background);
-  $(".download_box .call-to-action").css("color", style.upper_text);
-  $(".download_box .sms").css("color", style.para_text);
-  $(".download_box .sms em").css("color", style.number_text);
-  $(".download_box .price").css("color", style.cost_text);
-  $(".download_box form").css("background-color", style.form_background);
-  $(".download_box form").css("border", "1px solid " + style.form_border);
-  $(".download_box form .code_field").css("color", style.form_text);
-  $(".download_box form .submit").css("background-color", style.button_background);
-  $(".download_box form .submit").css("color", style.button_text);
-  $(".download_box .have_one").css("color", style.bottom_text);
+function set_box_style(box, style) {
+  $(box).css("border", "1px solid " + style.box_border);
+  $(box).css("background-color", style.box_background);
+  $(box).css("background", "url(" + style.box_image + ")");
+  $(box + " .box-header").css("color", style.header_text);
+  $(box + " .filename").css("color", style.header_text);
+  $(box + " .filesize").css("color", style.header_text);
+  $(box + " .box-header").css("background-color", style.header_background);
+  $(box + " .call-to-action").css("color", style.upper_text);
+  $(box + " .sms").css("color", style.para_text);
+  $(box + " .sms em").css("color", style.number_text);
+  $(box + " .price").css("color", style.cost_text);
+  $(box + " form").css("background-color", style.form_background);
+  $(box + " form").css("border", "1px solid " + style.form_border);
+  $(box + " form .code_field").css("color", style.form_text);
+  $(box + " form .submit").css("background-color", style.button_background);
+  $(box + " form .submit").css("color", style.button_text);
+  $(box + " .have_one").css("color", style.bottom_text);
 }
 
 function after_create_box(box) {
   install_clear_on_focus(box);
   
+  console.log(box);
+  
   var style = jQuery.parseJSON($("#style-data").text());
   
-  set_box_style(style);
+  set_box_style(box, style);
   
   /* Fecha após o download do arquivo */
   $(box + " form").submit(function () {
@@ -58,7 +60,7 @@ function after_create_box(box) {
 $(document).ready(function() {
   $("a[rel~=\"smshare\"]").click(function (sender) {
     /* Pega os dados do link */
-    link = $(sender.target);
+    link = $(sender.target).parent("a");
     user_file_id = link.attr("href").match(/arquivos\/([0-9a-f]{24})\/?$/)[1];
     
     /* Verifica se já está aberto para poder fechar */

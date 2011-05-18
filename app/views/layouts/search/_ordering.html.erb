@@ -1,0 +1,16 @@
+<div id="search-order">
+  <ul>
+    <li class="order-by-date">
+      <%= link_to "Arquivos recentes", search_index_path(:order => 'created_at', :q => params[:q], :filter => params[:filter]), :class => "order-by" %>
+    </li>
+    <li class="order-by-downloads">
+      <%= link_to "Arquivos mais baixados", search_index_path(:order => 'download_count', :q => params[:q], :filter => params[:filter]), :class => "order-by" %>
+    </li>
+    <li class="order-by-comments">
+      <%= link_to "Arquivos mais comentados", search_index_path(:order => 'comment_count', :q => params[:q], :filter => params[:filter]), :class => "order-by" %>
+    </li>
+    <li class="order-by-rate">
+      <%= link_to "Arquivos favoritos", search_index_path(:order => 'rate', :q => params[:q], :filter => params[:filter]), :class => "order-by" %>
+    </li>
+  </ul>
+</div>

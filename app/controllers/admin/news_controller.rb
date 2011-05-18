@@ -20,7 +20,8 @@ class Admin::NewsController < ApplicationController
   end
   
   def new
-    
+    @item = News.new
+    render :action => :edit
   end
   
   def create

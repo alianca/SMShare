@@ -1,8 +1,12 @@
 <%= link_to "Lista de notícias", admin_news_index_path %><br/><br/>
 
-<%= form_for @item, :as => :news, :url => { :action => 'update' } do |f| %>
-  Título: <br/> <%= f.text_area :title %> <br/>
-  Notícia resumida: <br/> <%= f.text_area :short %> <br/>
-  Notícia completa: <br/> <%= f.text_area :full, :class => 'mceEditor' %> <br/>
-  <%= submit_tag "Enviar", :id => 'send_news' %>
+<%= semantic_form_for [:admin, @item] do |f| %>
+  <%= f.inputs do %>
+    Título: <br/> <%= f.text_area :title %> <br/>
+    Notícia resumida: <br/> <%= f.text_area :short %> <br/>
+    Notícia completa: <br/> <%= f.text_area :full, :class => 'mceEditor' %> <br/>
+  <% end %>
+  <%= f.buttons do %>
+    <%= f.commit_button "Enviar", :id => 'send_news' %>
+  <% end %>
 <% end %>

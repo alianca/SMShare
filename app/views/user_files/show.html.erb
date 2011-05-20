@@ -25,6 +25,7 @@
     
     <div class="images">
       <% for i in 0..3 %>
+      <%# TODO Remove this for with indexes, use a collect instead %>
         <% image = (@file.images.select { |img| img.index == i }).first %>
         <% if image %>
           <%= image_tag image.get, :class => "filled index%d" % i %>

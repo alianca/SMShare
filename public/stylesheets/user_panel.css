@@ -110,25 +110,25 @@ body {
   background: url(/images/user_files/fundo_web.png);
 }
 
-#new_user_file input {
+#files_form input {
   margin-bottom: 7px;
   overflow: hidden;
 }
 
-#new_user_file #file_fields {
+#files_form .file_fields {
   width: 481px;
   padding: 1px;
 }
 
-#new_user_file .inline-errors {
+#files_form .inline-errors {
   display: none;
 }
 
-#new_user_file #file_fields label {
+#files_form .file_fields label {
   display: none;
 }
 
-#new_user_file #file_fields input {
+#files_form .file_fields input {
   border: 0 transparent;
   min-width: 465px;
   width: 465px;
@@ -138,35 +138,31 @@ body {
   padding: 7px 8px;
 }
 
-#new_user_file .single-file.hidden {
-  display: none;
-}
-
-#new_user_file #public_field {
+#files_form .public_field {
   float: right;
 }
 
-#new_user_file #public_field label {
+#files_form .public_field label {
   padding: 9px 3px 0 0;
   color: #34378A;
 }
 
-#new_user_file #public_field {
+#files_form .public_field {
   height: 34px;
 }
 
-#new_user_file .buttons {
+#files_form .buttons {
   clear: right;
   float: right;
   padding-left: 0;
   margin-top: -40px;
 }
 
-#new_user_file .buttons li {
+#files_form .buttons li {
   padding-right: 0;
 }
 
-#new_user_file .buttons #user_files_submit {
+#files_form .buttons #files_submit {
   border: 0;
   width: 132px;
   height: 33px;
@@ -174,14 +170,14 @@ body {
   background: url(/images/user_files/botao-off.png);
 }
 
-#new_user_file #more-files {
+#files_form #more-files {
   background: url(/images/user_files/mais_arquivos.png) no-repeat 3px 4px;
   font-size: 14px;
   cursor: pointer;
   padding: 2px 0 0 25px;
 }
 
-#new_user_file #more-urls {
+#files_form #more-urls {
   float: right;
   background: url(/images/user_files/mais_arquivos.png) no-repeat 3px 10px;
   font-size: 14px;

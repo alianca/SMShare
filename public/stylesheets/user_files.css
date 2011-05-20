@@ -89,12 +89,12 @@ li.tab-content.remote-tab {
   height: 20px;
 }
 
-#categorize-container form #user_file_sentenced_tags_input label {
+#categorize-container form li.string.required label {
   display: none;
 } 
 
-#categorize-container form #user_file_sentenced_tags_input label,
-#categorize-container form #user_file_categories_input .label {
+#categorize-container form li.string.required label,
+#categorize-container form li.check_boxes .label {
   display: none;
   width: 0;
 }
@@ -119,13 +119,13 @@ li.tab-content.remote-tab {
   padding: 5px 7px;
 }
 
-#categorize-container form #user_file_sentenced_tags_input {
+#categorize-container form li.string.required {
   clear: both;
   float: left;
   width: 242px;
 }
 
-#categorize-container form #user_file_sentenced_tags_input input {
+#categorize-container form li.string.required input {
   background: transparent;
   border: 0;
   width: 232px;
@@ -137,20 +137,20 @@ li.tab-content.remote-tab {
   overflow: hidden;
 }
 
-#categorize-container form #user_file_categories_input {
+#categorize-container form li.check_boxes {
   float: left;
   width: 392px;
   padding-left: 4px;
 }
 
 
-#categorize-container form #user_file_categories_input ol {
+#categorize-container form li.check_boxes ol {
   list-style-type: none;
   width: 392px;
   padding: 0;
 }
 
-#categorize-container form #user_file_categories_input li {
+#categorize-container form li.check_boxes li {
   display: inline-block;
   width: 56px;
   height: 32px;
@@ -163,7 +163,7 @@ li.tab-content.remote-tab {
   margin: 10px 0 0 345px;
 }
 
-#categorize-container .buttons #user_file_submit {
+#categorize-container .buttons #files_submit {
   border: 0;
   width: 132px;
   height: 33px;

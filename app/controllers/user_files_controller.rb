@@ -4,7 +4,7 @@ class UserFilesController < ApplicationController
   after_filter :save_download_info, :only => [:download]
   
   layout :choose_layout
-   
+  
   def new
     respond_with(@file = UserFile.new)
   end
@@ -17,7 +17,7 @@ class UserFilesController < ApplicationController
   end
   
   def links
-    respond_with(@file = current_user.files.find(params[:id]))
+    respond_with(@files = current_user.files.find(params[:files]))
   end
   
   def remote_upload
@@ -25,30 +25,34 @@ class UserFilesController < ApplicationController
   end
   
   def categorize
-    respond_with(@files = current_user.files.find(params[:id]))
+    respond_with(@files = current_user.files.find(params[:files]))
   end
   
   def create
-    count = params[:user_files][:count]
-    
     @files = []
-    for i in 1..count.to_i
-      file = current_user.files.create(params[:user_files]["user_file"+i.to_s])
-      file.copy_filename # Copia o filename original para o alias
+    for i in 0..params[:files].count-1
+      puts params[:files][i.to_s]
+      file = current_user.files.create(params[:files][i.to_s])
       flash[:notice] = "Arquivo enviado com sucesso." if file.valid?
       flash[:alert] = file.errors.full_messages.first unless file.valid?
       @files << file
     end
-    respond_with(@files, :location => categorize_user_file_path(@files))
+    respond_with(@files, :location => categorize_user_files_path(:files => @files))
   end
   
-  def update
-    params[:user_file][:category_ids].delete_if { |c| c.blank? }
-    
-    @file = current_user.files.find(params[:id])
-    @file.update_attributes(params[:user_file])
-    
-    respond_with(@file, :location => links_user_file_path(@file))
+  def update_categories
+    @files = []
+    params[:files].each do |file|
+      file[1][:categories].delete_if { |c| c.blank? }
+      the_file = UserFile.find(BSON::ObjectId(file[0]))
+      file[1][:categories].each do |c|
+        the_file.categories << Category.find(BSON::ObjectId(c))
+      end
+      the_file.sentenced_tags = file[1][:sentenced_tags]
+      the_file.save
+      @files << the_file
+    end
+    respond_with(@file, :location => links_user_files_path(:files => @files))
   end
   
   def example
@@ -68,7 +72,7 @@ class UserFilesController < ApplicationController
   def download_box
     respond_with(@file = UserFile.find(params[:id]), :layout => nil)
   end
-
+  
   private
     def save_download_info
       Download.create(:file => @file, :downloaded_by_ip => request.env['REMOTE_ADDR'])

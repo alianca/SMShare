@@ -12,13 +12,14 @@ Smshare::Application.routes.draw do |map|
     member do
       get :download
       get :example
-      get :categorizar, :action => :categorize, :as => :categorize
-      get :links
       match :download_box
     end
     
     collection do
       get :upload_remoto, :action => :remote_upload, :as => :remote_upload
+      get :categorizar, :action => :categorize, :as => :categorize
+      post :update_categories
+      get :links
     end
   end
   

@@ -23,7 +23,7 @@ class UserFile
   belongs_to_related :owner, :class_name => "User"
   
   # Imagem
-  has_many_related :images, :stored_as => :array  
+  has_many_related :images, :stored_as => :array
   
   # Categoria
   has_many_related :categories, :stored_as => :array
@@ -68,6 +68,9 @@ class UserFile
   # Sentenced Fields para as Tags
   sentenced_fields :tags
   
+  # Inicia o alias
+  after_create :copy_filename
+  
   def self.search query_string
     fields_to_search = ["alias", "filename", "filetype", "description", "tags", "categories"]
     
@@ -75,11 +78,6 @@ class UserFile
     
     mongodb_query = { "$or" => fields_to_search.collect { |f| { f => regex_for_query } } }
     self.where(mongodb_query)
-  end
-  
-  def copy_filename
-    self.alias = self.filename
-    self.save!
   end
   
   def resolve_filetype
@@ -108,7 +106,7 @@ class UserFile
     end
   end
 
-  private  
+  private
     def cache_filetype
       self.filetype = self.file.file.content_type
       save if changed?
@@ -147,6 +145,11 @@ class UserFile
         tag.strip.parameterize
       end
       tags.delete("")
+    end
+      
+    def copy_filename
+      self.alias = self.filename
+      self.save!
     end
 end
 

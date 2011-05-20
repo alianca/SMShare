@@ -1,4 +1,4 @@
-<div class="comment <%= comment_counter % 2 == 1 ? "odd" : "even" %>">
+<div class="comment <%= cycle("even", "odd") -%>">
   <div class="header">
     <%= comment.created_at.strftime("%d/%m/%Y") %> |
     <% if comment.owner %>

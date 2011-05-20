@@ -12,7 +12,7 @@ class UserPanelController < ApplicationController
   
   def create
     @new_folder = @folder.children.create(:name => params[:folder][:name], :owner => current_user)
-    respond_with(@new_folder, :location => manage_user_panel_path)
+    respond_with(@new_folder, :location => manage_user_panel_path(:folder_id => @folder._id))
   end
   
   def manage

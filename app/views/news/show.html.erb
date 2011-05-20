@@ -1,3 +1,4 @@
+<% page "news" %>
 <div id="news-container" class="full">
   <div id="news-banner">
     Notícias
@@ -20,4 +21,8 @@
   </div>
   
   <%= link_to "« Ver todas as notícias", news_index_path, :class => "navigation" %>
+</div>
+
+<div id="search" class="container">
+  <%= render :partial => "layouts/search" %>
 </div>

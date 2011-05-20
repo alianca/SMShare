@@ -3,48 +3,64 @@ class UserFilesController < ApplicationController
   before_filter :authenticate_user!, :only => [:new, :create, :categorize, :update, :links]
   after_filter :save_download_info, :only => [:download]
   
-  layout 'user_panel', :only => [:new, :create, :remote_upload, :categorize, :links]
+  layout :choose_layout
   
   def new
-    respond_with(@file = UserFile.new,
-                 @active = [:files, :new],
-                 @active_footer = :send_files,
-                 @tab_menu_active = :web)
+    respond_with(@file = UserFile.new)
   end
   
   def show
-  
+    @file = UserFile.find(params[:id])
+    @filetype = @file.resolve_filetype
+    @comment = Comment.new
+    @comments = @file.comments.paginate(:per_page => 6, :page => params[:page])
   end
   
   def links
-    respond_with(@file = current_user.files.find(params[:id]))
+    respond_with(@files = current_user.files.find(params[:files]))
   end
   
   def remote_upload
-    respond_with(@file = UserFile.new,
-                 @active = [:files, :new],
-                 @active_footer = :send_files,
-                 @tab_menu_active = :remote)
+    respond_with(@file = UserFile.new)
   end
   
   def categorize
-    respond_with(@file = current_user.files.find(params[:id]))
+    respond_with(@files = current_user.files.find(params[:files]))
   end
   
-  def create
-    @file = current_user.files.create(params[:user_file])
-    flash[:notice] = "Arquivo enviado com sucesso." if @file.valid?
-    flash[:alert] = @file.errors.full_messages.first unless @file.valid?
-    respond_with(@file, :location => categorize_user_file_path(@file))
+  def create # FIXME I'm too fat. need a lypo.
+    @files = []
+    
+    for i in 0..params[:files].count-1
+      puts params[:files][i.to_s]
+      file = current_user.files.create(params[:files][i.to_s])
+      @files << file if file.valid?
+    end
+    
+    if !@files.empty?
+      flash[:notice] = "Arquivo(s) enviado(s) com sucesso."
+      respond_with(@files, :location => categorize_user_files_path(:files => @files))
+    else
+      flash[:alert] = file.errors.full_messages.first
+      redirect_to :back
+    end    
   end
   
-  def update
-    params[:user_file][:category_ids].delete_if { |c| c.blank? } 
+  def update_categories # FIXME I'm too fat. need a lypo.
+    @files = []
     
-    @file = current_user.files.find(params[:id])
-    @file.update_attributes(params[:user_file])
-    
-    respond_with(@file, :location => links_user_file_path(@file))
+    params[:files].each do |file|
+      file[1][:categories].delete_if { |c| c.blank? }
+      the_file = UserFile.find(BSON::ObjectId(file[0]))
+      file[1][:categories].each do |c|
+        the_file.categories << Category.find(BSON::ObjectId(c))
+      end
+      
+      the_file.sentenced_tags = file[1][:sentenced_tags]
+      the_file.save
+      @files << the_file
+    end
+    respond_with(@file, :location => links_user_files_path(:files => @files))
   end
   
   def example
@@ -62,31 +78,20 @@ class UserFilesController < ApplicationController
   end
   
   def download_box
-    # Estilo padrão hardcoded por enquanto
-    @style = ({
-      :box_image => "/images/download_box/fundo_padrao.png",
-      :box_background => "#ffffff",
-      :box_border => "#5596ac",
-      :header_background => "#5596ac",
-      :header_text => "#ffffff",
-      :upper_text => "#1d4e5d",
-      :number_text => "#5596aa",
-      :para_text => "#676568",
-      :cost_text => "#9c9e9d",
-      :form_background => "#ffffff",
-      :form_border => "#7bbacf",
-      :form_text => "#8e8e8e",
-      :button_background => "#f27f00",
-      :button_text => "#ffffff",
-      :bottom_text => "#5596aa"
-    }).to_json
-    
-    respond_with(@file = UserFile.find(params[:id]), @style, :layout => nil)
+    respond_with(@file = UserFile.find(params[:id]), :layout => nil)
   end
-
+  
   private
     def save_download_info
       Download.create(:file => @file, :downloaded_by_ip => request.env['REMOTE_ADDR'])
       @file.save
+    end
+    
+    def choose_layout
+      if ['new', 'create', 'remote_upload', 'categorize', 'links'].include? action_name
+        'user_panel'
+      elsif action_name == 'show'
+        'application'
+      end
     end
 end

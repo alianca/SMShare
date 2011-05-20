@@ -14,7 +14,7 @@
     </div>
   </div>
   <div id="downloads">
-    <p class="title">Total de Downlaods</span>
+    <p class="title">Total de Downloads</span>
     <div class="stats_box downloads">
       <p class="stat"><%= number_with_delimiter(current_user.statistics.downloads) %></p>
       <p class="stat_observation">desde <%= current_user.created_at.strftime("%B de %Y") %></p>
@@ -32,22 +32,8 @@
 <div class="upload index">
   <h3>Envie seus arquivos!</h3>
   
-  <%= semantic_form_for @file, :html => {:multipart => true} do |f| %>
-    <%= f.inputs :id => :file_fields do %>
-      <%= f.input :file %>
-      <%= f.input :description, :input_html => { :title => "Digite uma descrição objetiva para seu arquivo.", :class => "clear-on-focus" } %>
-      
-      <p id="more-files"><%= link_to "Enviar mais arquivos" %></p>
-    <% end %>
-
-    <%= f.inputs :id => :public_field do %>
-      <%= f.input :public, :as => :boolean, :default => true, :label => "Arquivo público (?)" %>
-    <% end %>
-
-    <%= f.buttons do %>
-      <%= f.commit_button "Enviar" %>
-    <% end %>
-  <% end %>
+  <%= render :partial => '/user_files/upload_form' %>
+  
 </div>
 
 <div id="more_upload">

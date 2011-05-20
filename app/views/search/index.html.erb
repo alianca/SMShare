@@ -1,11 +1,20 @@
-<div id="search-results">
-  <% if params[:q].blank? %>
-    <p class="search-info">Sua busca não pode ser vazia</p>
-  <% else %>
-    <p class="search-info"><%= search_pagination_info @files, params[:q] %></p>
+<% page "search_files" %>
+<% tab "search" %>
+<div id="search-container" class="container">
 
-    <%= render :partial => "result", :collection => @files %>
+  <%= render :partial => 'layouts/search/ordering' %>
+  <%= render :partial => 'layouts/search/header' %>
+  <%= render :partial => 'layouts/search/categories' %>
 
-    <%= will_paginate @files %>  
-  <% end %>
+  <div id="search-results">
+    <% if params[:q].blank? %>
+      <p class="search-info">Sua busca não pode ser vazia</p>
+    <% else %>
+      <p class="search-info"><%= search_pagination_info @files, params[:q] %></p>
+
+      <%= render :partial => "result", :collection => @files %>
+
+      <%= will_paginate @files %>  
+    <% end %>
+  </div>
 </div>

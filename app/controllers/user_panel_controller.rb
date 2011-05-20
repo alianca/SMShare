@@ -29,7 +29,7 @@ class UserPanelController < ApplicationController
   end
   
   def move
-    params[:user_file][:files].delete_if { |f| f.blank? }    
+    params[:user_file][:files].delete_if { |f| f.blank? }
     @folder = current_user.folders.find(params[:user_file][:folder])
     @files = UserFile.where(:_id.in => (params[:user_file][:files].collect { |id| BSON::ObjectId(id) }))
     @folders = Folder.where(:_id.in => ((params[:user_file][:files]-[params[:user_file][:folder]]).collect { |id| BSON::ObjectId(id) }))
@@ -55,25 +55,6 @@ class UserPanelController < ApplicationController
     @file = UserFile.find(params[:file])
     @filetype = @file.resolve_filetype
     @comments = @file.comments.paginate(:per_page => 6, :page => params[:page])
-  end
-  
-  # Imagens
-  
-  def create_image
-    file = UserFile.find(params[:id])
-    if (file.images.select { |i| i.index == params[:image][:index].to_i }).empty?
-      image = Image.create(params[:image])
-      if image.valid?
-        flash[:notice] = "Imagem enviada com sucesso."
-      else
-        flash[:alert] = image.errors.full_messages.first
-      end
-    end
-    redirect_to :back
-  end
-  
-  def destroy_image
-    Image.find(params[:id]).destroy
   end
   
   private

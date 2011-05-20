@@ -1,3 +1,4 @@
+<% page "manage_files" %>
 <h2>Gerenciar Arquivos</h2>
 
 <%= form_tag user_panel_path, :method => :delete do %>
@@ -62,7 +63,7 @@
         <% elsif f.instance_of? UserFile %>
           <tr class="file">
             <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file" %></td>
-            <td class="name"><%= link_to f.alias, edit_user_panel_path(:file => f) %></td>
+            <td class="name"><%= f.alias %></td>
             <td class="size"><%= filesize_for_stat(f.filesize)%></td>
             <td class="created_at"><%= f.created_at.strftime("%d/%m/%Y") %></td>
             <td class="downloads"><%= f.statistics.downloads %></td>

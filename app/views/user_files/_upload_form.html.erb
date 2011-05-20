@@ -1,0 +1,8 @@
+<%= javascript_include_tag "upload_form.js" %>
+<%= form_tag user_files_path, :multipart => true, :id => "files_form", :method => :post do %>
+  <div id="files"></div>
+  <a id="more-files">Enviar mais arquivos</a>
+  <div class="buttons">
+    <%= submit_tag "Enviar", :id => 'files_submit' %>
+  </div>
+<% end %>

@@ -1,3 +1,4 @@
+<% page "news" %>
 <div id="news-container" class="list">
   <div id="news-banner">
     Notícias
@@ -13,4 +14,8 @@
     <%= will_paginate :page_links => false, :previous_label => "&laquo; Anterior", :next_label => "Próximo &raquo;", :separator => (params[:page].to_i == 1 || params[:page].to_i == @news.total_pages ? "" : "<span class=\"separator\">|</span>") %>
     
   </span>
+</div>
+
+<div id="search" class="container">
+  <%= render :partial => "layouts/search" %>
 </div>

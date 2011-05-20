@@ -1,24 +1,13 @@
+<% send_tab "web" %>
+<% page "send_files" %>
 <h2>Enviar arquivos</h2>
 
 <%= render :partial => "user_files/tabs" %>
-  
+
 <ul class="tabs tabs-contents">
   <li class="tab-content web-tab">
-    <% semantic_form_for @file, :html => {:multipart => true} do |f| %>
-      <% f.inputs :id => :file_fields do %>
-        <%= f.input :file %>
-        <%= f.input :description, :input_html => { :title => "Digite uma descrição objetiva para seu arquivo.", :class => "clear-on-focus" } %>
-        
-        <p id="more-files"><%= link_to "Enviar mais arquivos" %></p>
-      <% end %>
-
-      <% f.inputs :id => :public_field do %>
-        <%= f.input :public, :as => :boolean, :default => true, :label => "Arquivo público (?)" %>
-      <% end %>
-
-      <% f.buttons do %>
-        <%= f.commit_button "Enviar" %>
-      <% end %>
-    <% end %>
+    
+  <%= render :partial => '/user_files/upload_form' %>
+    
   </li>
 </ul>

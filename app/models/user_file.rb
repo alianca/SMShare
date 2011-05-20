@@ -47,8 +47,6 @@ class UserFile
   field :description, :type => String
   field :filetype, :type => String
   field :filesize, :type => Integer
-  field :rate_sum, :type => Integer, :default => 0
-  field :ratings, :type => Integer, :default => 0
   field :rate, :type => Float, :default => 0.0
   field :public, :type => Boolean, :default => true
   field :path, :type => String, :default => "/"
@@ -62,7 +60,7 @@ class UserFile
   belongs_to_related :owner, :class_name => "User"
   
   # Imagem
-  has_many_related :images, :stored_as => :array  
+  has_many_related :images, :stored_as => :array
   
   # Categoria
   has_many_related :categories, :stored_as => :array
@@ -105,34 +103,15 @@ class UserFile
   before_validation :cleanup_description
   
   # Sentenced Fields para as Tags
-  sentenced_fields :tags  
-    
-  def add_comment(comment)
-    self.comments << comment
-    
-    if comment.rate > 0
-      self.rate_sum += comment.rate
-      self.ratings += 1
-      self.rate = self.rate_sum*1.0/self.ratings    
-    end
-    
-    self.save
-  end
+  sentenced_fields :tags
   
-  def remove_comment(comment)
-    self.comments.delete comment
+  def self.search query_string
+    fields_to_search = ["alias", "filename", "filetype", "description", "tags", "categories"]
     
-    if comment.rate > 0
-      self.rate_sum -= comment.rate
-      self.ratings -= 1
-      if (self.ratings > 0)
-        self.rate = self.rate_sum*1.0/self.ratings
-      else
-        self.rate = 0.0
-      end
-    end
+    regex_for_query = Regexp.new query_string.gsub(" ", "|"), "i"
     
-    self.save
+    mongodb_query = { "$or" => fields_to_search.collect { |f| { f => regex_for_query } } }
+    self.where(mongodb_query)
   end
   
   def resolve_filetype
@@ -140,8 +119,8 @@ class UserFile
       when /image.*/
         { :name => "Gráfico", :icon => "search/icone-grafico.png", :thumb => "search/thumb-grafico.png" }
       when /application.*/
-        case self.filetype 
-          when /application\/(x-gzip|x-tar|x-gzip|zip|x-rar)/
+        case self.filetype
+          when /application\/(x-gzip|x-tar|zip|x-rar)/
             { :name => "Compactado", :icon => "search/icone-compactado.png", :thumb => "search/thumb-compactado.png" }
           when /application\/(word|rtf|pdf|postscript)/
             { :name => "Documento", :icon => "search/icone-documento.png", :thumb => "search/thumb-documento.png" }
@@ -165,7 +144,7 @@ class UserFile
     File.extname(self.alias)
   end
 
-  private  
+  private
     def cache_filetype
       self.filetype = self.file.file.content_type
       save if changed?
@@ -204,10 +183,10 @@ class UserFile
         tag.strip.parameterize
       end
       tags.delete("")
-    end
+    end    
     
     def generate_alias
-      self.alias ||= self.filename
+      self.alias ||= self.filename      
     end
 end
 

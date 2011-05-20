@@ -11,10 +11,6 @@ class Admin::NewsController < ApplicationController
                 :theme_advanced_buttons3 => [],
                 :plugins => %w{contextmenu paste}})
   
-  def get_news_item
-    @item = News.find(params[:id])
-  end
-  
   def index
     @news = News.all
   end
@@ -24,7 +20,8 @@ class Admin::NewsController < ApplicationController
   end
   
   def new
-    
+    @item = News.new
+    render :action => :edit
   end
   
   def create
@@ -56,5 +53,10 @@ class Admin::NewsController < ApplicationController
     flash[:notice] = 'Notícia Removida'
     redirect_to admin_news_index_path
   end
+  
+  private
+    def get_news_item
+      @item = News.find(params[:id])
+    end
   
 end

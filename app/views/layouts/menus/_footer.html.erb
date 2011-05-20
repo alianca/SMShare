@@ -1,43 +1,23 @@
 <div class="section" id="smshare-menu">
   <p class="title">sm<span class="special-s"><span>S</span></span>hare</p>
   <ul>
-    <% if @active_footer == :main %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "main" ? "active" : "" %>">
       <%= link_to "Página principal", root_path %>
     </li>
     
-    <% if @active_footer == :news %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "news" ? "active" : "" %>">
       <%= link_to "Notícias", news_index_path %>
     </li>
     
-    <% if @active_footer == :twitter %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "twitter" ? "active" : "" %>">
       <%= link_to "Twitter" %>
     </li>
     
-    <% if @active_footer == :rss %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "rss" ? "active" : "" %>">
       <%= link_to "Feed RSS" %>
     </li>
     
-    <% if @active_footer == :report %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "report" ? "active" : "" %>">
       <%= link_to "Denunciar abuso" %>
     </li>
   </ul>
@@ -46,43 +26,23 @@
 <div class="section" id="webmasters-menu">
   <p class="title">Webmasters</p>
   <ul>
-    <% if @active_footer == :send_files %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "send_files" ? "active" : "" %>">
       <%= link_to "Envie seus arquivos", new_user_file_path %>
     </li>
     
-    <% if @active_footer == :manage_files %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "manage_files" ? "active" : "" %>">
       <%= link_to "Organize seus documentos" %>
     </li>
     
-    <% if @active_footer == :share_files %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "share_files" ? "active" : "" %>">
       <%= link_to "Compartilhe seus arquivos" %>
     </li>
     
-    <% if @active_footer == :earn_money %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "earn_money" ? "active" : "" %>">
       <%= link_to "Lucre com os downloads $$" %>
     </li>
     
-    <% if @active_footer == :advantages %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "advantages" ? "active" : "" %>">
       <%= link_to "Tenha vantagens" %>
     </li>
   </ul> 
@@ -91,43 +51,23 @@
 <div class="section" id="smsearch-menu">
   <p class="title">sm<span class="special-s"><span>S</span></span>earch</p>
   <ul>
-    <% if @active_footer == :search_files %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "search_files" ? "active" : "" %>">
       <%= link_to "Procurar arquivos", search_index_path %>
     </li>
     
-    <% if @active_footer == :categories %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "categories" ? "active" : "" %>">
       <%= link_to "Todas as categorias" %>
     </li>
     
-    <% if @active_footer == :most_downloaded %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "most_downloaded" ? "active" : "" %>">
       <%= link_to "Arquivos mais baixados" %>
     </li>
     
-    <% if @active_footer == :most_commented %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "most_commented" ? "active" : "" %>">
       <%= link_to "Arquivos mais comentados" %>
     </li>
     
-    <% if @active_footer == :favorites %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "favorites" ? "active" : "" %>">
       <%= link_to "Arquivos favoritos" %>
     </li>
   </ul>
@@ -136,27 +76,15 @@
 <div class="section" id="about-menu">
   <p class="title">Sobre</p>
   <ul>
-    <% if @active_footer == :guide %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "guide" ? "active" : "" %>">
       <%= link_to "Guia geral", guide_index_path %>
     </li>
     
-    <% if @active_footer == :faq %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
-      <%= link_to "Perguntas frequentes (FAQ)", general_faq_path %>
+    <li class="<%= yield(:page) == "faq" ? "active" : "" %>">
+      <%= link_to "Perguntas frequentes (FAQ)", faq_index_path %>
     </li>
     
-    <% if @active_footer == :tutorials %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "tutorials" ? "active" : "" %>">
       <%= link_to "Ajuda/Tutoriais" %>
     </li>
   </ul>
@@ -165,35 +93,19 @@
 <div class="section" id="institutional-menu">
   <p class="title">Institucional</p>  
   <ul>
-    <% if @active_footer == :press %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "press" ? "active" : "" %>">
       <%= link_to "Imprensa" %>
     </li>
     
-    <% if @active_footer == :jobs %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "jobs" ? "active" : "" %>">
       <%= link_to "Trabalhe conosco" %>
     </li>
     
-    <% if @active_footer == :about_us %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "about_us" ? "active" : "" %>">
       <%= link_to "A empresa" %>
     </li>
     
-    <% if @active_footer == :contact %>
-      <li class="active">
-    <% else %>
-      <li>
-    <% end %>
+    <li class="<%= yield(:page) == "contact" ? "active" : "" %>">
       <%= link_to "Fale Conosco" %>
     </li>
   </ul>

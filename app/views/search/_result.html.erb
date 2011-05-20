@@ -4,7 +4,7 @@
       <span><%= result.file_extension %></span>
   </div>
   <h5 class="filename">
-    <%= link_to result.alias, search_path(result, :q => params[:q], :filter => params[:filter], :order => params[:order]) %>
+    <%= link_to result.alias, user_file_path(result, :q => params[:q], :filter => params[:filter], :order => params[:order]) %>
   </h5>
   <p class="owner">
     <span class="when">Há <%= distance_of_time_in_words_to_now(result.created_at) %></span>

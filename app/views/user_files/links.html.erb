@@ -1,7 +1,7 @@
 <h2>Enviar arquivos</h2>
 
 <div id="links-container">
-  <p class="links-info">Seus arquivos estão prontos para serem compartilhados, escolha abaixo o meio de implementação. Recomendamos a utilização da ferramenta <%= link_to "shareBox" %>, desenvolvida para converter um maior número de downloads em seus arquivos. Para saber mais como essa opção funciona, acesse nosso <%= link_to "FAQ", general_faq_path %>.</p>
+  <p class="links-info">Seus arquivos estão prontos para serem compartilhados, escolha abaixo o meio de implementação. Recomendamos a utilização da ferramenta <%= link_to "shareBox" %>, desenvolvida para converter um maior número de downloads em seus arquivos. Para saber mais como essa opção funciona, acesse nosso <%= link_to "FAQ", faq_index_path %>.</p>
   
   <div id="link-type-container">
     <span class="link-type">Link</span>
@@ -19,17 +19,19 @@
   
   
   <div id="link-boxes-container">
-    <div class="link-box">
-      <p class="filename"><%= 
-        l = @file.filename.length
-        if l > 41
-          @file.filename[0,32] + "..." + @file.filename[l-6, l-1]
-        else
-          @file.filename
-        end
-      %></p>
-      <%= text_field_tag :link, "", :class => "link-field", 'url-text' => download_user_file_url(@file), :value => download_user_file_url(@file) %>
-    </div>
+    <% @files.each do |file| %>
+      <div class="link-box">
+        <p class="filename"><%=
+          l = file.filename.length
+          if l > 41
+            file.filename[0,32] + "..." + file.filename[l-6, l-1]
+          else
+            file.filename
+          end
+        %></p>
+        <%= text_field_tag :link, "", :class => "link-field", 'url-text' => download_user_file_url(file), :value => download_user_file_url(file) %>
+      </div>
+    <% end %>
   </div>
   
   <div id="link-boxes-closing"></div>

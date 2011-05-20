@@ -11,16 +11,24 @@
     </li>
     <% end %>
   </ul>
-
-  <%= semantic_form_for @file do |f| %>
-    <%= f.inputs do %>
-      <p class="filename"><%= @file.filename %></p>
-      <%= f.input :sentenced_tags, :label => "Tags", :input_html => { :title => "Ex.: zumbi, mortos-vivos, apocalipse, suspense", :class => "clear-on-focus" } %>
-      <%= f.input :categories, :as => :check_boxes, :collection => Category.all.collect { |c| [nil, c._id] } %>
+  
+  <%= semantic_form_for :files, :url => {:action => :update_categories} do |f| %>
+    <% i = 0 %>
+    <% @files.each do |file| %>
+      <%= f.semantic_fields_for file._id.to_s do |fi| %>
+        <%= fi.inputs do %>
+          <p class="filename"><%= file.filename %></p>
+          <%= fi.input :sentenced_tags,
+                       :label => "Tags",
+                       :input_html => { :title => "Ex.: zumbi, mortos-vivos, apocalipse, suspense",
+                                        :class => "clear-on-focus sentenced_tags" } %>
+          <%= fi.input :categories, :as => :check_boxes, :collection => Category.all.collect { |c| [nil, c._id] } %>
+        <% end %>
+        <% i += 1 %>
+      <% end %>
     <% end %>
-
     <%= f.buttons do %>
       <%= f.commit_button "Confirmar" %>
     <% end %>
   <% end %>
-</div>    
+</div>

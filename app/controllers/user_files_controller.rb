@@ -3,7 +3,8 @@ class UserFilesController < ApplicationController
   before_filter :authenticate_user!, :only => [:new, :create, :categorize, :update, :links]
   after_filter :save_download_info, :only => [:download]
   
-  layout :choose_layout
+  layout :user_panel, :except => [:show]
+  layout :application, :only => [:show]
   
   def new
     respond_with(@file = UserFile.new)
@@ -85,13 +86,5 @@ class UserFilesController < ApplicationController
     def save_download_info
       Download.create(:file => @file, :downloaded_by_ip => request.env['REMOTE_ADDR'])
       @file.save
-    end
-    
-    def choose_layout
-      if ['new', 'create', 'remote_upload', 'categorize', 'links'].include? action_name
-        'user_panel'
-      elsif action_name == 'show'
-        'application'
-      end
     end
 end

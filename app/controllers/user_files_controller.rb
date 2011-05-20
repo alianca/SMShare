@@ -41,7 +41,7 @@ class UserFilesController < ApplicationController
       flash[:notice] = "Arquivo(s) enviado(s) com sucesso."
       respond_with(@files, :location => categorize_user_files_path(:files => @files))
     else
-      flash[:alert] = file.errors.full_messages.first unless file.valid?
+      flash[:alert] = file.errors.full_messages.first
       redirect_to :back
     end
   end

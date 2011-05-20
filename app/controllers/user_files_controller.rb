@@ -3,8 +3,8 @@ class UserFilesController < ApplicationController
   before_filter :authenticate_user!, :only => [:new, :create, :categorize, :update, :links]
   after_filter :save_download_info, :only => [:download]
   
-  layout :user_panel, :except => [:show]
-  layout :application, :only => [:show]
+  layout "user_panel", :except => [:show]
+  layout "application", :only => [:show]
   
   def new
     respond_with(@file = UserFile.new)

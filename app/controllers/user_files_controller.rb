@@ -30,24 +30,32 @@ class UserFilesController < ApplicationController
   
   def create
     @files = []
+    
     for i in 0..params[:files].count-1
       puts params[:files][i.to_s]
       file = current_user.files.create(params[:files][i.to_s])
-      flash[:notice] = "Arquivo enviado com sucesso." if file.valid?
-      flash[:alert] = file.errors.full_messages.first unless file.valid?
-      @files << file
+      @files << file if file.valid?
     end
-    respond_with(@files, :location => categorize_user_files_path(:files => @files))
+    
+    if !@files.empty?
+      flash[:notice] = "Arquivo(s) enviado(s) com sucesso."
+      respond_with(@files, :location => categorize_user_files_path(:files => @files))
+    else
+      flash[:alert] = file.errors.full_messages.first unless file.valid?
+      redirect_to :back
+    end
   end
   
   def update_categories
     @files = []
+    
     params[:files].each do |file|
       file[1][:categories].delete_if { |c| c.blank? }
       the_file = UserFile.find(BSON::ObjectId(file[0]))
       file[1][:categories].each do |c|
         the_file.categories << Category.find(BSON::ObjectId(c))
       end
+      
       the_file.sentenced_tags = file[1][:sentenced_tags]
       the_file.save
       @files << the_file

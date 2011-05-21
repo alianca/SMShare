@@ -28,6 +28,7 @@ Smshare::Application.routes.draw do |map|
       get :manage
       post :move
       post :rename
+      match :customize
     end
     
     resource :relatorios, :as => :reports, :controller => :reports, :only => [:show]

@@ -13,7 +13,7 @@ module UserFilesHelper
       :header_text => "#ffffff",
       :upper_text => "#1d4e5d",
       :number_text => "#5596aa",
-      :para_text => "#676568",
+      :para_text => "",
       :cost_text => "#9c9e9d",
       :form_background => "#ffffff",
       :form_border => "#7bbacf",

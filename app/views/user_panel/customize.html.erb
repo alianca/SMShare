@@ -1,0 +1,125 @@
+<% page "customize_tools" %>
+<div id="customize-container">
+
+  <h2>Caixas de Download</h2>
+  <p>A forma mais comum e eficaz de compartilhar seus arquivos hospedados no smShare é através das Caixas de Download, elas permitem que os usuários façam download sem sair de seu site.</p>
+  
+  <% placeholder = ['aaa'] * 10 # Placeholder para enquanto não tem estilos de verdade %>
+  
+  <div id="view">
+    <h3>Visualização</h3>
+    <div id="download_box">
+      <div class="box-header">
+        <span class="header-glass"></span>
+        <p class="filename"><em>Arquivo:</em> Nome do arquivo aqui</p>
+        <p class="filesize"><em>10MB</em></p>
+      </div>
+      
+      <p class="call-to-action">Para baixar o arquivo, envie um SMS com a palavra</p>
+      <p class="sms"><em>SMSHARE</em> para <em>49094<span class="star">*</span></em></p>
+      <p class="price">*custo de R$ 0,86 + impostos</p>
+      
+      <div class="code_area">
+        <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus"%>
+        <%= submit_tag "Download", :class => "submit" %>
+      </div>
+      
+      <%= link_to image_tag("download_box/logo.png"), root_url, :class => :logo %>
+      <% link_to "", :class => :have_one do %>
+        Tenha um desses você também »</span>
+      <% end %>
+    </div>
+    <%= link_to "Gerar código de inserção", "", :class => :generate_code %>
+  </div>
+
+  <div id="style-list">
+    <h3>Lista de Modelos</h3>
+    <div class="style-list-container">
+      <% placeholder.each do |item| %>
+        <div class="style-list-item">
+          <div class="thumbnail">
+            <div class="title"><span class="glass"></span>------<span class="right">--</span></div>
+            <div class="top">---- ---- ---- ----</div>
+            <div class="middle">==== ==</span> ====</div>
+            <div class="input"><div class="button"></div></div>          
+          </div>
+          <%= item %>
+        </div>
+      <% end %>
+    </div>
+    <%= form_for :style do |f| %>
+      <%= f.check_box :default %>
+      Tornar padrão?
+      <%= f.hidden_field :selected_style %>
+      <%= f.submit "Escolher Modelo" %>
+    <% end %>
+  </div>
+  
+  <div id="style-customize">
+    <h3>Personalize o Modelo</h3>
+    <%= form_for :box_style do |f| %>
+      <ol>
+        <li>Fundo da caixa:  <div></div> <%= f.text_field :box_background %></li>
+        <li>Contorno da caixa: <div></div> <%= f.text_field :box_border %></li>
+        <li>Fundo do cabeçalho: <div></div> <%= f.text_field :header_background %></li>
+        <li>Texto do cabeçalho: <div></div> <%= f.text_field :header_text %></li>
+        <li>Texto superior: <div></div> <%= f.text_field :upper_text %></li>
+        <li>Texto do número: <div></div> <%= f.text_field :number_text %></li>
+        <li>Texto "para": <div></div> <%= f.text_field :para_text %></li>
+        <li>Texto do custo: <div></div> <%= f.text_field :cost_text %></li>
+        <li>Fundo do formulário: <div></div> <%= f.text_field :form_background %></li>
+        <li>Contorno do formulário: <div></div> <%= f.text_field :form_border %></li>
+        <li>Texto do formulário: <div></div> <%= f.text_field :form_text %></li>
+        <li>Fundo do botão: <div></div> <%= f.text_field :button_background %></li>
+        <li>Texto no botão: <div></div> <%= f.text_field :button_text %></li>
+        <li>Texto inferior: <div></div> <%= f.text_field :bottom_text %></li>
+      </ol>  
+      <%= f.hidden_field :box_image %>
+      
+      <%= image_tag "" %> <p>Insira abaixo o nome do modelo para adicioná-lo a Lista de Modelos.</p>
+      
+      <%= f.text_field :name, :title => "Dê um nome para o modelo...", :class => "name clear-on-focus" %>
+      <%= f.submit "Salvar" %>
+      <p>Após salvar seu modelo, se desejar utilizá-lo ou torná-lo padrão da sua conta, utilize o botão "Escolher Modelo" logo abaixo da Lista de Modelos.</p>
+    <% end %>    
+  </div>
+
+  <div id="background-list">
+    <h3>Lista de Fundos</h3>
+    <div class="bg-list-container">
+      <% placeholder.each do |item| %>
+        <div class="bg-list-item">
+          <div class="thumbnail"></div>
+          <%= item %>
+        </div>
+      <% end %>
+    </div>
+    <%= form_for :bg do |f| %>
+      <%= f.check_box :default %>
+      Tornar padrão?
+      <%= f.hidden_field :selected_bg %>
+      <%= f.submit "Escolher fundo" %>
+    <% end %>
+  </div>
+
+  <div id="background-form">
+    <h3>Envie seu próprio fundo</h3>
+    <%= form_for :background do |f| %>
+      <%= f.file_field :file, :type => :file %>
+      <%= f.text_field :name %>
+      <%= f.submit "Confirmar" %>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

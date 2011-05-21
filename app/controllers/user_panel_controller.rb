@@ -57,6 +57,10 @@ class UserPanelController < ApplicationController
     @comments = @file.comments.paginate(:per_page => 6, :page => params[:page])
   end
   
+  def customize
+    
+  end
+  
   private
     def fetch_folder
       if params[:folder_id]

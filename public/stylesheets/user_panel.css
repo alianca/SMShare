@@ -28,6 +28,7 @@ body {
 
 #user_panel-container { 
   float: right;
+  width: 625px;
   margin: 0 42px 0 0;
 }
 
@@ -379,7 +380,7 @@ body {
   width: 288px;
 }
 
-#main-container #graph h3 { 
+#main-container #graph h3 {
   margin: 0;
   font-size: 18px;
 }
@@ -388,7 +389,7 @@ body {
 
 /* @group Manage */
 
-table.file_list { 
+table.file_list {
   width: 655px;
   background-color: rgba(190,210,218,0.5);
   border-radius: 7px;
@@ -413,29 +414,29 @@ table.file_list thead .order td {
   -moz-border-radius: 7px 7px 0 0;
 }
 
-table.file_list tfoot .order td { 
+table.file_list tfoot .order td {
   height: 7px;
   background-color: white;
   border-radius: 0 0 7px 7px;
   -moz-border-radius: 0 0 7px 7px;
 }
 
-table.file_list tfoot .pagination td { 
+table.file_list tfoot .pagination td {
   padding: 10px 5px;
 }
 
 
-table.file_list tbody td { 
+table.file_list tbody td {
   background-color: white;
   font-size: 12px;
 }
 
-table.file_list td { 
+table.file_list td {
   text-align: center;
   padding: 1px 5px;
 }
 
-table.file_list td.name { 
+table.file_list td.name {
   text-align: left;
 }
 
@@ -444,7 +445,7 @@ table.file_list td.name {
   padding: 0 10px;
 }
 
-.actions_menu li { 
+.actions_menu li {
   width: 60px;
   height: 44px;
   text-align: center;
@@ -469,11 +470,11 @@ table.file_list td.name {
   background: url(/images/user_panel/botoes/separador.png) no-repeat;
 }
 
-.actions_menu input[type=image] { 
+.actions_menu input[type=image] {
   
 }
 
-.actions_menu input[type=submit] { 
+.actions_menu input[type=submit] {
   background: transparent;
   border: 0;
   line-height: 18px;
@@ -644,4 +645,246 @@ table.file_list td.name {
 #rename_placeholder {
   display: none;
 }
+
+
+/* Personalização da caixa de download */
+
+#customize-container {
+  width: 680px !important;
+}
+
+#view {
+  display: block;
+  float: left;
+  width: 320px;
+}
+
+#background-list {
+  display: block;
+  width: 320px;
+}
+
+#background-list .bg-list-container {
+  width: 340px;
+  height: 380px;
+  padding: 5px;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+  border: 1px solid #b1d7e3;
+  overflow-y: scroll;
+}
+
+#background-list .bg-list-item {
+  display: block;
+  height: 64px;
+  line-height: 64px;
+  padding: 6px 0;
+  margin: 0;
+  border-bottom: 1px dotted #b1d7e3;
+}
+
+#background-list .bg-list-item .thumbnail {
+  background: url(/images/download_box/fundo_padrao.png) no-repeat;
+  background-size: 132px 64px;
+  float: left;
+  width: 132px;
+  height: 64px;
+  margin: 0 10px 0 4px;
+  font-size: 9px;
+  text-align: center;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px rgba(50,50,50,0.2);
+}
+
+#background-list form {
+  color: #34378a;
+  line-height: 28px;
+  margin-top: 3px;
+}
+
+#background-list form input[type=submit] {
+  float: right;
+  margin-right: -30px;
+}
+
+#background-form {
+  float: left;
+  width: 320px;
+  padding: 10px;
+  background-color: #d9ecf2;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+}
+
+#background-form input[type=text] {
+  height: 26px;
+  border: 1px solid #7bbacf;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+}
+
+#style-list {
+  float: right;
+  width: 285px;
+}
+
+#style-list .style-list-container {
+  width: 270px;
+  height: 160px;
+  padding: 5px;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+  border: 1px solid #b1d7e3;
+  overflow-y: scroll;
+}
+
+#style-list .style-list-item {
+  float: left;
+  width: 260px;
+  height: 34px;
+  line-height: 32px;
+  padding: 2px 0;
+  border-bottom: 1px dotted #b1d7e3;
+}
+
+#style-list .style-list-item .thumbnail {
+  float: left;
+  width: 90px;
+  height: 32px;
+  border: 1px solid #5596ac;
+  margin-right: 10px;
+  font-size: 9px;
+  text-align: center;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+#style-list .style-list-item .thumbnail .title .glass {
+  float: left;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 90px;
+  height: 3px;
+  margin-bottom: -4px;
+  left: -1px;
+  border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+}
+
+#style-list .style-list-item .thumbnail .title {
+  text-align: left;
+  padding: 0 3px;
+  background-color: #5596ac;
+  color: #ffffff;
+  line-height: 7px;
+  top: -5px;
+  border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+}
+
+#style-list .style-list-item .thumbnail .title .right {
+  float: right;
+}
+
+#style-list .style-list-item .thumbnail .top {
+  line-height: 3px;
+  font-size: 10px;
+  color: #1d4e5d;
+}
+
+#style-list .style-list-item .thumbnail .middle {
+  line-height: 8px;
+  font-size: 9px;
+  color: #5596aa;
+}
+
+#style-list .style-list-item .thumbnail .middle span {
+  color: #676568;
+}
+
+#style-list .style-list-item .thumbnail .input {
+  border: 1px solid #7bbacf;
+  background-color: #ffffff;
+  width: 80px;
+  margin: 1px auto;
+  height: 8px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+
+#style-list .style-list-item .thumbnail .input .button {
+  float: right;
+  width: 32px;
+  height: 8px;
+  background-color: #f27f00;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+
+#style-list form {
+  color: #34378a;
+  line-height: 26px;
+}
+
+#style-list form input[type=submit] {
+  float: right;
+}
+
+#style-customize {
+  float: right;
+  width: 285px;
+}
+
+#style-customize form li {
+  height: 28px;
+  line-height: 28px;
+  font-size: 13px;
+  list-style: none;
+  margin: 0 0 3px -30px;
+}
+
+#style-customize form li div {
+  float: right;
+  background: url(/images/user_panel/sample.png) no-repeat;
+  background-color: #5596ac;
+  width: 26px;
+  height: 26px;
+  border: 1px solid white;
+}
+
+#style-customize form ol input[type=text] {
+  float: right;
+  width: 77px;
+  height: 24px;
+  border: 1px solid #7bbacf;
+  margin-right: 20px;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+}
+
+#style-customize form input[type=text].name {
+  float: left;
+  width: 190px;
+  height: 26px;
+  border: 1px solid #7bbacf;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+}
+
+#style-customize form input[type=submit] {
+  float: left;
+  width: 80px;
+  height: 30px;
+  margin-left: 5px;  
+}
+
+#style-customize form p {
+  font-size: 11px;
+}
+
+
+
+
+
 

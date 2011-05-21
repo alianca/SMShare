@@ -31,8 +31,8 @@
   <li class="menu <%= yield(:page).split('_')[1] == "tools" ? "active" : "" %>">
     Ferramentas
     <ul class="dropdown">
-      <li class="<%= yield(:page) == "download_box_tools" ? "active" : "" %>">
-        <%= link_to "Caixas de download" %>
+      <li class="<%= yield(:page) == "customize_tools" ? "active" : "" %>">
+        <%= link_to "Caixas de download", customize_user_panel_path %>
       </li>
       <li class="<%= yield(:page) == "press_tools" ? "active" : "" %>">
         <%= link_to "Peças publicitárias" %>

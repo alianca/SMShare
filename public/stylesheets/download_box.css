@@ -59,6 +59,7 @@
   padding: 6px 3px 6px 14px !important;
   max-width: 243px;
   height: 14px;
+  margin-top: -5px !important;
 }
 
 .download_box .filename a{ 
@@ -78,6 +79,7 @@
   padding: 6px 9px 6px 3px !important;
   max-width: 70px;
   height: 14px;
+  margin-top: -5px !important;
   overflow: hidden;
 }
 

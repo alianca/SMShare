@@ -102,6 +102,73 @@ $(document).ready(function() {
     }
     e.stopImmediatePropagation();
   });
+  
+  /* Atualiza as caixas de cores na personalização */
+  $("#style-customize ol li input[type=text]").change(function() {
+    $(this).parent("li").children("div").css("background-color", $(this).val());
+    switch ($(this).attr("name").match(/box_style\[([_a-z]+)\]/)[1]) {
+      case "box_border":
+        $("#download_box, \
+           #style-customize .thumbnail").css("border", "1px solid " + $(this).val());
+        break;
+      case "box_background":
+        $("#download_box, \
+           #style-customize .thumbnail").css("background-color", $(this).val());
+        break;
+      case "header_text":
+        $("#download_box .box-header, \
+           #download_box .filename, \
+           #download_box .filesize, \
+           #style-customize .thumbnail .title").css("color", $(this).val());
+        break;
+      case "header_background":
+        $("#download_box .box-header, \
+           #style-customize .thumbnail .title").css("background-color", $(this).val());
+        break;
+      case "upper_text":
+        $("#download_box .call-to-action, \
+           #style-customize .thumbnail .top").css("color", $(this).val());
+        break;
+      case "para_text":
+        $("#download_box .sms, \
+           #style-customize .thumbnail .middle span").css("color", $(this).val());
+        break;
+      case "number_text":
+        $("#download_box .sms em, \
+           #style-customize .thumbnail .middle").css("color", $(this).val());
+        break;
+      case "cost_text":
+        $("#download_box .price").css("color", $(this).val());
+        break;
+      case "form_background":
+        $("#download_box .code_area, \
+           #style-customize .thumbnail .input").css("background-color", $(this).val());
+        break;
+      case "form_border":
+        $("#download_box .code_area, \
+           #style-customize .thumbnail .input").css("border", "1px solid " + $(this).val());
+        break;
+      case "form_text":
+        $("#download_box .code_area .code_field").css("color", $(this).val());
+        break;
+      case "button_background":
+        $("#download_box .code_area .submit, \
+           #style-customize .thumbnail .input .button").css("background-color", $(this).val());
+        break;
+      case "button_text":
+        $("#download_box .code_area .submit").css("color", $(this).val());
+        break;
+      case "bottom_text":
+        $("#download_box .have_one").css("color", $(this).val());
+        break;
+    }
+  });
+  
+  /* Aplica o estilo padrão inicialmente */
+  $("#style-customize ol li input[type=text]").change();
+  
+  
+  
 });
 
 /* Faz pre-cache das imagens do cadastro */

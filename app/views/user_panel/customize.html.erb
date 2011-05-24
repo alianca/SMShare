@@ -29,19 +29,19 @@
         Tenha um desses você também »</span>
       <% end %>
     </div>
-    <%= link_to "Gerar código de inserção", "", :class => :generate_code %>
+    <li><%= link_to "Gerar código de inserção", "", :class => :generate_code %></li>
   </div>
 
   <div id="style-list">
-    <h3>Lista de Modelos</h3>
+    <h3>Lista de modelos</h3>
     <div class="style-list-container">
       <% placeholder.each do |item| %>
         <div class="style-list-item">
           <div class="thumbnail">
             <div class="title"><span class="glass"></span>------<span class="right">--</span></div>
             <div class="top">---- ---- ---- ----</div>
-            <div class="middle">==== ==</span> ====</div>
-            <div class="input"><div class="button"></div></div>          
+            <div class="middle">==== <span>==</span> ====</div>
+            <div class="input"><div class="thumb-button"></div></div>
           </div>
           <%= item %>
         </div>
@@ -51,45 +51,57 @@
       <%= f.check_box :default %>
       Tornar padrão?
       <%= f.hidden_field :selected_style %>
-      <%= f.submit "Escolher Modelo" %>
+      <span class="button blue">
+        <span class="left"></span><%= f.submit "Escolher modelo" %><span class="right"></span>        
+      </span>
     <% end %>
   </div>
   
   <div id="style-customize">
-    <h3>Personalize o Modelo</h3>
+    <h3>Personalize o modelo</h3>
     <%= form_for :box_style do |f| %>
       <ol>
-        <li>Fundo da caixa:  <div></div> <%= f.text_field :box_background %></li>
-        <li>Contorno da caixa: <div></div> <%= f.text_field :box_border %></li>
-        <li>Fundo do cabeçalho: <div></div> <%= f.text_field :header_background %></li>
-        <li>Texto do cabeçalho: <div></div> <%= f.text_field :header_text %></li>
-        <li>Texto superior: <div></div> <%= f.text_field :upper_text %></li>
-        <li>Texto do número: <div></div> <%= f.text_field :number_text %></li>
-        <li>Texto "para": <div></div> <%= f.text_field :para_text %></li>
-        <li>Texto do custo: <div></div> <%= f.text_field :cost_text %></li>
-        <li>Fundo do formulário: <div></div> <%= f.text_field :form_background %></li>
-        <li>Contorno do formulário: <div></div> <%= f.text_field :form_border %></li>
-        <li>Texto do formulário: <div></div> <%= f.text_field :form_text %></li>
-        <li>Fundo do botão: <div></div> <%= f.text_field :button_background %></li>
-        <li>Texto no botão: <div></div> <%= f.text_field :button_text %></li>
-        <li>Texto inferior: <div></div> <%= f.text_field :bottom_text %></li>
-      </ol>  
+        <li>Fundo da caixa:  <div></div> <%= f.text_field :box_background, :value => "#FFFFFF" %></li>
+        <li>Contorno da caixa: <div></div> <%= f.text_field :box_border, :value => "#5596AC" %></li>
+        <li>Fundo do cabeçalho: <div></div> <%= f.text_field :header_background, :value => "#5596AC" %></li>
+        <li>Texto do cabeçalho: <div></div> <%= f.text_field :header_text, :value => "#FFFFFF" %></li>
+        <li>Texto superior: <div></div> <%= f.text_field :upper_text, :value => "#1D4E5D" %></li>
+        <li>Texto do número: <div></div> <%= f.text_field :number_text, :value => "#5596AA" %></li>
+        <li>Texto "para": <div></div> <%= f.text_field :para_text, :value => "#676568" %></li>
+        <li>Texto do custo: <div></div> <%= f.text_field :cost_text, :value => "#9C9E9D" %></li>
+        <li>Fundo do formulário: <div></div> <%= f.text_field :form_background, :value => "#FFFFFF" %></li>
+        <li>Contorno do formulário: <div></div> <%= f.text_field :form_border, :value => "#7BBACF" %></li>
+        <li>Texto do formulário: <div></div> <%= f.text_field :form_text, :value => "#8E8E8E" %></li>
+        <li>Fundo do botão: <div></div> <%= f.text_field :button_background, :value => "#F27F00" %></li>
+        <li>Texto no botão: <div></div> <%= f.text_field :button_text, :value => "#FFFFFF" %></li>
+        <li>Texto inferior: <div></div> <%= f.text_field :bottom_text, :value => "#5596AA" %></li>
+      </ol>
+      
       <%= f.hidden_field :box_image %>
       
-      <%= image_tag "" %> <p>Insira abaixo o nome do modelo para adicioná-lo a Lista de Modelos.</p>
+      <div class="thumbnail">
+        <div class="title"><span class="glass"></span>------<span class="right">--</span></div>
+        <div class="top">---- ---- ---- ----</div>
+        <div class="middle">==== <span>==</span> ====</div>
+        <div class="input"><div class="thumb-button"></div></div>
+      </div>
+      
+      <p>Insira abaixo o nome do modelo para adicioná-lo a Lista de Modelos.</p>
       
       <%= f.text_field :name, :title => "Dê um nome para o modelo...", :class => "name clear-on-focus" %>
-      <%= f.submit "Salvar" %>
+      <span class="button orange">
+        <span class="left"></span><%= f.submit "Salvar" %><span class="right"></span>
+      </span>
       <p>Após salvar seu modelo, se desejar utilizá-lo ou torná-lo padrão da sua conta, utilize o botão "Escolher Modelo" logo abaixo da Lista de Modelos.</p>
-    <% end %>    
+    <% end %>
   </div>
-
+  
   <div id="background-list">
-    <h3>Lista de Fundos</h3>
+    <h3>Lista de fundos</h3>
     <div class="bg-list-container">
       <% placeholder.each do |item| %>
         <div class="bg-list-item">
-          <div class="thumbnail"></div>
+          <div class="img-thumbnail"></div>
           <%= item %>
         </div>
       <% end %>
@@ -98,16 +110,20 @@
       <%= f.check_box :default %>
       Tornar padrão?
       <%= f.hidden_field :selected_bg %>
-      <%= f.submit "Escolher fundo" %>
+      <span class="button blue">
+        <span class="left"></span><%= f.submit "Escolher fundo" %><span class="right"></span>
+      </span>
     <% end %>
   </div>
-
+  
   <div id="background-form">
     <h3>Envie seu próprio fundo</h3>
     <%= form_for :background do |f| %>
-      <%= f.file_field :file, :type => :file %>
+      <span class="file_field"><span class="left"></span><%= f.file_field :file, :type => :file %><span class="right"></span></span>
       <%= f.text_field :name %>
-      <%= f.submit "Confirmar" %>
+      <span class="button orange">
+        <span class="left"></span><%= f.submit "Confirmar" %><span class="right"></span>
+      </span>
     <% end %>
   </div>
 </div>

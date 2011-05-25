@@ -12,7 +12,7 @@ $(document).ready(function() {
   $("#folder_new #folder_submit").mouseover(function () {
     $(this).css("background", "url(/images/layouts/botao-on.png)")
   });
-
+  
   /* Volta o fundo padrão quando perde o mouse over */
   $("#folder_new #folder_submit").mouseout(function () {
     $(this).css("background", "url(/images/layouts/botao-off.png)")
@@ -88,7 +88,6 @@ $(document).ready(function() {
     
   });
   
-  
   /* Dropdown da sidebar */
   $("#sidebar li.menu").click(function(e) {
     if (!$(this).hasClass("no-dropdown") && this == e.target) {
@@ -102,6 +101,19 @@ $(document).ready(function() {
     }
     e.stopImmediatePropagation();
   });
+  
+  function set_thumbnail_style(thumbnail, style) {
+    $(thumbnail).css("border", "1px solid " + style.box_border);
+    $(thumbnail).css("background-color", style.box_background);
+    $(thumbnail + " .title").css("color", style.header_text);
+    $(thumbnail + " .title").css("background-color", style.header_background);
+    $(thumbnail + " .top").css("color", style.upper_text);
+    $(thumbnail + " .middle span").css("color", style.para_text);
+    $(thumbnail + " .middle").css("color", style.number_text);
+    $(thumbnail + " .input").css("background-color", style.form_background);
+    $(thumbnail + " .input").css("border", "1px solid " + style.form_border);
+    $(thumbnail + " .input .thumb-button").css("background-color", style.button_background);
+  }
   
   /* Atualiza as caixas de cores na personalização */
   $("#style-customize ol li input[type=text]").change(function() {
@@ -153,7 +165,7 @@ $(document).ready(function() {
         break;
       case "button_background":
         $("#download_box .code_area .submit, \
-           #style-customize .thumbnail .input .button").css("background-color", $(this).val());
+           #style-customize .thumbnail .input .thumb-button").css("background-color", $(this).val());
         break;
       case "button_text":
         $("#download_box .code_area .submit").css("color", $(this).val());
@@ -164,12 +176,37 @@ $(document).ready(function() {
     }
   });
   
+  $('#style-customize ol li input[type=text]').click(function() {
+    $('#color-picker').farbtastic(this);
+    $('#color-picker').show('fast');
+  });
+  
   /* Aplica o estilo padrão inicialmente */
   $("#style-customize ol li input[type=text]").change();
   
+  /* Aplica o estilo nos thumbnails */
+  var count = $("#style-list span.style").text();
+  console.log(count);
+  for (var i = 0; i < count; i++) {
+    var style = jQuery.parseJSON($("#style-list .thumbnail.index" + i.toString() + " .style").text());
+    set_thumbnail_style("#style-list .thumbnail.index" + i.toString(), style);
+  }
   
+  
+  $("#style-customize ol li input[type=text]").bind('changed_style', function(style) {
+    var field_name = $(this).attr("name").match(/box_style\[([_a-z]+)\]/)[1];
+    console.log(field_name);
+    $(this).attr("value", style[field_name]);
+  });
+  
+  $("#style-list-container a").click(function() {
+    var style = jQuery.parseJSON($(this).children(".style").text());
+    console.log("clicked");
+    $("#style-customize ol li input[type=text]").trigger('changed_style',  style);    
+  });
   
 });
 
 /* Faz pre-cache das imagens do cadastro */
 $.cacheImages("/images/layouts/botao-on.png");
+

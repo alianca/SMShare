@@ -18,6 +18,10 @@ class User
   belongs_to_related :referrer, :class_name => "User"
   has_many_related :referred, :class_name => "User", :foreign_key => :referrer_id
   
+  # Caixa de Downloads
+  embeds_many :box_styles
+  embeds_one :default_style
+  
   # Arquivos
   has_many_related :files, :class_name => "UserFile", :foreign_key => :owner_id
   has_many_related :file_downloads, :class_name => "Download", :foreign_key => :file_owner_id

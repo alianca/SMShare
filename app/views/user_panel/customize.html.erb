@@ -35,33 +35,38 @@
   <div id="style-list">
     <h3>Lista de modelos</h3>
     <div class="style-list-container">
-      <% placeholder.each do |item| %>
-        <div class="style-list-item">
-          <div class="thumbnail">
+      <% i = 0 %>
+      <% @styles.each do |item| %>
+        <a class="style-list-item <%= item._id == @default_style._id ? "default" : "" %>">
+          <div class="thumbnail index<%= i %>">
             <div class="title"><span class="glass"></span>------<span class="right">--</span></div>
             <div class="top">---- ---- ---- ----</div>
             <div class="middle">==== <span>==</span> ====</div>
             <div class="input"><div class="thumb-button"></div></div>
+            <div class="style"><%= download_box_style item %></div>
           </div>
-          <%= item %>
-        </div>
+          <%= item.name %>
+        </a>
+        <% i += 1 %>
       <% end %>
+      <span class="style"><%= i %></span>
     </div>
     <%= form_for :style do |f| %>
-      <%= f.check_box :default %>
-      Tornar padrão?
+      <!--<%= f.check_box :default %>Tornar padrão?-->
       <%= f.hidden_field :selected_style %>
       <span class="button blue">
-        <span class="left"></span><%= f.submit "Escolher modelo" %><span class="right"></span>        
+        <span class="left"></span><%= f.submit "Tornar padrão" %><span class="right"></span>
       </span>
     <% end %>
   </div>
   
+  <div id="color-picker"></div>
+  
   <div id="style-customize">
     <h3>Personalize o modelo</h3>
-    <%= form_for :box_style do |f| %>
+    <%= form_for :box_style, :url => {:controller => :box_styles, :action => :create} do |f| %>
       <ol>
-        <li>Fundo da caixa:  <div></div> <%= f.text_field :box_background, :value => "#FFFFFF" %></li>
+        <li>Fundo da caixa: <div></div><%= f.text_field :box_background, :value => "#FFFFFF" %></li>
         <li>Contorno da caixa: <div></div> <%= f.text_field :box_border, :value => "#5596AC" %></li>
         <li>Fundo do cabeçalho: <div></div> <%= f.text_field :header_background, :value => "#5596AC" %></li>
         <li>Texto do cabeçalho: <div></div> <%= f.text_field :header_text, :value => "#FFFFFF" %></li>
@@ -107,11 +112,11 @@
       <% end %>
     </div>
     <%= form_for :bg do |f| %>
-      <%= f.check_box :default %>
-      Tornar padrão?
+      <!--<%= f.check_box :default %>
+      Tornar padrão?-->
       <%= f.hidden_field :selected_bg %>
       <span class="button blue">
-        <span class="left"></span><%= f.submit "Escolher fundo" %><span class="right"></span>
+        <span class="left"></span><%= f.submit "Tornar padrão" %><span class="right"></span>
       </span>
     <% end %>
   </div>

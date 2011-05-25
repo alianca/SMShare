@@ -680,7 +680,11 @@ table.file_list td.name {
 #background-list {
   display: block;
   width: 320px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
+}
+
+#background-list h3 {
+  margin-bottom: 7px;
 }
 
 #background-list .bg-list-container {
@@ -775,6 +779,7 @@ table.file_list td.name {
 #style-list {
   float: left;
   margin-left: 55px;
+  background-color: #ffffff;
   width: 285px;
 }
 
@@ -788,12 +793,19 @@ table.file_list td.name {
   overflow-y: scroll;
 }
 
+#style-list .style-list-item:hover {
+  background-color: #f3f7f9;
+}
+
 #style-list .style-list-item {
   float: left;
   width: 260px;
   height: 34px;
   line-height: 32px;
   padding: 2px 0;
+  color: #8e8e8e;
+  text-decoration: none;
+  cursor: pointer;
   border-bottom: 1px dotted #b1d7e3;
 }
 
@@ -862,6 +874,14 @@ table.file_list td.name {
   -moz-border-radius: 3px;
 }
 
+#style-list {
+  margin-bottom: 10px;
+}
+
+#style-list .style {
+  display: none;
+}
+
 .thumbnail .input .thumb-button {
   float: right;
   width: 32px;
@@ -885,6 +905,7 @@ table.file_list td.name {
   float: right;
   margin-right: 20px;
   width: 285px;
+  margin-bottom: 30px;
 }
 
 #style-customize form li {
@@ -903,7 +924,13 @@ table.file_list td.name {
   border: 1px solid white;
 }
 
-#style-customize form ol input[type=text] {
+#color-picker {
+  display: none;
+  position: absolute;
+  margin-right: 100px;
+}
+
+#style-customize form input[type=text] {
   float: right;
   width: 77px;
   height: 24px;
@@ -911,17 +938,16 @@ table.file_list td.name {
   color: #8e8e8e;
   text-align: center;
   margin-right: 20px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
 }
 
 #style-customize form input[type=text].name {
   float: left;
   width: 190px;
   height: 26px;
-  border: 1px solid #7bbacf;
-  border-radius: 7px;
-  -moz-border-radius: 7px;
+  text-align: left;
+  margin: 0;
 }
 
 #style-customize form .button {

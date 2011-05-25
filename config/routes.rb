@@ -48,6 +48,8 @@ Smshare::Application.routes.draw do |map|
 
   resources :faq, :only => [:index]
   
+  resources :box_styles, :only => [:create, :show]
+  
   root :to => "home#index"
 
   # The priority is based upon order of creation:

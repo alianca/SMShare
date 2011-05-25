@@ -58,7 +58,9 @@ class UserPanelController < ApplicationController
   end
   
   def customize
-    
+    @styles = current_user.box_styles
+    @default_style = current_user.default_style
+    #@backgrounds = current_user.box_backgrounds
   end
   
   private
@@ -70,3 +72,4 @@ class UserPanelController < ApplicationController
       end
     end
 end
+

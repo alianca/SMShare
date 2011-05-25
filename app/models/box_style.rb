@@ -16,5 +16,9 @@ class BoxStyle
   field :button_background, :type => String
   field :button_text, :type => String
   field :bottom_text, :type => String
+  field :name, :type => String
+  
+  
+  embedded_in :user, :class_name => "User", :inverse_of => :box_styles
   
 end

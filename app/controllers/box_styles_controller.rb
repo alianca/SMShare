@@ -1,11 +1,8 @@
-class UserPanelController < ApplicationController
+class BoxStylesController < ApplicationController
   
   def create
-    
-  end
-  
-  def show
-    
+    current_user.box_styles.create(params[:box_style])
+    redirect_to :back
   end
   
 end

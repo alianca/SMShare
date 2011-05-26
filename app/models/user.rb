@@ -1,7 +1,7 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
-
+  
   # Inclui os modulos padrões do Devise. Outros disponiveis são:
   # :token_authenticatable, :confirmable, :lockable e :timeoutable
   devise :database_authenticatable, :registerable,
@@ -10,17 +10,19 @@ class User
   # Define o esquema logico db.users
   # email, e os campos de autenticação já são criados pelo Devise
   field :name, :type => String
-  field :nickname, :type => String 
-  field :accepted_terms, :type => Boolean  
+  field :nickname, :type => String
+  field :accepted_terms, :type => Boolean
   field :admin, :type => Boolean
-
+  
   # Indicações
   belongs_to_related :referrer, :class_name => "User"
   has_many_related :referred, :class_name => "User", :foreign_key => :referrer_id
   
   # Caixa de Downloads
-  embeds_many :box_styles
-  embeds_one :default_style
+  has_many_related :box_styles, :foreign_key => :owner_id
+  has_one_related :default_style, :class_name => "BoxStyle"
+  has_many_related :box_images, :class_name => "BoxImage", :foreign_key => :owner_id
+  has_one_related :default_box_image, :class_name => "BoxImage"
   
   # Arquivos
   has_many_related :files, :class_name => "UserFile", :foreign_key => :owner_id
@@ -51,5 +53,5 @@ class User
   private
     def build_root_folder
       self.root_folder = Folder.find_or_create_by(:owner_id => self._id, :path => "/") unless root_folder
-    end  
+    end
 end

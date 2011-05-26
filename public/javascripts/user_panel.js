@@ -102,19 +102,6 @@ $(document).ready(function() {
     e.stopImmediatePropagation();
   });
   
-  function set_thumbnail_style(thumbnail, style) {
-    $(thumbnail).css("border", "1px solid " + style.box_border);
-    $(thumbnail).css("background-color", style.box_background);
-    $(thumbnail + " .title").css("color", style.header_text);
-    $(thumbnail + " .title").css("background-color", style.header_background);
-    $(thumbnail + " .top").css("color", style.upper_text);
-    $(thumbnail + " .middle span").css("color", style.para_text);
-    $(thumbnail + " .middle").css("color", style.number_text);
-    $(thumbnail + " .input").css("background-color", style.form_background);
-    $(thumbnail + " .input").css("border", "1px solid " + style.form_border);
-    $(thumbnail + " .input .thumb-button").css("background-color", style.button_background);
-  }
-  
   /* Atualiza as caixas de cores na personalização */
   $("#style-customize ol li input[type=text]").change(function() {
     $(this).parent("li").children("div").css("background-color", $(this).val());
@@ -176,33 +163,63 @@ $(document).ready(function() {
     }
   });
   
+  /* Ativa o color picker ao clicar na caixa de cor */
   $('#style-customize ol li input[type=text]').click(function() {
+    // Posiciona o color picker ao lado da caixa selecionada
+    var field_position = $(this).offset();
+    var new_position = {
+      'left' : (field_position.left - 205).toString() + 'px',
+      'top' : (field_position.top).toString() + 'px'
+    };
+    $('#color-picker').css(new_position);
+    
     $('#color-picker').farbtastic(this);
     $('#color-picker').show('fast');
+  });
+  
+  /* Desativa o color picker quanto a caixa de cor perde o foco */
+  $('#style-customize ol li input[type=text]').blur(function() {
+    $('#color-picker').hide('fast');
+    $('#color-picker').remove_farbtastic();
   });
   
   /* Aplica o estilo padrão inicialmente */
   $("#style-customize ol li input[type=text]").change();
   
   /* Aplica o estilo nos thumbnails */
-  var count = $("#style-list span.style").text();
-  console.log(count);
-  for (var i = 0; i < count; i++) {
-    var style = jQuery.parseJSON($("#style-list .thumbnail.index" + i.toString() + " .style").text());
-    set_thumbnail_style("#style-list .thumbnail.index" + i.toString(), style);
+  function set_thumbnail_style(thumbnail, style) {
+    $(thumbnail).css("border", "1px solid " + style.box_border);
+    $(thumbnail).css("background-color", style.box_background);
+    $(thumbnail + " .title").css("color", style.header_text);
+    $(thumbnail + " .title").css("background-color", style.header_background);
+    $(thumbnail + " .top").css("color", style.upper_text);
+    $(thumbnail + " .middle span").css("color", style.para_text);
+    $(thumbnail + " .middle").css("color", style.number_text);
+    $(thumbnail + " .input").css("background-color", style.form_background);
+    $(thumbnail + " .input").css("border", "1px solid " + style.form_border);
+    $(thumbnail + " .input .thumb-button").css("background-color", style.button_background);
   }
   
+  function update_thumbnails() {
+    var count = $("#style-list span.style").text();
+    for (var i = 0; i < count; i++) {
+      var style = jQuery.parseJSON($("#style-list .thumbnail.index" + i.toString() + " .style").text());
+      set_thumbnail_style("#style-list .thumbnail.index" + i.toString(), style);
+    }
+  }
+  update_thumbnails();
   
-  $("#style-customize ol li input[type=text]").bind('changed_style', function(style) {
+  $("#style-customize ol li input[type=text]").bind('changed_style', function(e, style) {
+    console.log(style);
     var field_name = $(this).attr("name").match(/box_style\[([_a-z]+)\]/)[1];
-    console.log(field_name);
     $(this).attr("value", style[field_name]);
+    $(this).change();
   });
   
-  $("#style-list-container a").click(function() {
-    var style = jQuery.parseJSON($(this).children(".style").text());
-    console.log("clicked");
-    $("#style-customize ol li input[type=text]").trigger('changed_style',  style);    
+  $("#style-list .style-list-item").click(function() {
+    var style = jQuery.parseJSON($(this).children(".thumbnail").children(".style").text());
+    $("#style-customize ol li input[type=text]").trigger('changed_style', [style]);
+    $("#style-list form #style_selected_style").attr("value", $(this).attr("class").match(/id(.*)/)[1]);
   });
   
 });

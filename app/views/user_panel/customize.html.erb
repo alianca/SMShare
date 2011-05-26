@@ -4,8 +4,6 @@
   <h2>Caixas de Download</h2>
   <p>A forma mais comum e eficaz de compartilhar seus arquivos hospedados no smShare é através das Caixas de Download, elas permitem que os usuários façam download sem sair de seu site.</p>
   
-  <% placeholder = ['aaa'] * 10 # Placeholder para enquanto não tem estilos de verdade %>
-  
   <div id="view">
     <h3>Visualização</h3>
     <div id="download_box">
@@ -25,7 +23,7 @@
       </div>
       
       <%= link_to image_tag("download_box/logo.png"), root_url, :class => :logo %>
-      <% link_to "", :class => :have_one do %>
+      <%= link_to "", :class => :have_one do %>
         Tenha um desses você também »</span>
       <% end %>
     </div>
@@ -37,13 +35,13 @@
     <div class="style-list-container">
       <% i = 0 %>
       <% @styles.each do |item| %>
-        <a class="style-list-item <%= item._id == @default_style._id ? "default" : "" %>">
+        <a class="style-list-item <%= item._id == @default_style._id ? "default" : "" %> id<%= item._id %>">
           <div class="thumbnail index<%= i %>">
             <div class="title"><span class="glass"></span>------<span class="right">--</span></div>
             <div class="top">---- ---- ---- ----</div>
             <div class="middle">==== <span>==</span> ====</div>
             <div class="input"><div class="thumb-button"></div></div>
-            <div class="style"><%= download_box_style item %></div>
+            <div class="style"><%= (download_box_style item).to_json %></div>
           </div>
           <%= item.name %>
         </a>
@@ -51,7 +49,7 @@
       <% end %>
       <span class="style"><%= i %></span>
     </div>
-    <%= form_for :style do |f| %>
+    <%= form_for :style, :url => {:controller => :box_styles, :action => :set_default} do |f| %>
       <!--<%= f.check_box :default %>Tornar padrão?-->
       <%= f.hidden_field :selected_style %>
       <span class="button blue">
@@ -65,21 +63,21 @@
   <div id="style-customize">
     <h3>Personalize o modelo</h3>
     <%= form_for :box_style, :url => {:controller => :box_styles, :action => :create} do |f| %>
-      <ol>
-        <li>Fundo da caixa: <div></div><%= f.text_field :box_background, :value => "#FFFFFF" %></li>
-        <li>Contorno da caixa: <div></div> <%= f.text_field :box_border, :value => "#5596AC" %></li>
-        <li>Fundo do cabeçalho: <div></div> <%= f.text_field :header_background, :value => "#5596AC" %></li>
-        <li>Texto do cabeçalho: <div></div> <%= f.text_field :header_text, :value => "#FFFFFF" %></li>
-        <li>Texto superior: <div></div> <%= f.text_field :upper_text, :value => "#1D4E5D" %></li>
-        <li>Texto do número: <div></div> <%= f.text_field :number_text, :value => "#5596AA" %></li>
-        <li>Texto "para": <div></div> <%= f.text_field :para_text, :value => "#676568" %></li>
-        <li>Texto do custo: <div></div> <%= f.text_field :cost_text, :value => "#9C9E9D" %></li>
-        <li>Fundo do formulário: <div></div> <%= f.text_field :form_background, :value => "#FFFFFF" %></li>
-        <li>Contorno do formulário: <div></div> <%= f.text_field :form_border, :value => "#7BBACF" %></li>
-        <li>Texto do formulário: <div></div> <%= f.text_field :form_text, :value => "#8E8E8E" %></li>
-        <li>Fundo do botão: <div></div> <%= f.text_field :button_background, :value => "#F27F00" %></li>
-        <li>Texto no botão: <div></div> <%= f.text_field :button_text, :value => "#FFFFFF" %></li>
-        <li>Texto inferior: <div></div> <%= f.text_field :bottom_text, :value => "#5596AA" %></li>
+      <ol>      
+        <li>Fundo da caixa: <div></div><%= f.text_field :box_background, :value => default_box_style[:box_background] %></li>
+        <li>Contorno da caixa: <div></div> <%= f.text_field :box_border, :value => default_box_style[:box_border] %></li>
+        <li>Fundo do cabeçalho: <div></div> <%= f.text_field :header_background, :value => default_box_style[:header_background] %></li>
+        <li>Texto do cabeçalho: <div></div> <%= f.text_field :header_text, :value => default_box_style[:header_text] %></li>
+        <li>Texto superior: <div></div> <%= f.text_field :upper_text, :value => default_box_style[:upper_text] %></li>
+        <li>Texto do número: <div></div> <%= f.text_field :number_text, :value => default_box_style[:number_text] %></li>
+        <li>Texto "para": <div></div> <%= f.text_field :para_text, :value => default_box_style[:para_text] %></li>
+        <li>Texto do custo: <div></div> <%= f.text_field :cost_text, :value => default_box_style[:cost_text] %></li>
+        <li>Fundo do formulário: <div></div> <%= f.text_field :form_background, :value => default_box_style[:form_background] %></li>
+        <li>Contorno do formulário: <div></div> <%= f.text_field :form_border, :value => default_box_style[:form_border] %></li>
+        <li>Texto do formulário: <div></div> <%= f.text_field :form_text, :value => default_box_style[:form_text] %></li>
+        <li>Fundo do botão: <div></div> <%= f.text_field :button_background, :value => default_box_style[:button_background] %></li>
+        <li>Texto no botão: <div></div> <%= f.text_field :button_text, :value => default_box_style[:button_text] %></li>
+        <li>Texto inferior: <div></div> <%= f.text_field :bottom_text, :value => default_box_style[:bottom_text] %></li>
       </ol>
       
       <%= f.hidden_field :box_image %>
@@ -104,10 +102,10 @@
   <div id="background-list">
     <h3>Lista de fundos</h3>
     <div class="bg-list-container">
-      <% placeholder.each do |item| %>
+      <% @backgrounds.each do |item| %>
         <div class="bg-list-item">
           <div class="img-thumbnail"></div>
-          <%= item %>
+          <%= item.name %>
         </div>
       <% end %>
     </div>
@@ -123,7 +121,7 @@
   
   <div id="background-form">
     <h3>Envie seu próprio fundo</h3>
-    <%= form_for :background do |f| %>
+    <%= form_for :background, :url => { :controller => :box_images, :action => :create } do |f| %>
       <span class="file_field"><span class="left"></span><%= f.file_field :file, :type => :file %><span class="right"></span></span>
       <%= f.text_field :name %>
       <span class="button orange">

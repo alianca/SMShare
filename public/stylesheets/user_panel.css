@@ -657,7 +657,7 @@ table.file_list td.name {
 #customize-container h3 {
   color: #423b35;
   padding: 0;
-  margin: 0;
+  margin: 0 0 7px 0;
   font-size: 16px;
 }
 
@@ -681,10 +681,6 @@ table.file_list td.name {
   display: block;
   width: 320px;
   margin-bottom: 50px;
-}
-
-#background-list h3 {
-  margin-bottom: 7px;
 }
 
 #background-list .bg-list-container {
@@ -779,7 +775,6 @@ table.file_list td.name {
 #style-list {
   float: left;
   margin-left: 55px;
-  background-color: #ffffff;
   width: 285px;
 }
 
@@ -789,6 +784,7 @@ table.file_list td.name {
   padding: 5px;
   border-radius: 7px;
   -moz-border-radius: 7px;
+  background-color: #ffffff;
   border: 1px solid #b1d7e3;
   overflow-y: scroll;
 }
@@ -807,6 +803,7 @@ table.file_list td.name {
   text-decoration: none;
   cursor: pointer;
   border-bottom: 1px dotted #b1d7e3;
+  overflow: hidden;
 }
 
 .thumbnail {
@@ -927,7 +924,13 @@ table.file_list td.name {
 #color-picker {
   display: none;
   position: absolute;
-  margin-right: 100px;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #7bbacf;
+  background-color: #ffffff;
+  z-index: 2;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
 }
 
 #style-customize form input[type=text] {

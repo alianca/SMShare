@@ -227,27 +227,25 @@ jQuery._farbtastic = function (container, callback) {
       left: Math.round(Math.sin(angle) * fb.radius + fb.width / 2) + 'px',
       top: Math.round(-Math.cos(angle) * fb.radius + fb.width / 2) + 'px'
     });
-
+    
     $('.sl-marker', e).css({
       left: Math.round(fb.square * (.5 - fb.hsl[1]) + fb.width / 2) + 'px',
       top: Math.round(fb.square * (.5 - fb.hsl[2]) + fb.width / 2) + 'px'
     });
-
+    
     // Saturation/Luminance gradient
     $('.color', e).css('backgroundColor', fb.pack(fb.HSLToRGB([fb.hsl[0], 1, 0.5])));
-
+    
     // Linked elements or callback
     if (typeof fb.callback == 'object') {
       // Set background/foreground color
-      $(fb.callback).css({
-        backgroundColor: fb.color,
-        color: fb.hsl[2] > 0.5 ? '#000' : '#fff'
-      });
+      /* Modificado por Felipe */
+      $(fb.callback).change();
 
       // Change linked value
       $(fb.callback).each(function() {
         if (this.value && this.value != fb.color) {
-          this.value = fb.color;
+          this.value = fb.color.toUpperCase();
         }
       });
     }
@@ -255,7 +253,7 @@ jQuery._farbtastic = function (container, callback) {
       fb.callback.call(fb, fb.color);
     }
   }
-
+  
   /**
    * Get absolute position of element
    */
@@ -269,7 +267,7 @@ jQuery._farbtastic = function (container, callback) {
     }
     return r;
   };
-
+  
   /* Various color utility functions */
   fb.pack = function (rgb) {
     var r = Math.round(rgb[0] * 255);
@@ -279,7 +277,7 @@ jQuery._farbtastic = function (container, callback) {
            (g < 16 ? '0' : '') + g.toString(16) +
            (b < 16 ? '0' : '') + b.toString(16);
   }
-
+  
   fb.unpack = function (color) {
     if (color.length == 7) {
       return [parseInt('0x' + color.substring(1, 3)) / 255,
@@ -292,7 +290,7 @@ jQuery._farbtastic = function (container, callback) {
         parseInt('0x' + color.substring(3, 4)) / 15];
     }
   }
-
+  
   fb.HSLToRGB = function (hsl) {
     var m1, m2, r, g, b;
     var h = hsl[0], s = hsl[1], l = hsl[2];
@@ -302,7 +300,7 @@ jQuery._farbtastic = function (container, callback) {
         this.hueToRGB(m1, m2, h),
         this.hueToRGB(m1, m2, h-0.33333)];
   }
-
+  
   fb.hueToRGB = function (m1, m2, h) {
     h = (h < 0) ? h + 1 : ((h > 1) ? h - 1 : h);
     if (h * 6 < 1) return m1 + (m2 - m1) * h * 6;
@@ -310,7 +308,7 @@ jQuery._farbtastic = function (container, callback) {
     if (h * 3 < 2) return m1 + (m2 - m1) * (0.66666 - h) * 6;
     return m1;
   }
-
+  
   fb.RGBToHSL = function (rgb) {
     var min, max, delta, h, s, l;
     var r = rgb[0], g = rgb[1], b = rgb[2];
@@ -334,12 +332,20 @@ jQuery._farbtastic = function (container, callback) {
 
   // Install mousedown handler (the others are set on the document on-demand)
   $('*', e).mousedown(fb.mousedown);
-
+  
     // Init color
   fb.setColor('#000000');
-
+  
   // Set linked elements/callback
   if (callback) {
     fb.linkTo(callback);
   }
 }
+
+
+/* Adicionado por Felipe */
+
+jQuery.fn.remove_farbtastic = function() {
+  $(this).get(0).farbtastic = null;
+};
+

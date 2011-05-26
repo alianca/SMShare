@@ -183,10 +183,10 @@ class UserFile
         tag.strip.parameterize
       end
       tags.delete("")
-    end    
+    end
     
     def generate_alias
-      self.alias ||= self.filename      
+      self.alias ||= self.filename
     end
 end
 

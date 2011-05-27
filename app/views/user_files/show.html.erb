@@ -25,6 +25,7 @@
     
     <div class="images">
       <% for i in 0..3 %>
+      <%# TODO Remove this for with indexes, use a collect instead %>
         <% image = (@file.images.select { |img| img.index == i }).first %>
         <% if image %>
           <%= image_tag image.get, :class => "filled index%d" % i %>
@@ -109,12 +110,12 @@
     
     <div class="comments">
       <h5>Comentários
-        <% if @file.comments.count > 0 %>
+        <% if @comments.total > 0 %>
           <span>(<%= @file.comments.count %>)</span>
         <% end %>
       </h5>
       
-      <% if @file.comments.count > 0 %>
+      <% if @comments.total > 0 %>
         <%= render :partial => "comment", :collection => @comments %>
         <%= will_paginate @comments %>
       <% else %>

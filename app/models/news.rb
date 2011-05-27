@@ -6,7 +6,7 @@ class News
   field :full, :type => String
   field :date, :type => Time
   
-  validates_presence_of :title
-  validates_presence_of :short
-  validates_presence_of :full
+  validates :title, :presence => true
+  validates :short, :presence => true
+  validates :full, :presence => true
 end

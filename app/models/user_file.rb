@@ -104,16 +104,7 @@ class UserFile
   
   # Sentenced Fields para as Tags
   sentenced_fields :tags
-  
-  def self.search query_string
-    fields_to_search = ["alias", "filename", "filetype", "description", "tags", "categories"]
     
-    regex_for_query = Regexp.new query_string.gsub(" ", "|"), "i"
-    
-    mongodb_query = { "$or" => fields_to_search.collect { |f| { f => regex_for_query } } }
-    self.where(mongodb_query)
-  end
-  
   def resolve_filetype
     case self.filetype
       when /image.*/

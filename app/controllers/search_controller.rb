@@ -2,7 +2,7 @@ class SearchController < ApplicationController
   before_filter :set_active, :only => [:index, :show]
 
   def index
-    @files = UserFile.search(params[:q], :per_page => 10, :page => params[:page]) if params[:q]        
+    @files = UserFile.search(params[:q], :per_page => 10, :page => params[:page]) if params[:q]
   end
   
   private

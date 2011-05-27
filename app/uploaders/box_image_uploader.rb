@@ -1,5 +1,5 @@
 class BoxImageUploader < CarrierWave::Uploader::Base
-  storage :grid_fs
+  storage :file
   
   def store_dir
     "box_images/#{model.id}"

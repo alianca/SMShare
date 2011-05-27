@@ -176,8 +176,12 @@ $(document).ready(function() {
     $('#color-picker').farbtastic(this);
     $('#color-picker').show('fast');
   });
+    
+  $('#style-customize ol li div').click(function() {
+    $(this).parent("li").children("input[type=text]").click().focus();
+  });
   
-  /* Desativa o color picker quanto a caixa de cor perde o foco */
+  /* Desativa o color picker quando a caixa de cor perde o foco */
   $('#style-customize ol li input[type=text]').blur(function() {
     $('#color-picker').hide('fast');
     $('#color-picker').remove_farbtastic();
@@ -221,6 +225,25 @@ $(document).ready(function() {
     $("#style-customize ol li input[type=text]").trigger('changed_style', [style]);
     $("#style-list form #style_selected_style").attr("value", $(this).attr("class").match(/id(.*)/)[1]);
   });
+  
+  
+  function update_backgrounds() {
+    var count = $("#background-list .count").text();
+    for (var i = 0; i < count; i++) {
+      var url = $("#background-list .img-thumbnail.index" + i.toString() + " span").text();
+      $("#background-list .img-thumbnail.index" + i.toString()).css("background-image", "url(" + url + ")");
+    }
+  }
+  update_backgrounds();
+  
+  $("#background-list .bg-list-item").click(function() {
+    var url = $(this).children(".img-thumbnail").children("span").text();
+    $("#view #download_box").css("background-image", "url(" + url + ")");
+    $("#background-list form #bg_selected_bg").attr("value", $(this).attr("class").match(/id(.*)/)[1]);
+  });
+  
+  /* Aplica a imagem de fundo padrão */
+  $("#background-list .bg-list-item.default").click();
   
 });
 

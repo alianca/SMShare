@@ -13,16 +13,16 @@ class User
   field :nickname, :type => String
   field :accepted_terms, :type => Boolean
   field :admin, :type => Boolean
+  field :default_style_id, :type => BSON::ObjectId
+  field :default_box_image_id, :type => BSON::ObjectId
   
   # Indicações
   belongs_to_related :referrer, :class_name => "User"
   has_many_related :referred, :class_name => "User", :foreign_key => :referrer_id
   
   # Caixa de Downloads
-  has_many_related :box_styles, :foreign_key => :owner_id
-  has_one_related :default_style, :class_name => "BoxStyle"
-  has_many_related :box_images, :class_name => "BoxImage", :foreign_key => :owner_id
-  has_one_related :default_box_image, :class_name => "BoxImage"
+  has_many_related :box_styles, :foreign_key => :user_id
+  has_many_related :box_images, :foreign_key => :user_id
   
   # Arquivos
   has_many_related :files, :class_name => "UserFile", :foreign_key => :owner_id
@@ -48,6 +48,28 @@ class User
       conditions[:nickname] = conditions.delete(:email)
     end
     super
+  end
+  
+  def default_style
+    if self.default_style_id
+      self.box_styles.find(self.default_style_id)
+    end
+  end
+  
+  def default_style= style
+    self.default_style_id = style._id
+    save
+  end
+  
+  def default_box_image
+    if self.default_box_image_id
+      self.box_images.find(self.default_box_image_id)
+    end
+  end
+  
+  def default_box_image= image
+    self.default_box_image_id = image._id
+    save
   end
   
   private

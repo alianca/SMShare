@@ -54,7 +54,11 @@ Smshare::Application.routes.draw do |map|
     end
   end
   
-  resources :box_images, :only => [:create]
+  resources :box_images, :only => [:create] do
+    collection do
+      post :set_default
+    end
+  end
   
   root :to => "home#index"
 

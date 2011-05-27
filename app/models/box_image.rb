@@ -5,6 +5,6 @@ class BoxImage
   
   mount_uploader :image, BoxImageUploader, :mount_on => :filename
   
-  belongs_to_related :owner, :class_name => "User"
-  
+  belongs_to_related :user, :class_name => "User"
+    
 end

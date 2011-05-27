@@ -1,7 +1,6 @@
 class BoxStyle
   include Mongoid::Document
   
-  field :box_image, :type => String
   field :box_background, :type => String
   field :box_border, :type => String
   field :header_background, :type => String
@@ -18,6 +17,6 @@ class BoxStyle
   field :bottom_text, :type => String
   field :name, :type => String
   
-  belongs_to_related :owner, :class_name => "User"
+  belongs_to_related :user, :class_name => "User"
   
 end

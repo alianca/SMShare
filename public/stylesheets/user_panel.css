@@ -689,6 +689,7 @@ table.file_list td.name {
   padding: 5px;
   border-radius: 7px;
   -moz-border-radius: 7px;
+  background-color: #ffffff;
   border: 1px solid #b1d7e3;
   overflow-y: scroll;
 }
@@ -698,12 +699,25 @@ table.file_list td.name {
   height: 64px;
   line-height: 64px;
   padding: 6px 0;
+  color: #8e8e8e;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
   margin: 0;
   border-bottom: 1px dotted #b1d7e3;
 }
 
+#background-list .bg-list-item:hover {
+  background-color: #f3f7f9;
+}
+
+#background-list .bg-list-item img {
+  float: right;
+  margin-right: 5px;
+  margin-top: 26px;
+}
+
 #background-list .bg-list-item .img-thumbnail {
-  background: url(/images/download_box/fundo_padrao.png) no-repeat;
   background-size: 132px 64px;
   float: left;
   width: 132px;
@@ -714,6 +728,10 @@ table.file_list td.name {
   border-radius: 10px;
   -moz-border-radius: 10px;
   box-shadow: 1px 1px 1px 1px rgba(50,50,50,0.2);
+}
+
+#background-list .hidden {
+  display: none;
 }
 
 #background-list form {
@@ -745,7 +763,7 @@ table.file_list td.name {
   padding-left: 4px;
   padding-bottom: 23px;
   padding-top: 7px;
-  margin-right: -3px;  
+  margin-right: -3px;
   background: url(/images/user_panel/field_left.png) no-repeat;
 }
 
@@ -804,6 +822,12 @@ table.file_list td.name {
   cursor: pointer;
   border-bottom: 1px dotted #b1d7e3;
   overflow: hidden;
+}
+
+#style-list .style-list-item img {
+  float: right;
+  margin-right: 5px;
+  margin-top: 10px;
 }
 
 .thumbnail {

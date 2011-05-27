@@ -4,7 +4,7 @@ class UserFilesController < ApplicationController
   after_filter :save_download_info, :only => [:download]
   
   layout "user_panel", :except => [:show]
-  layout "application", :only => [:show]
+  
   
   def new
     respond_with(@file = UserFile.new)
@@ -29,38 +29,41 @@ class UserFilesController < ApplicationController
     respond_with(@files = current_user.files.find(params[:files]))
   end
   
-  def create # FIXME I'm too fat. need a lypo.
-    @files = []
-    
-    for i in 0..params[:files].count-1
-      puts params[:files][i.to_s]
-      file = current_user.files.create(params[:files][i.to_s])
-      @files << file if file.valid?
-    end
-    
-    if !@files.empty?
-      flash[:notice] = "Arquivo(s) enviado(s) com sucesso."
-      respond_with(@files, :location => categorize_user_files_path(:files => @files))
-    else
-      flash[:alert] = file.errors.full_messages.first
-      redirect_to :back
-    end    
+  # def create # FIXME I'm too fat. need a lypo.
+  #   @files = []
+  #   
+  #   debugger
+  #   
+  #   for i in 0..params[:files].count-1
+  #     puts params[:files][i.to_s]
+  #     file = current_user.files.create(params[:files][i.to_s])
+  #     @files << file if file.valid?
+  #   end
+  #   
+  #   if !@files.empty?
+  #     flash[:notice] = "Arquivo(s) enviado(s) com sucesso."
+  #     respond_with(@files, :location => categorize_user_files_path(:files => @files))
+  #   else
+  #     flash[:alert] = file.errors.full_messages.first
+  #     redirect_to :back
+  #   end    
+  # end
+  
+  def create
+    @file = current_user.files.create(params[:user_file])
+    flash[:notice] = "Arquivo enviado com sucesso." if @file.valid?
+    flash[:alert] = @file.errors.full_messages.first unless @file.valid?    
+    respond_with(@file, :location => categorize_user_files_path(:files => [@file]))
   end
   
-  def update_categories # FIXME I'm too fat. need a lypo.
-    @files = []
+  def update_categories
+    @files = params[:files].collect do |file_id, file_params|
+      file = UserFile.find(file_id)      
+      file.category_ids = file_params[:categories].delete_if { |c| c.blank? }.collect { |c| BSON::ObjectId(c) }
+      file.sentenced_tags = file_params[:sentenced_tags]
+      file.save ? file : nil
+    end.compact
     
-    params[:files].each do |file|
-      file[1][:categories].delete_if { |c| c.blank? }
-      the_file = UserFile.find(BSON::ObjectId(file[0]))
-      file[1][:categories].each do |c|
-        the_file.categories << Category.find(BSON::ObjectId(c))
-      end
-      
-      the_file.sentenced_tags = file[1][:sentenced_tags]
-      the_file.save
-      @files << the_file
-    end
     respond_with(@file, :location => links_user_files_path(:files => @files))
   end
   

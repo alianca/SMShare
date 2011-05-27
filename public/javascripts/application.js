@@ -6,13 +6,13 @@ $(document).ready(function() {
   })
   
   /* Limpa quando o text_field ganhar o foco */
-  $(".clear-on-focus").focus(function() {
+  $(".clear-on-focus").live("focus", function() {
     if($(this).val() == $(this).attr("title"))
       $(this).val("");
   });
 
   /* Retorna ao texto se o text_field está vazio quando ele perder o foco */
-  $(".clear-on-focus").blur(function() {
+  $(".clear-on-focus").live("blur", function() {
     if($(this).val() == "")
       $(this).val($(this).attr("title"));
   });

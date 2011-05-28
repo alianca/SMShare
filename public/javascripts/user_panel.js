@@ -224,6 +224,8 @@ $(document).ready(function() {
     var style = jQuery.parseJSON($(this).children(".thumbnail").children(".style").text());
     $("#style-customize ol li input[type=text]").trigger('changed_style', [style]);
     $("#style-list form #style_selected_style").attr("value", $(this).attr("class").match(/id(.*)/)[1]);
+    $("#style-list .style-list-item.selected").removeClass("selected");
+    $(this).addClass("selected");
   });
   
   
@@ -239,7 +241,9 @@ $(document).ready(function() {
   $("#background-list .bg-list-item").click(function() {
     var url = $(this).children(".img-thumbnail").children("span").text();
     $("#view #download_box").css("background-image", "url(" + url + ")");
-    $("#background-list form #bg_selected_bg").attr("value", $(this).attr("class").match(/id(.*)/)[1]);
+    $("#background-list form #bg_selected_bg").attr("value", $(this).attr("class").match(/id([0-9a-z]{24})/)[1]);
+    $("#background-list .bg-list-item.selected").removeClass("selected");
+    $(this).addClass("selected");
   });
   
   /* Aplica a imagem de fundo padrão */

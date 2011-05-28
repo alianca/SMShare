@@ -707,7 +707,7 @@ table.file_list td.name {
   border-bottom: 1px dotted #b1d7e3;
 }
 
-#background-list .bg-list-item:hover {
+#background-list .bg-list-item:hover, #background-list .bg-list-item.selected {
   background-color: #f3f7f9;
 }
 
@@ -720,6 +720,7 @@ table.file_list td.name {
 #background-list .bg-list-item .img-thumbnail {
   background-size: 132px 64px;
   float: left;
+  background-color: #ffffff;
   width: 132px;
   height: 64px;
   margin: 0 10px 0 4px;
@@ -807,7 +808,7 @@ table.file_list td.name {
   overflow-y: scroll;
 }
 
-#style-list .style-list-item:hover {
+#style-list .style-list-item:hover, #style-list .style-list-item.selected {
   background-color: #f3f7f9;
 }
 
@@ -847,26 +848,27 @@ table.file_list td.name {
   position: relative;
   background-color: rgba(255, 255, 255, 0.2);
   width: 90px;
-  height: 3px;
-  margin-bottom: -4px;
-  left: -1px;
+  height: 4px;
+  margin-bottom: -8px;
+  left: -3px;
   border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
 }
 
 .thumbnail .title {
   text-align: left;
-  padding: 0 3px;
+  padding-left: 3px;
+  padding-bottom: 1px;
   background-color: #5596ac;
   color: #ffffff;
   line-height: 7px;
-  top: -5px;
   border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
 }
 
 .thumbnail .title .right {
   float: right;
+  margin-right: 3px;
 }
 
 .thumbnail .top {
@@ -982,13 +984,12 @@ table.file_list td.name {
   width: 80px;
   margin-top: -2px;
   margin-bottom: 2px;
-  margin-left: 5px;  
+  margin-left: 5px;
 }
 
 #style-customize form p {
   font-size: 11px;
 }
-
 
 .button span {
   position: relative;

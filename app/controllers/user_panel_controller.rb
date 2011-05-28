@@ -3,7 +3,7 @@ class UserPanelController < ApplicationController
   before_filter :authenticate_user!
   before_filter :fetch_folder, :only => [:create, :manage]
   
-  layout 'user_panel'  
+  layout 'user_panel'
   
   def show
     @file = UserFile.new
@@ -58,10 +58,12 @@ class UserPanelController < ApplicationController
   end
   
   def customize
-    @styles = current_user.box_styles.all
-    @default_style = current_user.default_style
-    @backgrounds = current_user.box_images.all
-    @default_background = current_user.default_box_image
+    @default_styles = BoxStyle.where(:user_id => nil)
+    @user_styles = current_user.box_styles.all
+    @user_default_style = current_user.default_style
+    @default_backgrounds = BoxImage.where(:user_id => nil)
+    @user_backgrounds = current_user.box_images.all
+    @user_default_background = current_user.default_box_image
   end
   
   private

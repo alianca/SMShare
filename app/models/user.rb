@@ -23,6 +23,7 @@ class User
   # Caixa de Downloads
   has_many_related :box_styles, :foreign_key => :user_id
   has_many_related :box_images, :foreign_key => :user_id
+  before_save :set_default_box_style
   
   # Arquivos
   has_many_related :files, :class_name => "UserFile", :foreign_key => :owner_id
@@ -36,7 +37,7 @@ class User
   # Estatisticas
   embeds_one :statistics, :class_name => "UserStatistic"
   after_create :build_statistics
-  embeds_many :daily_statistics, :class_name => "UserDailyStatistic"# , :order => :date.asc
+  embeds_many :daily_statistics, :class_name => "UserDailyStatistic" # , :order => :date.asc
   
   # Validações
   validates :name, :presence => true
@@ -51,29 +52,28 @@ class User
   end
   
   def default_style
-    if self.default_style_id
-      self.box_styles.find(self.default_style_id)
-    end
+    BoxStyle.find(self.default_style_id) if self.default_style_id
   end
   
   def default_style= style
     self.default_style_id = style._id
-    save
   end
   
   def default_box_image
-    if self.default_box_image_id
-      self.box_images.find(self.default_box_image_id)
-    end
+    BoxImage.find(self.default_box_image_id) if self.default_box_image_id
   end
   
   def default_box_image= image
     self.default_box_image_id = image._id
-    save
   end
   
   private
     def build_root_folder
       self.root_folder = Folder.find_or_create_by(:owner_id => self._id, :path => "/") unless root_folder
+    end
+    
+    def set_default_box_style
+      self.default_style ||= BoxStyle.where(:name => "Estilo smShare").first
+      self.default_box_image ||= BoxImage.where(:name => "Nuvens smShare").first
     end
 end

@@ -14,26 +14,25 @@ module UserPanelHelper
   end
   
   def default_box_style
-    download_box_style @default_style
+    download_box_style @user_default_style
   end
   
   def download_box_style style
     {
-      :box_image => style ? style.box_image : "/images/download_box/fundo_padrao.png",
-      :box_background => style ? style.box_background : "#FFFFFF",
-      :box_border => style ? style.box_border : "#5596AC",
-      :header_background => style ? style.header_background : "#5596AC",
-      :header_text => style ? style.header_text : "#FFFFFF",
-      :upper_text => style ? style.upper_text : "#1D4E5D",
-      :number_text => style ? style.number_text : "#5596AC",
-      :para_text => style ? style.para_text : "#676568",
-      :cost_text => style ? style.cost_text : "9C9E9D",
-      :form_background => style ? style.form_background : "#FFFFFF",
-      :form_border => style ? style.form_border : "#7BBACF",
-      :form_text => style ? style.form_text : "#8E8E8E",
-      :button_background => style ? style.button_background : "#F27F00",
-      :button_text => style ? style.button_text : "#FFFFFF",
-      :bottom_text => style ? style.bottom_text : "#5596AC"
+      :box_background => style.box_background,
+      :box_border => style.box_border,
+      :header_background => style.header_background,
+      :header_text => style.header_text,
+      :upper_text => style.upper_text,
+      :number_text => style.number_text,
+      :para_text => style.para_text,
+      :cost_text => style.cost_text,
+      :form_background => style.form_background,
+      :form_border => style.form_border,
+      :form_text => style.form_text,
+      :button_background => style.button_background,
+      :button_text => style.button_text,
+      :bottom_text => style.bottom_text
     }
   end
 end

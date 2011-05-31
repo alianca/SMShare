@@ -233,14 +233,14 @@ $(document).ready(function() {
     var count = $("#background-list .count").text();
     for (var i = 0; i < count; i++) {
       var url = $("#background-list .img-thumbnail.index" + i.toString() + " span").text();
-      $("#background-list .img-thumbnail.index" + i.toString()).css("background-image", "url(" + url + ")");
+      $("#background-list .img-thumbnail.index" + i.toString()).css("background", "url(" + url + ") no-repeat");
     }
   }
   update_backgrounds();
   
   $("#background-list .bg-list-item").click(function() {
     var url = $(this).children(".img-thumbnail").children("span").text();
-    $("#view #download_box").css("background-image", "url(" + url + ")");
+    $("#view #download_box").css("background", "url(" + url + ") no-repeat");
     $("#background-list form #bg_selected_bg").attr("value", $(this).attr("class").match(/id([0-9a-z]{24})/)[1]);
     $("#background-list .bg-list-item.selected").removeClass("selected");
     $(this).addClass("selected");
@@ -248,6 +248,16 @@ $(document).ready(function() {
   
   /* Aplica a imagem de fundo padrão */
   $("#background-list .bg-list-item.default").click();
+  
+  /* Alterna a exibição da caixa do 'código de inserção' */
+  $("#generate-code").click(function(e) {
+    if ($("#url-area:visible")[0]) {
+      $("#url-area").hide("fast");
+    } else {
+      $("#url-area").show("fast");
+    }
+    e.stopImmediatePropagation();
+  });
   
 });
 

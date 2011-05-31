@@ -21,6 +21,7 @@ gem 'formtastic'
 
 # To use Carrierwave
 gem 'carrierwave'
+gem 'mini_magick'
 
 # To use jQuery
 gem 'jquery-rails'

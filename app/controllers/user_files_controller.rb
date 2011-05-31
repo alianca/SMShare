@@ -44,7 +44,7 @@ class UserFilesController < ApplicationController
     else
       flash[:alert] = file.errors.full_messages.first
       redirect_to :back
-    end    
+    end
   end
   
   def update_categories # FIXME I'm too fat. need a lypo.
@@ -79,7 +79,12 @@ class UserFilesController < ApplicationController
   end
   
   def download_box
-    respond_with(@file = UserFile.find(params[:id]), :layout => nil)
+    @file = UserFile.find(params[:id])
+    @style = BoxStyle.find(params[:style]) if params[:style]
+    @style = @item.owner.default_style unless params[:style]
+    @background = BoxImage.find(params[:background]) if params[:background]
+    @background = @item.owner.current_user.default_box_image unless params[:background]
+    respond_with(@file, :layout => nil)
   end
   
   private

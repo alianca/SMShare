@@ -37,7 +37,7 @@
   margin-left: -4px;
   margin-top: -3px;
   line-height: 28px;
-  border-bottom: 1px solid rgba(29,29,29,0.5);
+  border-bottom: 1px solid rgba(0,0,0,0.5);
   border-radius: 5px 5px 0 0;
   -moz-border-radius: 5px 5px 0 0;
 }
@@ -49,6 +49,14 @@
   margin-bottom: -15px;
   border-radius: 5px 5px 0 0;
   -moz-border-radius: 5px 5px 0 0;
+  background-color: rgba(255,255,255,0.1);
+}
+
+.download_box .box-header .header-bottom {
+  display: block;
+  width: 352px;
+  height: 1px;
+  margin-top: 27px;
   background-color: rgba(255,255,255,0.1);
 }
 
@@ -170,7 +178,7 @@
   height: 13px;
 }
 
-#style-data {
+#style-data, #download-data {
   display: none;
 }
 

@@ -4,65 +4,70 @@
   <h2>Caixas de Download</h2>
   <p>A forma mais comum e eficaz de compartilhar seus arquivos hospedados no smShare é através das Caixas de Download, elas permitem que os usuários façam download sem sair de seu site.</p>
   
-  <div id="view">
-    <h3>Visualização</h3>
-    <div id="download_box">
-      <div class="box-header">
-        <span class="header-glass"></span>
-        <p class="filename"><em>Arquivo:</em> Nome do arquivo aqui</p>
-        <p class="filesize"><em>10MB</em></p>
-      </div>
-      
-      <p class="call-to-action">Para baixar o arquivo, envie um SMS com a palavra</p>
-      <p class="sms"><em>SMSHARE</em> para <em>49094<span class="star">*</span></em></p>
-      <p class="price">*custo de R$ 0,86 + impostos</p>
-      
-      <div class="code_area">
-        <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus"%>
-        <%= submit_tag "Download", :class => "submit" %>
-      </div>
-      
-      <%= link_to image_tag("download_box/logo.png"), root_url, :class => :logo %>
-      <%= link_to "", :class => :have_one do %>
-        Tenha um desses você também »</span>
-      <% end %>
-    </div>
-    <li><%= link_to "Gerar código de inserção", "", :class => :generate_code %></li>
-  </div>
-
-  <div id="style-list">
-    <h3>Lista de modelos</h3>
-    <div class="style-list-container">
-      <% i = 0 %>
-      <% [@default_styles, @user_styles].each do |style_type| %>
-        <% style_type.each do |item| %>
-          <a class="style-list-item <%= item._id == @user_default_style._id ? "selected" : "" %> id<%= item._id %>">
-            <div class="thumbnail index<%= i %>">
-              <div class="title"><span class="glass"></span>------<span class="right">--</span></div>
-              <div class="top">---- ---- ---- ----</div>
-              <div class="middle">==== <span>==</span> ====</div>
-              <div class="input"><div class="thumb-button"></div></div>
-              <div class="style"><%= (download_box_style item).to_json %></div>
-            </div>
-            <%= item.name %>
-            
-            <% if item._id == @user_default_style._id %>
-              <%= image_tag "user_panel/default_marker.png" %>
-            <% end %>
-          </a>
-          <% i += 1 %>
+  <div id="top">
+    <div id="view">
+      <h3>Visualização</h3>
+      <div id="download_box">
+        <div class="box-header">
+          <span class="header-glass"></span>
+          <p class="filename"><em>Arquivo:</em> Nome do arquivo aqui</p>
+          <p class="filesize"><em>10MB</em></p>
+          <span class="header-bottom"></span>
+        </div>
+        
+        <p class="call-to-action">Para baixar o arquivo, envie um SMS com a palavra</p>
+        <p class="sms"><em>SMSHARE</em> para <em>49094<span class="star">*</span></em></p>
+        <p class="price">*custo de R$ 0,86 + impostos</p>
+        
+        <div class="code_area">
+          <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus"%>
+          <%= submit_tag "Download", :class => "submit" %>
+        </div>
+        
+        <%= link_to image_tag("download_box/logo.png"), root_url, :class => :logo %>
+        <%= link_to "", :class => :have_one do %>
+          Tenha um desses você também »</span>
         <% end %>
-      <% end %>
-      <span class="style"><%= i %></span>
+      </div>
+      <li><a id="generate-code">Gerar código de inserção</a></li>
     </div>
-    <%= form_for :style, :url => {:controller => :box_styles, :action => :set_default} do |f| %>
-      <!--<%= f.check_box :default %>Tornar padrão?-->
-      <%= f.hidden_field :selected_style %>
-      <span class="button blue">
-        <span class="left"></span><%= f.submit "Tornar padrão" %><span class="right"></span>
-      </span>
-    <% end %>
+
+    <div id="style-list">
+      <h3>Lista de modelos</h3>
+      <div class="style-list-container">
+        <% i = 0 %>
+        <% [@default_styles, @user_styles].each do |style_type| %>
+          <% style_type.each do |item| %>
+            <a class="style-list-item <%= item._id == @user_default_style._id ? "selected" : "" %> id<%= item._id %>">
+              <div class="thumbnail index<%= i %>">
+                <div class="title"><span class="glass"></span>------<span class="right">--</span></div>
+                <div class="top">---- ---- ---- ----</div>
+                <div class="middle">==== <span>==</span> ====</div>
+                <div class="input"><div class="thumb-button"></div></div>
+                <div class="style"><%= (download_box_style item).to_json %></div>
+              </div>
+              <%= item.name %>
+              
+              <% if item._id == @user_default_style._id %>
+                <%= image_tag "user_panel/default_marker.png" %>
+              <% end %>
+            </a>
+            <% i += 1 %>
+          <% end %>
+        <% end %>
+        <span class="style"><%= i %></span>
+      </div>
+      <%= form_for :style, :url => {:controller => :box_styles, :action => :set_default} do |f| %>
+        <!--<%= f.check_box :default %>Tornar padrão?-->
+        <%= f.hidden_field :selected_style %>
+        <span class="button blue">
+          <span class="left"></span><%= f.submit "Tornar padrão" %><span class="right"></span>
+        </span>
+      <% end %>
+    </div>
   </div>
+  
+  <div id="url-area"><span class="left"></span><%= text_field_tag :url %><span class="right"></span></div>
   
   <div id="color-picker"></div>
   
@@ -125,8 +130,7 @@
       <span class="hidden default"><%= @user_default_background.image.url %></span>
     </div>
     <%= form_for :bg, :url => {:controller => :box_images, :action => :set_default} do |f| %>
-      <!--<%= f.check_box :default %>
-      Tornar padrão?-->
+      <!--<%= f.check_box :default %> Tornar padrão?-->
       <%= f.hidden_field :selected_bg %>
       <span class="button blue">
         <span class="left"></span><%= f.submit "Tornar padrão" %><span class="right"></span>

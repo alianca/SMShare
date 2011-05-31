@@ -34,7 +34,7 @@ style = BoxStyle.create(
   :bottom_text => "#5596AC"
 )
 
-# Fundo padrão da caixa de downloads
+# Fundos padrão da caixa de downloads
 BoxImage.create(
   :name => "Sem fundo",
   :user => nil,

@@ -10,7 +10,7 @@ function install_clear_on_focus(context) {
     if($(this).val() == $(this).attr("title"))
       $(this).val("");
   });
-
+  
   /* Retorna ao texto se o text_field está vazio quando ele perder o foco */
   $(context + " .clear-on-focus").blur(function() {
     if($(this).val() == "")
@@ -21,7 +21,6 @@ function install_clear_on_focus(context) {
 function set_box_style(box, style) {
   $(box).css("border", "1px solid " + style.box_border);
   $(box).css("background-color", style.box_background);
-  $(box).css("background", "url(" + style.box_image + ")");
   $(box + " .box-header").css("color", style.header_text);
   $(box + " .filename").css("color", style.header_text);
   $(box + " .filesize").css("color", style.header_text);
@@ -41,11 +40,9 @@ function set_box_style(box, style) {
 function after_create_box(box) {
   install_clear_on_focus(box);
   
-  console.log(box);
-  
   var style = jQuery.parseJSON($("#style-data").text());
-  
   set_box_style(box, style);
+  $(box).css("background", "url(" + $("#background-data").text() + ")");
   
   /* Fecha após o download do arquivo */
   $(box + " form").submit(function () {

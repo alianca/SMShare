@@ -23,6 +23,10 @@
 </div>
 
 <div id="style-data">
-  <%= download_box_style(@file) %>
+  <%= download_box_style(@style).to_json %>
+</div>
+
+<div id="background-data">
+  <%= @background.image.url %>
 </div>
 

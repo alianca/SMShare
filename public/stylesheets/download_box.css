@@ -28,6 +28,9 @@
   font-size: 13px !important;
   border-radius: 7px;
   -moz-border-radius: 7px;
+  box-shadow: 1px 1px 1px 1px rgba(50,50,50,0.2);
+  background-repeat: no-repeat;
+  background-size: 352px 175px;
 }
 
 .download_box .box-header {
@@ -65,13 +68,16 @@
   margin: 0 !important;
   font-size: 12px !important;
   padding: 6px 3px 6px 14px !important;
-  max-width: 243px;
+  max-width: 273px;
   height: 14px;
+  line-height: 28px;
   margin-top: -5px !important;
 }
 
-.download_box .filename a{ 
+.download_box .filename a { 
   text-decoration: none;
+  color: #ffffff;
+  overflow: hidden;
 }
 
 .download_box .filename em {
@@ -87,6 +93,7 @@
   padding: 6px 9px 6px 3px !important;
   max-width: 70px;
   height: 14px;
+  line-height: 28px;
   margin-top: -5px !important;
   overflow: hidden;
 }
@@ -160,9 +167,14 @@
   display: none;
 }
 
-.download_box .logo { 
+.download_box .logo {
+  display: inline;
   float: left;
-  padding: 3px 12px !important;
+  width: 86px;
+  height: 23px;
+  margin-left: 13px;
+  margin-top: 3px;
+  background: url(/images/download_box/logo.png) no-repeat;
 }
 
 .download_box .have_one {
@@ -178,7 +190,7 @@
   height: 13px;
 }
 
-#style-data, #download-data {
+#style-data, #background-data {
   display: none;
 }
 

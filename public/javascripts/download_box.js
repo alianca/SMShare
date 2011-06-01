@@ -49,12 +49,15 @@ function after_create_box(box) {
     $(box).hide();
     setTimeout(function () {
       $(box).remove();
-    }, 200);       
+    }, 200);
     return true;
   });
 }
 
 $(document).ready(function() {
+
+  var options = "";
+
   $("a[rel~=\"smshare\"]").click(function (sender) {
     /* Pega os dados do link */
     link = $(sender.target).parent("a");
@@ -68,7 +71,7 @@ $(document).ready(function() {
     
     /* Cria a caixa de download via AJAX */
     $.ajax({
-      url: link.attr("href") + "/download_box",
+      url: link.attr("href") + "/download_box" + options,
       type: "POST",
       async: false,
       success: function (data) {

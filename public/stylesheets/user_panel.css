@@ -775,14 +775,14 @@ table.file_list td.name {
   background: url(/images/user_panel/field_right.png) no-repeat;
 }
 
-#url-area .right {
+.text_field .right {
   padding-left: 5px;
   padding-bottom: 23px;
   padding-top: 8px;
   background: url(/images/user_panel/field_right.png) no-repeat;
 }
 
-#url-area .left {
+.text_field .left {
   padding-left: 4px;
   padding-bottom: 23px;
   padding-top: 8px;
@@ -790,21 +790,23 @@ table.file_list td.name {
   background: url(/images/user_panel/field_left.png) no-repeat;
 }
 
-#url-area {
-  display: none;
-  width: 639px;
-  margin-left: 10px;
-}
-
-#url-area input {
-  width: 630px;
+.text_field input[type=text] {
   height: 33px;
-  line-height: 32px;
-  margin-bottom: 10px;
+  line-height: 16px;
   margin-left: 4px;
   color: #8e8e8e;
   border: none;
   background: url(/images/user_panel/field_middle.png) repeat-x;
+}
+
+#code-area {
+  display: none;
+  width: 659px;
+}
+
+#code-area input {
+  width: 650px;
+  margin-bottom: 10px;
 }
 
 #background-form .file_field input[type=file] {
@@ -1098,7 +1100,7 @@ table.file_list td.name {
   margin-left: -4px;
   margin-top: -3px;
   line-height: 28px;
-  border-bottom: 1px solid rgba(29,29,29,0.5);
+  border-bottom: 1px solid rgba(0,0,0,0.5);
   border-radius: 5px 5px 0 0;
   -moz-border-radius: 5px 5px 0 0;
 }
@@ -1238,4 +1240,5 @@ table.file_list td.name {
   font-size: 14px !important;
   height: 13px;
 }
+
 

@@ -169,7 +169,7 @@ $(document).ready(function() {
     var field_position = $(this).offset();
     var new_position = {
       'left' : (field_position.left - 205).toString() + 'px',
-      'top' : (field_position.top).toString() + 'px'
+      'top'  : (field_position.top).toString() + 'px'
     };
     $('#color-picker').css(new_position);
     
@@ -214,20 +214,40 @@ $(document).ready(function() {
   update_thumbnails();
   
   $("#style-customize ol li input[type=text]").bind('changed_style', function(e, style) {
-    console.log(style);
     var field_name = $(this).attr("name").match(/box_style\[([_a-z]+)\]/)[1];
     $(this).attr("value", style[field_name]);
     $(this).change();
   });
   
-  $("#style-list .style-list-item").click(function() {
+  var code_options = '';
+  function code_box_set(attribute, value) {
+    var args = [];
+    if (code_options != '')
+      args = code_options.split('&');
+    code_options = '';
+    if (args.length > 0) {
+      for (var i = 0; i < args.length; i++) {
+        var argument = args[i].split('=');
+        if (argument[0] != attribute) {
+          code_options += argument[0] + '=' + argument[1];
+          code_options += '&';
+        }
+      }
+    }
+    code_options += attribute + '=' + value;
+    $("#code-area input[type=text]").attr('value', code_options);
+  }
+  
+  $("#style-list .style-list-item").click(function(e) {
     var style = jQuery.parseJSON($(this).children(".thumbnail").children(".style").text());
+    var style_id = $(this).attr("class").match(/id([a-f0-9]{24})/)[1];
     $("#style-customize ol li input[type=text]").trigger('changed_style', [style]);
-    $("#style-list form #style_selected_style").attr("value", $(this).attr("class").match(/id(.*)/)[1]);
+    $("#style-list form #style_selected_style").attr("value", style_id);
     $("#style-list .style-list-item.selected").removeClass("selected");
     $(this).addClass("selected");
+    code_box_set('style', style_id);
+    e.stopImmediatePropagation();
   });
-  
   
   function update_backgrounds() {
     var count = $("#background-list .count").text();
@@ -238,12 +258,19 @@ $(document).ready(function() {
   }
   update_backgrounds();
   
-  $("#background-list .bg-list-item").click(function() {
+  $("#background-list .bg-list-item").click(function(e) {
     var url = $(this).children(".img-thumbnail").children("span").text();
-    $("#view #download_box").css("background", "url(" + url + ") no-repeat");
-    $("#background-list form #bg_selected_bg").attr("value", $(this).attr("class").match(/id([0-9a-z]{24})/)[1]);
+    var image_id = $(this).attr("class").match(/id([a-f0-9]{24})/)[1];
+    if (url.length > 0) {
+      $("#view #download_box").css("background-image", "url(" + url + ")");
+    } else {
+      $("#view #download_box").css("background-image", "none");
+    }
+    $("#background-list form #bg_selected_bg").attr("value", image_id);
     $("#background-list .bg-list-item.selected").removeClass("selected");
     $(this).addClass("selected");
+    code_box_set('background', image_id);
+    e.stopImmediatePropagation();
   });
   
   /* Aplica a imagem de fundo padrão */
@@ -251,11 +278,16 @@ $(document).ready(function() {
   
   /* Alterna a exibição da caixa do 'código de inserção' */
   $("#generate-code").click(function(e) {
-    if ($("#url-area:visible")[0]) {
-      $("#url-area").hide("fast");
+    if ($("#code-area:visible")[0]) {
+      $("#code-area").hide("fast");
     } else {
-      $("#url-area").show("fast");
+      $("#code-area").show("fast");
     }
+    e.stopImmediatePropagation();
+  });
+  
+  $("#code-area").click(function(e) {
+    $(this).children("input[type=text]").select();
     e.stopImmediatePropagation();
   });
   

@@ -21,14 +21,9 @@
   <div id="link-boxes-container">
     <% @files.each do |file| %>
       <div class="link-box">
-        <p class="filename"><%=
-          l = file.filename.length
-          if l > 41
-            file.filename[0,32] + "..." + file.filename[l-6, l-1]
-          else
-            file.filename
-          end
-        %></p>
+        <p class="filename">
+          <%= truncate(file.filename, :omission => "..." + file.filename[-5..-1], :length => 41) %>
+        </p>
         <%= text_field_tag :link, "", :class => "link-field", 'url-text' => download_user_file_url(file), :value => download_user_file_url(file) %>
       </div>
     <% end %>

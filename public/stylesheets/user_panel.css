@@ -110,25 +110,27 @@ body {
   background: url(/images/user_files/fundo_web.png);
 }
 
-.files_form input {
+#upload_forms input {
   margin-bottom: 7px;
   overflow: hidden;
 }
 
-.files_form .file_fields {
+#upload_forms .file_fields {
+  float: left;
   width: 481px;
   padding: 1px;
+  margin-bottom: 10px;
 }
 
-.files_form .inline-errors {
+#upload_forms .inline-errors {
   display: none;
 }
 
-.files_form .file_fields label {
+#upload_forms .file_fields label {
   display: none;
 }
 
-.files_form .file_fields input {
+#upload_forms .file_fields input {
   border: 0 transparent;
   min-width: 465px;
   width: 465px;
@@ -138,12 +140,17 @@ body {
   padding: 7px 8px;
 }
 
-.files_form .public_field {
-  float: right;
-  height: 34px;
+#upload_forms .file_fields li {
+  margin: 0;
 }
 
-.files_form .public_field label {
+#upload_forms .public_field {
+  float: right;
+  height: 34px;
+  overflow: hidden;
+}
+
+#upload_forms .public_field label {
   padding: 9px 3px 0 0;
   color: #34378A;
 }
@@ -188,6 +195,7 @@ body {
 }
 
 .more-files {
+  clear: both;
   background: url(/images/user_files/mais_arquivos.png) no-repeat 3px 4px;
   font-size: 14px;
   cursor: pointer;
@@ -200,6 +208,34 @@ body {
   font-size: 14px;
   padding: 8px 0 17px 25px;
   margin: 0;
+}
+
+#upload_forms .progress_info {
+  display: none;
+  height: 76px;
+  margin-bottom: 16px;
+}
+
+#upload_forms .progress_info .progress_bar {
+  height: 31px;
+  width: 479px;
+  padding: 1px;
+  background: url(/images/user_files/campo.png);
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+}
+
+#upload_forms .progress_info .progress_bar .uploaded {
+  text-align: center;
+  background: green;
+  height: 31px;
+  width: 0%;
+  min-width: 30px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  color: white;
+  font-size: 18px;
+  line-height: 31px;
 }
 
 /* @end */

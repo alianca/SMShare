@@ -106,9 +106,22 @@ $(document).ready(function() {
   /* Tira o botão de dentro do form e faz com que ele submeta os formularios */
   $("#upload_forms").append($(".files_form .buttons").remove());
   $("#upload_forms .buttons").click(function () {
-    $("#user_files_forms form").submit();    
-    // TODO Travar o botão e o mais arquivos
+    $("#user_files_forms form").submit();
     
+    // Desabilita os botões
+    $(".more-files a").unbind("click");
+    $("#upload_forms .buttons").unbind("click");
+    
+    // Oculta os formulatios e mostra o progresso
+    $("#user_files_forms form fieldset").hide();
+    $("#user_files_forms form .progress_info").show();
+    $("#user_files_forms form").each(function (i, form) { 
+      filename = /[^\\]*$/.exec($(form).find("li.file input").val());
+      $(form).find(".progress_info .filename")[0].innerHTML = filename;    
+    }); 
+    
+    
+    // Define o estado como uploading
     $("#user_files_forms form").attr("data-status", "uploading");
     
     /* Função que verifica o estado dos downloads e redireciona no final */
@@ -125,14 +138,18 @@ $(document).ready(function() {
         $("#user_files_forms form").each(function (i, form) {           
           errors = errors || $(form).attr("data-status") == "error"
           success = success || $(form).attr("data-status") == "success"
+                      
+          // Marca como 100% os que ainda não estiverem
+          $(form).find(".progress_info .uploaded").width("100%");
+          $(form).find(".progress_info .uploaded").html("100%");
         });
         
         if(errors && !success) { // Só errors
           window.location = window.location; // Reload
         } else {
           parameter = ""
-          $("#user_files_forms form").each(function (i, form) {           
-            if($(form).attr("data-status") == "success") {
+          $("#user_files_forms form").each(function (i, form) { 
+            if($(form).attr("data-status") == "success") {              
               parameter += "files[]=" + $(form).attr("data-created_id") + "&"
             }
           });          
@@ -141,22 +158,48 @@ $(document).ready(function() {
         }
                 
         clearInterval(status_interval);
-      }      
+      } else {
+        $("#user_files_forms form").each(function (i, form) { 
+          if($(form).attr("data-status") == "uploading") {
+            progress_url = "/progress?X-Progress-ID=" + $(form).find(".file_fields input[type=hidden]").val();
+            $.ajax({
+              url: progress_url,
+              dataType: "json",
+              success: function (data) {
+                if(data && data.state == "uploading") {
+                  percentage = Math.floor(data.received*100/data.size) + "%";
+                  $(form).find(".progress_info .uploaded").width(percentage);
+                  $(form).find(".progress_info .uploaded").html(percentage);                 
+                }
+              },
+              error: function (e) { console.log(e); }
+            });            
+          }       
+        });
+      }     
     }, 100);    
   });
+  
+  /* Salva o id do upload */
+  upload_id = $("#new_user_file .file_fields input[type=hidden]").val();
+  upload_action = $("#new_user_file").attr("action");
   
   /* Arruma o primero form */
   $("#new_user_file").attr("id", "new_user_file_0");
   $("#new_user_file_0").attr("target", "new_user_file_iframe_0");
+  $("#new_user_file_0").attr("action", upload_action + "-0");
   $("#new_user_file_0").append("<iframe name=\"new_user_file_iframe_0\"></iframe>")
+  $("#new_user_file_0 .file_fields input[type=hidden]").val(upload_id + "-0");
   form_count = 1;
   
   /* Botão de mais arquivos */
   $(".more-files a").click(function () {
     new_form = $("#new_user_file_0").clone();
     $(new_form).attr("id", "new_user_file_" + form_count);  
-    $(new_form).attr("target", "new_user_file_iframe_" + form_count);  
+    $(new_form).attr("target", "new_user_file_iframe_" + form_count);
+    $(new_form).attr("action", upload_action + "-" + form_count);
     $(new_form).children("iframe").attr("name", "new_user_file_iframe_" + form_count);
+    $(new_form).find(".file_fields input[type=hidden]").val(upload_id + "-" + form_count);
     new_form[0].reset();
     $(new_form).find(".clear-on-focus").val($(new_form).find(".clear-on-focus").attr("title"));
     $("#user_files_forms").append(new_form);    

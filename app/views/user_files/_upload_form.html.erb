@@ -1,7 +1,8 @@
 <div id="upload_forms">
   <div id="user_files_forms">
-    <%= semantic_form_for @file, :html => {:multipart => true, :class => "files_form"} do |f| %>
+  <%= semantic_form_for @file, :url => user_files_path(:"X-Progress-ID" => @file._id), :html => {:multipart => true, :class => "files_form"} do |f| %>
       <%= f.inputs :class => :file_fields do %>
+        <%= hidden_field_tag "X-Progress-ID", @file._id %>
         <%= f.input :file %>
         <%= f.input :description, :input_html => { :title => "Digite uma descrição objetiva para seu arquivo.", :class => "clear-on-focus" } %>
         <% end %>
@@ -13,7 +14,14 @@
       <%= f.buttons do %>
         <%= f.commit_button "Enviar" %>
       <% end %>
-    <% end %>
+      
+      <div class="progress_info">
+        <p class="filename"></p>
+        <div class="progress_bar">
+          <div class="uploaded">0%</div>
+        </div>
+      </div>
+    <% end %>    
   </div>
 
   <p class="more-files"><%= link_to "Enviar mais arquivos" %></p>

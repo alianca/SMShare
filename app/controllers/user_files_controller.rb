@@ -79,11 +79,15 @@ class UserFilesController < ApplicationController
   end
   
   def download_box
+    # Cabeçalhos necessários para o Cross Origin Resource Sharing
+    headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
+    headers['Access-Control-Allow-Headers'] = 'x-requested-with'
+    headers['Access-Control-Allow-Origin'] = '*'
     @file = UserFile.find(params[:id])
     @style = BoxStyle.find(params[:style]) if params[:style]
-    @style = @item.owner.default_style unless params[:style]
+    @style = @file.owner.default_style unless params[:style]
     @background = BoxImage.find(params[:background]) if params[:background]
-    @background = @item.owner.current_user.default_box_image unless params[:background]
+    @background = @file.owner.default_box_image unless params[:background]
     respond_with(@file, :layout => nil)
   end
   

@@ -172,7 +172,6 @@ $(document).ready(function() {
       'top'  : (field_position.top).toString() + 'px'
     };
     $('#color-picker').css(new_position);
-    
     $('#color-picker').farbtastic(this);
     $('#color-picker').show('fast');
   });
@@ -220,21 +219,35 @@ $(document).ready(function() {
   });
   
   var code_options = '';
-  function code_box_set(attribute, value) {
+  function code_box_set(attribute, value, is_default) {
     var args = [];
-    if (code_options != '')
-      args = code_options.split('&');
-    code_options = '';
+    if (code_options != '') {
+      var arg_str = code_options.match(/<script src="(.*)" type="text\/javascript"><\/script>/)[1].split('?')[1];
+      if (arg_str) args = arg_str.split('&');
+    }
+    // TODO colocar o endereço real
+    code_options = '<script src=\"http://www.smshare.com.br/caixa_download/template';
     if (args.length > 0) {
+      var first = true;
       for (var i = 0; i < args.length; i++) {
         var argument = args[i].split('=');
         if (argument[0] != attribute) {
+          if (first) {
+            first = false;
+            code_options += '?';
+          } else {
+            code_options += '&';
+          }
           code_options += argument[0] + '=' + argument[1];
-          code_options += '&';
         }
       }
+      if (!is_default) code_options += '&';
+    } else {
+      if (!is_default) code_options += '?';
     }
-    code_options += attribute + '=' + value;
+    if (!is_default) code_options += attribute + '=' + value;
+    code_options += '\" type=\"text/javascript\"></script>';
+    
     $("#code-area input[type=text]").attr('value', code_options);
   }
   
@@ -245,7 +258,8 @@ $(document).ready(function() {
     $("#style-list form #style_selected_style").attr("value", style_id);
     $("#style-list .style-list-item.selected").removeClass("selected");
     $(this).addClass("selected");
-    code_box_set('style', style_id);
+    
+    code_box_set('estilo', style_id, $(this).hasClass("default"));
     e.stopImmediatePropagation();
   });
   
@@ -269,7 +283,7 @@ $(document).ready(function() {
     $("#background-list form #bg_selected_bg").attr("value", image_id);
     $("#background-list .bg-list-item.selected").removeClass("selected");
     $(this).addClass("selected");
-    code_box_set('background', image_id);
+    code_box_set('fundo', image_id, $(this).hasClass("default"));
     e.stopImmediatePropagation();
   });
   

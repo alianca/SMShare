@@ -35,22 +35,23 @@ Smshare::Application.routes.draw do |map|
   end
   
   resources :smsearch, :controller => :search, :as => :search, :only => [:index]
-    
+  
   namespace :admin do
     resources :news
   end
-    
+  
   resources :comments, :only => [:create, :destroy]
   
   resources :news, :only => [:index, :show]
-
+  
   resources :guide, :only => [:index]
-
+  
   resources :faq, :only => [:index]
   
-  resources :box_styles, :only => [:create] do
+  resources :caixa_download, :controller => :box_styles, :only => [:create] do
     collection do
       post :set_default
+      get  :template, :action => :generate_javascript
     end
   end
   

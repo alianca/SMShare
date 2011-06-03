@@ -38,7 +38,7 @@
         <% i = 0 %>
         <% [@default_styles, @user_styles].each do |style_type| %>
           <% style_type.each do |item| %>
-            <a class="style-list-item <%= item._id == @user_default_style._id ? "selected" : "" %> id<%= item._id %>">
+            <a class="style-list-item <%= item._id == @user_default_style._id ? "selected default" : "" %> id<%= item._id %>">
               <div class="thumbnail index<%= i %>">
                 <div class="title"><span class="glass"></span>------<span class="right">--</span></div>
                 <div class="top">---- ---- ---- ----</div>

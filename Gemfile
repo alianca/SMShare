@@ -21,6 +21,8 @@ gem 'formtastic'
 
 # To use Carrierwave
 gem 'carrierwave'
+
+# To use MiniMagick
 gem 'mini_magick'
 
 # To use jQuery

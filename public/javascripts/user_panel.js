@@ -46,13 +46,22 @@ $(document).ready(function() {
   });
   
   $(".actions_menu .move a").click(function (e) {
-    show_form("#move");
+    if (!($(this).hasClass("off"))) {
+      show_form("#move");
+    }
     e.stopImmediatePropagation();
   });
   
   $(".actions_menu .rename a").click(function (e) {
     if (!($(this).hasClass("off"))) {
       show_rename();
+    }
+    e.stopImmediatePropagation();
+  });
+  
+  $(".actions_menu .compress a").click(function (e) {
+    if (!($(this).hasClass("off"))) {
+      show_form("#compress");
     }
     e.stopImmediatePropagation();
   });
@@ -77,10 +86,10 @@ $(document).ready(function() {
     });
     
     if (has_selected) {
-      $(".actions_menu .rename a").removeClass("off");
+      $(".actions_menu .need-files").removeClass("off");
     } else {
-      $(".actions_menu .rename a").addClass("off");
-      if ($("#actions_forms #rename:visible")[0]) {
+      $(".actions_menu .need-files").addClass("off");
+      if ($("#actions_forms .need-files:visible")[0]) {
         $("#actions_forms form").hide();
         $("#rename_placeholder").hide();
       }

@@ -1,3 +1,5 @@
+require 'zippy'
+
 class UserPanelController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
@@ -51,6 +53,13 @@ class UserPanelController < ApplicationController
     redirect_to :back
   end
   
+  def compress
+    params[:user_file][:files].delete_if { |f| f.blank? }
+    @files = UserFile.where(:_id.in => (params[:user_file][:files].collect { |id| BSON::ObjectId(id) }))
+    compress_files params[:user_file][:filename]
+    redirect_to :back
+  end
+  
   def edit
     @file = UserFile.find(params[:file])
     @filetype = @file.resolve_filetype
@@ -73,6 +82,16 @@ class UserPanelController < ApplicationController
       else
         @folder = current_user.root_folder
       end
+    end
+    
+    def compress_files zip_name
+      zip_name += '.zip' unless zip_name =~ /.zip$/
+      zip_file = Tempfile.new zip_name
+      Zippy.open zip_file.path do |zip|
+        @files.each { |file| zip[file.alias] = file.file.file.read }
+      end
+      current_user.files.create(:file => zip_file, :public => true, :description => "Arquivo Compactado", :filename => zip_name)
+      zip_file.close
     end
 end
 

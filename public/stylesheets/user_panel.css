@@ -442,27 +442,95 @@ table.file_list td.name {
 
 .actions_menu {
   list-style-type: none;
+  display: block;
+  width: 700px;
+  margin-left: -20px;
   padding: 0 10px;
 }
 
 .actions_menu li {
-  width: 60px;
+  width: 65px;
   height: 44px;
   text-align: center;
   display: inline-block;
 }
 
-.actions_menu li.rename a.icon {
-  width: 60px;
+.actions_menu li .icon {
+  position: relative;
+  left: 20px;
+  width: 70px;
   height: 44px;
   margin-bottom: -7px;
-  margin-left: 13px;
+}
+
+.actions_menu li .icon.off {
+  cursor: default;
+}
+
+.actions_menu li.create .icon {
+  background: url(/images/user_panel/botoes/criar_on.png) no-repeat;
+}
+
+.actions_menu li.create .icon.off {
+  background: url(/images/user_panel/botoes/criar_off.png) no-repeat;
+}
+
+.actions_menu li.move .icon {
+  background: url(/images/user_panel/botoes/mover_on.png) no-repeat;
+}
+
+.actions_menu li.move .icon.off {
+  background: url(/images/user_panel/botoes/mover_off.png) no-repeat;
+}
+
+.actions_menu li.destroy .icon {
+  background: url(/images/user_panel/botoes/remover_on.png) no-repeat;
+}
+
+.actions_menu li.destroy .icon.off {
+  background: url(/images/user_panel/botoes/remover_off.png) no-repeat;
+}
+
+.actions_menu li.rename .icon {
   background: url(/images/user_panel/botoes/renomear_on.png) no-repeat;
 }
 
-.actions_menu li.rename a.icon.off {
+.actions_menu li.rename .icon.off {
   background: url(/images/user_panel/botoes/renomear_off.png) no-repeat;
 }
+
+.actions_menu li.link .icon {
+  background: url(/images/user_panel/botoes/link_on.png) no-repeat;
+}
+
+.actions_menu li.link .icon.off {
+  background: url(/images/user_panel/botoes/link_off.png) no-repeat;
+}
+
+.actions_menu li.compress .icon {
+  background: url(/images/user_panel/botoes/compactar_on.png) no-repeat;
+}
+
+.actions_menu li.compress .icon.off {
+  background: url(/images/user_panel/botoes/compactar_off.png) no-repeat;
+}
+
+.actions_menu li.decompress .icon {
+  background: url(/images/user_panel/botoes/descompactar_on.png) no-repeat;
+}
+
+.actions_menu li.decompress .icon.off {
+  background: url(/images/user_panel/botoes/descompactar_off.png) no-repeat;
+}
+
+.actions_menu li.properties .icon {
+  background: url(/images/user_panel/botoes/propriedades_on.png) no-repeat;
+}
+
+.actions_menu li.properties .icon.off {
+  background: url(/images/user_panel/botoes/propriedades_off.png) no-repeat;
+}
+
 
 .actions_menu li.separator {
   width: 1px;
@@ -523,7 +591,7 @@ table.file_list td.name {
   text-decoration: underline;
 }
 
-#actions_forms #new_folder, #actions_forms #move {
+#actions_forms #new_folder, #actions_forms #move, #actions_forms #compress {
   position: absolute;
   display: none;
   top: 201px;
@@ -562,6 +630,16 @@ table.file_list td.name {
   height: 17px;
   padding: 5px 7px;
 }
+
+#actions_forms #compress #user_file_filename {
+  background: url(/images/registrations/input.png);
+  border: 0;
+  width: 232px;
+  max-width: 232px;
+  height: 17px;
+  padding: 5px 7px;
+}
+
 
 #actions_forms #move #user_file_folder {
   border: 0;

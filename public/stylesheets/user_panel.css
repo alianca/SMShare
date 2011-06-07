@@ -461,6 +461,7 @@ table.file_list td.name {
   width: 70px;
   height: 44px;
   margin-bottom: -7px;
+  cursor: pointer;
 }
 
 .actions_menu li .icon.off {
@@ -538,19 +539,11 @@ table.file_list td.name {
   background: url(/images/user_panel/botoes/separador.png) no-repeat;
 }
 
-.actions_menu input[type=image] {
-  
-}
-
 .actions_menu input[type=submit] {
   background: transparent;
   border: 0;
   line-height: 18px;
   font-size: 11px;
-}
-
-.actions_menu a img {
-
 }
 
 .actions_menu a {
@@ -711,7 +704,7 @@ table.file_list td.name {
   background: url(/images/layouts/botao-off.png);
 }
 
-#actions_forms .hidden_file_list {
+.hidden_file_list {
   display: none;
 }
 

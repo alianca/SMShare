@@ -29,6 +29,7 @@ Smshare::Application.routes.draw do |map|
       post :move
       post :rename
       post :compress
+      post :decompress
       match :customize
     end
     

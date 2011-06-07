@@ -69,6 +69,7 @@ $(document).ready(function() {
   /* Copia a seleção de arquivos da tabela para a lista oculta */
   $(".file_list .select_file").change(function () {
     $("#actions_forms .hidden_file_list input[value=" + this.value + "]").attr("checked", $(this).attr("checked"));
+    $(".actions_menu .hidden_file_list input[value=" + this.value + "]").attr("checked", $(this).attr("checked"));
     
     if ($(this).attr("checked")) {
       $("#" + this.value).removeClass("hidden-field");

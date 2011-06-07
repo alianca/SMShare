@@ -12,10 +12,17 @@
   <li class="move">
     <%= link_to "", "#", :class => "icon off need-files" %>
     <%= link_to "Mover", "#" %>
-  </li>  
+  </li>
   <li class="destroy">
-    <%= submit_tag "", :class => "icon off need-files" %>
-    <%= submit_tag "Remover" %>
+    <%= form_tag user_panel_path, :method => :delete do %>
+      <fieldset class="hidden_file_list">
+        <% @resources.each do |r| %>
+          <%= check_box_tag "files[]", r._id, false %>
+        <% end %>
+      </fieldset>
+      <%= submit_tag "", :class => "icon off need-files" %>
+      <%= submit_tag "Remover" %>
+    <% end %>
   </li>
   <li class="rename">
     <%= link_to "", "#", :class => "icon off need-files" %>
@@ -27,8 +34,15 @@
     <%= link_to "Compactar", "#" %>
   </li>
   <li class="decompress">
-    <%= link_to "", "#", :class => "icon off need-files" %>
-    <%= link_to "Descompactar", "#" %>
+    <%= form_tag :action => "decompress" do %>
+      <fieldset class="hidden_file_list">
+        <% @resources.each do |r| %>
+          <%= check_box_tag "files[]", r._id, false %>
+        <% end %>
+      </fieldset>
+      <%= submit_tag "", :class => "icon off need-files" %>
+      <%= submit_tag "Descompactar" %>
+    <% end %>
   </li>
   <li class="separator"></li>
   <li class="properties">

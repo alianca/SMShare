@@ -56,7 +56,14 @@ class UserPanelController < ApplicationController
   def compress
     params[:user_file][:files].delete_if { |f| f.blank? }
     @files = UserFile.where(:_id.in => (params[:user_file][:files].collect { |id| BSON::ObjectId(id) }))
+    @folders = Folder.where(:_id.in => ((params[:user_file][:files]-[params[:user_file][:folder]]).collect { |id| BSON::ObjectId(id) }))
     compress_files params[:user_file][:filename]
+    redirect_to :back
+  end
+  
+  def decompress
+    @files = UserFile.where(:_id.in => (params[:files].collect { |id| BSON::ObjectId(id) }))
+    @files.each { |file| decompress_file file }
     redirect_to :back
   end
   
@@ -85,13 +92,28 @@ class UserPanelController < ApplicationController
     end
     
     def compress_files zip_name
-      zip_name += '.zip' unless zip_name =~ /.zip$/
+      zip_name += '.zip' unless zip_name =~ /.*\.zip$/
       zip_file = Tempfile.new zip_name
-      Zippy.open zip_file.path do |zip|
+      Zippy.create zip_file.path do |zip|
         @files.each { |file| zip[file.alias] = file.file.file.read }
+        @folders.each { |folder| compress_recursively zip, folder, folder.name + '/' }
       end
-      current_user.files.create(:file => zip_file, :public => true, :description => "Arquivo Compactado", :filename => zip_name)
+      current_user.files.create(:file => zip_file.open,
+                                :public => true,
+                                :description => "Arquivo Compactado",
+                                :filename => zip_name)
       zip_file.close
+    end
+    
+    def compress_recursively zip, folder, path
+      folder.files.each { |file| zip[path + file.alias] = file.file.file.read }
+      folder.children.each { |child| compress_recursively zip, child, path + child.name + '/' }
+    end
+    
+    def decompress_file file
+      zip = Zippy.new
+      zip.zipfile.write file.file.file.read
+      zip.each { |f| puts f }
     end
 end
 

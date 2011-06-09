@@ -48,9 +48,8 @@ gem 'curb', :require => 'curl'
 # To use Tire.rb
 gem 'tire'
 
-# To use Zippy
-gem 'rubyzip'
-gem 'zippy'
+# To use ZipRuby
+gem 'zipruby'
 
 # Bundle gems for certain environments:
 group :development, :test do

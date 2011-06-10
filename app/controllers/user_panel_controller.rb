@@ -26,7 +26,7 @@ class UserPanelController < ApplicationController
   
   def destroy
     UserFile.where(:_id.in => (params[:files].collect { |id| BSON::ObjectId(id) })).destroy_all if params[:files]
-    Folder.where(:_id.in => (params[:files].collect { |id| BSON::ObjectId(id) })).destroy_all if params[:files]
+    Folder.where(:_id.in => (params[:files].collect { |id| BSON::ObjectId(id) })).each { |folder| folder.remove }  if params[:files]
     redirect_to :back
   end
   

@@ -37,6 +37,13 @@ class Folder
     end
   end
   
+  # Remove a pasta e o conteúdo recursivamente
+  def remove
+    self.files.all.destroy_all
+    self.children.each { |child| child.remove }
+    self.destroy
+  end
+  
   private
     def build_path
       self.path = "#{parent.path}#{self._id}/" if parent

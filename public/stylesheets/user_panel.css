@@ -468,6 +468,13 @@ table.file_list td.name {
   cursor: default;
 }
 
+.actions_menu li .label {
+  position: relative;
+  top: -1px;
+  margin: 0 0 0 -3px;
+  padding: 0;
+}
+
 .actions_menu li.create .icon {
   background: url(/images/user_panel/botoes/criar_on.png) no-repeat;
 }

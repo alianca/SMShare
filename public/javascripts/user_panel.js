@@ -227,6 +227,8 @@ $(document).ready(function() {
                   $(form).find(".progress_info .data_amount .sent").html(readable_size(data.received));
                   $(form).find(".progress_info .data_amount .total").html(readable_size(data.size));
                 }
+                
+                statuses[i].updating = false;
               },
               error: function (e) { console.log(e); }
             });            

@@ -214,29 +214,82 @@ body {
   display: none;
   height: 76px;
   margin-bottom: 16px;
+  font-weight: bold;
 }
 
 #upload_forms .progress_info .progress_bar {
-  height: 31px;
-  width: 479px;
-  padding: 1px;
-  background: url(/images/user_files/campo.png);
+  clear: both;
+  float: left;
+  height: 42x;
+  width: 550px;
+  border: 1px solid #7bbacf;
   border-radius: 6px;
   -moz-border-radius: 6px;
 }
 
 #upload_forms .progress_info .progress_bar .uploaded {
-  text-align: center;
-  background: green;
-  height: 31px;
+  background: #F27400;
+  height: 40px;
   width: 0%;
-  min-width: 30px;
   border-radius: 5px;
   -moz-border-radius: 5px;
-  color: white;
   font-size: 18px;
+  font-weight: normal;
   line-height: 31px;
 }
+
+#upload_forms .progress_info .percentage {
+  float: right;
+  font-weight: normal;
+  font-size: 24px;
+  text-align: center;
+  width: 60px;
+  display: block;
+}
+
+#upload_forms .progress_info .uptime {
+  clear: both;
+}
+
+#upload_forms .progress_info span, #upload_forms .progress_info .data_amount {
+  font-weight: normal;
+}
+
+#upload_forms .progress_info p {
+  display: inline-block;
+  overflow: hidden;
+  margin-top: 3px;
+  padding-top: 1px;
+}
+
+#upload_forms .progress_info p.uptime {
+  background: url(/images/user_panel/progresso/decorrido.png) no-repeat;
+  padding-left: 18px;
+}
+
+#upload_forms .progress_info p.eta {
+  background: url(/images/user_panel/progresso/estimado.png) no-repeat;
+  padding-left: 18px;
+}
+
+#upload_forms .progress_info p.speed {
+  background: url(/images/user_panel/progresso/velocidade.png) no-repeat;
+  padding-left: 26px;
+}
+
+#upload_forms .progress_info p.data_amount {
+  background: url(/images/user_panel/progresso/progresso.png) no-repeat;
+  padding-left: 19px;
+}
+
+#upload_forms .progress_info p.filename {
+  display: block;
+  margin-bottom: 3px;
+  max-width: 100% !important;
+  font-size: 15px;
+}
+
+
 
 /* @end */
 

@@ -102,20 +102,55 @@ $(document).ready(function() {
     e.stopImmediatePropagation();
   });
   
+  /* Helpers para os multiplos arquivos */
+  function ms_to_hour_min_sec(ms) {
+    secs = Math.floor(ms/1000)%60;
+    if(secs < 10) secs = "0" + secs;
+    mins = Math.floor(ms/60000)%60;
+    if(mins < 10) mins = "0" + mins;
+    hours = Math.floor(ms/3600000);
+    if(hours < 10) hours = "0" + hours;
+    
+    return hours + ":" + mins + ":" + secs;  
+  }
+  
+  function round_with_2_decimals(number) {
+    return Math.round(number*100)/100
+  }
+  
+  function readable_speed(speed) {
+    return readable_size(speed) + "/s";
+  }
+  
+  function readable_size(size) {
+    if(size >= 0 && size < 1024) {
+      return size + " B";
+    } else if(size >= 1024 && size < 1048768) {
+      return round_with_2_decimals(size/1024) + " KB";
+    } else if(size >= 1048768 && size < 1073741824) {
+      return round_with_2_decimals(size/1048768) + " MB";
+    } else if(size >= 1073741824) {
+      return round_with_2_decimals(size/1073741824) + " GB";
+    }
+  }  
+  
   /* Upload de Multiplos Arquivos */
   /* Tira o botão de dentro do form e faz com que ele submeta os formularios */
   $("#upload_forms").append($(".files_form .buttons").remove());
   $("#upload_forms .buttons").click(function () {
     $("#user_files_forms form").submit();
     
+    statuses = []
+    
     // Desabilita os botões
-    $(".more-files a").unbind("click");
-    $("#upload_forms .buttons").unbind("click");
+    $(".more-files a").unbind("click").hide();
+    $("#upload_forms .buttons").unbind("click").hide();
     
     // Oculta os formulatios e mostra o progresso
     $("#user_files_forms form fieldset").hide();
     $("#user_files_forms form .progress_info").show();
-    $("#user_files_forms form").each(function (i, form) { 
+    $("#user_files_forms form").each(function (i, form) {
+      statuses[i] = {started_at: new Date(), updating: false}
       filename = /[^\\]*$/.exec($(form).find("li.file input").val());
       $(form).find(".progress_info .filename")[0].innerHTML = filename;    
     }); 
@@ -141,7 +176,7 @@ $(document).ready(function() {
                       
           // Marca como 100% os que ainda não estiverem
           $(form).find(".progress_info .uploaded").width("100%");
-          $(form).find(".progress_info .uploaded").html("100%");
+          $(form).find(".progress_info .percentage").html("100%");
         });
         
         if(errors && !success) { // Só errors
@@ -159,17 +194,28 @@ $(document).ready(function() {
                 
         clearInterval(status_interval);
       } else {
-        $("#user_files_forms form").each(function (i, form) { 
-          if($(form).attr("data-status") == "uploading") {
+        $("#user_files_forms form").each(function (i, form) {
+          if($(form).attr("data-status") == "uploading" && !statuses[i].updating) {
+            statuses[i].updating = true;
             progress_url = "/progress?X-Progress-ID=" + $(form).find(".file_fields input[type=hidden]").val();
             $.ajax({
               url: progress_url,
               dataType: "json",
               success: function (data) {
                 if(data && data.state == "uploading") {
+                  updated_at = new Date();                  
                   percentage = Math.floor(data.received*100/data.size) + "%";
+                  elapsed_time = updated_at-statuses[i].started_at; // ms
+                  speed = data.received*1000/elapsed_time; // bytes/s
+                  eta = (data.size-data.received)/speed; // secs
+
                   $(form).find(".progress_info .uploaded").width(percentage);
-                  $(form).find(".progress_info .uploaded").html(percentage);                 
+                  $(form).find(".progress_info .percentage").html(percentage);
+                  $(form).find(".progress_info .uptime .data").html(ms_to_hour_min_sec(elapsed_time));
+                  $(form).find(".progress_info .eta .data").html(ms_to_hour_min_sec(eta));
+                  $(form).find(".progress_info .speed .data").html(readable_speed(speed));
+                  $(form).find(".progress_info .data_amount .sent").html(readable_size(data.received));
+                  $(form).find(".progress_info .data_amount .total").html(readable_size(data.size));
                 }
               },
               error: function (e) { console.log(e); }
@@ -183,7 +229,7 @@ $(document).ready(function() {
   /* Salva o id do upload */
   upload_id = $("#new_user_file .file_fields input[type=hidden]").val();
   upload_action = $("#new_user_file").attr("action");
-  
+    
   /* Arruma o primero form */
   $("#new_user_file").attr("id", "new_user_file_0");
   $("#new_user_file_0").attr("target", "new_user_file_iframe_0");

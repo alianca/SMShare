@@ -22,6 +22,9 @@ gem 'formtastic'
 # To use Carrierwave
 gem 'carrierwave'
 
+# To use MiniMagick
+gem 'mini_magick'
+
 # To use jQuery
 gem 'jquery-rails'
 
@@ -44,6 +47,9 @@ gem 'curb', :require => 'curl'
 
 # To use Tire.rb
 gem 'tire'
+
+# To use ZipRuby
+gem 'zipruby'
 
 # Bundle gems for certain environments:
 group :development, :test do

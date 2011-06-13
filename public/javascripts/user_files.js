@@ -1,11 +1,11 @@
 $(document).ready(function() {
   /* Troca o fundo do botão em mouse over */
-  $("#user_files_submit, #links-container a.confirmar").mouseover(function () {
+  $("#files_submit, #links-container a.confirmar").mouseover(function () {
     $(this).css("background", "url(/images/user_files/botao-on.png)")
   });
 
   /* Volta o fundo padrão quando perde o mouse over */
-  $("#user_files_submit, #links-container a.confirmar").mouseout(function () {
+  $("#files_submit, #links-container a.confirmar").mouseout(function () {
     $(this).css("background", "url(/images/user_files/botao-off.png)")
   });
   

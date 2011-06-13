@@ -17,7 +17,8 @@
     <% @files.each do |file| %>
       <%= f.semantic_fields_for file._id.to_s do |fi| %>
         <%= fi.inputs do %>
-          <p class="filename"><%= file.filename %></p>
+          <p class="filename">
+          <%= truncate(file.filename, :ommission => "..." + file.filename[-5..-1], :length => 41) %></p>
           <%= fi.input :sentenced_tags,
                        :label => "Tags",
                        :input_html => { :title => "Ex.: zumbi, mortos-vivos, apocalipse, suspense",

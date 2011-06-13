@@ -10,7 +10,7 @@ function install_clear_on_focus(context) {
     if($(this).val() == $(this).attr("title"))
       $(this).val("");
   });
-
+  
   /* Retorna ao texto se o text_field está vazio quando ele perder o foco */
   $(context + " .clear-on-focus").blur(function() {
     if($(this).val() == "")
@@ -21,7 +21,6 @@ function install_clear_on_focus(context) {
 function set_box_style(box, style) {
   $(box).css("border", "1px solid " + style.box_border);
   $(box).css("background-color", style.box_background);
-  $(box).css("background", "url(" + style.box_image + ")");
   $(box + " .box-header").css("color", style.header_text);
   $(box + " .filename").css("color", style.header_text);
   $(box + " .filesize").css("color", style.header_text);
@@ -38,41 +37,63 @@ function set_box_style(box, style) {
   $(box + " .have_one").css("color", style.bottom_text);
 }
 
-function after_create_box(box) {
+function after_create_box(box, base_url) {
   install_clear_on_focus(box);
   
-  console.log(box);
-  
   var style = jQuery.parseJSON($("#style-data").text());
-  
   set_box_style(box, style);
+  $(box).css("background-image", "url(" + base_url + $.trim($("#background-data").text()) + ")");
   
   /* Fecha após o download do arquivo */
   $(box + " form").submit(function () {
     $(box).hide();
     setTimeout(function () {
       $(box).remove();
-    }, 200);       
+    }, 200);
     return true;
+  });
+}
+
+function get_base_url(url) {
+  return url.match(/(http:\/\/.*)\/arquivos/)[1];
+}
+
+function load_css(base_url) {
+  var css = document.createElement('link');
+  css.type = 'text/css';
+  css.rel = 'stylesheet';
+  css.href = base_url + '/stylesheets/download_box.css';
+  css.media = 'screen';
+  document.getElementsByTagName("head")[0].appendChild(css);
+  
+  /* Faz cache das imagens para a caixa */
+  $.each([
+    "/images/download_box/logo.png",
+    "/images/download_box/botao-brilho.png"
+  ], function (i, val) {
+    (new Image()).src = base_url + val;
   });
 }
 
 $(document).ready(function() {
   $("a[rel~=\"smshare\"]").click(function (sender) {
     /* Pega os dados do link */
-    link = $(sender.target).parent("a");
-    user_file_id = link.attr("href").match(/arquivos\/([0-9a-f]{24})\/?$/)[1];
+    var link = $(sender.target);
+    var user_file_id = link.attr("href").match(/arquivos\/([0-9a-f]{24})\/?$/)[1];
     
     /* Verifica se já está aberto para poder fechar */
     if($("#download_box-" + user_file_id)[0]) {
-      $("#download_box-" + user_file_id).remove();    
+      $("#download_box-" + user_file_id).remove();
       return false;
     }
     
+    var base_url = get_base_url(link.attr("href"));
+    load_css(base_url);
+    
     /* Cria a caixa de download via AJAX */
     $.ajax({
-      url: link.attr("href") + "/download_box",
-      type: "POST",
+      url: link.attr("href") + "/download_box" + options,
+      type: "GET",
       async: false,
       success: function (data) {
         link.after(data);
@@ -80,23 +101,9 @@ $(document).ready(function() {
     });
     
     /* Executa as funções após a criação da caixa */
-    after_create_box("#download_box-" + user_file_id); 
+    after_create_box("#download_box-" + user_file_id, base_url);
     
     /* Retorna falso para o link não ser seguido caso tudo tenha dado certo */
     return false;
   });
-  
-  /* TODO Pegar base url da url do link */
-  
-  var css = document.createElement('link');
-  css.type = 'text/css';
-  css.rel = 'stylesheet';
-  css.href = '/stylesheets/download_box.css';
-  css.media = 'screen';
-  document.getElementsByTagName("head")[0].appendChild(css);
-  
-  /* Faz cache das imagems para a caixa */
-  $.each(["/images/download_box/logo.png", "/images/download_box/fundo_padrao.png", "/images/download_box/botao-brilho.png"], function (i, val) {
-    (new Image()).src = val;
-  });  
 });

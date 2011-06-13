@@ -11,7 +11,7 @@ class UserFile
   mapping do # TODO ajustar os boosts
     indexes :id, :type => :string, :analyzed => false
     indexes :alias, :type => :string, :boost => 10
-    indexes :filetype, :type => :string, :boost => 2    
+    indexes :filetype, :type => :string, :boost => 2
     indexes :tags, :type => :string, :index_name => :tag, :boost => 5
     indexes :categories, :type => :string, :index_name => :category, :boost => 5
     indexes :description, :type => :string
@@ -174,10 +174,10 @@ class UserFile
         tag.strip.parameterize
       end
       tags.delete("")
-    end    
+    end
     
     def generate_alias
-      self.alias ||= self.filename      
+      self.alias ||= self.filename
     end
 end
 

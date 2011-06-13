@@ -28,24 +28,40 @@ Smshare::Application.routes.draw do |map|
       get :manage
       post :move
       post :rename
+      post :compress
+      post :decompress
+      match :customize
     end
     
     resource :relatorios, :as => :reports, :controller => :reports, :only => [:show]
   end
   
   resources :smsearch, :controller => :search, :as => :search, :only => [:index]
-    
+  
   namespace :admin do
     resources :news
   end
-    
+  
   resources :comments, :only => [:create, :destroy]
   
   resources :news, :only => [:index, :show]
-
+  
   resources :guide, :only => [:index]
-
+  
   resources :faq, :only => [:index]
+  
+  resources :caixa_download, :controller => :box_styles, :only => [:create] do
+    collection do
+      post :set_default
+      get  :template, :action => :generate_javascript
+    end
+  end
+  
+  resources :box_images, :only => [:create] do
+    collection do
+      post :set_default
+    end
+  end
   
   root :to => "home#index"
 

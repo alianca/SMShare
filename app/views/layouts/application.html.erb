@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <%= title_tag "smShare - Serviço smsharing" %>
   <%= stylesheet_link_tag "formtastic", "formtastic_changes", "application", "search", stylesheet_for_controller %>
-  <%= javascript_include_tag "jquery", "rails", "application", "download_box", javascript_for_controller %>
+  <%= javascript_include_tag "jquery", "rails", "application", javascript_for_controller %>
   <%= include_tiny_mce_if_needed %>
   <%= csrf_meta_tag %>
 </head>
@@ -21,7 +21,7 @@
   <p class="notifications notice"><%= notice %></p>
   <p class="notifications alert"><%= alert %></p>
   
-  <%= yield %>  
+  <%= yield %>
 </div>
 
 <div id="footer">

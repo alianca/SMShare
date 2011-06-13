@@ -1,9 +1,9 @@
 <% page "manage_files" %>
 <h2>Gerenciar Arquivos</h2>
 
-<%= form_tag user_panel_path, :method => :delete do %>
-  <%= render :partial => "actions_menu" %>
-  
+<%= render :partial => "actions_menu" %>
+
+<%= form_tag do %>
   <div id="form_placeholder"></div>
   <div id="rename_placeholder"></div>
   
@@ -79,4 +79,5 @@
   <%= render :partial => "create_folder" %>
   <%= render :partial => "move" %>
   <%= render :partial => "rename" %>
+  <%= render :partial => "compress" %>
 </div>

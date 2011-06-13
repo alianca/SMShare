@@ -217,7 +217,7 @@ $(document).ready(function() {
                   percentage = Math.floor(data.received*100/data.size) + "%";
                   elapsed_time = updated_at-statuses[i].started_at; // ms
                   speed = data.received*1000/elapsed_time; // bytes/s
-                  eta = (data.size-data.received)/speed; // secs
+                  eta = (data.size-data.received)*1000/speed; // ms
 
                   $(form).find(".progress_info .uploaded").width(percentage);
                   $(form).find(".progress_info .percentage").html(percentage);

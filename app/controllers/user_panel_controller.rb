@@ -1,3 +1,5 @@
+require 'zipruby'
+
 class UserPanelController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
@@ -83,6 +85,44 @@ class UserPanelController < ApplicationController
         @folder = current_user.folders.find(params[:folder_id])
       else
         @folder = current_user.root_folder
+      end
+    end
+    
+    def compress_files zip_name
+      zip_name += '.zip' unless zip_name =~ /.*\.zip$/
+      zip_file = Tempfile.new zip_name
+      Zip::Archive.open(zip_file.path, Zip::CREATE, Zip::BEST_SPEED) do |zip|
+        @files.each { |file| zip.add_buffer(file.alias, file.file.file.read) }
+        @folders.each { |folder| compress_recursively zip, folder, folder.name + '/' }
+      end
+      current_user.files.create(:file => zip_file.open, :public => true, :description => "Arquivo compactado", :filename => zip_name)
+      zip_file.close
+    end
+    
+    def compress_recursively zip, folder, path
+      zip.add_dir(path)
+      folder.files.each { |file| zip.add_buffer(path + file.alias, file.file.file.read) }
+      folder.children.each { |child| compress_recursively zip, child, path + child.name + '/' }
+    end
+    
+    def decompress_file file
+      Zip::Archive.open_buffer(file.file.file.read) do |zip|
+        zip.each do |z|
+          unless z.directory?
+            filename = z.name.split('/').last
+            path = z.name.split('/')[0..-2]
+            current_dir = file.folder
+            path.each do |component|
+              match = current_dir.children.where(:name => component).first
+              current_dir = match ? match : current_dir.children.create(:name => component, :owner => current_user)
+            end
+            temp_file = Tempfile.new(filename)
+            temp_file.write z.read
+            temp_file.rewind
+            current_user.files.create(:file => temp_file.open, :public => true, :description => "Arquivo compactado", :filename => filename, :folder => current_dir)
+            temp_file.close
+          end
+        end
       end
     end
 end

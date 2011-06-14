@@ -1,8 +1,33 @@
-<%= javascript_include_tag "upload_form.js" %>
-<%= form_tag user_files_path, :multipart => true, :id => "files_form", :method => :post do %>
-  <div id="files"></div>
-  <a id="more-files">Enviar mais arquivos</a>
-  <div class="buttons">
-    <%= submit_tag "Enviar", :id => 'files_submit' %>
+<div id="upload_forms">
+  <div id="user_files_forms">
+  <%= semantic_form_for @file, :url => user_files_path(:"X-Progress-ID" => @file._id), :html => {:multipart => true, :class => "files_form"} do |f| %>
+      <%= f.inputs :class => :file_fields do %>
+        <%= hidden_field_tag "X-Progress-ID", @file._id %>
+        <%= f.input :file %>
+        <%= f.input :description, :input_html => { :title => "Digite uma descrição objetiva para seu arquivo.", :class => "clear-on-focus" } %>
+        <% end %>
+        
+      <%= f.inputs :class => :public_field do %>
+        <%= f.input :public, :as => :boolean, :default => true, :label => "Arquivo público (?)" %>
+        <% end %>
+        
+      <%= f.buttons do %>
+        <%= f.commit_button "Enviar" %>
+      <% end %>
+      
+      <div class="progress_info">
+        <p class="filename"></p>
+        <div class="progress_bar">
+          <div class="uploaded"></div>
+        </div>
+        <p class="percentage">0%</p>
+        <p class="uptime">Decorrido: <span class="data">00:00:00</span></p>
+        <p class="eta">Restante: <span class="data">00:00:00</span></p>
+        <p class="speed">Velocidade: <span class="data">0 Kb/s</span></p>
+        <p class="data_amount"><span class="sent">0 kb</span> / <span class="total">0 kb</span></p>
+      </div>
+    <% end %>    
   </div>
-<% end %>
+
+  <p class="more-files"><%= link_to "Enviar mais arquivos" %></p>
+</div>

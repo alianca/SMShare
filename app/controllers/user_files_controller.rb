@@ -15,6 +15,7 @@ class UserFilesController < ApplicationController
     @filetype = @file.resolve_filetype
     @comment = Comment.new
     @comments = @file.comments.paginate(:per_page => 6, :page => params[:page])
+    render(:show, :layout => 'application')
   end
   
   def links

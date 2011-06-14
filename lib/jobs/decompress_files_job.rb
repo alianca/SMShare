@@ -10,17 +10,20 @@ class Jobs::DecompressFilesJob
     Zip::Archive.open_buffer(file.file.file.read) do |zip|
       zip.each do |z|
         unless z.directory?
-          filename = z.name.split('/').last
-          path = z.name.split('/')[0..-2]
+          components = z.name.split('/')
+          filename = components.last
+          path = components[0..-2]
+          
           current_dir = file.folder
           path.each do |component|
             match = current_dir.children.where(:name => component).first
             current_dir = match ? match : current_dir.children.create(:name => component, :owner => user)
           end
-          temp_file = Tempfile.new(filename)
+          
+          temp_file = Tempfile.new filename
           temp_file.write z.read
           temp_file.rewind
-          user.files.create(:file => temp_file.open, :public => true, :folder => current_dir, :filename => filename)
+          user.files.create(:file => temp_file.open, :public => true, :description => "PLACEHOLDER", :folder => current_dir, :filename => filename)
           temp_file.close
         end
       end

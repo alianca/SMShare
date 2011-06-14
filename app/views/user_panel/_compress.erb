@@ -1,12 +1,12 @@
-<%= semantic_form_for :user_file, :url => compress_user_panel_path, :html => { :id => "compress", :class => "need-files" } do |f| %>
+<%= semantic_form_for :user_file, :url => compress_user_panel_path(:folder_id => params[:folder_id]), :html => { :id => "compress", :class => "need-files" } do |f| %>
   <%= f.inputs :class => :hidden_file_list do %>
     <%= f.input :files, :as => :check_boxes, :collection => @resources.collect { |r| [r._id, r._id] } %>
   <% end %>
-
+  
   <%= f.inputs do %>
     <%= f.input :filename, :label => "Nome do arquivo:" %>
   <% end %>
-    
+  
   <%= f.buttons do %>
     <%= f.commit_button "Confirmar" %>
   <% end %>

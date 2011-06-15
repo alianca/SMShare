@@ -1,4 +1,5 @@
 require 'zipruby'
+require 'lib/file_name'
 
 class Jobs::DecompressFilesJob
   @queue = :decompress
@@ -11,7 +12,7 @@ class Jobs::DecompressFilesJob
       zip.each do |z|
         unless z.directory?
           components = z.name.split('/')
-          filename = components.last
+          filename = FileName.sanitize(components.last)
           path = components[0..-2]
           
           current_dir = file.folder

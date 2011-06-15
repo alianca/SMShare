@@ -1,4 +1,5 @@
 require 'zipruby'
+require 'lib/file_name'
 
 class Jobs::CompressFilesJob
   @queue = :compress
@@ -12,7 +13,7 @@ class Jobs::CompressFilesJob
     current_dir = Folder.find(folder_id["$oid"])
     user = User.find(user_id["$oid"])
     
-    zip_name = param["filename"]
+    zip_name = FileName.sanitize(param["filename"])
     zip_name += '.zip' unless zip_name =~ /.*\.zip$/
     zip_file = Tempfile.new zip_name
     Zip::Archive.open(zip_file.path, Zip::CREATE, Zip::BEST_SPEED) do |zip|

@@ -21,9 +21,9 @@ class UserStatistic
     
     self.bandwidth = user.file_downloads.where(:filesize.gt => 0).sum(:filesize) || 0
     
-    self.revenue = downloads * 0.0 # needs to be defined with Came
-    self.referred_revenue = referred_downloads * 0.0 # needs to be defined with Came
-    
+    self.revenue = downloads * 0.5
+    self.referred_revenue = referred_downloads * 0.1 
+        
     self.updated_at = Time.now.utc    
     save! if changed?
   end

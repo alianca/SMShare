@@ -39,6 +39,9 @@ class User
   after_create :build_statistics
   embeds_many :daily_statistics, :class_name => "UserDailyStatistic" # , :order => :date.asc
   
+  # Requisições de Pagamento
+  has_many_related :payment_requests
+  
   # Validações
   validates :name, :presence => true
   validates :nickname, :presence => true, :uniqueness => true, :length => { :within => 4..32 }

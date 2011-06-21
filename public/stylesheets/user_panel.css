@@ -808,10 +808,13 @@ table.file_list td.name {
   padding: 2px 0 2px 15px !important;
 }
 
-#actions_forms input[type=submit] {
+#actions_forms input[type=submit], #actions_forms .compress-button {
   color: white;
   font-size: 12px;
   border: 0 solid transparent;
+  line-height: 23px;
+  text-align: center;
+  cursor: pointer;
   width: 114px;
   height: 23px;
   background: url(/images/layouts/botao-off.png);

@@ -5,9 +5,6 @@ class Jobs::CompressFilesJob < Resque::JobWithStatus
   @queue = :compress
   
   def perform
-  
-    puts options.to_json
-  
     param = JSON.parse(options["parameter"])
     param["files"].delete_if { |f| f.blank? }
     

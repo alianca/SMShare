@@ -6,12 +6,12 @@
   <li class="separator"></li>
   <li class="link">
     <%= link_to "", "#", :class => "icon off need-files" %>
-    <%= link_to "Link", "#" %>
+    <%= link_to "Link", "#", :class => "off need-files" %>
   </li>
   <li class="separator"></li>
   <li class="move">
     <%= link_to "", "#", :class => "icon off need-files" %>
-    <%= link_to "Mover", "#" %>
+    <%= link_to "Mover", "#", :class => "off need-files" %>
   </li>
   <li class="destroy">
     <%= form_tag user_panel_path, :method => :delete do %>
@@ -21,17 +21,17 @@
         <% end %>
       </fieldset>
       <%= submit_tag "", :class => "icon off need-files" %>
-      <%= submit_tag "Remover", :class => "label" %>
+      <%= submit_tag "Remover", :class => "label off need-files" %>
     <% end %>
   </li>
   <li class="rename">
     <%= link_to "", "#", :class => "icon off need-files" %>
-    <%= link_to "Renomear", "#" %>
+    <%= link_to "Renomear", "#", :class => "off need-files" %>
   </li>
   <li class="separator"></li>
   <li class="compress">
     <%= link_to "", "#", :class => "icon off need-files" %>
-    <%= link_to "Compactar", "#" %>
+    <%= link_to "Compactar", "#", :class => "off need-files" %>
   </li>
   <li class="decompress">
     <%= form_tag :action => "decompress" do %>
@@ -41,12 +41,12 @@
         <% end %>
       </fieldset>
       <%= link_to "", "#", :class => "icon off need-files" %>
-      <%= link_to "Descompactar", "#" %>
+      <%= link_to "Descompactar", "#", :class => "off need-files" %>
     <% end %>
   </li>
   <li class="separator"></li>
   <li class="properties">
     <%= link_to "", "#", :class => "icon off need-files" %>
-    <%= link_to "Propriedades", "#" %>
+    <%= link_to "Propriedades", "#", :class => "off need-files" %>
   </li>
 </ul>

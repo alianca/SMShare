@@ -39,5 +39,6 @@ class Jobs::DecompressFilesJob < Resque::JobWithStatus
         end
       end
     end
+    completed
   end
 end

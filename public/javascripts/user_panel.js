@@ -483,7 +483,66 @@ $(document).ready(function() {
     e.stopImmediatePropagation();
   });
   
+  function track_status(job_id) {
+    var done = false;
+    var error = false;
+    var no_job = false;
+    var error_message = "";
+    
+    check_interval = setInterval(function () {
+      if (done) {
+        if (error) {
+          force_hide_notifications();
+          $(".alert").html(error_message);
+          $(".notice").html("");
+        } else if (no_job) {
+          clearInterval(check_interval);
+          return;
+        } else {
+          $(".notice").html("Operação completa.");
+        }
+        show_notifications(false);
+        clearInterval(check_interval);
+        setTimeout(function() {
+          location.reload(true);
+        }, 500);
+      } else {
+        $.ajax({
+          url: "compression_state" + (job_id ? "?job_id=" + job_id : ""),
+          dataType: "json",
+          success: function(data) {
+            switch (data.status) {
+            case "queued":
+              $(".notice").html("Aguardando início da operação...");
+              break;
+            case "working":
+              $(".notice").html(data.message);
+              $("#block_user_input").show();
+              break;
+            case "failed":
+              error = done = true;
+              error_message = data.message;
+              $("#block_user_input").show();
+              break;
+            case "completed":
+              done = true;
+              $("#block_user_input").show();
+              break;
+            case "no_job":
+              no_job = done = true;
+              break;
+            }
+              show_notifications(true);
+          },
+          error: function(e) { console.log(e); }
+        });
+      }
+    }, 500);
+  }
   
+  // Verifica operações em andamento ao abrir a página
+  track_status(null);
+      
   /* Compressão em background */
   $("#compress .compress-button").click(function() {
     $.ajax({
@@ -491,55 +550,7 @@ $(document).ready(function() {
       dataType: "json",
       data: $("#compress").serialize(),
       type: "POST",
-      success: function(data) {
-        var job_id = data[0];
-        var done = false;
-        var error = false;
-        var error_message = "";
-        check_interval = setInterval(function () {
-          if (done) {
-            if (error) {
-              force_hide_notifications();
-              $(".alert").html(error_message);
-              $(".notice").html("");
-            } else {
-              $(".notice").html("Compactação completa.");
-            }
-            show_notifications(false);
-            clearInterval(check_interval);
-            setTimeout(function() {
-              location.reload(true);
-            }, 500);
-          } else {
-            $.ajax({
-              url: "compression_state?job_id=" + job_id,
-              dataType: "json",
-              success: function(data) {
-                switch (data.status) {
-                case "queued":
-                  $(".notice").html("Aguardando início da compactação...");
-                  break;
-                case "working":
-                  $(".notice").html(data.message);
-                  break;
-                case "failed":
-                  error = done = true;
-                  error_message = data.message;
-                  break;
-                case "completed":
-                  done = true;
-                  break;
-                default:
-                  console.log(data);
-                  break;
-                }
-                show_notifications(true);
-              },
-              error: function(e) { console.log(e); }
-            });
-          }
-        }, 500);
-      },
+      success: function(data) { track_status(data[0]); },
       error: function(e) { console.log(e); } 
     });
   });
@@ -552,55 +563,7 @@ $(document).ready(function() {
       dataType: "json",
       data: $(".actions_menu .decompress form").serialize(),
       type: "POST",
-      success: function(data) {
-        var job_id = data[0];
-        var done = false;
-        var error = false;
-        var error_message = "";
-        
-        $("#block_input").show();
-        
-        check_interval = setInterval(function () {
-          if (done) {
-            if (error) {
-              force_hide_notifications();
-              $(".alert").html(error_message);
-              $(".notice").html("");
-            } else {
-              $(".notice").html("Descompactação completa.");
-            }
-            show_notifications(false);
-            clearInterval(check_interval);
-            setTimeout(function() {
-              location.reload(true);
-            }, 500);
-          } else {
-            $.ajax({
-              url: "compression_state?job_id=" + job_id,
-              dataType: "json",
-              success: function(data) {
-                switch (data.status) {
-                case "queued":
-                  $(".notice").html("Aguardando início da descompactação...");
-                  break;
-                case "working":
-                  $(".notice").html(data.message);
-                  break;
-                case "failed":
-                  error = done = true;
-                  error_message = data.message;
-                  break;
-                case "completed":
-                  done = true;
-                  break;
-                }
-                show_notifications(true);
-              },
-              error: function(e) { console.log(e); }
-            });
-          }
-        }, 500);
-      },
+      success: function(data) { track_status(data[0]); },
       error: function(e) { console.log(e); } 
     });
   });

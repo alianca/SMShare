@@ -65,12 +65,9 @@ class UserPanelController < ApplicationController
   end
   
   def compression_state
-    status = Resque::Status.get(params[:job_id] ? params[:job_id] : session[:job_id])
-    if (status["status"] == "completed" or status["status"] == "failed") and params["job_id"] == nil
-      render :json => ({:status => :no_job}).to_json
-    else
-      render :json => status.to_json
-    end
+    status = Resque::Status.get session[:job_id]
+    session[:job_id] = nil if status and ["completed", "failed"].include? status["status"]
+    render :json => status ? status.to_json : {:status => "no_job"}
   end
   
   def edit

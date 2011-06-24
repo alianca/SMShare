@@ -483,7 +483,7 @@ $(document).ready(function() {
     e.stopImmediatePropagation();
   });
   
-  function track_status(job_id) {
+  function track_status() {
     var done = false;
     var error = false;
     var no_job = false;
@@ -497,6 +497,7 @@ $(document).ready(function() {
           $(".notice").html("");
         } else if (no_job) {
           clearInterval(check_interval);
+          $("#block_user_input").hide();
           return;
         } else {
           $(".notice").html("Operação completa.");
@@ -505,10 +506,11 @@ $(document).ready(function() {
         clearInterval(check_interval);
         setTimeout(function() {
           location.reload(true);
-        }, 500);
+          return;
+        }, 2000);
       } else {
         $.ajax({
-          url: "compression_state" + (job_id ? "?job_id=" + job_id : ""),
+          url: "compression_state",
           dataType: "json",
           success: function(data) {
             switch (data.status) {
@@ -517,22 +519,20 @@ $(document).ready(function() {
               break;
             case "working":
               $(".notice").html(data.message);
-              $("#block_user_input").show();
               break;
             case "failed":
               error = done = true;
               error_message = data.message;
-              $("#block_user_input").show();
               break;
             case "completed":
               done = true;
-              $("#block_user_input").show();
               break;
             case "no_job":
               no_job = done = true;
               break;
             }
-              show_notifications(true);
+            show_notifications(true);
+            $("#block_user_input").show();
           },
           error: function(e) { console.log(e); }
         });
@@ -541,7 +541,7 @@ $(document).ready(function() {
   }
   
   // Verifica operações em andamento ao abrir a página
-  track_status(null);
+  track_status();
       
   /* Compressão em background */
   $("#compress .compress-button").click(function() {
@@ -550,8 +550,8 @@ $(document).ready(function() {
       dataType: "json",
       data: $("#compress").serialize(),
       type: "POST",
-      success: function(data) { track_status(data[0]); },
-      error: function(e) { console.log(e); } 
+      success: function(data) { track_status(); },
+      error: function(e) { console.log(e); }
     });
   });
   
@@ -563,8 +563,8 @@ $(document).ready(function() {
       dataType: "json",
       data: $(".actions_menu .decompress form").serialize(),
       type: "POST",
-      success: function(data) { track_status(data[0]); },
-      error: function(e) { console.log(e); } 
+      success: function(data) { track_status(); },
+      error: function(e) { console.log(e); }
     });
   });
 });

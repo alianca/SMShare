@@ -544,7 +544,8 @@ $(document).ready(function() {
   track_status();
       
   /* Compressão em background */
-  $("#compress .compress-button").click(function() {
+  $("#compress").submit(function(e) {
+    e.preventDefault();
     $.ajax({
       url: "compress",
       dataType: "json",

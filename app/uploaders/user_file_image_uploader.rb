@@ -1,4 +1,4 @@
-class ImageUploader < CarrierWave::Uploader::Base
+class UserFileImageUploader < CarrierWave::Uploader::Base
   storage :grid_fs
   
   def store_dir

@@ -90,7 +90,7 @@
   background: white url(/images/search/icone-nota.png) no-repeat 5px 3px;
 }
 
-#search-results {
+#search-results, #user-profile {
   clear: right;
   width: 608px;
   min-height: 200px;
@@ -103,13 +103,13 @@
   margin-top: 0;
 }
 
-#search-results .search-result {
+.search-result {
   padding-top: 5px;
   height: 90px;
   border-bottom: 1px dotted black;
 }
 
-#search-results .search-result .filetype {
+.search-result .filetype {
   float: left;
   width: 90px;
   height: 68px;
@@ -120,7 +120,7 @@
   box-shadow: 1px 1px 1px 1px rgba(50,50,50,0.05);
 }
 
-#search-results .search-result .filetype span {
+.search-result .filetype span {
   display: block;
   position: relative;
   float: right;
@@ -130,7 +130,7 @@
   top: -23px;
 }
 
-#search-results .search-result .filetype div {
+.search-result .filetype div {
   display: block;
   position: relative;
   height: 50px;
@@ -141,7 +141,7 @@
   margin: 0 auto;
 }
 
-#search-results .search-result h5 {
+.search-result h5 {
   float: left;
   width: 310px;
   height: 16px;
@@ -152,7 +152,7 @@
   color: #383289;  
 }
 
-#search-results .search-result .description {
+.search-result .description {
   float: left;
   width: 310px;
   height: 32px;
@@ -162,7 +162,7 @@
   overflow: hidden;  
 }
 
-#search-results .search-result .download {
+.search-result .download {
   float: left;
   width: 310px;
   margin: 0;
@@ -171,21 +171,21 @@
   background: url(/images/search/icone-download.png) no-repeat;
 }
 
-#search-results .search-result .download a {
+.search-result .download a {
   margin-left: 20px;
   border-bottom: 1px dotted #34378A;
 }
 
-#search-results .search-result .download .download-link {
+.search-result .download .download-link {
   float: left;
 }
 
-#search-results .search-result .download .filesize {
+.search-result .download .filesize {
   float: right;
 }
 
-#search-results .search-result .owner, #search-results .search-result .comments,
-#search-results .search-result .rate, #search-results .search-result .statistics {
+.search-result .owner, .search-result .comments,
+.search-result .rate, .search-result .statistics {
   float: right;
   width: 165px;
   height: 17px;
@@ -195,27 +195,27 @@
   overflow: hidden;
 }
 
-#search-results .search-result .owner {
+.search-result .owner {
   padding-top: 1px;
   background: url(/images/search/icone-data.png) no-repeat;
 }
 
-#search-results .search-result .comments {
+.search-result .comments {
   clear: right;
   background: url(/images/search/icone-comentarios.png) no-repeat;
 }
 
-#search-results .search-result .rate {
+.search-result .rate {
   clear: right;
   background: url(/images/search/icone-nota.png) no-repeat;
 }
 
-#search-results .search-result .statistics {
+.search-result .statistics {
   clear: right;
   background: url(/images/search/icone-downloads.png) no-repeat;
 }
 
-#search-results .pagination {
+.pagination {
   margin: 15px 0 5px 0;
   text-align: center;
 }

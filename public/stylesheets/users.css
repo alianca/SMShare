@@ -1,0 +1,188 @@
+#user-profile .avatar {
+  display: block;
+  float: left;
+  width: 90px;
+  height: 90px;
+  border: 3px solid white;
+  overflow: hidden;
+  box-shadow: 1px 1px 1px 1px rgba(50,50,50,0.05);
+}
+
+#user-profile .go-back {
+  display: block;
+  position: relative;
+  width: 608px;
+  height: 20px;
+  border-bottom: 1px dotted black;
+  top: -8px;
+  padding: 0 0 8px 0;
+}
+
+#user-profile .name-block {
+  display: block;
+  float: left;
+}
+
+#user-profile #information {
+  height: 96px;
+  margin-bottom: 10px;
+  font-size: 11px;
+}
+
+#user-profile #description {
+  width: 598px;
+  padding-left: 7px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+  box-shadow: 1px 1px 1px 1px rgba(50,50,50,0.05);
+  background-color: #ffffff;
+}
+
+#user-profile #top-section {
+  padding-bottom: 15px;
+  margin-bottom: 7px;
+  border-bottom: 1px dotted black;
+}
+
+#user-profile #personal-info {
+  display: block;
+  float: left;
+  width: 230px;
+  height: 96px;
+  line-height: 22px;
+  margin-left: 10px;
+}
+
+#user-profile #personal-info .name {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+#user-profile #personal-info .name .name-icon {
+  position: relative;
+  padding-left: 18px;
+  padding-bottom: 18px;
+  top: 3px;
+  margin-right: 3px;
+  background: url(/images/profile/people.png) no-repeat;
+}
+
+
+#user-profile #personal-info .name .gender {
+  position: relative;
+  padding-left: 18px;
+  padding-bottom: 18px;
+  top: 3px;
+  margin-right: 3px;
+}
+
+#user-profile #personal-info .name .gender.male {
+  background: url(/images/profile/male.png) no-repeat;
+}
+
+#user-profile #personal-info .name .gender.female {
+  background: url(/images/profile/female.png) no-repeat;
+}
+
+#user-profile #separator {
+  display: block;
+  float: left;
+  width: 1px;
+  height: 80px;
+  margin-top: 15px;
+  background: url(/images/profile/separator.png) no-repeat;
+}
+
+#user-profile #general-info {
+  display: block;
+  float: left;
+  width: 250px;
+  height: 96px;
+  margin-left: 10px;
+  line-height: 22px;
+}
+
+#user-profile #general-info .signup-date {
+  display: block;
+  float: right;
+  text-align: right;
+  line-height: 27px;
+  vertical-align: top;
+}
+
+#user-profile #personal-info .left {
+  display: block;
+  float: left;
+  width: 165px;
+  height: 100%;
+}
+
+#user-profile #personal-info .right {
+  display: block;
+  float: left;
+  width: 60px;
+  height: 50%;
+  padding-top: 20px;
+}
+
+#user-profile #general-info .left {
+  display: block;
+  float: left;
+  width: 120px;
+  height: 100%;
+}
+
+#user-profile #general-info .right {
+  display: block;
+  float: left;
+  width: 130px;
+  height: 100%;
+  overflow: hidden;
+}
+
+#user-profile #general-info .files-icon {
+  padding-left: 18px;
+  padding-bottom: 18px;
+  margin-right: 2px;
+  background: url(/images/profile/files.png) no-repeat;
+}
+
+#user-profile #general-info .folder-icon {
+  padding-left: 18px;
+  padding-bottom: 18px;
+  margin-right: 2px;
+  background: url(/images/profile/folders.png) no-repeat;
+}
+
+#user-profile #general-info .downloads-icon {
+  padding-left: 18px;
+  padding-bottom: 18px;
+  margin-right: 2px;
+  background: url(/images/search/icone-downloads.png) no-repeat;
+}
+
+#user-profile #general-info .rating-icon {
+  padding-left: 18px;
+  padding-bottom: 18px;
+  margin-right: 2px;
+  background: url(/images/search/icone-nota.png) no-repeat;
+}
+
+#user-profile #general-info .comment-icon {
+  padding-left: 18px;
+  padding-bottom: 18px;
+  margin-right: 2px;
+  background: url(/images/search/icone-comentarios.png) no-repeat;
+}
+
+#user-profile #general-info .views-icon {
+  padding-left: 18px;
+  padding-bottom: 18px;
+  margin-right: 2px;
+  background: url(/images/profile/views.png) no-repeat;
+}
+

@@ -162,8 +162,8 @@ $(document).ready(function() {
     $("#user_files_forms form").each(function (i, form) {
       statuses[i] = {started_at: new Date(), updating: false}
       filename = /[^\\]*$/.exec($(form).find("li.file input").val());
-      $(form).find(".progress_info .filename")[0].innerHTML = filename;    
-    }); 
+      $(form).find(".progress_info .filename")[0].innerHTML = filename;
+    });
     
     
     // Define o estado como uploading
@@ -171,19 +171,19 @@ $(document).ready(function() {
     
     /* Função que verifica o estado dos downloads e redireciona no final */
     status_interval = setInterval(function () {
-      not_done = false;      
-      $("#user_files_forms form").each(function (i, form) { 
-        not_done = not_done || $(form).attr("data-status") == "uploading"        
-      });    
+      not_done = false;
+      $("#user_files_forms form").each(function (i, form) {
+        not_done = not_done || $(form).attr("data-status") == "uploading"
+      });
       
       if(!not_done) {
         errors = false;
         success = false;
         
-        $("#user_files_forms form").each(function (i, form) {           
+        $("#user_files_forms form").each(function (i, form) {
           errors = errors || $(form).attr("data-status") == "error"
           success = success || $(form).attr("data-status") == "success"
-                      
+          
           // Marca como 100% os que ainda não estiverem
           $(form).find(".progress_info .uploaded").width("100%");
           $(form).find(".progress_info .percentage").html("100%");
@@ -193,15 +193,15 @@ $(document).ready(function() {
           window.location = window.location; // Reload
         } else {
           parameter = ""
-          $("#user_files_forms form").each(function (i, form) { 
-            if($(form).attr("data-status") == "success") {              
+          $("#user_files_forms form").each(function (i, form) {
+            if($(form).attr("data-status") == "success") {
               parameter += "files[]=" + $(form).attr("data-created_id") + "&"
             }
-          });          
+          });
           
           window.location = "/arquivos/categorizar?" + parameter; // Vai para o categorizar
         }
-                
+        
         clearInterval(status_interval);
       } else {
         $("#user_files_forms form").each(function (i, form) {
@@ -231,17 +231,17 @@ $(document).ready(function() {
                 statuses[i].updating = false;
               },
               error: function (e) { console.log(e); }
-            });            
-          }       
+            });
+          }
         });
-      }     
-    }, 100);    
+      }
+    }, 100);
   });
   
   /* Salva o id do upload */
   upload_id = $("#new_user_file .file_fields input[type=hidden]").val();
   upload_action = $("#new_user_file").attr("action");
-    
+  
   /* Arruma o primero form */
   $("#new_user_file").attr("id", "new_user_file_0");
   $("#new_user_file_0").attr("target", "new_user_file_iframe_0");
@@ -253,14 +253,14 @@ $(document).ready(function() {
   /* Botão de mais arquivos */
   $(".more-files a").click(function () {
     new_form = $("#new_user_file_0").clone();
-    $(new_form).attr("id", "new_user_file_" + form_count);  
+    $(new_form).attr("id", "new_user_file_" + form_count);
     $(new_form).attr("target", "new_user_file_iframe_" + form_count);
     $(new_form).attr("action", upload_action + "-" + form_count);
     $(new_form).children("iframe").attr("name", "new_user_file_iframe_" + form_count);
     $(new_form).find(".file_fields input[type=hidden]").val(upload_id + "-" + form_count);
     new_form[0].reset();
     $(new_form).find(".clear-on-focus").val($(new_form).find(".clear-on-focus").attr("title"));
-    $("#user_files_forms").append(new_form);    
+    $("#user_files_forms").append(new_form);
     
     form_count++;
     return false; // Para não redirecionar
@@ -268,7 +268,7 @@ $(document).ready(function() {
   
   // Só executa dentro do iFrame
   try {
-    if(window.parent != window) {      
+    if(window.parent != window) {
       form_id = window.name.replace("new_user_file_iframe_", "");
       form = $("#new_user_file_" + form_id, window.parent.document);
       if($(".file_fields .error").length > 0) {
@@ -481,6 +481,92 @@ $(document).ready(function() {
   $("#code-area").click(function(e) {
     $(this).children("input[type=text]").select();
     e.stopImmediatePropagation();
+  });
+  
+  function track_status() {
+    var done = false;
+    var error = false;
+    var no_job = false;
+    var error_message = "";
+    
+    check_interval = setInterval(function () {
+      if (done) {
+        if (error) {
+          force_hide_notifications();
+          $(".alert").html(error_message);
+          $(".notice").html("");
+        } else if (no_job) {
+          clearInterval(check_interval);
+          $("#block_user_input").hide();
+          return;
+        } else {
+          $(".notice").html("Operação completa.");
+        }
+        show_notifications(false);
+        clearInterval(check_interval);
+        setTimeout(function() {
+          location.reload(true);
+          return;
+        }, 2000);
+      } else {
+        $.ajax({
+          url: "compression_state",
+          dataType: "json",
+          success: function(data) {
+            switch (data.status) {
+            case "queued":
+              $(".notice").html("Aguardando início da operação...");
+              break;
+            case "working":
+              $(".notice").html(data.message);
+              break;
+            case "failed":
+              error = done = true;
+              error_message = data.message;
+              break;
+            case "completed":
+              done = true;
+              break;
+            case "no_job":
+              no_job = done = true;
+              break;
+            }
+            show_notifications(true);
+            $("#block_user_input").show();
+          },
+          error: function(e) { console.log(e); }
+        });
+      }
+    }, 500);
+  }
+  
+  // Verifica operações em andamento ao abrir a página
+  track_status();
+      
+  /* Compressão em background */
+  $("#compress").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+      url: "compress",
+      dataType: "json",
+      data: $("#compress").serialize(),
+      type: "POST",
+      success: function(data) { track_status(); },
+      error: function(e) { console.log(e); }
+    });
+  });
+  
+  
+  /* Descompressão em background */
+  $(".actions_menu .decompress a").click(function() {
+    $.ajax({
+      url: "decompress",
+      dataType: "json",
+      data: $(".actions_menu .decompress form").serialize(),
+      type: "POST",
+      success: function(data) { track_status(); },
+      error: function(e) { console.log(e); }
+    });
   });
 });
 

@@ -35,6 +35,7 @@ gem 'capistrano'
 gem 'resque'
 gem 'resque-retry'
 gem 'SystemTimer'
+gem 'resque-status'
 
 # LazyHighcharts
 gem 'lazy_high_charts'
@@ -61,3 +62,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
 end
+
+# Correção temporaria para um erro que começou a aparecer de repente
+# TODO: Investigar melhor
+gem 'require_relative', '~> 1.0.1'

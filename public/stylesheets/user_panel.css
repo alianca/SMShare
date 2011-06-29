@@ -1,7 +1,9 @@
 /* @group Defaults */
 
 body {
+  position: relative;
   background: url(/images/user_panel/fundo.jpg) no-repeat 50% 0;
+  height: 100%;
 }
 
 /* @end */
@@ -564,20 +566,23 @@ table.file_list td.name {
 .actions_menu li .icon {
   position: relative;
   left: 20px;
-  width: 70px;
+  width: 32px;
   height: 44px;
   margin-bottom: -7px;
+}
+
+.actions_menu li .need-files {
   cursor: pointer;
 }
 
-.actions_menu li .icon.off {
+.actions_menu li .need-files.off {
   cursor: default;
 }
 
 .actions_menu li .label {
   position: relative;
   top: -1px;
-  margin: 0 0 0 -3px;
+  margin: 0 0 0 -10px;
   padding: 0;
 }
 
@@ -655,8 +660,15 @@ table.file_list td.name {
 .actions_menu input[type=submit] {
   background: transparent;
   border: 0;
+  margin-left: auto;
+  margin-right: auto;
   line-height: 18px;
   font-size: 11px;
+}
+
+.actions_menu input[type=submit].icon {
+  position: relative;
+  left: 0;
 }
 
 .actions_menu a {
@@ -808,10 +820,13 @@ table.file_list td.name {
   padding: 2px 0 2px 15px !important;
 }
 
-#actions_forms input[type=submit] {
+#actions_forms input[type=submit], #actions_forms .compress-button {
   color: white;
   font-size: 12px;
   border: 0 solid transparent;
+  line-height: 23px;
+  text-align: center;
+  cursor: pointer;
   width: 114px;
   height: 23px;
   background: url(/images/layouts/botao-off.png);
@@ -829,6 +844,19 @@ table.file_list td.name {
 #rename_placeholder {
   display: none;
 }
+
+
+
+#block_user_input {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
 
 
 /* Personalização da caixa de download */

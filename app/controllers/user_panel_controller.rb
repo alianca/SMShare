@@ -55,14 +55,19 @@ class UserPanelController < ApplicationController
   
   def compress
     folder = params[:folder_id] ? BSON::ObjectId(params[:folder_id]) : current_user.root_folder._id
-    Resque.enqueue(Jobs::CompressFilesJob, current_user._id, folder, params[:user_file].to_json)
-    redirect_to :back
+    session[:job_id] = Jobs::CompressFilesJob.create(:user_id => current_user._id, :folder_id => folder, :parameter => params[:user_file].to_json)
+    render :json => [session[:job_id]].to_json
   end
   
   def decompress
-    @files = UserFile.where(:_id.in => (params[:files].collect { |id| BSON::ObjectId(id) }))
-    @files.each { |file| Resque.enqueue(Jobs::DecompressFilesJob, current_user._id, file._id) }
-    redirect_to :back
+    session[:job_id] = Jobs::DecompressFilesJob.create(:user_id => current_user._id, :files => params[:files].to_json)
+    render :json => [session[:job_id]].to_json
+  end
+  
+  def compression_state
+    status = Resque::Status.get session[:job_id]
+    session[:job_id] = nil if status and ["completed", "failed"].include? status["status"]
+    render :json => status ? status.to_json : {:status => "no_job"}
   end
   
   def edit

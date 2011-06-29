@@ -1,3 +1,43 @@
+/* Mosta as notificações */
+function show_notifications(hold) {
+  hasAlert = $(".alert").html() != ""
+  hasNotice = $(".notice").html() != ""
+  if(hasAlert && hasNotice) {
+    $(".alert").slideDown("slow", function () {
+      setTimeout(function () {
+        $(".alert").slideUp("slow", function () {
+          $(".notice").slideDown("slow", function () {
+            setTimeout(function () {
+              $(".notice").slideUp("slow");
+            }, 3000);
+          });
+        });
+      }, 3000);
+    });
+  } else if(hasAlert) {
+    $(".alert").slideDown("slow", function () {
+      if (!hold) {
+        setTimeout(function () {
+          $(".alert").slideUp("slow");
+        }, 3000);
+      }
+    });
+  } else if(hasNotice) {
+    $(".notice").slideDown("slow", function () {
+      if (!hold) {
+        setTimeout(function () {
+          $(".notice").slideUp("slow");
+        }, 3000);
+      }
+    });
+  }
+}
+
+function force_hide_notifications() {
+  $(".alert").slideUp("slow");
+  $(".notice").slideUp("slow");
+}
+
 $(document).ready(function() {
   /* Escreve o texto do title no text_field, dessa maneira fazendo com que se o usuario desabilitou o javascript o text_field não vai conter lixo */
   $(".clear-on-focus").each(function () {
@@ -45,34 +85,7 @@ $(document).ready(function() {
     }    
   });
   
-  /* Mosta as notificações */
-  hasAlert = $(".alert").html() != ""
-  hasNotice = $(".notice").html() != ""
-  if(hasAlert && hasNotice) {
-    $(".alert").slideDown("slow", function () {
-      setTimeout(function () {
-        $(".alert").slideUp("slow", function () {
-          $(".notice").slideDown("slow", function () {
-            setTimeout(function () {
-              $(".notice").slideUp("slow");
-            }, 3000);
-          });
-        });
-      }, 3000);
-    });
-  } else if(hasAlert) {
-    $(".alert").slideDown("slow", function () {
-      setTimeout(function () {
-        $(".alert").slideUp("slow");
-      }, 3000);
-    });
-  } else if(hasNotice) {
-    $(".notice").slideDown("slow", function () {
-      setTimeout(function () {
-        $(".notice").slideUp("slow");
-      }, 3000);
-    });
-  }
+  show_notifications(false);
   
   /* Arruma o menu no Webkit */
   if($.browser.webkit) {

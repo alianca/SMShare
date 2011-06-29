@@ -1,0 +1,59 @@
+<h2>Requisição de Pagamento</h2>
+
+<div id="graph">
+  <%= high_chart("payments_graph", current_user.payment_requests.graph) %>
+</div>
+
+<div class="received">
+  <p>Lucro consolidado</p>
+  <p><%= total_payments_received %></p>
+</div>
+
+<div class="available">
+  <p>Saldo Disponível</p>
+  <p><%= total_revenue_available_for_payment %></p>
+</div>
+
+<%= semantic_form_for payment_request_for_this_month, :url => user_panel_payment_requests_path do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :payment_method, :label => "Forma de pagamento", :as => :radio, :collection => {:"Paypal" => :paypal, "PagSeguro" => :pag_seguro}, :input_html => {:disabled => !payment_request_for_this_month.new_record?} %>
+    <%= f.input :payment_account, :label => "Conta para pagamento", :input_html => {:disabled => !payment_request_for_this_month.new_record?} %>
+  <% end %>
+  
+  <%= f.buttons do %>
+    <% if payment_request_for_this_month.new_record? %>
+      <%= f.commit_button "Solicitar Pagamento" %>
+    <% else %>
+      <%= f.commit_button "Pagamento Solicitado", :button_html => {:disabled => true} %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<table id="payment_requests">
+  <thead>
+    <tr>
+      <th class="status">Status</th>
+      <th class="id">ID</th>
+      <th class="request_month">Mês</th>
+      <th class="completed_at">Data de Pagamento</th>
+      <th class="payment_method">Método</th>
+      <th class="value">Downloads</th>
+      <th class="referred_value">2º Nível</th>
+      <th class="total">Total</th>
+    </tr>
+  </thead>
+  <body>
+    <% @payment_requests.each do |pr| %>
+      <tr class="<%= pr.status %>">
+        <th class="status"><%= pr.status %></th>
+        <th class="id"><%= pr._id %></th>
+        <th class="request_month"><%= pr.request_month %></th>
+        <th class="completed_at"><%= pr.completed_at %><%= "*" if pr.status != :complete %></th>
+        <th class="payment_method <%= pr.payment_method %>"><%= pr.payment_method %></th>
+        <th class="value"><%= pr.value %></th>
+        <th class="referred_value"><%= pr.referred_value %></th>
+        <th class="total"><%= pr.value + pr.referred_value %></th>
+      </tr>
+    <% end %>
+  </body>  
+</table>

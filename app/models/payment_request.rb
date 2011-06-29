@@ -16,6 +16,7 @@ class PaymentRequest
   
   field :status, :type => Symbol, :default => :pending # Valid statuses: :complete, :pending, :canceled, :waiting_user, :refused_by_user
   field :payment_method, :type => Symbol # Valid methods: :paypal, :pag_seguro
+  field :payment_account, :type => String
   field :value, :type => Float
   field :referred_value, :type => Float  
   field :completed_at, :type => Date
@@ -45,6 +46,17 @@ class PaymentRequest
   
   def request_month
     I18n.translate("date.month_names")[self[:request_month].month]
+  end
+  
+  def self.graph    
+    graph = LazyHighCharts::HighChart.new(:graph) do |g|
+      payment_requests = self.order_by(:request_month.asc).limit(12)
+      g.chart(:width => 635, :height => 200, :spacingLeft => -240, :zoomType => :x)
+      g.series(:name => "Valor", :type => :area, :data=> payment_requests.collect { |pr| {:name => "Valor requisitado", :y => pr.total} })
+      g.xAxis(:categories => payment_requests.collect(&:request_month))
+      g.yAxis(:title => {:text => "Valor"})
+      g.title nil
+    end
   end
   
   private

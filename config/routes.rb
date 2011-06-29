@@ -35,6 +35,7 @@ Smshare::Application.routes.draw do |map|
     end
     
     resource :relatorios, :as => :reports, :controller => :reports, :only => [:show]
+    resource :requisicao_de_pagamento, :as => :payment_requests, :controller => :payment_requests, :only => [:show, :create]
   end
   
   resources :smsearch, :controller => :search, :as => :search, :only => [:index]

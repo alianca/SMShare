@@ -10,6 +10,8 @@ class Admin::NewsController < ApplicationController
                 :theme_advanced_buttons2 => [],
                 :theme_advanced_buttons3 => [],
                 :plugins => %w{contextmenu paste}})
+                
+  layout "admin"
   
   def index
     @news = News.all

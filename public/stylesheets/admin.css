@@ -1,0 +1,79 @@
+body {
+  width: 950px;
+  margin: 10px auto;
+}
+
+#admin-sidebar {
+  width: 140px;
+  border-right: 1px solid orange;
+  float: left;
+}
+
+#admin-sidebar ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#admin-sidebar li.menu {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+#admin-sidebar ul.submenu {
+  list-style-type: circle;
+  padding-left: 20px;
+}
+
+#admin-sidebar li.item {
+  font-weight: normal;
+  font-size: 14px;
+  margin-top: 0;
+}
+
+#admin-container {
+  position: relative;
+  left: 24px;
+}
+
+/* @group Header Login */
+
+#header #header-login {
+  float: right;
+  height: 23px;
+  margin: 22px 45px 0 0;
+}
+
+#header #header-login li {
+  display: inline;
+  padding-left: 22px;
+  font-size: 14px;
+}
+
+#header #header-login a {
+  color: #34378A;
+  text-decoration: none;
+  border-bottom: 1px dotted #34378A;
+  line-height: 23px;
+}
+
+#header #header-login a:hover {
+  color: #A5784B;
+}
+
+#header #header-login #profile-link { 
+  padding-right: 4px;
+  border-right: 1px solid #b7dee3;
+  color: #645C54;
+}
+
+#header #header-login #profile-link a { 
+  font-weight: bold;
+}
+
+#header #header-login #logout-link {
+  background: url(/images/layouts/logout.png) no-repeat;
+  margin-left: 8px;
+}
+
+/* @end */

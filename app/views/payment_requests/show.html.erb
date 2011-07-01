@@ -1,22 +1,26 @@
+<% page "payment-request_data" %>
+
 <h2>Requisição de Pagamento</h2>
 
-<div id="graph">
+<div id="requests_graph">
   <%= high_chart("payments_graph", current_user.payment_requests.graph) %>
 </div>
 
-<div class="received">
-  <p>Lucro consolidado</p>
-  <p><%= total_payments_received %></p>
-</div>
-
-<div class="available">
-  <p>Saldo Disponível</p>
-  <p><%= total_revenue_available_for_payment %></p>
+<div id="values">
+  <div class="received">
+    <p class="title">Lucro consolidado</p>
+    <p class="value"><%= total_payments_received %></p>
+  </div>
+  
+  <div class="available">
+    <p class="title">Saldo Disponível</p>
+    <p class="value"><%= total_revenue_available_for_payment %></p>
+  </div>
 </div>
 
 <%= semantic_form_for payment_request_for_this_month, :url => user_panel_payment_requests_path do |f| %>
   <%= f.inputs do %>
-    <%= f.input :payment_method, :label => "Forma de pagamento", :as => :radio, :collection => {:"Paypal" => :paypal, "PagSeguro" => :pag_seguro}, :input_html => {:disabled => !payment_request_for_this_month.new_record?} %>
+    <%= f.input :payment_method, :label => "Forma de pagamento", :as => :radio, :collection => [[image_tag("payment_requests/pagseguro.png"), :pag_seguro], [image_tag("payment_requests/paypal.png"), :paypal]], :input_html => {:disabled => !payment_request_for_this_month.new_record?} %>
     <%= f.input :payment_account, :label => "Conta para pagamento", :input_html => {:disabled => !payment_request_for_this_month.new_record?} %>
   <% end %>
   

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :fetch_user, :only => [:show, :update, :update_configuration]
+  before_filter :fetch_user, :only => [:show, :edit, :configure, :update]
 
   layout "application"
   
@@ -8,17 +8,26 @@ class UsersController < ApplicationController
     @files = @user.files.paginate(:per_page => 10, :page => params[:page])
   end
   
-  def update
+  def edit
     
   end
   
-  def update_configuration
-    @user.profile.update_attributes(params[:profile_configuration])
-    flash[:notice] = "Opções do perfil foram salvas com sucesso."
+  def configure
+    render :configure, :layout => "user_panel"
+  end
+  
+  def update
+    @user.update_attributes(params[:user])
+    if (@user.save)
+      flash[:notice] = "As alterações do perfil foram salvas com sucesso."
+    else
+      flash[:error] = "As alterações não puderam ser salvas."
+    end
+    redirect_to :back
   end
   
   private
     def fetch_user
       @user = User.find(params[:id])
+    end
 end
-

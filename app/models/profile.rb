@@ -1,11 +1,10 @@
-class UserProfile
+class Profile
   include Mongoid::Document
   
   # Campos do perfil
   field :birthday, :type => Date
   field :location, :type => String
   field :website, :type => String
-  field :description, :type => String
   field :gender, :type => String
   
   # Campos da configuração
@@ -15,6 +14,7 @@ class UserProfile
   field :show_place, :type => Boolean
   field :show_website, :type => Boolean
   field :show_email, :type => Boolean
+  field :description, :type => String
   
   embeds_one :avatar
   

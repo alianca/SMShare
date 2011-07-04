@@ -19,25 +19,37 @@
         <% if @profile.avatar %>
           <%= image_tag @profile.avatar.get, :class => "avatar" %>
         <% else %>
-          <%= image_tag "", :class => "avatar" %>
+          <%= image_tag "user_panel/default_avatar.png", :class => "avatar" %>
         <% end %>
         
         <div id="personal-info">
           <span class="name">
             <span class="name-icon"></span>
             <%= link_to @user.name %>
-            <span class="gender <%= @profile.gender %>"></span>
+            <% if @profile.show_gender %>
+              <span class="gender <%= @profile.gender %>"></span>
+            <% end %>
           </span>
           
           <div class="left">
-            Nome: <%= @user.name %><br/>
-            Idade: <%= @profile.birthday %><br/>
-            Cidade: <%= @profile.location %>
+            <% if @profile.show_name %>
+              Nome: <%= @user.name %><br/>
+            <% end %>
+            <% if @profile.show_age %>
+              Idade: <%= @profile.birthday %><br/>
+            <% end %>
+            <% if @profile.show_place %>
+              Cidade: <%= @profile.location %>
+            <% end %>
           </div>
           
           <div class="right">
-            <%= link_to "Website", @profile.website %><br/>
-            <%= link_to "Email", "mailto:" + @user.email %>
+            <% if @profile.show_website %>
+              <%= link_to "Website", @profile.website %><br/>
+            <% end %>
+            <% if @profile.show_email %>
+              <%= link_to "E-Mail", "mailto:" + @user.email %>
+            <% end %>
           </div>
         </div>
         

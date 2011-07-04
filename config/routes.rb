@@ -64,7 +64,11 @@ Smshare::Application.routes.draw do |map|
     end
   end
   
-  resources :users, :only => [:show]
+  resources :users, :only => [:show, :edit, :update] do
+    member do
+      get :configure
+    end
+  end
   
   root :to => "home#index"
 

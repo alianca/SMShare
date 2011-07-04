@@ -40,7 +40,7 @@ class User
   embeds_many :daily_statistics, :class_name => "UserDailyStatistic" # , :order => :date.asc
   
   # Perfil
-  embeds_one :profile, :class_name => "UserProfile"
+  embeds_one :profile, :class_name => "Profile"
   
   # Validações
   validates :name, :presence => true

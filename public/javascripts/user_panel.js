@@ -541,8 +541,10 @@ $(document).ready(function() {
   }
   
   // Verifica operações em andamento ao abrir a página
-  track_status();
-      
+  if (window.location.pathname.search(/manage/) >= 0) {
+    track_status();
+  }
+  
   /* Compressão em background */
   $("#compress").submit(function(e) {
     e.preventDefault();
@@ -569,6 +571,15 @@ $(document).ready(function() {
     });
   });
 });
+
+
+$("#upload_avatar").click(function() {
+  
+  $("#user_profile_avatar").click();
+  
+  return false;
+});
+
 
 /* Faz pre-cache das imagens do cadastro */
 $.cacheImages("/images/layouts/botao-on.png");

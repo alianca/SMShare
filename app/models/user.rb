@@ -42,6 +42,9 @@ class User
   # Perfil
   embeds_one :profile, :class_name => "Profile"
   
+  # Requisições de Pagamento
+  has_many_related :payment_requests
+  
   # Validações
   validates :name, :presence => true
   validates :nickname, :presence => true, :uniqueness => true, :length => { :within => 4..32 }

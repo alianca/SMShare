@@ -145,7 +145,7 @@ GEM
     redisk (0.2.2)
       redis (>= 0.1.1)
       redis-namespace (>= 0.1.0)
-    require_relative (1.0.1)
+    require_relative (1.0.2)
     resque (1.15.0)
       json (~> 1.4.6)
       redis-namespace (>= 0.10.0)

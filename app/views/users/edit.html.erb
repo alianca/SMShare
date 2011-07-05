@@ -1,0 +1,47 @@
+<% page "account_data" %>
+
+<div id="personal-data">
+  
+  <%= semantic_form_for @user do |f| %>
+    
+    <h1>Meus Dados</h1>
+    
+    <%= f.inputs do %>
+      <%= f.input :name, :label => "Nome completo:" %> <br/>
+      <%= f.input :email, :label => "E-mail:"  %> <br/>
+      <%= f.semantic_fields_for :password_update do |p| %>
+        <%= p.input :new_password, :label => "Nova senha:"  %> <br/>
+        <%= p.input :confirm_pass, :label => "Confirmar senha:" %> <br/>
+      <% end %>
+      <%= f.input :password, :label => "Senha atual" %> <br/>
+    <% end %>
+    
+    <%= f.buttons do %>
+      <%= f.commit_button "Confirmar" %>
+    <% end %>
+    
+    <h2>Opcionais</h2>
+    
+    <%= f.semantic_fields_for @user.profile do |fp| %>
+      <%= fp.input :country, :label => "País:" %>
+      <%= fp.input :state, :label => "Estado:" %> <br/>
+      <%= fp.input :city, :label => "Cidade:" %>
+      <%= fp.input :zip_code, :label => "CEP:" %> <br/>
+      <%= fp.input :address, :label => "Endereço:" %> <br/>
+      <%= fp.input :marital_status, :label => "Estado civil:" %>
+      <%= fp.input :phone, :label => "Telefone:" %> <br/>
+      <%= fp.input :gender, :label => "Sexo:" %>
+      <%= fp.input :mobile_phone, :label => "Celular:" %> <br/>
+      <%= fp.input :birthday, :label => "Aniversário:" %>
+      <%= fp.input :mobile_provider, :label => "Operadora:" %> <br/>
+      <%= fp.input :company, :label => "Empresa:" %>
+      <%= fp.input :website, :label => "Website:" %>
+    <% end %>
+    
+    <%= f.buttons do %>
+      <%= f.commit_button "Confirmar" %>
+    <% end %>
+    
+  <% end %>
+  
+</div>

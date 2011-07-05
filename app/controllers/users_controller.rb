@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
   
   def edit
-    
+    render :edit, :layout => "user_panel"
   end
   
   def configure

@@ -2,10 +2,19 @@ class Profile
   include Mongoid::Document
   
   # Campos do perfil
-  field :birthday, :type => Date
-  field :location, :type => String
-  field :website, :type => String
+  field :country, :type => String
+  field :state, :type => String
+  field :city, :type => String
+  field :zip_code, :type => String
+  field :address, :type => String
+  field :marital_status, :type => String
   field :gender, :type => String
+  field :birthday, :type => Date
+  field :company, :type => String
+  field :phone, :type => String
+  field :mobile_phone, :type => String
+  field :mobile_provider, :type => String
+  field :website, :type => String
   
   # Campos da configuração
   field :show_name, :type => Boolean

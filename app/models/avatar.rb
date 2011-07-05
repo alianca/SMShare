@@ -3,7 +3,7 @@ class Avatar
   
   mount_uploader :avatar, AvatarUploader, :mount_on => :filename
   
-  embedded_in :user_profile, :inverse_of => :avatar
+  embedded_in :profile, :inverse_of => :avatar
   
 end
 

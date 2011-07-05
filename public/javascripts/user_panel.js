@@ -573,12 +573,6 @@ $(document).ready(function() {
 });
 
 
-$("#upload_avatar").click(function() {
-  
-  $("#user_profile_avatar").click();
-  
-  return false;
-});
 
 
 /* Faz pre-cache das imagens do cadastro */

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :fetch_user, :only => [:show, :edit, :configure, :update]
-
+  
   layout "application"
   
   def show
@@ -17,7 +17,12 @@ class UsersController < ApplicationController
   end
   
   def update
+    if params[:user][:profile][:avatar]
+      @user.profile.avatar.destroy
+      @user.profile.create_avatar(params[:user][:profile].delete(:avatar))
+    end
     @user.update_attributes(params[:user])
+    
     if (@user.save)
       flash[:notice] = "As alterações do perfil foram salvas com sucesso."
     else

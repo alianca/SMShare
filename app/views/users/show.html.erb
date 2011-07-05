@@ -16,8 +16,8 @@
     
     <div id="top-section">
       <div id="information">
-        <% if @profile.avatar %>
-          <%= image_tag @profile.avatar.get, :class => "avatar" %>
+        <% if @profile.avatar.avatar %>
+          <%= image_tag @profile.avatar.avatar.url, :class => "avatar" %>
         <% else %>
           <%= image_tag "user_panel/default_avatar.png", :class => "avatar" %>
         <% end %>

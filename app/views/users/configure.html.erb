@@ -3,45 +3,50 @@
   
   <h2>Meu Perfil</h2>
   
-  
-  
   <div id="configs">
-    <div id="avatar">
-      <% if @profile.avatar %>
-        <%= image_tag @profile.avatar.get, :class => "avatar" %>
-      <% else %>
-        <%= image_tag "user_panel/default_avatar.png", :class => "avatar" %>
-      <% end %>
-      <%= link_to "Alterar Avatar", :id => "upload_avatar" %>
-    </div>
-    
-    <h3>Exibir dados pessoais</h3>
-      
-    <%= semantic_form_for @user do |u| %>
+    <%= semantic_form_for @user, :html => { :multipart => true } do |u| %>
       <%= u.semantic_fields_for @user.profile do |f| %>
+        
+        <h3>Exibir dados pessoais</h3>
+        
         <%= f.inputs do %>
-          <%= f.hidden_field :avatar, :as => :file %>
+          
+          <div id="avatar">
+            <%= f.semantic_fields_for :avatar do |a| %>
+              <%= image_tag @user.profile.avatar.avatar ? @user.profile.avatar.avatar.url : "user_panel/default_avatar.png", :class => "avatar" %>
+              <%= a.input :avatar, :as => :file, :label => "Alterar Avatar" %>
+            <% end %>
+          </div>
+          
           <div class="left">
             <%= f.input :show_gender, :as => :boolean, :label => "Sexo" %>
             <%= f.input :show_name, :as => :boolean, :label => "Nome" %>
             <%= f.input :show_age, :as => :boolean, :label => "Idade" %>
           </div>
+          
           <div class="right">
             <%= f.input :show_place, :as => :boolean, :label => "Localidade" %>
             <%= f.input :show_website, :as => :boolean, :label => "Website" %>
             <%= f.input :show_email, :as => :boolean, :label => "E-Mail" %>
           </div>
-          <div id="info-edit"><span>Adicione e atualize seus dados <br/> pessoais na seção <%= link_to "Meus Dados" %></span></div>
-            <div class="bottom">
+          
+          <div id="info-edit">
+            <span>Adicione e atualize seus dados <br/> pessoais na seção <%= link_to "Meus Dados" %></span>
+          </div>
+          
+          <div class="bottom">
             <%= f.input :description, :as => :text, :input_html => { :placeholder => "Escreva aqui a descrição do seu perfil..." } %>
           </div>
+          
         <% end %>
       <% end %>
+      
       <%= u.buttons do %>
         <span class="button blue">
           <span class="left"></span><%= u.commit_button "Salvar" %><span class="right"></span>
         </span>
       <% end %>
+      
     <% end %>
   </div>
 </div>

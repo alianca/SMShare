@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :fetch_user, :only => [:show, :edit, :configure, :update]
+  before_filter :authenticate_user!
   
   layout "application"
   
@@ -9,6 +10,12 @@ class UsersController < ApplicationController
   end
   
   def edit
+    @countries = Carmen.countries(:locale => :en, :default_country => @user.profile.country)
+    begin
+      @states = Carmen::states(@user.profile.country)
+    rescue
+      @states = []
+    end
     render :edit, :layout => "user_panel"
   end
   
@@ -26,9 +33,35 @@ class UsersController < ApplicationController
     if (@user.save)
       flash[:notice] = "As alterações do perfil foram salvas com sucesso."
     else
-      flash[:error] = "As alterações não puderam ser salvas."
+      flash[:alert] = "As alterações não puderam ser salvas."
     end
     redirect_to :back
+  end
+  
+  def change_password
+    ok = false
+    if params[:user][:password][:new_password].blank?
+      @user.update_attributes(params[:user])
+      ok = @user.save!
+    elsif params[:user][:password][:new_password] == params[:user][:password][:confirm_password]
+      ok = @user.update_with_password params[:user]
+    end
+    if ok
+      flash[:notice] = "Alterações salvas com successo."
+    else
+      flash[:alert] = "As alterações não puderam ser salvas."
+    end
+    
+    redirect_to :back
+  end
+  
+  def states_for_country
+    begin
+      @states = Carmen::states(params[:country])
+    rescue
+      @states = []
+    end
+    render :json => @states.to_json
   end
   
   private

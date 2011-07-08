@@ -570,6 +570,24 @@ $(document).ready(function() {
       error: function(e) { console.log(e); }
     });
   });
+  
+  
+  /* Carrega lista de estados dinamicamente */
+  $("#user_profile_country").change(function () {
+    $.ajax({
+      url: "states_for_country?country=" + $(this).val(),
+      dataType: "json",
+      type: "GET",
+      success: function(data) {
+        html = "<option value>Escolha</option>";
+        for (var i = 0; i < data.length; i++) {
+          html += "<option value=\"" + data[i][1] + "\">" + data[i][0] + "</option>";
+        }
+        $("#user_profile_state").html(html);
+      },
+      error: function(e) { console.log(e); }
+    });
+  });
 });
 
 

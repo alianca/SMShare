@@ -1002,13 +1002,37 @@ table.file_list td.name {
   background: url(/images/user_panel/field_left.png) no-repeat;
 }
 
-.text_field input[type=text] {
+.text_field input {
   height: 33px;
   line-height: 16px;
   margin-left: 4px;
   color: #8e8e8e;
   border: none;
   background: url(/images/user_panel/field_middle.png) repeat-x;
+}
+
+.text_field_small .right {
+  padding-left: 5px;
+  padding-bottom: 21px;
+  padding-top: 4px;
+  background: url(/images/user_panel/field_right_26.png) no-repeat;
+}
+
+.text_field_small .left {
+  padding-left: 4px;
+  padding-bottom: 21px;
+  padding-top: 4px;
+  background: url(/images/user_panel/field_left_26.png) no-repeat;
+}
+
+.text_field_small input,
+.text_field_small select {
+  height: 26px;
+  line-height: 16px;
+  margin-left: 4px;
+  color: #8e8e8e;
+  border: none;
+  background: url(/images/user_panel/field_middle_26.png) repeat-x;
 }
 
 #code-area {
@@ -1606,4 +1630,163 @@ table.file_list td.name {
 #config-profile #configs form .buttons .button input[type=submit] {
   width: 114px;
 }
+
+/* Account edit */
+
+#personal-data p {
+  margin: -15px 0 15px 15px;
+}
+
+#personal-data .fields {
+  text-align: right;
+  width: 245px;
+  line-height: 32px;
+  float: left;
+}
+
+#personal-data .fields.top {
+  width: 365px;
+  height: 174px;
+}
+
+#personal-data .optional-forms {
+  margin-left: 40px;
+}
+
+#personal-data .fields select,
+#personal-data .fields input {
+  width: 150px;
+  height: 26px;
+}
+
+#personal-data .fields select {
+  arrow-color: #ffffff;
+}
+
+#personal-data .optional-forms li.select {
+  margin-left: -10px;
+}
+
+#personal-data .optional-forms li.text {
+  margin-right: -5px;
+}
+
+#personal-data .fields input.area_code {
+  width: 37px;
+}
+
+#personal-data .fields input.phone {
+  width: 100px;
+}
+
+#personal-data #user_profile_birthday_input {
+  display: inline;
+  height: 32px;
+  line-heigth: 32px;
+  padding: 0;
+  margin: 0;
+}
+
+#personal-data #user_profile_birthday_input fieldset {
+  display: inline;
+  margin-bottom: -11px;
+}
+
+#personal-data #user_profile_birthday_input .left,
+#personal-data #user_profile_birthday_input .right {
+  position: relative;
+}
+
+#personal-data #user_profile_birthday_input ol {
+  display: inline;
+}
+
+#personal-data #user_profile_birthday_input label {
+  margin-left: 10px;
+  float: left;
+}
+
+#personal-data #user_profile_birthday_input ol li {
+  display: inline;
+  float: left;
+  padding: 0;
+  margin: 0;
+}
+
+#personal-data #user_profile_birthday_input ol li select {
+  width: 50px;
+  height: 26px;
+}
+
+#personal-data #user_profile_birthday_input legend,
+#personal-data #user_profile_birthday_input ol label {
+  display: none;
+}
+
+#personal-data .fields.top input {
+  width: 235px;
+}
+
+#personal-data .fields .whitespace {
+  display: block;
+  height: 32px;
+}
+
+#personal-data .fields label {
+  margin-right: 5px;
+  color: #000000;
+}
+
+#personal-data #user_profile_address_input {
+  position: relative;
+  display: block;
+  width: 490px;
+}
+
+#personal-data #user_profile_address {
+  width: 395px;
+}
+
+#personal-data .buttons {
+  padding: 0;
+  margin-left: 239px;
+  height: 32px;
+  margin-top: -12px;
+  margin-bottom: -30px;
+}
+
+#personal-data .optional-forms {
+  height: 300px;
+}
+
+#personal-data .optional-forms .buttons {
+  margin-left: 368px;
+  width: 140px;
+  margin-top: -12px;
+  margin-top: 0;
+}
+
+#personal-data .buttons input {
+  width: 113px;
+  padding: 0;
+}
+
+#personal-data .buttons .button .left {
+  position: relative;
+  padding-left: 6px;
+  padding-bottom: 8px;
+  margin-right: 0;
+}
+
+#personal-data .buttons .button .right {
+  position: relative;
+  padding-left: 6px;
+  padding-bottom: 8px;
+}
+
+
+.styled_select .right {
+  margin-left: -4px;
+}
+
 

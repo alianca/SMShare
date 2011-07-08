@@ -52,6 +52,9 @@ gem 'tire'
 # To use ZipRuby
 gem 'zipruby'
 
+# To use Carmen
+gem 'carmen'
+
 # Bundle gems for certain environments:
 group :development, :test do
   gem 'rspec-rails'

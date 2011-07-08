@@ -49,6 +49,7 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (>= 0.0.27)
       xpath (~> 0.1.2)
+    carmen (0.2.8)
     carrierwave (0.5.1)
       activesupport (~> 3.0)
     celerity (0.8.5)
@@ -227,6 +228,7 @@ DEPENDENCIES
   bson_ext
   capistrano
   capybara
+  carmen
   carrierwave
   cucumber
   cucumber-rails

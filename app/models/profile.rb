@@ -11,8 +11,10 @@ class Profile
   field :gender, :type => String
   field :birthday, :type => Date
   field :company, :type => String
-  field :phone, :type => String
-  field :mobile_phone, :type => String
+  field :phone_number, :type => String
+  field :phone_area, :type => String
+  field :mobile_phone_number, :type => String
+  field :mobile_phone_area, :type => String
   field :mobile_provider, :type => String
   field :website, :type => String
   
@@ -28,6 +30,5 @@ class Profile
   embeds_one :avatar
   
   embedded_in :user, :inverse_of => :profile
-  
 end
 

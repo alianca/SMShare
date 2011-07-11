@@ -1,0 +1,30 @@
+<h2>Editar Usuarios</h2>
+
+<table id="users">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Criação</th>
+      <th>Reports</th>
+      <th>Bloquear</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr class="<%= "blocked" if user.blocked? %>">
+        <td><%= link_to user.name, [:admin, user] %></td>
+        <td><%= user.email %></td>
+        <td><%= user.created_at.strftime("%d/%m/%Y") %></td>
+        <td><%= user.reports.count %></td>
+        <td>
+          <% if user.blocked?%>
+            <%= link_to "[+]", unblock_admin_user_path(user), :method => :post %>
+          <% else %>
+            <%= link_to "[x]", block_admin_user_path(user), :method => :post %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

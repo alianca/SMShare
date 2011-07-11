@@ -50,6 +50,7 @@ class UserFile
   field :rate, :type => Float, :default => 0.0
   field :public, :type => Boolean, :default => true
   field :path, :type => String, :default => "/"
+  field :blocked, :type => Boolean, :default => false
   
   # O GridFS não permite alterar o nome de um arquivo existente
   # Então criei um campo alias para poder renomear os arquivos
@@ -67,6 +68,9 @@ class UserFile
   
   # Comentários
   embeds_many :comments
+  
+  # Denuncias
+  embeds_many :reports, :class_name => "UserFileReport"
   
   # Pasta
   def folder

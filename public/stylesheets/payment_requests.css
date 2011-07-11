@@ -1,0 +1,121 @@
+#user_panel-container {
+  width: 650px;
+}
+
+#requests_graph {
+  width: auto;
+}
+
+#values {
+  background: url(/images/payment_requests/fundo_valores.png);
+  width: 280px;
+  height: 55px;
+  text-align: center;
+  float: left;
+}
+
+#values .received {
+  width: 101px;
+  height: 43px;
+  padding-bottom: 0px;
+  position: relative;
+  top: 5px;
+  left: 2px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+#values .available {
+  width: 170px;
+  height: 49px;
+  position: relative;
+  top: 3px;
+  left: 0px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+#values .title {
+  font-size: 10px;
+  color: white;
+  margin: 8px 0 0 0;
+}
+
+#values .value {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  margin: 2px 0 0 0;
+}
+
+#values .value .stat_unit {
+  font-size: 14px;
+}
+
+#values .available .value {
+  font-size: 20px;
+}
+
+#values .available .value .stat_unit {
+  font-size: 16px;
+}
+
+form.payment_request {
+  width: 364px;
+  float: right;
+}
+
+form.payment_request .inputs {
+  width: 200px;
+  float: left;
+}
+
+#payment_request_payment_method_input legend,
+#payment_request_payment_account_input label {
+  display: none;
+}
+
+#payment_request_payment_method_input {
+  margin-bottom: 5px;
+}
+
+#payment_request_payment_method_input fieldset {
+  overflow: hidden;
+  height: 20px;
+}
+
+#payment_request_payment_method_input ol {
+  width: auto;
+  padding: 0;
+}
+
+#payment_request_payment_method_input ol li {
+  float: left;
+  padding-right: 10px;
+}
+
+#payment_request_payment_account_input input {
+  background: url(/images/payment_requests/fundo_campo.png);
+  border: 0;
+  width: 186px;
+  max-width: 232px;
+  height: 17px;
+  padding: 5px 7px;
+}
+
+form.payment_request .buttons {
+  width: 164px;
+  float: left;
+  padding: 23px 0 0 0 !important;
+
+}
+
+form.payment_request .buttons input { 
+  color: white;
+  font-size: 12px;
+  border: 0;
+  width: 158px;
+  height: 30px;
+  background: url(/images/payment_requests/fundo_botao.png);
+}
+

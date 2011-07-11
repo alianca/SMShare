@@ -1,0 +1,31 @@
+<h2>Editar Arquivos</h2>
+<h4>Lista > <%= @file.alias %><%= link_to "[x]", admin_user_files_path %></h4>
+
+<table id="user_file_reports">
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Por</th>
+      <th>Arquivo</th>
+      <th>User</th>
+      <th>Bloquear</th
+    </tr>
+  </thead>
+  <tbody>
+    <% @file.reports.each do |report| %>
+      <tr class="<%= "blocked" if report.file.blocked? %>">
+        <td><%= report.created_at.strftime("%d/%m/%Y")%></td>
+        <td><%= report.reporter.name %></td>
+        <td><%= report.file.alias %></td>
+        <td><%= report.file.owner.name %></td>
+        <td>
+          <% if report.file.blocked?%>
+            <%= link_to "[+]", unblock_admin_user_file_path(report.file), :method => :post %>
+          <% else %>
+            <%= link_to "[x]", block_admin_user_file_path(report.file), :method => :post %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

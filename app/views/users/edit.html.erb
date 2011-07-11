@@ -1,164 +1,53 @@
-<% page "account_data" %>
-
-<div id="personal-data">
+<% page "profile_data" %>
+<div id="config-profile">
   
-  <%= semantic_form_for @user, :url => change_password_user_path(@user), :method => :post do |f| %>
-    <h2>Meus Dados</h2>
-    
-    <%= f.inputs do %>
-      <div class="fields top">
-        <span class="text_field_small">
-          <%= f.label "Nome completo:" %>
-          <span class="left"></span><%= f.text_field :name %><span class="right"></span>
-        </span><br/>
-        <span class="text_field_small">
-          <%= f.label "E-mail:" %>
-          <span class="left"></span><%= f.text_field :email %><span class="right"></span>
-        </span><br/>
+  <h2>Meu Perfil</h2>
+  
+  <div id="configs">
+    <%= semantic_form_for @user, :html => { :multipart => true } do |u| %>
+      <%= u.semantic_fields_for @user.profile do |f| %>
         
-        <%= f.semantic_fields_for :password do |p| %>
-          <span class="text_field_small">
-            <%= f.label "Nova senha:" %>
-            <span class="left"></span><%= p.password_field :new_password %><span class="right"></span>
-          </span><br/>
-          <span class="text_field_small">
-            <%= f.label "Confirmar senha:" %>
-            <span class="left"></span><%= p.password_field :confirm_password %><span class="right"></span>
-          </span><br/>
-          <span class="text_field_small">
-            <%= f.label "Senha atual:" %>
-            <span class="left"></span><%= p.password_field :current_password %><span class="right"></span>
-          </span><br/>
+        <h3>Exibir dados pessoais</h3>
+        
+        <%= f.inputs do %>
+          
+          <div id="avatar">
+            <%= f.semantic_fields_for :avatar do |a| %>
+              <%= image_tag @user.profile.avatar.avatar ? @user.profile.avatar.avatar.url : "user_panel/default_avatar.png", :class => "avatar" %>
+              <%= a.input :avatar, :as => :file, :label => "Alterar Avatar" %>
+            <% end %>
+          </div>
+          
+          <div class="left">
+            <%= f.input :show_gender, :as => :boolean, :label => "Sexo" %>
+            <%= f.input :show_name, :as => :boolean, :label => "Nome" %>
+            <%= f.input :show_age, :as => :boolean, :label => "Idade" %>
+          </div>
+          
+          <div class="right">
+            <%= f.input :show_place, :as => :boolean, :label => "Localidade" %>
+            <%= f.input :show_website, :as => :boolean, :label => "Website" %>
+            <%= f.input :show_email, :as => :boolean, :label => "E-Mail" %>
+          </div>
+          
+          <div id="info-edit">
+            <span>Adicione e atualize seus dados <br/> pessoais na seção <%= link_to "Meus Dados" %></span>
+          </div>
+          
+          <div class="bottom">
+            <%= f.input :description, :as => :text, :input_html => { :placeholder => "Escreva aqui a descrição do seu perfil..." } %>
+          </div>
+          
         <% end %>
-      </div>
-    <% end %>
-    
-    <%= f.buttons do %>
-      <span class="button blue">
-        <span class="left"></span><%= f.submit "Confirmar" %><span class="right"></span>
-      </span>
-    <% end %>
-  <% end %>
-  
-  <%= semantic_form_for @user do |f| %>
-    <h1>Opcionais</h1>
-    <p>Os campos opcionais abaixo ajudam a smShare a se aproximar de seus usuários, preencha-os se possível.</p>
-    
-    <%= f.semantic_fields_for @user.profile do |fp| %>
-      <%= fp.inputs do %>
-        <div class="optional-forms">
-          <div class="fields">
-            
-            <span class="styled_select text_field_small">
-              <%= fp.label "País:" %>
-              <span class="left"></span>
-              <span class="select_container">
-                <%= fp.select :country, @countries, :prompt => "Escolha" %>
-              </span>
-              <span class="right"></span>
-            </span>
-            
-            <li class="text">
-              <span class="text_field_small">
-                <%= f.label "Cidade:" %>
-                <span class="left"></span><%= fp.text_field :city %><span class="right"></span>
-              </span><br/>
-            </li>
-            <span class="text_field_small" id="user_profile_address_input">
-              <%= f.label "Endereço:" %>
-              <span class="left"></span><%= fp.text_field :address %><span class="right"></span>
-            </span>
-            
-            <span class="styled_select text_field_small">
-              <%= fp.label "Estado civil:" %>
-              <span class="left"></span>
-              <%= fp.select :marital_status, ["Solteiro", "Casado"] %>
-              <span class="right"></span>
-            </span><br/>
-            
-            <span class="styled_select text_field_small">
-              <%= fp.label "Sexo:" %>
-              <span class="left"></span>
-              <%= fp.select :gender, ["Masculino", "Feminino"] %>
-              <span class="right"></span>
-            </span><br/>
-            
-            <span id="user_profile_birthday_input">
-              <span class="styled_select text_field_small">
-                <%= fp.label "Aniversário:" %>
-                <span class="left"></span>
-                <%= fp.input :birthday, :as => :date,
-                             :use_month_numbers => true,
-                             :start_year => 1800,
-                             :end_year => DateTime.now.year,
-                             :input_html => { :class => :date_field } %>
-                <span class="right"></span>
-              </span>
-            </span><br/>
-            <li class="text">
-              <span class="text_field_small">
-                <%= f.label "Empresa:" %>
-                <span class="left"></span><%= fp.text_field :company %><span class="right"></span>
-              </span><br/>
-            </li>
-          </div>
-          
-          <div class="fields">
-            <span class="styled_select text_field_small">
-              <%= fp.label "Estado:" %>
-              <span class="left"></span>
-              <%= fp.select :state, @states, :prompt => "Escolha" %>
-              <span class="right"></span>
-            </span><br/>
-            <li class="text">
-              <span class="text_field_small">
-                <%= f.label "CEP:" %>
-                <span class="left"></span><%= fp.text_field :zip_code %><span class="right"></span>
-              </span><br/>
-            </li>
-            
-            <div class="whitespace"></div>
-            
-            <li id="user_profile_phone_input">
-		          <label for="phone">Telefone:</label>
-		          <span class="text_field_small">
-                <span class="left"></span><%= fp.text_field :phone_area, :class => "area_code" %><span class="right"></span>
-              </span>
-              <span class="text_field_small">
-                <span class="left"></span><%= fp.text_field :phone_number, :class => "phone" %><span class="right"></span>
-              </span>
-	          </li>
-            <li id="user_profile_mobile_phone_input">
-		          <label for="phone">Celular:</label>
-		          <span class="text_field_small">
-                <span class="left"></span><%= fp.text_field :mobile_phone_area, :class => "area_code" %><span class="right"></span>
-              </span>
-		          <span class="text_field_small">
-                <span class="left"></span><%= fp.text_field :mobile_phone_number, :class => "phone" %><span class="right"></span>
-              </span>
-	          </li>
-	          
-	          <span class="styled_select text_field_small">
-              <%= fp.label "Operadora:" %>
-              <span class="left"></span>
-              <%= fp.select :mobile_provider, ["TIM", "Vivo", "Oi", "TODO - completar lista"] %>
-              <span class="right"></span>
-            </span><br/>
-            <li class="text">
-              <span class="text_field_small">
-                <%= f.label "Website:" %>
-                <span class="left"></span><%= fp.text_field :website %><span class="right"></span>
-              </span><br/>
-            </li>
-          </div>
-          
-          <%= f.buttons do %>
-            <span class="button blue">
-              <span class="left"></span><%= f.submit "Confirmar" %><span class="right"></span>
-            </span>
-          <% end %>
-        </div>
       <% end %>
+      
+      <%= u.buttons do %>
+        <span class="button blue">
+          <span class="left"></span><%= u.commit_button "Salvar" %><span class="right"></span>
+        </span>
+      <% end %>
+      
     <% end %>
-  <% end %>
+  </div>
 </div>
+

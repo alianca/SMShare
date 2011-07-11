@@ -16,12 +16,7 @@
     
     <div id="top-section">
       <div id="information">
-        <% if @profile.avatar.avatar %>
-          <%= image_tag @profile.avatar.avatar.url, :class => "avatar" %>
-        <% else %>
-          <%= image_tag "user_panel/default_avatar.png", :class => "avatar" %>
-        <% end %>
-        
+        <%= image_tag @user.profile.avatar.avatar ? @user.profile.avatar.avatar.url : "user_panel/default_avatar.png", :class => "avatar" %>
         <div id="personal-info">
           <span class="name">
             <span class="name-icon"></span>
@@ -36,10 +31,10 @@
               Nome: <%= @user.name %><br/>
             <% end %>
             <% if @profile.show_age %>
-              Idade: <%= @profile.birthday %><br/>
+              Idade: <%= @user.age %><br/>
             <% end %>
             <% if @profile.show_place %>
-              Cidade: <%= @profile.location %>
+              Cidade: <%= @profile.city %>
             <% end %>
           </div>
           

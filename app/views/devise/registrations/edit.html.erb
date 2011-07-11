@@ -1,31 +1,162 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<% page "account_data" %>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
-
-  <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password %></p>
-
-  <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
-
-  <p><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></p>
-
-  <p><%= f.submit "Update" %></p>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
-
-<%= link_to "Back", :back %>
-
-
-<div id="search" class="container">
-  <%= render :partial => "layouts/search" %>
+<div id="personal-data">
+  
+  <%= semantic_form_for @user, :url => registration_path(:user), :method => :post do |f| %>
+    <h2>Meus Dados</h2>
+    
+    <%= f.inputs do %>
+      <div class="fields top">
+        <span class="text_field_small">
+          <%= f.label "Nome completo:" %>
+          <span class="left"></span><%= f.text_field :name %><span class="right"></span>
+        </span><br/>
+        <span class="text_field_small">
+          <%= f.label "E-mail:" %>
+          <span class="left"></span><%= f.text_field :email %><span class="right"></span>
+        </span><br/>
+        
+        <span class="text_field_small">
+          <%= f.label "Nova senha:" %>
+          <span class="left"></span><%= f.password_field :password %><span class="right"></span>
+        </span><br/>
+        <span class="text_field_small">
+          <%= f.label "Confirmar senha:" %>
+          <span class="left"></span><%= f.password_field :password_confirmation %><span class="right"></span>
+        </span><br/>
+        <span class="text_field_small">
+          <%= f.label "Senha atual:" %>
+          <span class="left"></span><%= f.password_field :current_password %><span class="right"></span>
+        </span><br/>
+      </div>
+    <% end %>
+    
+    <%= f.buttons do %>
+      <span class="button blue">
+        <span class="left"></span><%= f.submit "Confirmar" %><span class="right"></span>
+      </span>
+    <% end %>
+  <% end %>
+  
+  <%= semantic_form_for @user do |f| %>
+    <h1>Opcionais</h1>
+    <p>Os campos opcionais abaixo ajudam a smShare a se aproximar de seus usuários, preencha-os se possível.</p>
+    
+    <%= f.semantic_fields_for @user.profile do |fp| %>
+      <%= fp.inputs do %>
+        <div class="optional-forms">
+          <div class="fields">
+            
+            <span class="styled_select text_field_small">
+              <%= fp.label "País:" %>
+              <span class="left"></span>
+              <span class="select_container">
+                <%= fp.select :country, @countries, :prompt => "Escolha" %>
+              </span>
+              <span class="right"></span>
+            </span>
+            
+            <li class="text">
+              <span class="text_field_small">
+                <%= f.label "Cidade:" %>
+                <span class="left"></span><%= fp.text_field :city %><span class="right"></span>
+              </span><br/>
+            </li>
+            <span class="text_field_small" id="user_profile_address_input">
+              <%= f.label "Endereço:" %>
+              <span class="left"></span><%= fp.text_field :address %><span class="right"></span>
+            </span>
+            
+            <span class="styled_select text_field_small">
+              <%= fp.label "Estado civil:" %>
+              <span class="left"></span>
+              <%= fp.select :marital_status, ["Solteiro", "Casado"] %>
+              <span class="right"></span>
+            </span><br/>
+            
+            <span class="styled_select text_field_small">
+              <%= fp.label "Sexo:" %>
+              <span class="left"></span>
+              <%= fp.select :gender, [["Masculino", "male"], ["Feminino", "female"]] %>
+              <span class="right"></span>
+            </span><br/>
+            
+            <span id="user_profile_birthday_input">
+              <span class="styled_select text_field_small">
+                <%= fp.label "Aniversário:" %>
+                <span class="left"></span>
+                <%= fp.input :birthday, :as => :date,
+                             :use_month_numbers => true,
+                             :start_year => 1800,
+                             :end_year => DateTime.now.year,
+                             :input_html => { :class => :date_field } %>
+                <span class="right"></span>
+              </span>
+            </span><br/>
+            <li class="text">
+              <span class="text_field_small">
+                <%= f.label "Empresa:" %>
+                <span class="left"></span><%= fp.text_field :company %><span class="right"></span>
+              </span><br/>
+            </li>
+          </div>
+          
+          <div class="fields">
+            <span class="styled_select text_field_small">
+              <%= fp.label "Estado:" %>
+              <span class="left"></span>
+              <%= fp.select :state, @states, :prompt => "Escolha" %>
+              <span class="right"></span>
+            </span><br/>
+            <li class="text">
+              <span class="text_field_small">
+                <%= f.label "CEP:" %>
+                <span class="left"></span><%= fp.text_field :zip_code %><span class="right"></span>
+              </span><br/>
+            </li>
+            
+            <div class="whitespace"></div>
+            
+            <li id="user_profile_phone_input">
+		          <label for="phone">Telefone:</label>
+		          <span class="text_field_small">
+                <span class="left"></span><%= fp.text_field :phone_area, :class => "area_code" %><span class="right"></span>
+              </span>
+              <span class="text_field_small">
+                <span class="left"></span><%= fp.text_field :phone_number, :class => "phone" %><span class="right"></span>
+              </span>
+	          </li>
+            <li id="user_profile_mobile_phone_input">
+		          <label for="phone">Celular:</label>
+		          <span class="text_field_small">
+                <span class="left"></span><%= fp.text_field :mobile_phone_area, :class => "area_code" %><span class="right"></span>
+              </span>
+		          <span class="text_field_small">
+                <span class="left"></span><%= fp.text_field :mobile_phone_number, :class => "phone" %><span class="right"></span>
+              </span>
+	          </li>
+	          
+	          <span class="styled_select text_field_small">
+              <%= fp.label "Operadora:" %>
+              <span class="left"></span>
+              <%= fp.select :mobile_provider, ["TIM", "Vivo", "Oi", "TODO - completar lista"] %>
+              <span class="right"></span>
+            </span><br/>
+            <li class="text">
+              <span class="text_field_small">
+                <%= f.label "Website:" %>
+                <span class="left"></span><%= fp.text_field :website %><span class="right"></span>
+              </span><br/>
+            </li>
+          </div>
+          
+          <%= f.buttons do %>
+            <span class="button blue">
+              <span class="left"></span><%= f.submit "Confirmar" %><span class="right"></span>
+            </span>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
 </div>
-

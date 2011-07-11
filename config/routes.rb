@@ -66,10 +66,8 @@ Smshare::Application.routes.draw do |map|
   end
   
   resources :users, :only => [:show, :edit, :update] do
-    member do
-      get :configure
+    collection do
       get :states_for_country
-      put :change_password
     end
   end
   

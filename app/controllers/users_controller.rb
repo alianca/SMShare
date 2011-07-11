@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :fetch_user, :only => [:show, :edit, :configure, :update]
+  before_filter :fetch_user, :only => [:show, :edit, :update]
   before_filter :authenticate_user!
   
   layout "application"
@@ -10,17 +10,7 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @countries = Carmen.countries(:locale => :en, :default_country => @user.profile.country)
-    begin
-      @states = Carmen::states(@user.profile.country)
-    rescue
-      @states = []
-    end
     render :edit, :layout => "user_panel"
-  end
-  
-  def configure
-    render :configure, :layout => "user_panel"
   end
   
   def update

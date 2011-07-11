@@ -575,7 +575,7 @@ $(document).ready(function() {
   /* Carrega lista de estados dinamicamente */
   $("#user_profile_country").change(function () {
     $.ajax({
-      url: "states_for_country?country=" + $(this).val(),
+      url: "/users/states_for_country?country=" + $(this).val(),
       dataType: "json",
       type: "GET",
       success: function(data) {

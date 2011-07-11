@@ -73,6 +73,10 @@ class User
     self.default_box_image_id = image._id
   end
   
+  def age
+    ((DateTime.now - self.profile.birthday) / 365.25).to_i
+  end
+  
   private
     def build_root_folder
       self.root_folder = Folder.find_or_create_by(:owner_id => self._id, :path => "/") unless root_folder

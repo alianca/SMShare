@@ -6,6 +6,8 @@ class UserStatistic
   field :downloads, :type => Integer
   field :referred_downloads, :type => Integer
   field :bandwidth, :type => Integer
+  field :comments, :type => Integer
+  field :rating, :type => Float
   field :revenue, :type => Float
   field :referred_revenue, :type => Float  
   field :payments_received, :type => Float

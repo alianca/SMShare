@@ -40,6 +40,9 @@ class User
   after_create :build_statistics
   embeds_many :daily_statistics, :class_name => "UserDailyStatistic" # , :order => :date.asc
   
+  # Perfil
+  embeds_one :profile, :class_name => "Profile"
+  
   # Requisições de Pagamento
   has_many_related :payment_requests
   
@@ -72,6 +75,10 @@ class User
   
   def default_box_image= image
     self.default_box_image_id = image._id
+  end
+  
+  def age
+    ((DateTime.now - self.profile.birthday) / 365.25).to_i
   end
   
   private

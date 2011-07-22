@@ -1,0 +1,88 @@
+<% page "search_files" %>
+<% tab "search" %>
+<div id="search-container" class="container">
+  
+  <%= render :partial => 'layouts/search/ordering' %>
+  <%= render :partial => 'layouts/search/header' %>
+  <%= render :partial => 'layouts/search/categories' %>
+  
+  <div id="user-profile">
+    
+    <div class="go-back">
+      <a href="<%= search_index_path(:q => params[:q], :filter => params[:filter], :order => params[:order])%>">
+        <span></span>Voltar para o resultado da busca
+      </a>
+    </div>
+    
+    <div id="top-section">
+      <div id="information">
+        <%= image_tag @user.profile.avatar.avatar ? @user.profile.avatar.avatar.url : "user_panel/default_avatar.png", :class => "avatar" %>
+        <div id="personal-info">
+          <span class="name">
+            <span class="name-icon"></span>
+            <%= link_to @user.name %>
+            <% if @profile.show_gender %>
+              <span class="gender <%= @profile.gender %>"></span>
+            <% end %>
+          </span>
+          
+          <div class="left">
+            <% if @profile.show_name %>
+              Nome: <%= @user.name %><br/>
+            <% end %>
+            <% if @profile.show_age %>
+              Idade: <%= @user.age %><br/>
+            <% end %>
+            <% if @profile.show_place %>
+              Cidade: <%= @profile.city %>
+            <% end %>
+          </div>
+          
+          <div class="right">
+            <% if @profile.show_website %>
+              <%= link_to "Website", @profile.website %><br/>
+            <% end %>
+            <% if @profile.show_email %>
+              <%= link_to "E-Mail", "mailto:" + @user.email %>
+            <% end %>
+          </div>
+        </div>
+        
+        <div id="separator"></div>
+        
+        <div id="general-info">
+          <span class="signup-date">
+            cadastrado em <%= @user.created_at.strftime("%d/%m/%Y") %>
+          </span>
+          
+          <div class="left">
+            <span class="files-icon"></span>
+            <%= @files.count %> Arquivos <br/>
+            <span class="folder-icon"></span>
+            <%= @user.folders.count %> Pastas <br/>
+            <span class="downloads-icon"></span>
+            <%= @user.statistics.downloads.count %> downloads
+          </div>
+          
+          <div class="right">
+            <span class="rating-icon"></span>
+            Nota <%= @user.statistics.rating %><br/>
+            <span class="comment-icon"></span>
+            <%= @user.statistics.comments %> comentários <br/>
+            <span class="views-icon"></span>
+            <%= 342543 %> visualizações
+          </div>
+          
+        </div>
+      </div>
+      
+      <div id="description">
+        <%= @profile.description.blank? ? "Este usuário não adicionou nenhuma descrição em seu perfil" : @profile.description %>
+      </div>
+    </div>
+        
+    <%= render :partial => "/search/result", :collection => @files %>
+    <%= will_paginate @files %>
+  </div>
+</div>
+

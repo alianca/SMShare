@@ -75,8 +75,14 @@ Smshare::Application.routes.draw do |map|
     end
   end
   
+  resources :users, :only => [:show, :edit, :update] do
+    collection do
+      get :states_for_country
+    end
+  end
+  
   root :to => "home#index"
-
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

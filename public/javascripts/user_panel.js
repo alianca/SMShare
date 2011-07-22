@@ -541,8 +541,10 @@ $(document).ready(function() {
   }
   
   // Verifica operações em andamento ao abrir a página
-  track_status();
-      
+  if (window.location.pathname.search(/manage/) >= 0) {
+    track_status();
+  }
+  
   /* Compressão em background */
   $("#compress").submit(function(e) {
     e.preventDefault();
@@ -568,7 +570,28 @@ $(document).ready(function() {
       error: function(e) { console.log(e); }
     });
   });
+  
+  
+  /* Carrega lista de estados dinamicamente */
+  $("#user_profile_country").change(function () {
+    $.ajax({
+      url: "/users/states_for_country?country=" + $(this).val(),
+      dataType: "json",
+      type: "GET",
+      success: function(data) {
+        html = "<option value>Escolha</option>";
+        for (var i = 0; i < data.length; i++) {
+          html += "<option value=\"" + data[i][1] + "\">" + data[i][0] + "</option>";
+        }
+        $("#user_profile_state").html(html);
+      },
+      error: function(e) { console.log(e); }
+    });
+  });
 });
+
+
+
 
 /* Faz pre-cache das imagens do cadastro */
 $.cacheImages("/images/layouts/botao-on.png");

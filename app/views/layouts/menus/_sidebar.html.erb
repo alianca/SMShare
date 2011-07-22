@@ -42,7 +42,13 @@
   
   <li class="menu <%= yield(:page).split('_')[1] == "data" ? "active" : "" %>">
     Dados da conta
-    <ul class="dropdown">      
+    <ul class="dropdown">
+      <li class="<%= yield(:page) == "account_data" ? "active" : "" %>">
+        <%= link_to "Meus Dados", edit_registration_path(current_user) %>
+      </li>
+      <li class="<%= yield(:page) == "profile_data" ? "active" : "" %>">
+        <%= link_to "Meu Perfil", edit_user_path(current_user) %>
+      </li>
       <li class="<%= yield(:page) == "payment-requests_data" ? "active" : "" %>">
         <%= link_to "Requisição de Pagamento", user_panel_payment_requests_path %>
       </li>

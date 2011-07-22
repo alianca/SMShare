@@ -48,6 +48,7 @@ Smshare::Application.routes.draw do |map|
     resources :arquivos, :as => :user_files, :controller => "user_files" do
       post :block, :unblock, :on => :member
     end
+    resources :denuncias, :as => :user_file_reports, :controller => "user_file_reports"
   end
   
   resources :comments, :only => [:create, :destroy]

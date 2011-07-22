@@ -5,6 +5,7 @@
     <tr>
       <th>Nome</th>
       <th>Downloads</th>
+      <th>User</th:>
       <th>Reports</th>
       <th>Bloquear</th
     </tr>
@@ -14,6 +15,7 @@
       <tr class="<%= "blocked" if file.blocked? %>">
         <td><%= link_to file.alias, [:admin, file] %></td>
         <td><%= file.statistics.downloads %></td>
+        <td><%= file.owner.name %>
         <td><%= file.reports.count %></td>
         <td>
           <% if file.blocked?%>

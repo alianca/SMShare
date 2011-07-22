@@ -3,10 +3,10 @@
     Notícias
     <ul class="submenu">
       <li class="item">
-        <%= link_to "Adicionar" %>
+        <%= link_to "Adicionar", new_admin_news_path %>
       </li>
       <li class="item">
-        <%= link_to "Editar / Remover" %>
+        <%= link_to "Editar / Remover", {:controller=>"admin/news", :action=>"index"} %>
       </li>
     </ul>
   </li>
@@ -18,7 +18,7 @@
         <%= link_to "Editar / Remover", admin_user_files_path %>
       </li>
       <li class="item">
-        <%= link_to "Denúncias" %>
+        <%= link_to "Denúncias", admin_user_file_reports_path %>
       </li>
     </ul>
   </li>

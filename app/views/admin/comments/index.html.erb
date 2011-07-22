@@ -1,0 +1,30 @@
+<h2>Comentarios</h2>
+
+<table id="comments">
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Por</th>
+      <th>Arquivo</th>
+      <th>User</th>
+      <th>Bloquear</th
+    </tr>
+  </thead>
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr class="<%= "blocked" if comment.blocked? %>">
+        <td><%= comment.created_at.strftime("%d/%m/%Y")%></td>
+        <td><%= comment.owner.name %></td>
+        <td><%= comment.file.alias %></td>
+        <td><%= comment.file.owner.name %></td>
+        <td>
+          <% if comment.blocked?%>
+            <%= link_to "[+]", unblock_admin_comment_path(comment), :method => :post %>
+          <% else %>
+            <%= link_to "[x]", block_admin_comment_path(comment), :method => :post %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

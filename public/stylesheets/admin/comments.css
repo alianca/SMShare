@@ -1,0 +1,13 @@
+#comments {
+  text-align: center;
+  width: 700px;
+  color: black;
+}
+
+#comments a {
+  color: inherit;
+}
+
+#comments tr.blocked {
+  color: red;
+}

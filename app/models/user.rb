@@ -15,6 +15,7 @@ class User
   field :admin, :type => Boolean
   field :default_style_id, :type => BSON::ObjectId
   field :default_box_image_id, :type => BSON::ObjectId
+  field :blocked, :type => Boolean, :default => false
   
   # Indicações
   belongs_to_related :referrer, :class_name => "User"
@@ -41,6 +42,9 @@ class User
   
   # Requisições de Pagamento
   has_many_related :payment_requests
+  
+  # Denuncias
+  embeds_many :reports, :class_name => "UserReport"
   
   # Validações
   validates :name, :presence => true

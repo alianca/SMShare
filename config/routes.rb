@@ -42,6 +42,12 @@ Smshare::Application.routes.draw do |map|
   
   namespace :admin do
     resources :news
+    resources :usuarios, :as => :users, :controller => "users" do
+      post :block, :unblock, :on => :member
+    end
+    resources :arquivos, :as => :user_files, :controller => "user_files" do
+      post :block, :unblock, :on => :member
+    end
   end
   
   resources :comments, :only => [:create, :destroy]

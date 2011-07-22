@@ -1,0 +1,13 @@
+#user_files, #user_file_reports {
+  text-align: center;
+  width: 700px;
+  color: black;
+}
+
+#user_files a, #user_file_reports a {
+  color: inherit;
+}
+
+#user_files tr.blocked, #user_file_reports tr.blocked {
+  color: red;
+}

@@ -11,15 +11,14 @@
 
 <div id="news">
   <p class="title">Últimas novidades</p>
-  <p class="body">
-    <% if News.count > 0 %>
-      <%= News.last.short %>
-      <%= link_to "Ler Mais...", news_path(News.last), :class => "more" %>
+  <div class="body">
+    <% if @news %>
+      <%= @news.short.html_safe %>
     <% else %>
       <p>Bem vindo ao smShare, navegue em nosso site e conheça esse novo serviço de compartilhamento que lhe permite ganhar com seus downloads</p>
-      <%= link_to "Ler Mais...", nil, :class => "more" %>
     <% end %>
-  </p>
+    <%= link_to "Ler Mais...", news_path(@news), :class => "more" %>
+  </div>
 </div>
 
 <div id="search" class="container">

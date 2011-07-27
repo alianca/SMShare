@@ -14,7 +14,6 @@ end
 
 Dado /^que exista um admin$/ do
   @user = User.create(:name => 'user teste', :nickname => 'user_teste', :email => "user_teste@example.com", :password => "123456", :admin => true)
-  @user.save
 end
 
 Dado /^que eu esteja logado como administrador$/ do

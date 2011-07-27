@@ -43,7 +43,7 @@ class User
   
   # Perfil
   embeds_one :profile, :class_name => "Profile"
-  before_save :create_profile
+  after_create :create_profile
   
   # Requisições de Pagamento
   has_many_related :payment_requests

@@ -33,6 +33,8 @@ body {
 
 #admin-container {
   position: relative;
+  width: 650px;
+  float: left;
   left: 24px;
 }
 

@@ -1,0 +1,55 @@
+<h2>Indicações</h2>
+
+<p>Com o sistema de indicações, você ganha 20% sobre os lucros obtidos por seus referenciados, por exemplo, a cada 1.000 downloads recebidos por eles, seu ganho é de R$10,00. Utilizando nossa ferramenta de downloads, downBOX, você automaticamente faz parte e pode lucrar com nosso programa.</p>
+<p>Para explorar ainda mais essa oportunidade, você encontra uma seleção de <%= link_to "peças publicitárias" %> ideais para atrair o maior número de indicados.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th class="date">Data</th>
+      <th class="reference">Referência</th>
+      <th class="user">Usuário</th>
+      <th class="downloads">Downloads</th>
+      <th class="revenue">Ganhos</th>
+      <th class="comission">Comissão</th>
+    </tr>
+    <tr class="sort">
+      <td class="date"><div></div></td>
+      <td class="reference"><div></div></td>
+      <td class="user"><div></div></td>
+      <td class="downloads"><div></div></td>
+      <td class="revenue"><div></div></td>
+      <td class="comission"><div></div></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @referred.each do |r| %>
+    <tr>
+      <td class="date"><div><%= r.created_at.strftime "%d/%m/%Y" %></div></td>
+      <td class="reference"><div><%= r.referred_by %></div></td>
+      <td class="user"><div><%= r.name %></div></td>
+      <td class="downloads"><div><%= r.statistics.downloads %></div></td>
+      <td class="revenue"><div><%= r.statistics.revenue %></div></td>
+      <td class="comission"><div><%= r.statistics.referrer_comission %></div></td>
+      </tr>
+      <% end %>
+  </tbody>
+  <tfoot>
+    <tr class="sort">
+      <td class="date"><div></div></td>
+      <td class="reference"><div></div></td>
+      <td class="user"><div></div></td>
+      <td class="downloads"><div></div></td>
+      <td class="revenue"><div></div></td>
+      <td class="comission"><div></div></td>
+    </tr>
+    <tr>
+      <td class="date"></td>
+      <td class="reference"></td>
+      <td class="user"></td>
+      <td class="downloads"><%= current_user.statistics.referred_downloads %></td>
+      <td class="revenue"><%= current_user.statistics.total_referred_revenue %></td>
+      <td class="comission"><%= current_user.statistics.referred_revenue %></td>
+    </tr>
+  </tfoot>
+</table>

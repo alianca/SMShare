@@ -12,11 +12,11 @@ class User
   field :name, :type => String
   field :nickname, :type => String
   field :accepted_terms, :type => Boolean
-  field :admin, :type => Boolean
   field :default_style_id, :type => BSON::ObjectId
   field :default_box_image_id, :type => BSON::ObjectId
   field :admin, :type => Boolean, :default => false
   field :blocked, :type => Boolean, :default => false
+  field :referred_by, :type => String
   
   # Indicações
   belongs_to_related :referrer, :class_name => "User"

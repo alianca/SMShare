@@ -1,0 +1,95 @@
+<div class="box top_left button">
+  <ol>
+    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:top_left => 'a'})) do %>
+      <li <%= "class=active" if @boxes[:top_left] == 'a' || @boxes[:top_left] == nil %> >a</li>
+    <% end %>
+    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:top_left => 'b'})) do %>
+      <li <%= "class=active" if @boxes[:top_left] == 'b' %> >b</li>
+    <% end %>
+    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:top_left => 'c'})) do %>
+      <li <%= "class=active" if @boxes[:top_left] == 'c' %> >c</li>
+    <% end %>
+  </ol>
+  
+  <div class="preview-container">
+    <div class="preview"></div>
+  </div>
+  
+  <span class="dimensions">125x125</span>
+  
+  <div class="url-container">
+    <div class="icon"></div> <%= text_field_tag :url %>
+  </div>
+</div>
+
+<div class="box top_right button">
+  <ol>
+    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:top_right => 'a'})) do %>
+      <li <%= "class=active" if @boxes[:top_right] == 'a' || @boxes[:top_right] == nil %> >a</li>
+    <% end %>
+    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:top_right => 'b'})) do %>
+      <li <%= "class=active" if @boxes[:top_right] == 'b' %> >b</li>
+    <% end %>
+    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:top_right => 'c'})) do %>
+      <li <%= "class=active" if @boxes[:top_right] == 'c' %> >c</li>
+    <% end %>
+  </ol>
+  
+  <div class="preview-container">
+    <div class="preview"></div>
+  </div>
+  
+  <span class="dimensions">120x90</span>
+  
+  <div class="url-container">
+    <div class="icon"></div> <%= text_field_tag :url %>
+  </div>
+</div>
+
+<div class="box bottom_left button">
+  <ol>
+    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:bottom_left => 'a'})) do %>
+      <li <%= "class=active" if @boxes[:bottom_left] == 'a' || @boxes[:bottom_left] == nil %> >a</li>
+    <% end %>
+    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:bottom_left => 'b'})) do %>
+      <li <%= "class=active" if @boxes[:bottom_left] == 'b' %> >b</li>
+    <% end %>
+    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:bottom_left => 'c'})) do %>
+      <li <%= "class=active" if @boxes[:bottom_left] == 'c' %> >c</li>
+    <% end %>
+  </ol>
+  
+  <div class="preview-container">
+    <div class="preview"></div>
+  </div>
+  
+  <span class="dimensions">120x60</span>
+  
+  <div class="url-container">
+    <div class="icon"></div> <%= text_field_tag :url %>
+  </div>
+</div>
+
+<div class="box bottom_right button">
+  <ol>
+    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:bottom_right => 'a'})) do %>
+      <li <%= "class=active" if @boxes[:bottom_right] == 'a' || @boxes[:bottom_right] == nil %> >a</li>
+    <% end %>
+    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:bottom_right => 'b'})) do %>
+      <li <%= "class=active" if @boxes[:bottom_right] == 'b' %> >b</li>
+    <% end %>
+    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:bottom_right => 'c'})) do %>
+      <li <%= "class=active" if @boxes[:bottom_right] == 'c' %> >c</li>
+    <% end %>
+  </ol>
+  
+  <div class="preview-container">
+    <div class="preview"></div>
+  </div>
+  
+  <span class="dimensions">88x31</span>
+  
+  <div class="url-container">
+    <div class="icon"></div> <%= text_field_tag :url %>
+  </div>
+</div>

@@ -7,12 +7,6 @@
   margin: 20px 0 0 0;
 }
 
-#user_panel-container table thead tr.sort,
-#user_panel-container table tfoot tr.sort {
-  height: 20px;
-  line-height: 20px;
-}
-
 #user_panel-container table tr {
   height: 25px;
   line-height: 25px;
@@ -32,15 +26,16 @@
 #user_panel-container table {
   width: 100%;
   height: 100%;
-  border-radius: 7px;
   border-spacing: 0;
+  border-radius: 7px;
   background-color: #d9ecf2;
+  color: #423b35;
   padding: 0 0 0 1px;
 }
 
 #user_panel-container table td div {
   width: 100%;
-  height: 20px;
+  height: 25px;
   background-color: white;
 }
 
@@ -52,8 +47,15 @@
   border-radius: 0 0 7px 7px;
 }
 
+#user_panel-container table .date div,
+#user_panel-container table th.date {
+  width: 150px;
+  padding-left: 15px;
+}
+
 #user_panel-container table .date {
   width: 165px;
+  text-align: left;
 }
 
 #user_panel-container table .reference,

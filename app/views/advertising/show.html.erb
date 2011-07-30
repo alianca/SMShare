@@ -1,0 +1,99 @@
+<h2>Peças Publicitárias</h2>
+<p>Utilize os banners e geradores de links personalizados abaixo para converter suas visitas em cadastros sobre os quais você ganhará 20% de todos os lucros gerados. Para conferir seus indicados, acesse a página de <%= link_to "indicações", user_panel_referrers_path %>.</p>
+
+<h3> <%= image_tag "user_panel/relatorio.png" %> Relatório </h3>
+
+<div id="range">
+  Período do dia
+  <span class="text-field">
+    <span class="left"></span><%= text_field_tag :from %><span class="right"></span>
+  </span>
+  ao dia
+  <span class="text-field">
+    <span class="left"></span><%= text_field_tag :to %><span class="right"></span>
+  </span>
+  
+  <span class="submit_blue">
+    <span class="left"></span><%= submit_tag "Confirmar" %><span class="right"></span>
+  </span>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th class="reference">Referência</th>
+      <th class="clicks">Cliques</th>
+      <th class="signups">Cadastros</th>
+      <th class="comission">Comissão</th>
+    </tr>
+    <tr>
+      <td class="reference"><div></div></td>
+      <td class="clicks"><div></div></td>
+      <td class="signups"><div></div></td>
+      <td class="comission"><div></div></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @references.each do |r| %>
+      <tr>
+        <td class="reference"><div><%= r.name %></div></td>
+        <td class="clicks"><div><%= r.clicks %></div></td>
+        <td class="signups"><div><%= r.signups %></div></td>
+        <td class="comission"><div><%= r.comission %></div></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td class="reference"><div></div></td>
+      <td class="clicks"><div></div></td>
+      <td class="signups"><div></div></td>
+      <td class="comission"><div></div></td>
+    </tr>
+    <tr>
+      <td class="reference"></td>
+      <td class="clicks"><%= @total_clicks %></td>
+      <td class="signups"><%= @total_signups %></td>
+      <td class="comission"><%= @total_comission %></td>
+    </tr>
+  </tfoot>
+</table>
+
+<h3> <%= image_tag "user_panel/banners.png" %> Banners e Links </h3>
+<div id="buttons">
+  <%= link_to user_panel_advertising_path(:tab => 'horizontals') do %>
+    <div class="button <%= 'active' if @tab == 'horizontals' %>">
+      Horizontais
+    </div>
+  <% end %>
+
+  <%= link_to user_panel_advertising_path(:tab => 'verticals') do %>
+    <div class="button <%= 'active' if @tab == 'verticals' %>">
+      Verticais
+    </div>
+  <% end %>
+
+  <%= link_to user_panel_advertising_path(:tab => 'squares') do %>
+    <div class="button <%= 'active' if @tab == 'squares' %>">
+      Quadrados
+    </div>
+  <% end %>
+
+  <%= link_to user_panel_advertising_path(:tab => 'buttons') do %>
+    <div class="button <%= 'active' if @tab == 'buttons' %>">
+      Botões
+    </div>
+  <% end %>
+
+  <%= link_to user_panel_advertising_path(:tab => 'links') do %>
+    <div class="button <%= 'active' if @tab == 'links' %>">
+      Links
+    </div>
+  <% end %>
+</div>
+
+<%= render :partial => @tab.to_s %>
+
+</div>
+
+

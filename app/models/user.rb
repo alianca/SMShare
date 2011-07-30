@@ -22,6 +22,9 @@ class User
   belongs_to_related :referrer, :class_name => "User"
   has_many_related :referred, :class_name => "User", :foreign_key => :referrer_id
   
+  # Referencias
+  embeds_many :references, :class_name => "UserReference"
+  
   # Caixa de Downloads
   has_many_related :box_styles, :foreign_key => :user_id
   has_many_related :box_images, :foreign_key => :user_id

@@ -1,20 +1,20 @@
 # Application
 set :application, "smshare"
-set :deploy_to, "/var/rails/#{application}"
+set :deploy_to, "/home/smshare/#{application}"
 
 # Repository
 set :scm, :git
-set :repository,  "git@github.com:alianca/SMShare.git"
+set :repository,  "git@github.com:edricgarran/SMShare.git"
 
 # Run Options
 set :user, "smshare"
-set :use_sudo, true
+set :use_sudo, false
 default_run_options[:pty] = true
 
 # Servers
-role :web, "sparkledew.vidanerd.com"
-role :app, "sparkledew.vidanerd.com"
-role :db,  "sparkledew.vidanerd.com", :primary => true
+role :web, "kelthuzad.aliancaproject.com"
+role :app, "kelthuzad.aliancaproject.com"
+role :db,  "kelthuzad.aliancaproject.com", :primary => true
 
 #	Passenger Recipes
 namespace :deploy do
@@ -55,11 +55,11 @@ after "deploy:symlink", "deploy:seed"
 after "deploy:symlink", "deploy:create_indexes"
 
 # NginX Recipes
-namespace :nginx do
-  desc "Change owner to www-data" 
-  task :fix_owner, :roles => [ :app, :db, :web ] do
-          run "#{try_sudo} chown -R www-data:www-data #{deploy_to}" 
-  end
-end
-after "deploy:setup", "nginx:fix_owner"
-after "deploy:symlink", "nginx:fix_owner"
+# namespace :nginx do
+#  desc "Change owner to www-data" 
+#  task :fix_owner, :roles => [ :app, :db, :web ] do
+#          run "#{try_sudo} chown -R www-data:www-data #{deploy_to}" 
+#  end
+#end
+#after "deploy:setup", "nginx:fix_owner"
+#after "deploy:symlink", "nginx:fix_owner"

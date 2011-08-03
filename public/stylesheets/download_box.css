@@ -1,4 +1,4 @@
-/*body { 
+/*body {
   margin: 0;
   background: #ccff33;
   margin: 8px 5px;
@@ -7,18 +7,18 @@
 /* @group Reset */
 
 .download_box img, .download_box p, .download_box a, .download_box a:hover, .download_box a:visited {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	outline: 0;
-	font-size: 100%;
-	vertical-align: baseline;
-	line-height: normal;
-	background: transparent !important;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  line-height: normal;
+  background: transparent !important;
 }
 /* @end */
 
-.download_box { 
+.download_box {
   position: absolute;
   z-index: 9999;
   width: 342px !important;
@@ -63,7 +63,7 @@
   background-color: rgba(255,255,255,0.1);
 }
 
-.download_box .filename { 
+.download_box .filename {
   float: left;
   margin: 0 !important;
   font-size: 12px !important;
@@ -74,7 +74,7 @@
   margin-top: -5px !important;
 }
 
-.download_box .filename a { 
+.download_box .filename a {
   text-decoration: none;
   color: #ffffff;
   overflow: hidden;
@@ -85,7 +85,7 @@
   font-style: normal;
 }
 
-.download_box .filesize { 
+.download_box .filesize {
   float: right;
   margin: 0 !important;
   font-size: 12px !important;
@@ -102,7 +102,7 @@
   font-style: normal;
 }
 
-.download_box .call-to-action { 
+.download_box .call-to-action {
   clear: both;
   text-align: center;
   margin: 0 !important;
@@ -121,18 +121,18 @@
   font-style: normal;
 }
 
-.download_box .sms .star { 
+.download_box .sms .star {
   font-weight: normal;
 }
 
-.download_box .price { 
+.download_box .price {
   font-size: 10px !important;
   text-align: right;
   margin: 0 !important;
   padding: 2px 14px !important;
 }
 
-.download_box form { 
+.download_box form {
   width: 310px;
   height: 24px;
   margin: 4px 12px !important;
@@ -141,7 +141,7 @@
   -moz-border-radius: 7px;
 }
 
-.download_box form .code_field { 
+.download_box form .code_field {
   float: left;
   border: 0 !important;
   outline: 0 !important;
@@ -151,7 +151,7 @@
   height: 23px;
 }
 
-.download_box form .submit { 
+.download_box form input[type=submit] {
   float: right;
   font-size: 12px !important;
   border: 0 !important;
@@ -163,8 +163,16 @@
   -moz-border-radius: 5px;
 }
 
-.download_box form label { 
+.download_box form label {
   display: none;
+}
+
+.download_box .not-found p.bold {
+  font-weight: bold !important;
+}
+
+.download_box .not-found {
+  text-align: center !important;
 }
 
 .download_box .logo {
@@ -184,7 +192,7 @@
   padding: 7px 15px 0 0 !important;
 }
 
-.download_box .have_one span { 
+.download_box .have_one span {
   margin-left: 16px !important;
   font-size: 14px !important;
   height: 13px;
@@ -194,4 +202,7 @@
   display: none;
 }
 
-
+.download_box form input[type=text] {
+  border: none;
+  width: 188px;
+}

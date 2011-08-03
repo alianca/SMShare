@@ -17,6 +17,10 @@ class BoxStyle
   field :bottom_text, :type => String
   field :name, :type => String
   
-  belongs_to_related :user, :class_name => "User"
+  belongs_to_related :user
+  
+  def self.default
+    BoxStyle.where(:name => "Estilo smShare").first
+  end
   
 end

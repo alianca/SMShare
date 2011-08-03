@@ -92,7 +92,7 @@ class User
     end
     
     def set_default_box_style
-      self.default_style ||= BoxStyle.where(:name => "Estilo smShare").first
-      self.default_box_image ||= BoxImage.where(:name => "Nuvens smShare").first
+      self.default_style ||= BoxStyle.default
+      self.default_box_image ||= BoxImage.default
     end
 end

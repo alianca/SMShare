@@ -13,8 +13,7 @@ class BoxStylesController < ApplicationController
   def generate_javascript
     style = params[:estilo]
     background = params[:fundo]
-    data = generate_javascript_data(style, background)
-    render :text => data, :content_type => "text/javascript"
+    render :text => generate_javascript_data(style, background), :content_type => "text/javascript"
   end
   
   private

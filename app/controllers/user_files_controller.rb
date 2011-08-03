@@ -3,7 +3,7 @@ class UserFilesController < ApplicationController
   before_filter :authenticate_user!, :only => [:new, :create, :categorize, :update, :links]
   after_filter :save_download_info, :only => [:download]
   
-  layout "user_panel", :except => [:show]
+  layout "user_panel", :except => [:show, :download_box]
   
   
   def new
@@ -67,11 +67,10 @@ class UserFilesController < ApplicationController
     headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
     headers['Access-Control-Allow-Headers'] = 'x-requested-with'
     headers['Access-Control-Allow-Origin'] = '*'
-    @file = UserFile.find(params[:id])
-    @style = BoxStyle.find(params[:style]) if params[:style]
-    @style = @file.owner.default_style unless params[:style]
-    @background = BoxImage.find(params[:background]) if params[:background]
-    @background = @file.owner.default_box_image unless params[:background]
+    @file = UserFile.find(params[:id]) if params[:id] =~ /^[a-f0-9]{24}$/ and !UserFile.where(:_id => BSON::ObjectId(params[:id])).empty?
+    @style = params[:style] ? BoxStyle.find(params[:style]) : (@file ? @file.owner.default_style : BoxStyle.default)
+    @background = params[:background] ? BoxImage.find(params[:background]) : (@file ? @file.owner.default_box_image : BoxImage.default)
+    logger.info @background.to_json
     respond_with(@file, :layout => nil)
   end
   

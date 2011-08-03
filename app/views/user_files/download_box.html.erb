@@ -1,28 +1,50 @@
-<div id="download_box-<%= @file.id %>" class="download_box">
+<div id="download_box-<%= @file.id if @file %>" class="download_box">
   <div class="box-header">
-    <span class="header-glass"></span>
-    <p class="filename"><em>Arquivo:</em> <%= link_to @file.alias, user_file_url(@file) %></p>
-    <p class="filesize"><em>(<%= number_to_human_size(@file.filesize) %>)</em></p>
-    <span class="header-bottom"></span>
-  </div>
-  
-  <p class="call-to-action">Para baixar o arquivo, envie um SMS com a palavra</p>
-  <p class="sms"><em>SMSHARE</em> para <em>49094<span class="star">*</span></em></p>
-  <p class="price">*custo de R$ 0,86 + impostos</p>
-  
-  <div class="code_area">
-    <%= form_tag download_user_file_url(@file), :method => :get do %>
-      <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus"%>
-      <%= submit_tag "Download", :class => "submit" %>
+    <% if @file %>
+      <span class="header-glass"></span>
+      <p class="filename"><em>Arquivo:</em> <%= link_to @file.alias, user_file_url(@file) %></p>
+      <p class="filesize"><em>(<%= number_to_human_size(@file.filesize) %>)</em></p>
+      <span class="header-bottom"></span>
+    <% else %>
+      <span class="header-glass"></span>
+      <p class="filename"><em>Arquivo Indisponível</em></p>
+      <p class="filesize"><em></em></p>
+      <span class="header-bottom"></span>
     <% end %>
   </div>
+
+  <% if @file %>
+    <p class="call-to-action">Para baixar o arquivo, envie um SMS com a palavra</p>
+    <p class="sms"><em>SMSHARE</em> para <em>49094<span class="star">*</span></em></p>
+    <p class="price">*custo de R$ 0,86 + impostos</p>
+
+    <div class="code_area">
+      <%= form_tag download_user_file_url(@file), :method => :get do %>
+        <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus"%>
+        <%= submit_tag "Download", :class => "submit" %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="not-found">
+      <p class="bold">O arquivo que procura foi removido ou não existe</p>
+      <p>Quem sabe você pode achar o que estava procurando em nosso sistema de busca, o smSearch!</p>
+
+      <div class="code_area">
+        <%= form_tag search_index_url, :id => :search_field, :method => :get do %>
+          <%= text_field_tag :q %>
+          <%= submit_tag "Buscar" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
   <%= link_to root_url do %>
     <div class="logo"></div>
   <% end %>
   <%= link_to root_url, :class => :have_one do %>
     Tenha um desses você também <span>»</span>
   <% end %>
-  
+
   <div id="style-data">
     <%= download_box_style(@style).to_json %>
   </div>

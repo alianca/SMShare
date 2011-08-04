@@ -10,13 +10,16 @@
       <li <%= "class=active" if @boxes[:top_left] == 'c' %> >c</li>
     <% end %>
   </ol>
-  
+
   <span class="dimensions">300x250</span>
-  
+
   <div class="preview"></div>
-  
+
   <div class="url-container">
-    <div class="icon"></div> <%= text_field_tag :url %>
+    <div class="icon"></div>
+    <span class="text-field">
+      <span class="left"></span><%= text_field_tag :url %><span class="right"></span>
+    </span>
   </div>
 </div>
 
@@ -32,13 +35,16 @@
       <li <%= "class=active" if @boxes[:top_right] == 'c' %> >c</li>
     <% end %>
   </ol>
-  
+
   <span class="dimensions">250x250</span>
-  
+
   <div class="preview"></div>
-  
+
   <div class="url-container">
-    <div class="icon"></div> <%= text_field_tag :url %>
+    <div class="icon"></div>
+    <span class="text-field">
+      <span class="left"></span><%= text_field_tag :url %><span class="right"></span>
+    </span>
   </div>
 </div>
 
@@ -54,13 +60,16 @@
       <li <%= "class=active" if @boxes[:bottom_left] == 'c' %> >c</li>
     <% end %>
   </ol>
-  
+
   <span class="dimensions">336x280</span>
-  
+
   <div class="preview"></div>
-  
+
   <div class="url-container">
-    <div class="icon"></div> <%= text_field_tag :url %>
+    <div class="icon"></div>
+    <span class="text-field">
+      <span class="left"></span><%= text_field_tag :url %><span class="right"></span>
+    </span>
   </div>
 </div>
 
@@ -72,16 +81,19 @@
     <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:bottom_right => 'b'})) do %>
       <li <%= "class=active" if @boxes[:bottom_right] == 'b' %> >b</li>
     <% end %>
-    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:bottom_right => 'c'})) do %>	
+    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:bottom_right => 'c'})) do %>
       <li <%= "class=active" if @boxes[:bottom_right] == 'c' %> >c</li>
     <% end %>
   </ol>
-  
+
   <span class="dimensions">180x150</span>
-  
+
   <div class="preview"></div>
-  
+
   <div class="url-container">
-    <div class="icon"></div> <%= text_field_tag :url %>
+    <div class="icon"></div>
+    <span class="text-field">
+      <span class="left"></span><%= text_field_tag :url %><span class="right"></span>
+    </span>
   </div>
 </div>

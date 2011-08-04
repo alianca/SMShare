@@ -80,6 +80,16 @@
   font-weight: bold;
 }
 
+#user_panel-container #range .text-field input[type=text] {
+  position: relative;
+  top: -7px;
+}
+
+#user_panel-container #range .text-field {
+  position: relative;
+  top: 8px;
+}
+
 #user_panel-container .buttons {
   width: 100%;
   text-align: center;
@@ -145,14 +155,15 @@
   position: relative;
   height: 26px;
   line-height: 26px;
-  margin: 0 0 0 10px;
+  margin: 0;
 }
 
 #user_panel-container .links .url-container {
   display: block;
-  line-height: 40px;
+  height: 26px;
+  line-height: 26px;
   margin-left: 5px;
-  padding: 0;
+  padding: 4px;
   width: 660px;
 }
 
@@ -219,7 +230,7 @@
 }
 
 #user_panel-container .box.horizontal .url-container input[type=text] {
-  width: 460px;
+  width: 448px;
 }
 
 #user_panel-container .box.vertical.left {
@@ -280,23 +291,23 @@
 }
 
 #user_panel-container .box.vertical.left .url-container input[type=text] {
-  width: 176px;
+  width: 168px;
 }
 
 #user_panel-container .box.vertical.middle .url-container input[type=text],
 #user_panel-container .box.vertical.right_top .url-container input[type=text],
 #user_panel-container .box.vertical.right_bottom .url-container input[type=text] {
-  width: 136px;
+  width: 128px;
 }
 
 #user_panel-container .box.vertical .dimensions {
   float: left;
   position: relative;
-  top: -90px;
+  top: -100px;
   left: 32px;
   height: 80px;
   width: 26px;
-  -webkit-transform: rotate(-90deg);	
+  -webkit-transform: rotate(-90deg);
   -moz-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   -o-transform: rotate(-90deg);
@@ -323,7 +334,6 @@
 #user_panel-container .box.square {
   display: inline-block;
   margin: 0 5px 10px 0;
-  padding: 10px;
 }
 
 #user_panel-container .box.square.top_left {
@@ -375,25 +385,24 @@
 }
 
 #user_panel-container .box.square.top_left .url-container input[type=text] {
-  width: 276px;
+  width: 268px;
 }
 
 #user_panel-container .box.square.top_right .url-container input[type=text] {
-  width: 264px;
+  width: 256px;
 }
 
 #user_panel-container .box.square.bottom_left .url-container input[type=text] {
-  width: 310px;
+  width: 302px;
 }
 
 #user_panel-container .box.square.bottom_right .url-container input[type=text] {
-  width: 228px;
+  width: 220px;
 }
 
 #user_panel-container .box.button {
   display: inline-block;
   margin: 0 10px 10px 0;
-  padding: 10px;
   width: 296px;
   height: 174px;
 }
@@ -419,7 +428,7 @@
   width: 100px;
   height: 26px;
   padding: 0;
-   -webkit-transform: rotate(-90deg);	
+   -webkit-transform: rotate(-90deg);
   -moz-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   -o-transform: rotate(-90deg);
@@ -427,7 +436,7 @@
 }
 
 #user_panel-container .box.button .url-container input[type=text] {
-  width: 258px;
+  width: 248px;
 }
 
 #user_panel-container .box.button.top_left .preview {
@@ -451,25 +460,24 @@
 }
 
 #user_panel-container .links-box .url-container {
-  width: 660px;
-  height: 32px;
-  margin-top: 10px;
+  width: 650px;
+  height: 26px;
 }
 
 #user_panel-container .links-box .url-container input[type=text] {
-  width: 490px;
+  width: 487px;
 }
 
 #user_panel-container .links-box .url-container .name {
   display: inline-block;
-  width: 120px;
+  width: 113px;
   float: left;
   overflow: hidden;
 }
 
 #user_panel-container .links-box .links {
   background-color: #ecf5f8;
-  padding-bottom: 10px;
+  padding: 6px;
   border-radius: 10px 10px 0 0;
   -moz-border-radius: 10px 10px 0 0;
 }
@@ -490,7 +498,12 @@
 #user_panel-container .links-box form input[type=text] {
   width: 175px;
   position: relative;
-  top: -1px;
+  top: -8px;
+}
+
+#user_panel-container .links-box form .text-field {
+  position: relative;
+  top: 8px;
 }
 
 #user_panel-container .submit_blue {
@@ -533,6 +546,7 @@
 }
 
 #user_panel-container .text-field {
+  display: inline-block;
   height: 26px;
   line-height: 26px;
 }
@@ -540,27 +554,27 @@
 #user_panel-container .text-field input[type=text] {
   border: none;
   height: 26px;
+  position: relative;
+  top: -8px;
   margin: 0;
   background: url(/images/user_panel/field_middle_26.png) repeat-x;
 }
 
 #user_panel-container .text-field .left {
   display: inline-block;
-  position: relative;
-  top: 7px;
   height: 26px;
   width: 4px;
   margin: 0;
+  padding: 0;
   background: url(/images/user_panel/field_left_26.png) no-repeat;
 }
 
 #user_panel-container .text-field .right {
   display: inline-block;
-  position: relative;
-  top: 7px;
   height: 26px;
   width: 8px;
   margin: 0;
+  padding: 0;
   background: url(/images/user_panel/field_right_26.png) no-repeat;
 }
 

@@ -9,9 +9,17 @@ class Comment
   embedded_in :file, :class_name => "UserFile", :inverse_of => :comments
   belongs_to_related :owner, :class_name => "User"
   
-  def self.search a_query    
-    UserFile.where("comments.message" => a_query).collect do |uf|
-      uf.comments.where("message" => a_query)
-    end.flatten
+  def self.search a_query  
+    fields_to_search = ["alias", "filename", "comments.message"]
+    
+    regex_for_query = Regexp.new a_query.gsub(" ", "|"), "i"
+    
+    mongodb_query = { "$or" => fields_to_search.collect { |f| { f => regex_for_query } } }
+    UserFile.where(mongodb_query).collect do |uf|
+      results = uf.comments.where("message" => regex_for_query).all
+      results = uf.comments.all if results.empty?
+      
+      results
+    end.flatten.compact
   end
 end

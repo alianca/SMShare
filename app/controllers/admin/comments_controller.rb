@@ -1,6 +1,12 @@
 class Admin::CommentsController < AdminController
   def index
-    respond_with(@comments = UserFile.all.collect(&:comments).flatten)
+    if params[:q].blank?
+      @comments = UserFile.all.collect(&:comments).flatten
+    else
+      @comments = Comment.search(params[:q])
+    end
+    
+    respond_with(@comments)
   end
   
   def block

@@ -1,5 +1,10 @@
 <h2>Comentarios</h2>
 
+<%= form_tag admin_comments_path, :method => :get do %>
+  <%= text_field_tag :q, params[:q] %>
+  <%= submit_tag "Filtrar" %>
+<% end %>
+
 <table id="comments">
   <thead>
     <tr>

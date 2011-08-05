@@ -1,9 +1,19 @@
-<%= link_to "Nova", new_admin_news_path %><br/><br/>
-
-<% @news.each do |n| %>
-  <span class="actions">
-    <%= link_to "Deletar", {:action => 'destroy', :id => n.id}, :method => :delete %>
-    <%= link_to "Editar", {:action => 'edit', :id => n.id} %>
-  </span>
-  <%= link_to n.title, admin_news_path(n) %><br/>
-<% end %>
+<h2>Editar notícias</h2>
+<table id="news">
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Data</th>
+      <th>Excluir</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @news.each do |news| %>
+      <tr>
+        <td><%= link_to news.title, edit_admin_news_path(news) %></td>
+        <td><%= news.created_at.strftime "%d/%m/%Y" %></td>
+        <td><%= link_to "[x]", admin_news_path(news), :method => :delete %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

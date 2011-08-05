@@ -6,7 +6,7 @@
         <%= link_to "Adicionar", new_admin_news_path %>
       </li>
       <li class="item">
-        <%= link_to "Editar / Remover", {:controller=>"admin/news", :action=>"index"} %>
+        <%= link_to "Editar / Remover", admin_news_index_path %>
       </li>
     </ul>
   </li>
@@ -27,7 +27,7 @@
     Comentários
     <ul class="submenu">
       <li class="item">
-        <%= link_to "Editar / Remover" %>
+        <%= link_to "Editar / Remover", admin_comments_path %>
       </li>
     </ul>
   </li>
@@ -45,18 +45,6 @@
   </li>
   
   <li class="menu">
-    downBOX
-    <ul class="submenu">
-      <li class="item">
-        <%= link_to "Histórico" %>
-      </li>
-      <li class="item">
-        <%= link_to "Requisições" %>
-      </li>
-    </ul>
-  </li>
-  
-  <li class="menu">
     Usuários
     <ul class="submenu">
       <li class="item">
@@ -64,8 +52,8 @@
       </li>
     </ul>
   </li>
-  
-    <li class="menu">
+
+  <li class="menu">
     Administradores
     <ul class="submenu">
       <li class="item">

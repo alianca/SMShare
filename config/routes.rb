@@ -36,12 +36,14 @@ Smshare::Application.routes.draw do |map|
     
     resource :relatorios, :as => :reports, :controller => :reports, :only => [:show]
     resource :requisicao_de_pagamento, :as => :payment_requests, :controller => :payment_requests, :only => [:show, :create]
+    resource :indicacoes, :as => :referrers, :controller => :referrers, :only => [:show]
+    resource :pecas_publicitarias, :as => :advertising, :controller => :advertising, :only => [:show, :create]
   end
   
   resources :smsearch, :controller => :search, :as => :search, :only => [:index]
   
   namespace :admin do
-    resources :news
+    resources :noticias, :as => :news, :controller => "news", :except => [:show]
     resources :denuncias, :as => :user_file_reports, :controller => "user_file_reports"
     resources :usuarios, :as => :users, :controller => "users" do
       post :block, :unblock, :on => :member

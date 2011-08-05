@@ -12,14 +12,18 @@ class User
   field :name, :type => String
   field :nickname, :type => String
   field :accepted_terms, :type => Boolean
-  field :admin, :type => Boolean
   field :default_style_id, :type => BSON::ObjectId
   field :default_box_image_id, :type => BSON::ObjectId
+  field :admin, :type => Boolean, :default => false
   field :blocked, :type => Boolean, :default => false
+  field :referred_by, :type => String
   
   # Indicações
   belongs_to_related :referrer, :class_name => "User"
   has_many_related :referred, :class_name => "User", :foreign_key => :referrer_id
+  
+  # Referencias
+  embeds_many :references, :class_name => "UserReference"
   
   # Caixa de Downloads
   has_many_related :box_styles, :foreign_key => :user_id
@@ -42,6 +46,7 @@ class User
   
   # Perfil
   embeds_one :profile, :class_name => "Profile"
+  after_create :create_profile
   
   # Requisições de Pagamento
   has_many_related :payment_requests
@@ -87,7 +92,7 @@ class User
     end
     
     def set_default_box_style
-      self.default_style ||= BoxStyle.where(:name => "Estilo smShare").first
-      self.default_box_image ||= BoxImage.where(:name => "Nuvens smShare").first
+      self.default_style ||= BoxStyle.default
+      self.default_box_image ||= BoxImage.default
     end
 end

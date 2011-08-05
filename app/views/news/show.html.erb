@@ -9,9 +9,9 @@
   
   <div id="news-full">
     <div class="date">
-      <%= @news.date.strftime("%d") %>
+      <%= @news.created_at.strftime("%d") %>
       <span class="month">
-        <%= @news.date.strftime("%b") %>
+        <%= @news.created_at.strftime("%b") %>
       </span>
     </div>
     <h1 class="title"><%= @news.title %></h1>

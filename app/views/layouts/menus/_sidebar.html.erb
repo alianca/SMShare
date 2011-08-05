@@ -23,7 +23,10 @@
     Relatórios
     <ul class="dropdown">
       <li class="<%= yield(:page) == "report_statistics" ? "active" : "" %>">
-        <%= link_to "Relatório de ganhos", user_panel_reports_path %>
+        <%= link_to "Ganhos", user_panel_reports_path %>
+      </li>
+      <li class="<%= yield(:page) == "indication_statistics" ? "active" : "" %>">
+        <%= link_to "Indicações", user_panel_referrers_path %>
       </li>
     </ul>
   </li>
@@ -35,7 +38,7 @@
         <%= link_to "Caixas de download", customize_user_panel_path %>
       </li>
       <li class="<%= yield(:page) == "press_tools" ? "active" : "" %>">
-        <%= link_to "Peças publicitárias" %>
+        <%= link_to "Peças publicitárias", user_panel_advertising_path %>
       </li>
     </ul>
   </li>

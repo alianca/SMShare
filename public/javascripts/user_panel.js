@@ -1,23 +1,23 @@
 $(document).ready(function() {
   if($("input#all_files")) {
-    $("input#all_files").live("click", function() {
-      $("input.select_file").attr("checked", $("input#all_files").attr("checked"));
+    $("input#all_files").live('click', function() {
       $("input.select_file").each(function() {
+        $(this).attr("checked", $("input#all_files").attr("checked"));
         $(this).change();
       });
     });
   }
-  
+
   /* Troca o fundo do botão em mouse over */
   $("#folder_new #folder_submit").mouseover(function () {
     $(this).css("background", "url(/images/layouts/botao-on.png)")
   });
-  
+
   /* Volta o fundo padrão quando perde o mouse over */
   $("#folder_new #folder_submit").mouseout(function () {
     $(this).css("background", "url(/images/layouts/botao-off.png)")
   });
-  
+
   function show_form(name) {
     if($("#actions_forms " + name + ":visible")[0]) {
       $("#actions_forms form").hide();
@@ -28,7 +28,7 @@ $(document).ready(function() {
       $("#form_placeholder").show();
     }
   }
-  
+
   function show_rename() {
     if ($("#actions_forms #rename:visible")[0]) {
       $("#actions_forms form").hide();
@@ -39,38 +39,38 @@ $(document).ready(function() {
       $("#rename_placeholder").show();
     }
   }
-  
+
   $(".actions_menu .create a").click(function (e) {
     show_form("#new_folder");
     e.stopImmediatePropagation();
   });
-  
+
   $(".actions_menu .move a").click(function (e) {
     if (!($(this).hasClass("off"))) {
       show_form("#move");
     }
     e.stopImmediatePropagation();
   });
-  
+
   $(".actions_menu .rename a").click(function (e) {
     if (!($(this).hasClass("off"))) {
       show_rename();
     }
     e.stopImmediatePropagation();
   });
-  
+
   $(".actions_menu .compress a").click(function (e) {
     if (!($(this).hasClass("off"))) {
       show_form("#compress");
     }
     e.stopImmediatePropagation();
   });
-  
+
   /* Copia a seleção de arquivos da tabela para a lista oculta */
   $(".file_list .select_file").change(function () {
     $("#actions_forms .hidden_file_list input[value=" + this.value + "]").attr("checked", $(this).attr("checked"));
     $(".actions_menu .hidden_file_list input[value=" + this.value + "]").attr("checked", $(this).attr("checked"));
-    
+
     if ($(this).attr("checked")) {
       $("#" + this.value).removeClass("hidden-field");
       $("#rename_placeholder").css("margin-bottom", $("#rename").height() + 27);
@@ -78,14 +78,14 @@ $(document).ready(function() {
       $("#" + this.value).addClass("hidden-field");
       $("#rename_placeholder").css("margin-bottom", $("#rename").height() + 27);
     }
-    
+
     var has_selected = false;
     $("#actions_forms .hidden_file_list input[type=checkbox]").each(function() {
       if ($(this).attr("checked")) {
         has_selected = true;
       }
     });
-    
+
     if (has_selected) {
       $(".actions_menu .need-files").removeClass("off");
     } else {
@@ -95,9 +95,9 @@ $(document).ready(function() {
         $("#rename_placeholder").hide();
       }
     }
-    
+
   });
-  
+
   /* Dropdown da sidebar */
   $("#sidebar li.menu").click(function(e) {
     if (!$(this).hasClass("no-dropdown") && this == e.target) {
@@ -111,7 +111,7 @@ $(document).ready(function() {
     }
     e.stopImmediatePropagation();
   });
-  
+
   /* Helpers para os multiplos arquivos */
   function ms_to_hour_min_sec(ms) {
     secs = Math.floor(ms/1000)%60;
@@ -120,18 +120,18 @@ $(document).ready(function() {
     if(mins < 10) mins = "0" + mins;
     hours = Math.floor(ms/3600000);
     if(hours < 10) hours = "0" + hours;
-    
-    return hours + ":" + mins + ":" + secs;  
+
+    return hours + ":" + mins + ":" + secs;
   }
-  
+
   function round_with_2_decimals(number) {
     return Math.round(number*100)/100
   }
-  
+
   function readable_speed(speed) {
     return readable_size(speed) + "/s";
   }
-  
+
   function readable_size(size) {
     if(size >= 0 && size < 1024) {
       return size + " B";
@@ -142,20 +142,20 @@ $(document).ready(function() {
     } else if(size >= 1073741824) {
       return round_with_2_decimals(size/1073741824) + " GB";
     }
-  }  
-  
+  }
+
   /* Upload de Multiplos Arquivos */
   /* Tira o botão de dentro do form e faz com que ele submeta os formularios */
   $("#upload_forms").append($(".files_form .buttons").remove());
   $("#upload_forms .buttons").click(function () {
     $("#user_files_forms form").submit();
-    
+
     statuses = []
-    
+
     // Desabilita os botões
     $(".more-files a").unbind("click").hide();
     $("#upload_forms .buttons").unbind("click").hide();
-    
+
     // Oculta os formulatios e mostra o progresso
     $("#user_files_forms form fieldset").hide();
     $("#user_files_forms form .progress_info").show();
@@ -164,31 +164,31 @@ $(document).ready(function() {
       filename = /[^\\]*$/.exec($(form).find("li.file input").val());
       $(form).find(".progress_info .filename")[0].innerHTML = filename;
     });
-    
-    
+
+
     // Define o estado como uploading
     $("#user_files_forms form").attr("data-status", "uploading");
-    
+
     /* Função que verifica o estado dos downloads e redireciona no final */
     status_interval = setInterval(function () {
       not_done = false;
       $("#user_files_forms form").each(function (i, form) {
         not_done = not_done || $(form).attr("data-status") == "uploading"
       });
-      
+
       if(!not_done) {
         errors = false;
         success = false;
-        
+
         $("#user_files_forms form").each(function (i, form) {
           errors = errors || $(form).attr("data-status") == "error"
           success = success || $(form).attr("data-status") == "success"
-          
+
           // Marca como 100% os que ainda não estiverem
           $(form).find(".progress_info .uploaded").width("100%");
           $(form).find(".progress_info .percentage").html("100%");
         });
-        
+
         if(errors && !success) { // Só errors
           window.location = window.location; // Reload
         } else {
@@ -198,10 +198,10 @@ $(document).ready(function() {
               parameter += "files[]=" + $(form).attr("data-created_id") + "&"
             }
           });
-          
+
           window.location = "/arquivos/categorizar?" + parameter; // Vai para o categorizar
         }
-        
+
         clearInterval(status_interval);
       } else {
         $("#user_files_forms form").each(function (i, form) {
@@ -213,7 +213,7 @@ $(document).ready(function() {
               dataType: "json",
               success: function (data) {
                 if(data && data.state == "uploading") {
-                  updated_at = new Date();                  
+                  updated_at = new Date();
                   percentage = Math.floor(data.received*100/data.size) + "%";
                   elapsed_time = updated_at-statuses[i].started_at; // ms
                   speed = data.received*1000/elapsed_time; // bytes/s
@@ -227,7 +227,7 @@ $(document).ready(function() {
                   $(form).find(".progress_info .data_amount .sent").html(readable_size(data.received));
                   $(form).find(".progress_info .data_amount .total").html(readable_size(data.size));
                 }
-                
+
                 statuses[i].updating = false;
               },
               error: function (e) { console.log(e); }
@@ -237,11 +237,11 @@ $(document).ready(function() {
       }
     }, 100);
   });
-  
+
   /* Salva o id do upload */
   upload_id = $("#new_user_file .file_fields input[type=hidden]").val();
   upload_action = $("#new_user_file").attr("action");
-  
+
   /* Arruma o primero form */
   $("#new_user_file").attr("id", "new_user_file_0");
   $("#new_user_file_0").attr("target", "new_user_file_iframe_0");
@@ -249,7 +249,7 @@ $(document).ready(function() {
   $("#new_user_file_0").append("<iframe name=\"new_user_file_iframe_0\"></iframe>")
   $("#new_user_file_0 .file_fields input[type=hidden]").val(upload_id + "-0");
   form_count = 1;
-  
+
   /* Botão de mais arquivos */
   $(".more-files a").click(function () {
     new_form = $("#new_user_file_0").clone();
@@ -261,11 +261,11 @@ $(document).ready(function() {
     new_form[0].reset();
     $(new_form).find(".clear-on-focus").val($(new_form).find(".clear-on-focus").attr("title"));
     $("#user_files_forms").append(new_form);
-    
+
     form_count++;
     return false; // Para não redirecionar
   });
-  
+
   // Só executa dentro do iFrame
   try {
     if(window.parent != window) {
@@ -277,7 +277,7 @@ $(document).ready(function() {
         form.attr("data-status", "success");
         form.attr("data-created_id", $(".sentenced_tags")[0].id.replace("files_", "").replace("_sentenced_tags", ""));
       }
-    }    
+    }
   } catch (Exception) {}
 
   /* Atualiza as caixas de cores na personalização */
@@ -340,7 +340,7 @@ $(document).ready(function() {
         break;
     }
   });
-  
+
   /* Ativa o color picker ao clicar na caixa de cor */
   $('#style-customize ol li input[type=text]').click(function() {
     // Posiciona o color picker ao lado da caixa selecionada
@@ -353,20 +353,20 @@ $(document).ready(function() {
     $('#color-picker').farbtastic(this);
     $('#color-picker').show('fast');
   });
-    
+
   $('#style-customize ol li div').click(function() {
     $(this).parent("li").children("input[type=text]").click().focus();
   });
-  
+
   /* Desativa o color picker quando a caixa de cor perde o foco */
   $('#style-customize ol li input[type=text]').blur(function() {
     $('#color-picker').hide('fast');
     $('#color-picker').remove_farbtastic();
   });
-  
+
   /* Aplica o estilo padrão inicialmente */
   $("#style-customize ol li input[type=text]").change();
-  
+
   /* Aplica o estilo nos thumbnails */
   function set_thumbnail_style(thumbnail, style) {
     $(thumbnail).css("border", "1px solid " + style.box_border);
@@ -380,7 +380,7 @@ $(document).ready(function() {
     $(thumbnail + " .input").css("border", "1px solid " + style.form_border);
     $(thumbnail + " .input .thumb-button").css("background-color", style.button_background);
   }
-  
+
   function update_thumbnails() {
     var count = $("#style-list span.style").text();
     for (var i = 0; i < count; i++) {
@@ -389,13 +389,13 @@ $(document).ready(function() {
     }
   }
   update_thumbnails();
-  
+
   $("#style-customize ol li input[type=text]").bind('changed_style', function(e, style) {
     var field_name = $(this).attr("name").match(/box_style\[([_a-z]+)\]/)[1];
     $(this).attr("value", style[field_name]);
     $(this).change();
   });
-  
+
   var code_options = '';
   function code_box_set(attribute, value, is_default) {
     var args = [];
@@ -425,10 +425,10 @@ $(document).ready(function() {
     }
     if (!is_default) code_options += attribute + '=' + value;
     code_options += '\" type=\"text/javascript\"></script>';
-    
+
     $("#code-area input[type=text]").attr('value', code_options);
   }
-  
+
   $("#style-list .style-list-item").click(function(e) {
     var style = jQuery.parseJSON($(this).children(".thumbnail").children(".style").text());
     var style_id = $(this).attr("class").match(/id([a-f0-9]{24})/)[1];
@@ -436,11 +436,11 @@ $(document).ready(function() {
     $("#style-list form #style_selected_style").attr("value", style_id);
     $("#style-list .style-list-item.selected").removeClass("selected");
     $(this).addClass("selected");
-    
+
     code_box_set('estilo', style_id, $(this).hasClass("default"));
     e.stopImmediatePropagation();
   });
-  
+
   function update_backgrounds() {
     var count = $("#background-list .count").text();
     for (var i = 0; i < count; i++) {
@@ -449,7 +449,7 @@ $(document).ready(function() {
     }
   }
   update_backgrounds();
-  
+
   $("#background-list .bg-list-item").click(function(e) {
     var url = $(this).children(".img-thumbnail").children("span").text();
     var image_id = $(this).attr("class").match(/id([a-f0-9]{24})/)[1];
@@ -464,10 +464,10 @@ $(document).ready(function() {
     code_box_set('fundo', image_id, $(this).hasClass("default"));
     e.stopImmediatePropagation();
   });
-  
+
   /* Aplica a imagem de fundo padrão */
   $("#background-list .bg-list-item.default").click();
-  
+
   /* Alterna a exibição da caixa do 'código de inserção' */
   $("#generate-code").click(function(e) {
     if ($("#code-area:visible")[0]) {
@@ -477,19 +477,19 @@ $(document).ready(function() {
     }
     e.stopImmediatePropagation();
   });
-  
+
   $("#code-area").click(function(e) {
     $(this).children("input[type=text]").select();
     e.stopImmediatePropagation();
   });
-  
+
   function track_status() {
     var done = false;
     var error = false;
     var no_job = false;
     var error_message = "";
-    
-    check_interval = setInterval(function () {
+
+    var check_interval = setInterval(function () {
       if (done) {
         if (error) {
           force_hide_notifications();
@@ -534,17 +534,19 @@ $(document).ready(function() {
             show_notifications(true);
             $("#block_user_input").show();
           },
-          error: function(e) { console.log(e); }
+          error: function(e) {
+            no_job = done = true;
+          }
         });
       }
     }, 500);
   }
-  
+
   // Verifica operações em andamento ao abrir a página
   if (window.location.pathname.search(/manage/) >= 0) {
     track_status();
   }
-  
+
   /* Compressão em background */
   $("#compress").submit(function(e) {
     e.preventDefault();
@@ -557,8 +559,8 @@ $(document).ready(function() {
       error: function(e) { console.log(e); }
     });
   });
-  
-  
+
+
   /* Descompressão em background */
   $(".actions_menu .decompress a").click(function() {
     $.ajax({
@@ -570,8 +572,8 @@ $(document).ready(function() {
       error: function(e) { console.log(e); }
     });
   });
-  
-  
+
+
   /* Carrega lista de estados dinamicamente */
   $("#user_profile_country").change(function () {
     $.ajax({

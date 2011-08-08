@@ -28,7 +28,7 @@ body {
   color: #645C54;
 }
 
-#user_panel-container { 
+#user_panel-container {
   float: right;
   width: 625px;
   margin: 0 42px 0 0;
@@ -44,7 +44,7 @@ body {
 
 /* @group Sidebar */
 
-#sidebar { 
+#sidebar {
   float: left;
   width: 182px;
   margin: 1px 0 0 34px;
@@ -53,7 +53,7 @@ body {
   font-size: 14px;
 }
 
-#sidebar > li { 
+#sidebar > li {
   display: block;
   width: 152px;
   padding: 10px 15px;
@@ -70,7 +70,7 @@ body {
   background: url(/images/user_panel/menu/dropdown.png) no-repeat;
 }
 
-#sidebar > li.active { 
+#sidebar > li.active {
   color: white;
   background: url(/images/user_panel/menu/dropdown-active.png) no-repeat;
 }
@@ -79,7 +79,7 @@ body {
   display: block;
 }
 
-#sidebar li ul.dropdown { 
+#sidebar li ul.dropdown {
   display: none;
   width: 147px;
   height: 76px;
@@ -98,7 +98,7 @@ body {
   list-style-image: url(/images/user_panel/menu/bullet-active.png);
 }
 
-#sidebar li ul.dropdown li.active a { 
+#sidebar li ul.dropdown li.active a {
   color: #f37f00;
 }
 
@@ -106,7 +106,7 @@ body {
 
 /* @group File Upload Form */
 
-.upload { 
+.upload {
   display: block;
   width: 625px;
   padding: 21px 15px;
@@ -298,7 +298,7 @@ body {
 
 /* @group Index */
 
-#main_statistics { 
+#main_statistics {
   height: 73px;
   text-align: center;
   background: url(/images/user_panel/barras.png) no-repeat 2px 8px;
@@ -321,7 +321,7 @@ body {
 }
 
 
-#main_statistics .stat_observation { 
+#main_statistics .stat_observation {
   margin: 0;
   font-size: 11px;
 }
@@ -332,25 +332,25 @@ body {
   float: left;
 }
 
-#main_statistics #bandwidth { 
+#main_statistics #bandwidth {
   margin-left: 7px;
   width: 138px;
   float: left;
 }
 
-#main_statistics #downloads { 
+#main_statistics #downloads {
   margin-left: 7px;
   width: 138px;
   float: left;
 }
 
-#main_statistics #revenue { 
+#main_statistics #revenue {
   margin-left: 7px;
   width: 138px;
   float: left;
 }
 
-#main_statistics .stats_box { 
+#main_statistics .stats_box {
   margin-top: 2px;
   width: 138px;
   height: 56px;
@@ -360,12 +360,12 @@ body {
   -moz-border-radius: 5px;
 }
 
-#main_statistics #revenue .stats_box { 
+#main_statistics #revenue .stats_box {
   background-color: #f27400;
 
 }
 
-#main-container .upload.index { 
+#main-container .upload.index {
   clear: both;
   margin-top: 13px;
   background: rgba(190,210,218,0.5);
@@ -374,14 +374,14 @@ body {
   padding: 10px 15px;
 }
 
-#main-container .upload.index h3 { 
+#main-container .upload.index h3 {
   margin: 0;
   padding: 0 0 13px 3px;
   font-size: 24px;
   font-weight: normal;
 }
 
-#main-container #more_upload { 
+#main-container #more_upload {
   clear: left;
   float: left;
   margin: 0;
@@ -389,33 +389,33 @@ body {
   width: 288px;
 }
 
-#main-container #more_upload h3 { 
+#main-container #more_upload h3 {
   margin: 0;
   font-size: 18px;
 }
 
 #main-container #more_upload a.link {
-  font-size: 14px; 
+  font-size: 14px;
   border-bottom: 1px dotted #34378A;
   width: 98px;
   margin-top: 23px;
   display: inline-block;
 }
 
-#main-container #more_upload a { 
+#main-container #more_upload a {
   float: left;
 }
 
-#main-container #more_upload a.image { 
+#main-container #more_upload a.image {
   padding: 15px 5px 0 0;
 }
 
-#main-container #more_upload a.image.ftp { 
+#main-container #more_upload a.image.ftp {
   padding-left: 13px;
 }
 
 
-#main-container #most_downloaded { 
+#main-container #most_downloaded {
   clear: left;
   float: left;
   margin: 0;
@@ -423,27 +423,27 @@ body {
   width: 288px;
 }
 
-#main-container #most_downloaded h3 { 
+#main-container #most_downloaded h3 {
   margin: 0;
   font-size: 18px;
 }
 
-#main-container #most_downloaded table { 
+#main-container #most_downloaded table {
   width: 288px;
   margin-top: 10px;
 }
 
-#main-container #most_downloaded td.filename { 
+#main-container #most_downloaded td.filename {
   width:;
   text-align: left;
 }
 
-#main-container #most_downloaded td.count { 
+#main-container #most_downloaded td.count {
   width:;
   text-align: right;
 }
 
-#main-container #report { 
+#main-container #report {
   clear: right;
   float: right;
   margin: 0;
@@ -451,36 +451,36 @@ body {
   width: 288px;
 }
 
-#main-container #report h3 { 
+#main-container #report h3 {
   margin: 0;
   font-size: 18px;
 }
 
-#main-container #report table { 
+#main-container #report table {
   width: 288px;
   margin-top: 10px;
   font-size: 12px;
 }
 
-#main-container #report thead td { 
+#main-container #report thead td {
   border-bottom: 1px dotted #34378A;
   padding-bottom: 3px;
 }
 
-#main-container #report tbody td { 
+#main-container #report tbody td {
   padding-bottom: 6px;
 }
 
 #main-container #report tbody td.revenue {
-  color: #f27400;	
+  color: #f27400;
 }
 
-#main-container #report tbody .today td { 
+#main-container #report tbody .today td {
   padding-top: 3px;
   font-weight: bold;
 }
 
-#main-container #graph { 
+#main-container #graph {
   clear: right;
   float: right;
   margin: 0;
@@ -542,6 +542,11 @@ table.file_list tbody td {
 table.file_list td {
   text-align: center;
   padding: 1px 5px;
+}
+
+table.file_list td.select .checkbox {
+  margin-left: 12px;
+  margin-right: -12px;
 }
 
 table.file_list td.name {
@@ -1359,7 +1364,7 @@ table.file_list td.name {
   background-color: rgba(255,255,255,0.1);
 }
 
-#download_box .filename { 
+#download_box .filename {
   float: left;
   margin: 0;
   font-size: 12px;
@@ -1530,7 +1535,7 @@ table.file_list td.name {
   position: relative;
   left: 105px;
   margin-bottom: -15px;
-  
+
 }
 
 #config-profile #configs .left {
@@ -1574,10 +1579,6 @@ table.file_list td.name {
 
 #config-profile #configs #user_profile_description_input label {
   display: none;
-}
-
-#config-profile #configs input[type=checkbox] {
-  margin-right: 5px;
 }
 
 #config-profile #configs #info-edit {

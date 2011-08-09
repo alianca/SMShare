@@ -3,7 +3,7 @@
 
   <h2>Caixas de Download</h2>
   <p>A forma mais comum e eficaz de compartilhar seus arquivos hospedados no smShare é através das Caixas de Download, elas permitem que os usuários façam download sem sair de seu site.</p>
-  
+
   <div id="top">
     <div id="view">
       <h3>Visualização</h3>
@@ -14,16 +14,16 @@
           <p class="filesize"><em>10MB</em></p>
           <span class="header-bottom"></span>
         </div>
-        
+
         <p class="call-to-action">Para baixar o arquivo, envie um SMS com a palavra</p>
         <p class="sms"><em>SMSHARE</em> para <em>49094<span class="star">*</span></em></p>
         <p class="price">*custo de R$ 0,86 + impostos</p>
-        
+
         <div class="code_area">
           <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus"%>
           <%= submit_tag "Download", :class => "submit" %>
         </div>
-        
+
         <%= link_to image_tag("download_box/logo.png"), root_url, :class => :logo %>
         <%= link_to "", :class => :have_one do %>
           Tenha um desses você também »</span>
@@ -47,7 +47,7 @@
                 <div class="style"><%= (download_box_style item).to_json %></div>
               </div>
               <%= item.name %>
-              
+
               <% if item._id == @user_default_style._id %>
                 <%= image_tag "user_panel/default_marker.png" %>
               <% end %>
@@ -66,18 +66,18 @@
       <% end %>
     </div>
   </div>
-  
+
   <div id="code-area" class="text_field">
     <span class="left"></span><%= text_field_tag :code, "", :disabled => "1" %><span class="right"></span>
   </div>
-  
+
   <div id="color-picker"></div>
-  
+
   <div id="bottom">
     <div id="style-customize">
       <h3>Personalize o modelo</h3>
       <%= form_for :box_style, :url => {:controller => :box_styles, :action => :create} do |f| %>
-        <ol>      
+        <ol>
           <li>Fundo da caixa: <div></div><%= f.text_field :box_background, :value => default_box_style[:box_background] %></li>
           <li>Contorno da caixa: <div></div> <%= f.text_field :box_border, :value => default_box_style[:box_border] %></li>
           <li>Fundo do cabeçalho: <div></div> <%= f.text_field :header_background, :value => default_box_style[:header_background] %></li>
@@ -93,16 +93,16 @@
           <li>Texto no botão: <div></div> <%= f.text_field :button_text, :value => default_box_style[:button_text] %></li>
           <li>Texto inferior: <div></div> <%= f.text_field :bottom_text, :value => default_box_style[:bottom_text] %></li>
         </ol>
-        
+
         <div class="thumbnail">
           <div class="title"><span class="glass"></span>------<span class="right">--</span></div>
           <div class="top">---- ---- ---- ----</div>
           <div class="middle">==== <span>==</span> ====</div>
           <div class="input"><div class="thumb-button"></div></div>
         </div>
-        
+
         <p>Insira abaixo o nome do modelo para adicioná-lo a Lista de Modelos.</p>
-        
+
         <%= f.text_field :name, :title => "Dê um nome para o modelo...", :class => "name clear-on-focus" %>
         <span class="button orange">
           <span class="left"></span><%= f.submit "Salvar" %><span class="right"></span>
@@ -110,7 +110,7 @@
         <p>Após salvar seu modelo, se desejar utilizá-lo ou torná-lo padrão da sua conta, utilize o botão "Escolher Modelo" logo abaixo da Lista de Modelos.</p>
       <% end %>
     </div>
-    
+
     <div id="background-list">
       <h3>Lista de fundos</h3>
       <div class="bg-list-container">
@@ -119,9 +119,9 @@
           <% bg_type.each do |item| %>
             <a class="bg-list-item <%= item._id == @user_default_background._id ? "selected default" : "" %> id<%= item._id %>">
               <div class="img-thumbnail index<%= i %>"><span class="hidden"><%= item.image.url %></span></div>
-              
+
               <%= item.name %>
-              
+
               <% if item._id == @user_default_background._id %>
                 <%= image_tag "user_panel/default_marker.png" %>
               <% end %>
@@ -140,13 +140,13 @@
         </span>
       <% end %>
     </div>
-    
+
     <div id="background-form">
       <h3>Envie seu próprio fundo</h3>
-      <%= form_for :background, 
+      <%= form_for :background,
                    :html => { :multipart => true },
                    :url => { :controller => :box_images, :action => :create } do |f| %>
-        <span class="file_field"><span class="left"></span><%= f.file_field :image %><span class="right"></span></span>
+        <%= f.file_field :image %>
         <%= f.text_field :name %>
         <span class="button orange">
           <span class="left"></span><%= f.submit "Confirmar" %><span class="right"></span>

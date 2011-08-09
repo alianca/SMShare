@@ -248,11 +248,13 @@ $(document).ready(function() {
   $("#new_user_file_0").attr("action", upload_action + "-0");
   $("#new_user_file_0").append("<iframe name=\"new_user_file_iframe_0\"></iframe>")
   $("#new_user_file_0 .file_fields input[type=hidden]").val(upload_id + "-0");
+  var file_form_template = $("#new_user_file_0").clone();
+  $.make_file_field($("#new_user_file_0 .file_fields .file input[type=file]"));
   form_count = 1;
 
   /* Botão de mais arquivos */
   $(".more-files a").click(function () {
-    new_form = $("#new_user_file_0").clone();
+    new_form = file_form_template.clone();
     $(new_form).attr("id", "new_user_file_" + form_count);
     $(new_form).attr("target", "new_user_file_iframe_" + form_count);
     $(new_form).attr("action", upload_action + "-" + form_count);
@@ -261,6 +263,8 @@ $(document).ready(function() {
     new_form[0].reset();
     $(new_form).find(".clear-on-focus").val($(new_form).find(".clear-on-focus").attr("title"));
     $("#user_files_forms").append(new_form);
+
+    $.make_file_field($(new_form).find(".file_fields .file input[type=file]"));
 
     form_count++;
     return false; // Para não redirecionar
@@ -590,6 +594,8 @@ $(document).ready(function() {
       error: function(e) { console.log(e); }
     });
   });
+
+  $.make_file_field($("#customize-container #bottom #background-form input[type=file]"));
 });
 
 

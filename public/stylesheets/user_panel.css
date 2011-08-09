@@ -173,6 +173,13 @@ body {
   padding: 0;
 }
 
+#upload_forms .file-field {
+  width: 471px;
+}
+
+#upload_forms .file-field .file-name {
+  width: 343px;
+}
 
 #upload_forms fieldset.buttons li {
   padding-right: 0;
@@ -977,20 +984,6 @@ table.file_list td.name {
   color: #34378a;
 }
 
-#background-form .file_field .left {
-  padding-left: 4px;
-  padding-bottom: 23px;
-  padding-top: 7px;
-  margin-right: -3px;
-  background: url(/images/user_panel/field_left.png) no-repeat;
-}
-
-#background-form .file_field .right {
-  padding-left: 5px;
-  padding-bottom: 23px;
-  padding-top: 7px;
-  background: url(/images/user_panel/field_right.png) no-repeat;
-}
 
 .text_field .right {
   padding-left: 5px;
@@ -1048,6 +1041,14 @@ table.file_list td.name {
 #code-area input {
   width: 650px;
   margin-bottom: 10px;
+}
+
+#background-form  form .file-field {
+  width: 310px;
+}
+
+#background-form  form .file-field .file-name {
+  width: 188px;
 }
 
 #background-form .file_field input[type=file] {

@@ -26,9 +26,15 @@ body {
   font-size: 13px;
 }
 
+button, input, textarea, select {
+	font-family:"Trebuchet MS", Arial;
+	padding:0px;
+	font-size: 13px;
+}
+
 .container {
   width: 940px;
-  margin: 0 auto;
+  margin: 0 auto 0 auto;
 }
 
 .special-s {
@@ -60,16 +66,16 @@ body {
   width: 157px;
   height: 179px;
   position: relative;
-  top: 8px;
-  left: 222px;
+  top: -5px;
+  left: 220px;
 }
 
 /* @group Header Login */
 
 #header #header-login {
   float: right;
-  height: 23px;
-  margin: 22px 45px 0 0;
+  height: 25px;
+  margin: 20px 45px 0 0;
 }
 
 #header #header-login li {
@@ -90,14 +96,15 @@ body {
 }
 
 #header #header-login #login-link {
-  background: url(/images/layouts/login.png) no-repeat 0 0;
-  padding-right: 8px;
+  background: url(/images/layouts/login.png) no-repeat 0px 2px;
+  padding: 1px 5px 5px 20px;
   border-right: 1px solid #b7dee3;
 }
 
 #header #header-login #signup-link {
-  background: url(/images/layouts/registrar.png) no-repeat;
-  margin-left: 3px;
+  background: url(/images/layouts/registrar.png) no-repeat 0px 2px;
+  margin-left: 8px;
+  padding: 1px 0px 5px 20px;
 }
 
 #header #header-login #profile-link { 
@@ -131,9 +138,9 @@ body {
   color: #8E8E8E;
   font-size: 12px;
   border: 0 solid transparent;
-  width: 99px;
-  height: 13px;
-  padding: 5px;
+  width: 102px;
+  height: 16px;
+  padding: 5px 2px 2px 5px;
 }
 
 #header #header-login #login-form #user_submit { 
@@ -141,7 +148,9 @@ body {
   color: white;
   width: 53px;
   height: 23px;
-  padding: 0;
+  padding: 0px 0px 0px 0px;
+ 
+  cursor: pointer;
 }
 
 #header #header-login #login-form #user_submit:hover { 
@@ -225,8 +234,13 @@ body {
   display: none;
   position: absolute;
   z-index: 999;
-  padding: 2px;
+  padding: 1px 1px 5px 1px;
   background-color: white;
+  -moz-border-radius-bottomleft: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+
 }
 
 #header #header-menu .dropdown a {
@@ -235,7 +249,7 @@ body {
 
 #header #header-menu .dropdown li {
   color: #34378A;
-  padding: 2px 8px 2px 6px;
+  padding: 3px 5px 3px 6px;
   list-style-image: url(/images/layouts/menu/bullet-normal.png);
   list-style-position: inside;
 }
@@ -243,7 +257,7 @@ body {
 #header #header-menu .dropdown li:hover {
   background-color: #f27f00;
   color: white;
-  padding: 2px 6px;
+  padding: 3px 4px 3px 5px;
   list-style-image: url(/images/layouts/menu/bullet-mouseover.png);
 }
 
@@ -303,10 +317,11 @@ body {
 
 #search #search-form {
   float: right;
-  margin: 14px 50px 0 0;
+  margin: 14px 50px 0px 0px;
   width: 426px;
   height: 61px;
-  background: url(/images/layouts/fundo-busca.png);
+  background: url(/images/layouts/fundo-busca.png) no-repeat;
+  padding:0px;
 }
 
 #search #search-form #q {
@@ -314,17 +329,20 @@ body {
   border: 0 solid transparent;
   background-color: transparent;
   color: #8E8E8E;
-  height: 23px;
-  margin: 8px 0 0 73px;
+  height: 26px;
+  margin: 4px 0px 0px 73px;
+  padding:0px;
 }
 
 #search #search-form #search-button {
   color: white;
-  font-size: 12px;
   border: 0 solid transparent;
   width: 114px;
   height: 23px;
-  background: url(/images/layouts/botao-off.png);
+  background: url(/images/layouts/botao-off.png) no-repeat;
+  padding:0px;
+  margin:0px;
+  cursor: pointer;
 }
 
 /* @end */
@@ -333,7 +351,7 @@ body {
 
 #footer {
   clear: both;
-  height: 238px;
+  height: 230px;
   margin-top: 16px;
   width: 100%;
   background: url(/images/layouts/rodape.png) repeat-x;

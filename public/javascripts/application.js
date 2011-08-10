@@ -109,6 +109,38 @@ $(document).ready(function() {
         $("#new_user_file #user_file_file_input").css("padding", "6px 8px 3px 0");
       }
   }
+
+  /* Estilo da checkbox */
+  $("input[type=checkbox]").each(function() {
+    var fake_cb = $(document.createElement("span"));
+    var real_cb = $(this);
+
+    fake_cb.addClass("checkbox");
+    real_cb.after(fake_cb);
+    real_cb.hide();
+
+    if (!real_cb.parent().is('label')) {
+      fake_cb.click(function(e) {
+        real_cb.attr('checked', !real_cb.attr('checked'));
+        real_cb.click();
+        real_cb.attr('checked', !real_cb.attr('checked'));
+        real_cb.change();
+        e.stopImmediatePropagation();
+      });
+    }
+
+    real_cb.change(function() {
+      if (real_cb.attr("checked")) {
+        var bg_position = "0 -" + fake_cb.css("height");
+      } else {
+        var bg_position = "0 0";
+      }
+      fake_cb.css("background-position", bg_position);
+    });
+
+    // Estado inicial
+    $(this).change();
+  });
 });
 
 /* Personalização do File Field */

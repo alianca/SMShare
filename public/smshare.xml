@@ -1,0 +1,10 @@
+<SearchPlugin xmlns="http://www.mozilla.org/2006/browser/search/">
+  <ShortName>SMSearch</ShortName>
+  <Description>Busca do SMShare</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Image width="16" height="16"></Image>
+  <Url type="text/html" method="GET" template="http://www.smshare.com.br/smsearch">
+    <Param name="q" value="{searchTerms}"/>
+  </Url>
+  <SearchForm>http://www.smshare.com.br/smsearch</SearchForm>
+</SearchPlugin>

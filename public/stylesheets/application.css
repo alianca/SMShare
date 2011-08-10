@@ -491,7 +491,7 @@ p.alert {
 
 /* @end */
 
-/* @group InputStyling */
+/* @group Input Styling */
 
 .field-container {
   margin: 0 0 5px 0;
@@ -543,6 +543,16 @@ p.alert {
   display: inline-block;
   height: 19px;
   overflow: hidden;
+}
+
+.checkbox {
+  width: 20px;
+  height: 25px;
+  padding: 0 5px 0 0;
+  background: url(/images/layouts/checkbox.png) no-repeat;
+  display: block;
+  clear: left;
+  float: left;
 }
 
 /* @end */

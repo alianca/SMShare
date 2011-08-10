@@ -55,7 +55,7 @@ body {
   z-index: 1;
 }
 
-#dove { 
+#dove {
   background: url(/images/layouts/pomba.png);
   width: 157px;
   height: 179px;
@@ -100,13 +100,13 @@ body {
   margin-left: 3px;
 }
 
-#header #header-login #profile-link { 
+#header #header-login #profile-link {
   padding-right: 4px;
   border-right: 1px solid #b7dee3;
   color: #645C54;
 }
 
-#header #header-login #profile-link a { 
+#header #header-login #profile-link a {
   font-weight: bold;
 }
 
@@ -117,16 +117,16 @@ body {
 
 /* @group Login Form */
 
-#header #header-login #login-form { 
+#header #header-login #login-form {
   display: none;
   margin-left: 5px;
 }
 
-#header #header-login #login-form label { 
+#header #header-login #login-form label {
   display: none;
 }
 
-#header #header-login #login-form input { 
+#header #header-login #login-form input {
   background: url(/images/layouts/login/campo.png);
   color: #8E8E8E;
   font-size: 12px;
@@ -136,7 +136,7 @@ body {
   padding: 5px;
 }
 
-#header #header-login #login-form #user_submit { 
+#header #header-login #login-form #user_submit {
   background: url(/images/layouts/login/botao-off.png);
   color: white;
   width: 53px;
@@ -144,7 +144,7 @@ body {
   padding: 0;
 }
 
-#header #header-login #login-form #user_submit:hover { 
+#header #header-login #login-form #user_submit:hover {
   background: url(/images/layouts/login/botao-on.png);
 }
 
@@ -163,7 +163,7 @@ body {
 
 #header #header-menu a {
   color: inherit;
-  text-decoration: none;  
+  text-decoration: none;
 }
 
 #header #header-menu .title {
@@ -193,15 +193,15 @@ body {
 
 /* @group No Dropdown */
 
-#header #header-menu .title.no-dropdown { 
+#header #header-menu .title.no-dropdown {
   background: url(/images/layouts/menu/nodropdown.png) no-repeat;
 }
 
-#header #header-menu .title.no-dropdown.active, #header #header-menu .title.no-dropdown.active:hover { 
+#header #header-menu .title.no-dropdown.active, #header #header-menu .title.no-dropdown.active:hover {
   background: url(/images/layouts/menu/nodropdown-active.png) no-repeat;
 }
 
-#header #header-menu .title.no-dropdown:hover { 
+#header #header-menu .title.no-dropdown:hover {
   background: url(/images/layouts/menu/nodropdown-over.png) no-repeat;
 }
 
@@ -209,15 +209,15 @@ body {
 
 /* @group Dropdown */
 
-#header #header-menu .title.dropdown { 
+#header #header-menu .title.dropdown {
   background: url(/images/layouts/menu/dropdown.png) no-repeat;
 }
 
-#header #header-menu .title.dropdown.active, #header #header-menu .title.dropdown.active:hover { 
+#header #header-menu .title.dropdown.active, #header #header-menu .title.dropdown.active:hover {
   background: url(/images/layouts/menu/dropdown-active.png) no-repeat;
 }
 
-#header #header-menu .title.dropdown:hover { 
+#header #header-menu .title.dropdown:hover {
   background: url(/images/layouts/menu/dropdown-over.png) no-repeat;
 }
 
@@ -291,7 +291,7 @@ body {
   letter-spacing: -1px;
 }
 
-#search #firefox-addon { 
+#search #firefox-addon {
   float: right;
   padding: 0 0 0 10px;
   margin: 9px 10px 0 0;
@@ -409,15 +409,15 @@ body {
 }
 
 #footer #logos #rss {
-		margin: 11px 23px 0 0;
+    margin: 11px 23px 0 0;
   float: right;
 }
 
 #footer #logos #twitter {
-	margin: 11px 27px 0 0;
+  margin: 11px 27px 0 0;
   float: right;
 }
- 
+
 #footer #logos #certisign {
   margin-top: 9px;
   float: right;
@@ -454,11 +454,11 @@ p.notifications {
   z-index: 9999;
 }
 
-p.notice { 
+p.notice {
   color: green;
 }
 
-p.alert { 
+p.alert {
   color: red;
 }
 
@@ -466,14 +466,14 @@ p.alert {
 
 /* @group Pagination */
 
-.pagination a, .pagination span { 
+.pagination a, .pagination span {
   display: inline-block;
   background: white;
   padding: 3px 5px;
   border-radius: 3px;
 }
 
-.pagination em, .pagination a:hover { 
+.pagination em, .pagination a:hover {
   font-style: normal;
   color: white;
   background: #82bace;
@@ -481,13 +481,26 @@ p.alert {
   border-radius: 3px;
 }
 
-.pagination .previous_page { 
+.pagination .previous_page {
   margin-right: 15px;
 }
 
-.pagination .next_page { 
+.pagination .next_page {
   margin-left: 15px;
 }
 
+/* @end */
+
+/* @group InputStyling */
+
+.checkbox {
+  width: 20px;
+  height: 25px;
+  padding: 0 5px 0 0;
+  background: url(/images/layouts/checkbox.png) no-repeat;
+  display: block;
+  clear: left;
+  float: left;
+}
 
 /* @end */

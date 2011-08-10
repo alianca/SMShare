@@ -44,7 +44,7 @@ $(document).ready(function() {
     if($(this).val() == "")
       $(this).val($(this).attr("title"));
   })
-  
+
   /* Limpa quando o text_field ganhar o foco */
   $(".clear-on-focus").live("focus", function() {
     if($(this).val() == $(this).attr("title"))
@@ -56,25 +56,25 @@ $(document).ready(function() {
     if($(this).val() == "")
       $(this).val($(this).attr("title"));
   });
-  
+
   /* Troca o fundo do botão em mouse over */
   $("#search #search-button").mouseover(function () {
     $(this).css("background", "url(/images/layouts/botao-on.png)")
   });
-  
+
   /* Volta o fundo padrão quando perde o mouse over */
   $("#search #search-button").mouseout(function () {
     $(this).css("background", "url(/images/layouts/botao-off.png)")
   });
-  
+
   /* Menu dropdown */
   $("#header-menu > li").mouseover(function () {
     $("ul", this).show();
-  });  
+  });
   $("#header-menu > li").mouseout(function () {
     $("ul", this).hide();
   });
-  
+
   /* Formulário de Login */
   $("#login-link a").click(function () {
     if($("#login-form").css("display") == "none") {
@@ -82,24 +82,24 @@ $(document).ready(function() {
       return false;
     } else { /* Caso o formulario já esteja aberto vai para a pagina de login */
       return true;
-    }    
+    }
   });
-  
+
   show_notifications(false);
-  
+
   /* Arruma o menu no Webkit */
   if($.browser.webkit) {
     $("#header #header-menu .title > a").css("padding-bottom", "9px");
     $("#header #header-menu .title > span").css("padding-bottom", "9px");
   }
-  
+
   /* Arruma o file_field no Firefox */
   if($.browser.mozilla || $.browser.msie) {
       $("#new_user_file #user_file_file").css("font-size", "12px");
       $("#new_user_file #user_file_file").css("height", "22px");
       $("#new_user_file #user_file_file").css("background", "none");
       $("#new_user_file #user_file_file_input").css("background", "url(/images/user_files/campo.png)");
-      
+
       if($.browser.mozilla) {
         $("#new_user_file #user_file_file").attr("size", 51);
         $("#new_user_file #user_file_file_input").css("padding", "6px 8px 5px 8px");
@@ -109,6 +109,38 @@ $(document).ready(function() {
         $("#new_user_file #user_file_file_input").css("padding", "6px 8px 3px 0");
       }
   }
+
+  /* Estilo da checkbox */
+  $("input[type=checkbox]").each(function() {
+    var fake_cb = $(document.createElement("span"));
+    var real_cb = $(this);
+
+    fake_cb.addClass("checkbox");
+    real_cb.after(fake_cb);
+    real_cb.hide();
+
+    if (!real_cb.parent().is('label')) {
+      fake_cb.click(function(e) {
+        real_cb.attr('checked', !real_cb.attr('checked'));
+        real_cb.click();
+        real_cb.attr('checked', !real_cb.attr('checked'));
+        real_cb.change();
+        e.stopImmediatePropagation();
+      });
+    }
+
+    real_cb.change(function() {
+      if (real_cb.attr("checked")) {
+        var bg_position = "0 -" + fake_cb.css("height");
+      } else {
+        var bg_position = "0 0";
+      }
+      fake_cb.css("background-position", bg_position);
+    });
+
+    // Estado inicial
+    $(this).change();
+  });
 });
 
 $.cacheImages = function () {

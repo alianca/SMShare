@@ -517,26 +517,28 @@ $(document).ready(function() {
           url: "compression_state",
           dataType: "json",
           success: function(data) {
-            switch (data.status) {
-            case "queued":
-              $(".notice").html("Aguardando início da operação...");
-              break;
-            case "working":
-              $(".notice").html(data.message);
-              break;
-            case "failed":
-              error = done = true;
-              error_message = data.message;
-              break;
-            case "completed":
-              done = true;
-              break;
-            case "no_job":
-              no_job = done = true;
-              break;
+            if (!no_job) {
+              switch (data.status) {
+              case "queued":
+                $(".notice").html("Aguardando início da operação...");
+                break;
+              case "working":
+                $(".notice").html(data.message);
+                break;
+              case "failed":
+                error = done = true;
+                error_message = data.message;
+                break;
+              case "completed":
+                done = true;
+                break;
+              case "no_job":
+                no_job = done = true;
+                break;
+              }
+              show_notifications(true);
+              $("#block_user_input").show();
             }
-            show_notifications(true);
-            $("#block_user_input").show();
           },
           error: function(e) {
             no_job = done = true;

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
+                       xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+  <ShortName>SMSearch</ShortName>
+  <Description>SMSearch busca por arquivos no SMShare</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Url type="text/html" template="<%= search_index_url(:q => "{searchTerms}").gsub("%7BsearchTerms%7D", "{searchTerms}") %>" />
+  <Url type="application/x-suggestions+json" template="<%= search_index_url(:format => :json, :q => "{searchTerms}").gsub("%7BsearchTerms%7D", "{searchTerms}") %>" />
+  <Url type="application/opensearchdescription+xml" rel="self" template="<%= opensearch_search_index_url :format => :xml %>" />
+  <moz:SearchForm><%= search_index_url %></moz:SearchForm>
+</OpenSearchDescription>

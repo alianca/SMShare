@@ -40,7 +40,9 @@ Smshare::Application.routes.draw do |map|
     resource :pecas_publicitarias, :as => :advertising, :controller => :advertising, :only => [:show, :create]
   end
   
-  resources :smsearch, :controller => :search, :as => :search, :only => [:index]
+  resources :smsearch, :controller => :search, :as => :search, :only => [:index] do
+    get :opensearch, :on => :collection
+  end
   
   namespace :admin do
     resources :noticias, :as => :news, :controller => "news", :except => [:show]

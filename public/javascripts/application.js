@@ -38,6 +38,14 @@ function force_hide_notifications() {
   $(".notice").slideUp("slow");
 }
 
+function install_search_provider() {
+ if (window.external && ("AddSearchProvider" in window.external)) {
+   window.external.AddSearchProvider($("head link[rel=search]").attr("href"));
+ } else {
+   alert("Seu navegador não suporta essa funcionalidade.");
+ }
+}
+
 $(document).ready(function() {
   /* Escreve o texto do title no text_field, dessa maneira fazendo com que se o usuario desabilitou o javascript o text_field não vai conter lixo */
   $(".clear-on-focus").each(function () {
@@ -109,6 +117,13 @@ $(document).ready(function() {
         $("#new_user_file #user_file_file_input").css("padding", "6px 8px 3px 0");
       }
   }
+  
+  /* Adiciona link para adicionar a busca ao navegador */
+  $("#firefox-addon").click(function () {  
+    install_search_provider();
+    
+    return false
+  });
 });
 
 $.cacheImages = function () {

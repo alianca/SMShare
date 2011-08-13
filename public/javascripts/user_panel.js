@@ -447,6 +447,10 @@ $(document).ready(function() {
     $(this).addClass("selected");
 
     code_box_set('estilo', style_id, $(this).hasClass("default"));
+
+    /* Aplica o fundo padrão do estilo selecionado */
+    $("#background-list .bg-list-item.id" + style['box_background_image']).click();
+
     e.stopImmediatePropagation();
   });
 

@@ -1,7 +1,7 @@
 <ul id="header-menu">
-  <li class="title main <%= yield(:tab) == "main" ? "active" : "" %>">
-    <%= link_to "", root_path %>
-  </li>
+  <%= link_to root_path do %>
+  <li class="title main <%= yield(:tab) == "main" ? "active" : "" %>"></li>
+  <% end %>
 
   <li class="title webmaster dropdown <%= yield(:tab) == "webmaster" ? "active" : "" %>">
     <ul>

@@ -1470,6 +1470,8 @@ table.file_list td.name {
   padding: 5px 4px 4px 6px !important;
   border-radius: 7px;
   -moz-border-radius: 7px;
+  background-image: url(/images/download_box/campo_sombra.png);
+  background-repeat: no-repeat;
 }
 
 #download_box .code_area .code_field {

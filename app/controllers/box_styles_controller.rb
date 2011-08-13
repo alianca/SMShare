@@ -3,19 +3,20 @@ class BoxStylesController < ApplicationController
     current_user.box_styles.create(params[:box_style])
     redirect_to :back
   end
-  
+
   def set_default
     current_user.default_style = BoxStyle.find(params[:style][:selected_style])
+    current_user.default_box_image = BoxImage.find(current_user.default_style.box_background_image)
     current_user.save
     redirect_to :back
   end
-  
+
   def generate_javascript
     style = params[:estilo]
     background = params[:fundo]
     render :text => generate_javascript_data(style, background), :content_type => "text/javascript"
   end
-  
+
   private
     def generate_javascript_data style, background
       data = "var options = '"
@@ -30,7 +31,7 @@ class BoxStylesController < ApplicationController
       file = File.open(Rails.root + "public/javascripts/download_box.js", "r");
       data += file.read # TODO fazer algum processamento antes?
       file.close
-      
+
       data
     end
 end

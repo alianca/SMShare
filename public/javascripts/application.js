@@ -93,59 +93,47 @@ $(document).ready(function() {
     $("#header #header-menu .title > span").css("padding-bottom", "7px");
   }
 
-  /* Arruma o file_field no Firefox */
-  if($.browser.mozilla || $.browser.msie) {
-      $("#new_user_file #user_file_file").css("font-size", "12px");
-      $("#new_user_file #user_file_file").css("height", "22px");
-      $("#new_user_file #user_file_file").css("background", "none");
-      $("#new_user_file #user_file_file_input").css("background", "url(/images/user_files/campo.png)");
-
-      if($.browser.mozilla) {
-        $("#new_user_file #user_file_file").attr("size", 51);
-        $("#new_user_file #user_file_file_input").css("padding", "6px 8px 5px 8px");
-      }
-      if($.browser.msie) {
-        $("#new_user_file #user_file_file").css("width", "475px");
-        $("#new_user_file #user_file_file_input").css("padding", "6px 8px 3px 0");
-      }
-  }
-
-  /* Estilo da checkbox */
   $("input[type=checkbox]").each(function() {
-    var fake_cb = $(document.createElement("span"));
-    var real_cb = $(this);
-
-    fake_cb.addClass("checkbox");
-    real_cb.after(fake_cb);
-    real_cb.hide();
-
-    if (!real_cb.parent().is('label')) {
-      fake_cb.click(function(e) {
-        real_cb.attr('checked', !real_cb.attr('checked'));
-        real_cb.click();
-        real_cb.attr('checked', !real_cb.attr('checked'));
-        real_cb.change();
-        e.stopImmediatePropagation();
-      });
+    // Excessão para a checkbox das caixas de upload
+    if ($(this).attr('id') != 'user_file_public') {
+      $.make_checkbox($(this));
     }
-
-    real_cb.change(function() {
-      if (real_cb.attr("checked")) {
-        var bg_position = "0 -" + fake_cb.css("height");
-      } else {
-        var bg_position = "0 0";
-      }
-      fake_cb.css("background-position", bg_position);
-    });
-
-    // Estado inicial
-    $(this).change();
   });
 });
 
+/* Estilo da checkbox */
+$.make_checkbox = function (real_cb) {
+  var fake_cb = $(document.createElement("span"));
+  fake_cb.addClass("checkbox");
+  real_cb.after(fake_cb);
+  real_cb.hide();
+
+  if (!real_cb.parent().is('label')) {
+    fake_cb.click(function(e) {
+      real_cb.attr('checked', !real_cb.attr('checked'));
+      real_cb.click();
+      real_cb.attr('checked', !real_cb.attr('checked'));
+      real_cb.change();
+      e.stopImmediatePropagation();
+    });
+  }
+
+  real_cb.change(function() {
+    if (real_cb.attr("checked")) {
+      var bg_position = "0 -" + fake_cb.css("height");
+    } else {
+      var bg_position = "0 0";
+    }
+    fake_cb.css("background-position", bg_position);
+  });
+
+  // Estado inicial
+  real_cb.change();
+};
+
 /* Personalização do File Field */
 $.make_file_field = function(real_field) {
-  var field_container = $(document.createElement("div"))
+  var field_container = $(document.createElement("div"));
   var fake_field = $(document.createElement("div"));
   var filename = $(document.createElement("span"));
   var button = $(document.createElement("div"));
@@ -160,7 +148,7 @@ $.make_file_field = function(real_field) {
   field_container.append('<span class="left"></span>');
   fake_field.append(filename);
   fake_field.append(button);
-  field_container.append(fake_field)
+  field_container.append(fake_field);
   field_container.append('<span class="right"></span>');
 
   real_field.after(field_container);

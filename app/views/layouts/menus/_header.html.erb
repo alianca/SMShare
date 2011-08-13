@@ -1,10 +1,9 @@
 <ul id="header-menu">
-  <li class="title no-dropdown <%= yield(:tab) == "main" ? "active" : "" %>">
-    <%= link_to "Principal", root_path %>
+  <li class="title main <%= yield(:tab) == "main" ? "active" : "" %>">
+    <%= link_to "", root_path %>
   </li>
-    
-  <li class="title dropdown <%= yield(:tab) == "webmaster" ? "active" : "" %>">
-    <span>Webmaster</span>
+
+  <li class="title webmaster dropdown <%= yield(:tab) == "webmaster" ? "active" : "" %>">
     <ul>
       <li><%= link_to "Envie seus arquivos", new_user_file_path %></li>
       <li><%= link_to "Organize seus documentos", manage_user_panel_path %></li>
@@ -12,10 +11,9 @@
       <li><%= link_to "Lucre com os downloads $$" %></li>
       <li><%= link_to "Tenha vantagens" %></li>
     </ul>
-  </li> 
-   
-  <li class="title dropdown <%= yield(:tab) == "search" ? "active" : "" %>">
-    <span>smSearch</span>
+  </li>
+
+  <li class="title search dropdown <%= yield(:tab) == "search" ? "active" : "" %>">
     <ul>
       <li><%= link_to "Procurar arquivos", search_index_path %></li>
       <li><%= link_to "Todas as categorias" %></li>
@@ -24,9 +22,8 @@
       <li><%= link_to "Arquivos favoritos" %></li>
     </ul>
   </li>
-    
-  <li class="title dropdown <%= yield(:tab) == "about" ? "active" : "" %>">
-    <span>Sobre</span>
+
+  <li class="title about dropdown <%= yield(:tab) == "about" ? "active" : "" %>">
     <ul>
       <li><%= link_to "Guia geral", guide_index_path %></li>
       <li><%= link_to "Perguntas frequentes", faq_index_path %></li>

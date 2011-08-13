@@ -27,9 +27,9 @@ body {
 }
 
 button, input, textarea, select {
-	font-family:"Trebuchet MS", Arial;
-	padding:0px;
-	font-size: 13px;
+  font-family:"Trebuchet MS", Arial;
+  padding:0px;
+  font-size: 13px;
 }
 
 .container {
@@ -149,7 +149,7 @@ button, input, textarea, select {
   width: 53px;
   height: 23px;
   padding: 0px 0px 0px 0px;
- 
+
   cursor: pointer;
 }
 
@@ -184,50 +184,50 @@ button, input, textarea, select {
   cursor: pointer;
 }
 
-#header #header-menu .title.active, #header #header-menu .title.active:hover {
-  color: white;
+/* @group Menu */
+
+/* principal */
+#header #header-menu .title.main {
+  background: url(/images/layouts/menu/menu_principal.png) no-repeat;
+}
+#header #header-menu .title.main.active, #header #header-menu .title.dropdown.main.active:hover {
+  background: url(/images/layouts/menu/menu_principalF.png) no-repeat;
+}
+#header #header-menu .title.main:hover {
+  background: url(/images/layouts/menu/menu_principalH.png) no-repeat;
 }
 
-#header #header-menu .title:hover {
-  color: white;
+/* webmaster */
+#header #header-menu .title.webmaster {
+  background: url(/images/layouts/menu/menu_webmaster.png) no-repeat;
+}
+#header #header-menu .title.webmaster.active, #header #header-menu .title.dropdown.webmaster.active:hover {
+  background: url(/images/layouts/menu/menu_webmasterF.png) no-repeat;
+}
+#header #header-menu .title.webmaster:hover {
+  background: url(/images/layouts/menu/menu_webmasterH.png) no-repeat;
 }
 
-#header #header-menu .title > a, #header #header-menu .title > span {
-  display: block;
-  text-transform: uppercase;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 13px 0 7px 7px;
+/* search */
+#header #header-menu .title.search {
+  background: url(/images/layouts/menu/menu_smsearch.png) no-repeat;
+}
+#header #header-menu .title.search.active, #header #header-menu .title.dropdown.search.active:hover {
+  background: url(/images/layouts/menu/menu_smsearchF.png) no-repeat;
+}
+#header #header-menu .title.search:hover {
+  background: url(/images/layouts/menu/menu_smsearchH.png) no-repeat;
 }
 
-/* @group No Dropdown */
-
-#header #header-menu .title.no-dropdown {
-  background: url(/images/layouts/menu/nodropdown.png) no-repeat;
+/* about */
+#header #header-menu .title.about {
+  background: url(/images/layouts/menu/menu_sobre.png) no-repeat;
 }
-
-#header #header-menu .title.no-dropdown.active, #header #header-menu .title.no-dropdown.active:hover {
-  background: url(/images/layouts/menu/nodropdown-active.png) no-repeat;
+#header #header-menu .title.about.active, #header #header-menu .title.dropdown.about.active:hover {
+  background: url(/images/layouts/menu/menu_sobreF.png) no-repeat;
 }
-
-#header #header-menu .title.no-dropdown:hover {
-  background: url(/images/layouts/menu/nodropdown-over.png) no-repeat;
-}
-
-/* @end */
-
-/* @group Dropdown */
-
-#header #header-menu .title.dropdown {
-  background: url(/images/layouts/menu/dropdown.png) no-repeat;
-}
-
-#header #header-menu .title.dropdown.active, #header #header-menu .title.dropdown.active:hover {
-  background: url(/images/layouts/menu/dropdown-active.png) no-repeat;
-}
-
-#header #header-menu .title.dropdown:hover {
-  background: url(/images/layouts/menu/dropdown-over.png) no-repeat;
+#header #header-menu .title.about:hover {
+  background: url(/images/layouts/menu/menu_sobreH.png) no-repeat;
 }
 
 #header #header-menu .dropdown ul {
@@ -240,7 +240,7 @@ button, input, textarea, select {
   -webkit-border-bottom-left-radius: 4px;
   -moz-border-radius-bottomright: 4px;
   -webkit-border-bottom-right-radius: 4px;
-
+  margin-top: 38px;
 }
 
 #header #header-menu .dropdown a {

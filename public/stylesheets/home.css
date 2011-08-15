@@ -72,6 +72,23 @@
   font-size: 13px;
 }
 
+#tv .slide .flash {
+  width: 195px;
+  height: 195px;
+  position: absolute;
+  float: right;
+  right: -35px;
+  top: -10px;
+}
+
+#tv .slide .flash-1 {
+  top: 0;
+}
+
+#tv .slide .flash-4 {
+  top: -20px;
+}
+
 /* @end */
 
 /* @group Menu */
@@ -110,7 +127,7 @@
   cursor: pointer;
 }
 
-#tv #tv-menu ol hr { 
+#tv #tv-menu ol hr {
   height: 0;
   border: 0;
   border-bottom: 1px dotted;
@@ -203,8 +220,8 @@
 }
 
 #news .more {
-	margin-left: 2px;
-	font-weight: bold;
+  margin-left: 2px;
+  font-weight: bold;
 }
 
 /* @end */

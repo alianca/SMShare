@@ -172,4 +172,19 @@ $.cacheImages = function () {
 };
 
 /* Faz pre-cache das imagens do menu */
-$.cacheImages("/images/layouts/menu/bullet-normal.png", "/images/layouts/menu/bullet-mouseover.png", "/images/layouts/menu/dropdown-over.png", "/images/layouts/menu/nodropdown-over.png", "/images/layouts/login/botao-on.png", "/images/layouts/login/campo.png");
+$.cacheImages("/images/layouts/menu/bullet-normal.png",
+              "/images/layouts/menu/bullet-mouseover.png",
+              "/images/layouts/menu/menu_principal.png",
+              "/images/layouts/menu/menu_principalH.png",
+              "/images/layouts/menu/menu_principalF.png",
+              "/images/layouts/menu/menu_webmaster.png",
+              "/images/layouts/menu/menu_webmasterH.png",
+              "/images/layouts/menu/menu_webmasterF.png",
+              "/images/layouts/menu/menu_smsearch.png",
+              "/images/layouts/menu/menu_smsearchH.png",
+              "/images/layouts/menu/menu_smsearchF.png",
+              "/images/layouts/menu/menu_sobre.png",
+              "/images/layouts/menu/menu_sobreH.png",
+              "/images/layouts/menu/menu_sobreF.png",
+              "/images/layouts/login/botao-on.png",
+              "/images/layouts/login/campo.png");

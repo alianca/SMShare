@@ -73,10 +73,7 @@
 }
 
 #tv .slide .flash {
-  width: 195px;
-  height: 195px;
   position: absolute;
-  float: right;
   right: -35px;
   top: -10px;
 }

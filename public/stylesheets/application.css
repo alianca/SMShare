@@ -126,7 +126,8 @@ button, input, textarea, select {
 
 #header #header-login #login-form {
   display: none;
-  margin-left: 5px;
+  float: left;
+  margin-right: 5px;
 }
 
 #header #header-login #login-form label {

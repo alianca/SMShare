@@ -78,7 +78,8 @@ $(document).ready(function() {
   /* Formulário de Login */
   $("#login-link a").click(function () {
     if($("#login-form").css("display") == "none") {
-      $("#login-form").css("display", "inline");
+      $("#login-form").show("fast");
+
       return false;
     } else { /* Caso o formulario já esteja aberto vai para a pagina de login */
       return true;

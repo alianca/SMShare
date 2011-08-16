@@ -124,9 +124,22 @@ button, input, textarea, select {
 
 /* @group Login Form */
 
-#header #header-login #login-form {
-  display: none;
+#login-link {
   float: left;
+}
+
+#login-link #password {
+  float: right;
+  font-size: 12px;
+}
+
+#login-link #password {
+  text-decoration: none;
+  border: none !important;
+}
+
+#header #header-login #login-form {
+  display: inline;
   margin-right: 5px;
 }
 

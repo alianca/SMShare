@@ -79,12 +79,12 @@ $(document).ready(function() {
   $("#login-link a").click(function () {
     if($("#login-form").css("display") == "none") {
       $("#login-form").show("fast");
-
       return false;
     } else { /* Caso o formulario já esteja aberto vai para a pagina de login */
       return true;
     }
   });
+  $("#login-form").hide();
 
   show_notifications(false);
 

@@ -13,8 +13,10 @@
         <%= f.text_field :email, :id => :login_email, :class => "clear-on-focus", :title => "Email ou Usuário" %>
         <%= label_tag :login_password, "Senha" %>
         <%= f.password_field :password, :id => :login_password, :class => "clear-on-focus", :title => "suasenha" %>
-        
+
         <%= f.submit "Entrar" %>
+
+        <div><%= link_to "Esqueceu sua senha?", new_user_password_path, :id => :password %></div>
       <% end %>
     </li>
 

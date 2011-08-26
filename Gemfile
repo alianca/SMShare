@@ -3,6 +3,9 @@ source 'http://rubygems.org'
 # Bundle edge Rails instead:
 gem 'rails', '>= 3.0.3'
 
+# To use the latests rake
+gem 'rake', '>= 0.9.2'
+
 # To use debugger
 gem 'ruby-debug', :group => [:development, :test]
 

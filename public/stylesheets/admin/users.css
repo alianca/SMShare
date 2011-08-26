@@ -1,9 +1,3 @@
-#users, #user_files {
-  text-align: center;
-  width: 700px;
-  color: black;
-}
-
 #users a, #user_files a {
   color: inherit;
 }

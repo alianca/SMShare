@@ -63,6 +63,7 @@ class User
     unless conditions[:email] =~ /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i # email regex
       conditions[:nickname] = conditions.delete(:email)
     end
+    conditions[:blocked] = false
     super
   end
   

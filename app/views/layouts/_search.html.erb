@@ -4,7 +4,7 @@
 </div>
 
 <%= form_tag search_index_path, :id => "search-form", :method => :get do %>
-  <%= link_to "Insira nossa busca no Firefox", "", :id => "firefox-addon" %>
+  <%= link_to "Insira nossa busca no Firefox", "javascript:window.external.AddSearchProvider('" + request.protocol + request.host_with_port + '/smshare.xml' + "');", :id => "firefox-addon" %>
 
   <%= text_field_tag :q, "", :title => "O que está procurando...?", :class => "clear-on-focus" %>
   <%= submit_tag "Buscar", :id => "search-button" %>

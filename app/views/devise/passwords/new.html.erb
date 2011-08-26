@@ -1,12 +1,18 @@
-<h2>Forgot your password?</h2>
+<%= semantic_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+  <div class="title">
+    <p class="line1">Login</p>
+    <p class="line2">Redefinição de senha</p>
+  </div>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
+  <p class="call-to-action">
+    Se você esqueceu seu nome de usuário, lembre-se que também pode acessar sua conta utilizando seu e-mail. Se esqueceu sua senha, você pode criar uma nova , basta preencher seu endereço de email abaixo e seguir as instruções enviadas para sua caixa de entrada.
+  </p>
 
-  <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
+  <%= f.inputs :id => :password_fields do %>
+    <%= f.input :email, :label => "E-mail" %></p>
+  <% end %>
 
-  <p><%= f.submit "Send me reset password instructions" %></p>
+  <%= f.buttons do %>
+    <%= f.commit_button "Confirmar" %>
+  <% end %>
 <% end %>
-
-<%= render :partial => "devise/shared/links" %>

@@ -3,20 +3,20 @@
 
 <h3> <%= image_tag "user_panel/relatorio.png" %> Relatório </h3>
 
-<div id="range">
+<%= form_tag user_panel_advertising_path, :id => "range", :method => :get do %>
   Período do dia
   <span class="text-field">
-    <span class="left"></span><%= text_field_tag :from %><span class="right"></span>
+    <span class="left"></span><%= text_field_tag :start_date, @start_date.strftime("%d/%m/%Y") %><span class="right"></span>
   </span>
   ao dia
   <span class="text-field">
-    <span class="left"></span><%= text_field_tag :to %><span class="right"></span>
+    <span class="left"></span><%= text_field_tag :end_date, @end_date.strftime("%d/%m/%Y") %><span class="right"></span>
   </span>
-  
+
   <span class="submit_blue">
     <span class="left"></span><%= submit_tag "Confirmar" %><span class="right"></span>
   </span>
-</div>
+<% end %>
 
 <table>
   <thead>

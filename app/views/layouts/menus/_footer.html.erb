@@ -4,21 +4,21 @@
     <li class="<%= yield(:page) == "main" ? "active" : "" %>">
       <%= link_to "Página principal", root_path %>
     </li>
-    
+
     <li class="<%= yield(:page) == "news" ? "active" : "" %>">
       <%= link_to "Notícias", news_index_path %>
     </li>
-    
+
     <li class="<%= yield(:page) == "twitter" ? "active" : "" %>">
       <%= link_to "Twitter" %>
     </li>
-    
+
     <li class="<%= yield(:page) == "rss" ? "active" : "" %>">
       <%= link_to "Feed RSS" %>
     </li>
-    
+
     <li class="<%= yield(:page) == "report" ? "active" : "" %>">
-      <%= link_to "Denunciar abuso" %>
+      <%= link_to "Denunciar abuso", report_abuse_index_path %>
     </li>
   </ul>
 </div>
@@ -29,23 +29,23 @@
     <li class="<%= yield(:page) == "send_files" ? "active" : "" %>">
       <%= link_to "Envie seus arquivos", new_user_file_path %>
     </li>
-    
+
     <li class="<%= yield(:page) == "manage_files" ? "active" : "" %>">
       <%= link_to "Organize seus documentos" %>
     </li>
-    
+
     <li class="<%= yield(:page) == "share_files" ? "active" : "" %>">
       <%= link_to "Compartilhe seus arquivos" %>
     </li>
-    
+
     <li class="<%= yield(:page) == "earn_money" ? "active" : "" %>">
       <%= link_to "Lucre com os downloads $$" %>
     </li>
-    
+
     <li class="<%= yield(:page) == "advantages" ? "active" : "" %>">
       <%= link_to "Tenha vantagens" %>
     </li>
-  </ul> 
+  </ul>
 </div>
 
 <div class="section" id="smsearch-menu">
@@ -54,19 +54,19 @@
     <li class="<%= yield(:page) == "search_files" ? "active" : "" %>">
       <%= link_to "Procurar arquivos", search_index_path %>
     </li>
-    
+
     <li class="<%= yield(:page) == "categories" ? "active" : "" %>">
       <%= link_to "Todas as categorias" %>
     </li>
-    
+
     <li class="<%= yield(:page) == "most_downloaded" ? "active" : "" %>">
       <%= link_to "Arquivos mais baixados" %>
     </li>
-    
+
     <li class="<%= yield(:page) == "most_commented" ? "active" : "" %>">
       <%= link_to "Arquivos mais comentados" %>
     </li>
-    
+
     <li class="<%= yield(:page) == "favorites" ? "active" : "" %>">
       <%= link_to "Arquivos favoritos" %>
     </li>
@@ -79,11 +79,11 @@
     <li class="<%= yield(:page) == "guide" ? "active" : "" %>">
       <%= link_to "Guia geral", guide_index_path %>
     </li>
-    
+
     <li class="<%= yield(:page) == "faq" ? "active" : "" %>">
       <%= link_to "Perguntas frequentes (FAQ)", faq_index_path %>
     </li>
-    
+
     <li class="<%= yield(:page) == "tutorials" ? "active" : "" %>">
       <%= link_to "Ajuda/Tutoriais" %>
     </li>
@@ -91,23 +91,23 @@
 </div>
 
 <div class="section" id="institutional-menu">
-  <p class="title">Institucional</p>  
+  <p class="title">Institucional</p>
   <ul>
     <li class="<%= yield(:page) == "press" ? "active" : "" %>">
       <%= link_to "Imprensa" %>
     </li>
-    
+
     <li class="<%= yield(:page) == "jobs" ? "active" : "" %>">
       <%= link_to "Trabalhe conosco" %>
     </li>
-    
+
     <li class="<%= yield(:page) == "about_us" ? "active" : "" %>">
       <%= link_to "A empresa" %>
     </li>
-    
+
     <li class="<%= yield(:page) == "contact" ? "active" : "" %>">
       <%= link_to "Fale Conosco" %>
     </li>
   </ul>
 </div>
-  
+

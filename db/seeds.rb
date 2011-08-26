@@ -8,17 +8,111 @@
 
 CATEGORIES = ["Desenhos e Animações", "Filmes e Televisão", "Jogos e Emulados",
   "Músicas e Podcast", "Programas e Softwares", "Videos e Clipes", "Outras"]
-  
+
 CATEGORIES.each do |name|
   Category.create(:name => name)
 end
 
 
-# Estilo padrão da caixa de downloads
-style = BoxStyle.create(
+
+# Fundos padrão da caixa de downloads
+bg_none = BoxImage.create(
+  :name => "Sem fundo",
+  :user => nil,
+  :image => nil
+)
+bg_clouds = BoxImage.create(
+  :name => "Nuvens smShare",
+  :user => nil,
+  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundos/smshare.png'))
+)
+bg_bomboniere = BoxImage.create(
+  :name => "Bomboniere",
+  :user => nil,
+  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundos/bomboniere.png'))
+)
+bg_carbono = BoxImage.create(
+  :name => "Carbono",
+  :user => nil,
+  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundos/carbono.png'))
+)
+bg_red_fruit = BoxImage.create(
+  :name => "Frutas Vermelhas",
+  :user => nil,
+  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundos/frutas_vermelhas.png'))
+)
+bg_ice = BoxImage.create(
+  :name => "Gelo",
+  :user => nil,
+  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundos/gelo.png'))
+)
+bg_lava = BoxImage.create(
+  :name => "Lava",
+  :user => nil,
+  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundos/lava.png'))
+)
+bg_urban_lights = BoxImage.create(
+  :name => "Luzes Urbanas",
+  :user => nil,
+  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundos/luzes_urbanas.png'))
+)
+bg_wood = BoxImage.create(
+  :name => "Madeira",
+  :user => nil,
+  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundos/madeira.png'))
+)
+bg_xmas = BoxImage.create(
+  :name => "Natal",
+  :user => nil,
+  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundos/natal.png'))
+)
+bg_oasis = BoxImage.create(
+  :name => "Oásis",
+  :user => nil,
+  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundos/oasis.png'))
+)
+bg_oil = BoxImage.create(
+  :name => "Óleo",
+  :user => nil,
+  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundos/oleo.png'))
+)
+bg_orkut = BoxImage.create(
+  :name => "Orkut",
+  :user => nil,
+  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundos/orkut.png'))
+)
+bg_fall = BoxImage.create(
+  :name => "Outono",
+  :user => nil,
+  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundos/outono.png'))
+)
+bg_purple = BoxImage.create(
+  :name => "Púrpura",
+  :user => nil,
+  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundos/purpura.png'))
+)
+bg_refreshing = BoxImage.create(
+  :name => "Refrescante",
+  :user => nil,
+  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundos/refrescante.png'))
+)
+bg_kids = BoxImage.create(
+  :name => "Sonho Infantil",
+  :user => nil,
+  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundos/sonho_infantil.png'))
+)
+bg_twitter = BoxImage.create(
+  :name => "Twitter",
+  :user => nil,
+  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundos/twitter.png'))
+)
+
+# Estilos padrão da caixa de downloads
+BoxStyle.create(
   :name => "Estilo smShare",
   :user => nil,
   :box_background => "#FFFFFF",
+  :box_background_image => bg_clouds._id,
   :box_border => "#5596AC",
   :header_background => "#5596AC",
   :header_text => "#FFFFFF",
@@ -34,15 +128,342 @@ style = BoxStyle.create(
   :bottom_text => "#5596AC"
 )
 
-# Fundos padrão da caixa de downloads
-BoxImage.create(
-  :name => "Sem fundo",
+BoxStyle.create(
+  :name => "Bomboniere",
   :user => nil,
-  :image => nil
-)
-BoxImage.create(
-  :name => "Nuvens smShare",
-  :user => nil,
-  :image => File.open(File.join(Rails.root, 'public/images/download_box/fundo_padrao.png'))
+  :box_background => "#E6DCD0",
+  :box_background_image => bg_bomboniere._id,
+  :box_border => "#e3725d",
+  :header_background => "#e36c56",
+  :header_text => "#FFFFFF",
+  :upper_text => "#d75a48",
+  :number_text => "#d75a48",
+  :para_text => "#b5b070",
+  :cost_text => "#d75a48",
+  :form_background => "#e5e5e5",
+  :form_border => "#e36c56",
+  :form_text => "#5d5d5d",
+  :button_background => "#e36c56",
+  :button_text => "#FFFFFF",
+  :bottom_text => "#d75a48"
 )
 
+BoxStyle.create(
+  :name => "Carbono",
+  :user => nil,
+  :box_background => "#2c2b2b",
+  :box_background_image => bg_carbono._id,
+  :box_border => "#3b3b3b",
+  :header_background => "#292929",
+  :header_text => "#FFFFFF",
+  :upper_text => "#777777",
+  :number_text => "#ffffff",
+  :para_text => "#777777",
+  :cost_text => "#777777",
+  :form_background => "#ffffff",
+  :form_border => "#2e2e2e",
+  :form_text => "#494949",
+  :button_background => "#494949",
+  :button_text => "#FFFFFF",
+  :bottom_text => "#9f9f9f"
+)
+
+BoxStyle.create(
+  :name => "Facebook",
+  :user => nil,
+  :box_background => "#edeef3",
+  :box_background_image => bg_none._id,
+  :box_border => "#99a6c6",
+  :header_background => "#3b5998",
+  :header_text => "#FFFFFF",
+  :upper_text => "#323232",
+  :number_text => "#385a96",
+  :para_text => "#323232",
+  :cost_text => "#3c5898",
+  :form_background => "#ffffff",
+  :form_border => "#bbc7d5",
+  :form_text => "#767676",
+  :button_background => "#3b5998",
+  :button_text => "#FFFFFF",
+  :bottom_text => "#323232"
+)
+
+BoxStyle.create(
+  :name => "Frutas Vermelhas",
+  :user => nil,
+  :box_background => "#d16555",
+  :box_background_image => bg_red_fruit._id,
+  :box_border => "#453245",
+  :header_background => "#3d3045",
+  :header_text => "#FFFFFF",
+  :upper_text => "#050f30",
+  :number_text => "#663040",
+  :para_text => "#000000",
+  :cost_text => "#a33039",
+  :form_background => "#eec8ef",
+  :form_border => "#ef2f41",
+  :form_text => "#a33039",
+  :button_background => "#ef2f41",
+  :button_text => "#c8c4a4",
+  :bottom_text => "#050f30"
+)
+
+BoxStyle.create(
+  :name => "Gelo",
+  :user => nil,
+  :box_background => "#edf1f3",
+  :box_background_image => bg_ice._id,
+  :box_border => "#97b9bd",
+  :header_background => "#94b8bc",
+  :header_text => "#FFFFFF",
+  :upper_text => "#465f6c",
+  :number_text => "#7fa6ab",
+  :para_text => "#465f6c",
+  :cost_text => "#448e9a",
+  :form_background => "#ffffff",
+  :form_border => "#d2e0e1",
+  :form_text => "#477d96",
+  :button_background => "#9abcc0",
+  :button_text => "#ffffff",
+  :bottom_text => "#465f6c"
+)
+
+BoxStyle.create(
+  :name => "Lava",
+  :user => nil,
+  :box_background => "#6e0001",
+  :box_background_image => bg_lava._id,
+  :box_border => "#450700",
+  :header_background => "#b20301",
+  :header_text => "#f0b388",
+  :upper_text => "#fe8d07",
+  :number_text => "#c43c06",
+  :para_text => "#fe8d07",
+  :cost_text => "#f4b53b",
+  :form_background => "#f6b78b",
+  :form_border => "#c43c06",
+  :form_text => "#a80000",
+  :button_background => "#ba1d1b",
+  :button_text => "#f4b53b",
+  :bottom_text => "#f4b53b"
+)
+
+BoxStyle.create(
+  :name => "Luzes Urbanas",
+  :user => nil,
+  :box_background => "#0d141c",
+  :box_background_image => bg_urban_lights._id,
+  :box_border => "#353535",
+  :header_background => "#090d14",
+  :header_text => "#728356",
+  :upper_text => "#a1b77e",
+  :number_text => "#b5b070",
+  :para_text => "#323729",
+  :cost_text => "#6b7358",
+  :form_background => "#e5e5e5",
+  :form_border => "#000000",
+  :form_text => "#2f4056",
+  :button_background => "#0d141c",
+  :button_text => "#728356",
+  :bottom_text => "#36444e"
+)
+
+BoxStyle.create(
+  :name => "Madeira",
+  :user => nil,
+  :box_background => "#451205",
+  :box_background_image => bg_wood._id,
+  :box_border => "#7e3f16",
+  :header_background => "#4a1d11",
+  :header_text => "#ddb97b",
+  :upper_text => "#aa733d",
+  :number_text => "#cd7b19",
+  :para_text => "#aa733d",
+  :cost_text => "#cd7b19",
+  :form_background => "#ddb97b",
+  :form_border => "#834217",
+  :form_text => "#4a1d11",
+  :button_background => "#834217",
+  :button_text => "#ddb97b",
+  :bottom_text => "#aa733d"
+)
+
+BoxStyle.create(
+  :name => "Natal",
+  :user => nil,
+  :box_background => "#568f3e",
+  :box_background_image => bg_xmas._id,
+  :box_border => "#b60c05",
+  :header_background => "#bb0400",
+  :header_text => "#ddb97b",
+  :upper_text => "#44240c",
+  :number_text => "#ffffff",
+  :para_text => "#44240c",
+  :cost_text => "#f8c343",
+  :form_background => "#f7e698",
+  :form_border => "#bc8332",
+  :form_text => "#a33039",
+  :button_background => "#a33039",
+  :button_text => "#ffffff",
+  :bottom_text => "#39280c"
+)
+
+BoxStyle.create(
+  :name => "Oásis",
+  :user => nil,
+  :box_background => "#a69166",
+  :box_background_image => bg_oasis._id,
+  :box_border => "#2b604c",
+  :header_background => "#235d4a",
+  :header_text => "#d0ccaa",
+  :upper_text => "#444a35",
+  :number_text => "#235d4a",
+  :para_text => "#444a35",
+  :cost_text => "#0d7d81",
+  :form_background => "#d2ceac",
+  :form_border => "#8d7c57",
+  :form_text => "#5d5d5d",
+  :button_background => "#bc9b04",
+  :button_text => "#c8c4a4",
+  :bottom_text => "#444a35"
+)
+
+BoxStyle.create(
+  :name => "Óleo",
+  :user => nil,
+  :box_background => "#fffab1",
+  :box_background_image => bg_oil._id,
+  :box_border => "#ebbd1b",
+  :header_background => "#c9a707",
+  :header_text => "#ffffff",
+  :upper_text => "#744101",
+  :number_text => "#926b33",
+  :para_text => "#b98233",
+  :cost_text => "#b88508",
+  :form_background => "#e5e5e5",
+  :form_border => "#d0b53a",
+  :form_text => "#5d5d5d",
+  :button_background => "#bc9b04",
+  :button_text => "#ffffff",
+  :bottom_text => "#6f4515"
+)
+
+BoxStyle.create(
+  :name => "Orkut",
+  :user => nil,
+  :box_background => "#eaf1fd",
+  :box_background_image => bg_orkut._id,
+  :box_border => "#9bbff5",
+  :header_background => "#d9e6f7",
+  :header_text => "#769ad1",
+  :upper_text => "#669dcf",
+  :number_text => "#669dcf",
+  :para_text => "#b0b0b0",
+  :cost_text => "#bbbbbb",
+  :form_background => "#ffffff",
+  :form_border => "#95bbf4",
+  :form_text => "#8e8e8e",
+  :button_background => "#95bbf4",
+  :button_text => "#ffffff",
+  :bottom_text => "#bbbbbb"
+)
+
+BoxStyle.create(
+  :name => "Outono",
+  :user => nil,
+  :box_background => "#f9ebde",
+  :box_background_image => bg_fall._id,
+  :box_border => "#dd6e0c",
+  :header_background => "#d2813a",
+  :header_text => "#f1e3d7",
+  :upper_text => "#725934",
+  :number_text => "#d2813a",
+  :para_text => "#ce9665",
+  :cost_text => "#ce9665",
+  :form_background => "#ffffff",
+  :form_border => "#ff861a",
+  :form_text => "#8e8e8e",
+  :button_background => "#d2813a",
+  :button_text => "#ffffff",
+  :bottom_text => "#ce9665"
+)
+
+BoxStyle.create(
+  :name => "Púrpura",
+  :user => nil,
+  :box_background => "#9e234f",
+  :box_background_image => bg_purple._id,
+  :box_border => "#3d3739",
+  :header_background => "#3a1235",
+  :header_text => "#f0b6df",
+  :upper_text => "#fa737a",
+  :number_text => "#fa737a",
+  :para_text => "#3e0f3a",
+  :cost_text => "#3e0f3a",
+  :form_background => "#efd3e7",
+  :form_border => "#42153e",
+  :form_text => "#3a1235",
+  :button_background => "#42153e",
+  :button_text => "#f0b6df",
+  :bottom_text => "#3e1438"
+)
+
+BoxStyle.create(
+  :name => "Refrescante",
+  :user => nil,
+  :box_background => "#c6f3d9",
+  :box_background_image => bg_refreshing._id,
+  :box_border => "#59b473",
+  :header_background => "#33eeb7",
+  :header_text => "#3a7250",
+  :upper_text => "#1c622f",
+  :number_text => "#32904d",
+  :para_text => "#53b26e",
+  :cost_text => "#247239",
+  :form_background => "#ffffff",
+  :form_border => "#53b26e",
+  :form_text => "#53b26e",
+  :button_background => "#91dcaf",
+  :button_text => "#ffffff",
+  :bottom_text => "#247239"
+)
+
+BoxStyle.create(
+  :name => "Sonho Infantil",
+  :user => nil,
+  :box_background => "#f4fad6",
+  :box_background_image => bg_kids._id,
+  :box_border => "#44afb3",
+  :header_background => "#1c8085",
+  :header_text => "#b6eae8",
+  :upper_text => "#1c8085",
+  :number_text => "#1c8085",
+  :para_text => "#c1bc67",
+  :cost_text => "#1c8085",
+  :form_background => "#ffffff",
+  :form_border => "#1c8085",
+  :form_text => "#60acb4",
+  :button_background => "#1c8085",
+  :button_text => "#ffffff",
+  :bottom_text => "#1c8085"
+)
+
+BoxStyle.create(
+  :name => "Twitter",
+  :user => nil,
+  :box_background => "#aad0e3",
+  :box_background_image => bg_twitter._id,
+  :box_border => "#292d31",
+  :header_background => "#517795",
+  :header_text => "#d9f0ee",
+  :upper_text => "#202225",
+  :number_text => "#517795",
+  :para_text => "#202225",
+  :cost_text => "#2f4e5f",
+  :form_background => "#d7eef6",
+  :form_border => "#517795",
+  :form_text => "#2f4e5f",
+  :button_background => "#516f89",
+  :button_text => "#d9f0ee",
+  :bottom_text => "#202225"
+)

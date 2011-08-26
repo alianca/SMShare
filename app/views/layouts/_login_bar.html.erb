@@ -10,11 +10,13 @@
       <%= link_to "Login", new_user_session_path %>
       <%= form_for :user, :url => user_session_path, :html => {:id =>"login-form"} do |f| %>
         <%= label_tag :login_email, "Email" %>
-        <%= f.text_field :email, :id => :login_email, :class => "clear-on-focus", :title => "Email ou Login" %>
+        <%= f.text_field :email, :id => :login_email, :class => "clear-on-focus", :title => "Email ou Usuário" %>
         <%= label_tag :login_password, "Senha" %>
-        <%= f.password_field :password, :id => :login_password, :class => "clear-on-focus", :title => "Senha" %>
-        
+        <%= f.password_field :password, :id => :login_password, :class => "clear-on-focus", :title => "suasenha" %>
+
         <%= f.submit "Entrar" %>
+
+        <div><%= link_to "Esqueceu sua senha?", new_user_password_path, :id => :password %></div>
       <% end %>
     </li>
 

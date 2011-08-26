@@ -1,0 +1,2 @@
+class ReportAbuseController < ApplicationController
+end

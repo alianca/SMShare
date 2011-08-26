@@ -26,9 +26,15 @@ body {
   font-size: 13px;
 }
 
+button, input, textarea, select {
+  font-family:"Trebuchet MS", Arial;
+  padding:0px;
+  font-size: 13px;
+}
+
 .container {
   width: 940px;
-  margin: 0 auto;
+  margin: 0 auto 0 auto;
 }
 
 .special-s {
@@ -55,21 +61,21 @@ body {
   z-index: 1;
 }
 
-#dove { 
+#dove {
   background: url(/images/layouts/pomba.png);
   width: 157px;
   height: 179px;
   position: relative;
-  top: 8px;
-  left: 222px;
+  top: -5px;
+  left: 220px;
 }
 
 /* @group Header Login */
 
 #header #header-login {
   float: right;
-  height: 23px;
-  margin: 22px 45px 0 0;
+  height: 25px;
+  margin: 20px 45px 0 0;
 }
 
 #header #header-login li {
@@ -90,23 +96,24 @@ body {
 }
 
 #header #header-login #login-link {
-  background: url(/images/layouts/login.png) no-repeat 0 0;
-  padding-right: 8px;
+  background: url(/images/layouts/login.png) no-repeat 0px 2px;
+  padding: 1px 5px 5px 20px;
   border-right: 1px solid #b7dee3;
 }
 
 #header #header-login #signup-link {
-  background: url(/images/layouts/registrar.png) no-repeat;
-  margin-left: 3px;
+  background: url(/images/layouts/registrar.png) no-repeat 0px 2px;
+  margin-left: 8px;
+  padding: 1px 0px 5px 20px;
 }
 
-#header #header-login #profile-link { 
+#header #header-login #profile-link {
   padding-right: 4px;
   border-right: 1px solid #b7dee3;
   color: #645C54;
 }
 
-#header #header-login #profile-link a { 
+#header #header-login #profile-link a {
   font-weight: bold;
 }
 
@@ -117,34 +124,50 @@ body {
 
 /* @group Login Form */
 
-#header #header-login #login-form { 
-  display: none;
-  margin-left: 5px;
+#login-link {
+  float: left;
 }
 
-#header #header-login #login-form label { 
+#login-link #password {
+  float: right;
+  font-size: 12px;
+}
+
+#login-link #password {
+  text-decoration: none;
+  border: none !important;
+}
+
+#header #header-login #login-form {
+  display: inline;
+  margin-right: 5px;
+}
+
+#header #header-login #login-form label {
   display: none;
 }
 
-#header #header-login #login-form input { 
+#header #header-login #login-form input {
   background: url(/images/layouts/login/campo.png);
   color: #8E8E8E;
   font-size: 12px;
   border: 0 solid transparent;
-  width: 99px;
-  height: 13px;
-  padding: 5px;
+  width: 102px;
+  height: 16px;
+  padding: 5px 2px 2px 5px;
 }
 
-#header #header-login #login-form #user_submit { 
+#header #header-login #login-form #user_submit {
   background: url(/images/layouts/login/botao-off.png);
   color: white;
   width: 53px;
   height: 23px;
-  padding: 0;
+  padding: 0px 0px 0px 0px;
+
+  cursor: pointer;
 }
 
-#header #header-login #login-form #user_submit:hover { 
+#header #header-login #login-form #user_submit:hover {
   background: url(/images/layouts/login/botao-on.png);
 }
 
@@ -163,7 +186,7 @@ body {
 
 #header #header-menu a {
   color: inherit;
-  text-decoration: none;  
+  text-decoration: none;
 }
 
 #header #header-menu .title {
@@ -175,58 +198,63 @@ body {
   cursor: pointer;
 }
 
-#header #header-menu .title.active, #header #header-menu .title.active:hover {
-  color: white;
+/* @group Menu */
+
+/* principal */
+#header #header-menu .title.main {
+  background: url(/images/layouts/menu/menu_principal.png) no-repeat;
+}
+#header #header-menu .title.main.active, #header #header-menu .title.dropdown.main.active:hover {
+  background: url(/images/layouts/menu/menu_principalF.png) no-repeat;
+}
+#header #header-menu .title.main:hover {
+  background: url(/images/layouts/menu/menu_principalH.png) no-repeat;
 }
 
-#header #header-menu .title:hover {
-  color: white;
+/* webmaster */
+#header #header-menu .title.webmaster {
+  background: url(/images/layouts/menu/menu_webmaster.png) no-repeat;
+}
+#header #header-menu .title.webmaster.active, #header #header-menu .title.dropdown.webmaster.active:hover {
+  background: url(/images/layouts/menu/menu_webmasterF.png) no-repeat;
+}
+#header #header-menu .title.webmaster:hover {
+  background: url(/images/layouts/menu/menu_webmasterH.png) no-repeat;
 }
 
-#header #header-menu .title > a, #header #header-menu .title > span {
-  display: block;
-  text-transform: uppercase;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 13px 0 7px 7px;
+/* search */
+#header #header-menu .title.search {
+  background: url(/images/layouts/menu/menu_smsearch.png) no-repeat;
+}
+#header #header-menu .title.search.active, #header #header-menu .title.dropdown.search.active:hover {
+  background: url(/images/layouts/menu/menu_smsearchF.png) no-repeat;
+}
+#header #header-menu .title.search:hover {
+  background: url(/images/layouts/menu/menu_smsearchH.png) no-repeat;
 }
 
-/* @group No Dropdown */
-
-#header #header-menu .title.no-dropdown { 
-  background: url(/images/layouts/menu/nodropdown.png) no-repeat;
+/* about */
+#header #header-menu .title.about {
+  background: url(/images/layouts/menu/menu_sobre.png) no-repeat;
 }
-
-#header #header-menu .title.no-dropdown.active, #header #header-menu .title.no-dropdown.active:hover { 
-  background: url(/images/layouts/menu/nodropdown-active.png) no-repeat;
+#header #header-menu .title.about.active, #header #header-menu .title.dropdown.about.active:hover {
+  background: url(/images/layouts/menu/menu_sobreF.png) no-repeat;
 }
-
-#header #header-menu .title.no-dropdown:hover { 
-  background: url(/images/layouts/menu/nodropdown-over.png) no-repeat;
-}
-
-/* @end */
-
-/* @group Dropdown */
-
-#header #header-menu .title.dropdown { 
-  background: url(/images/layouts/menu/dropdown.png) no-repeat;
-}
-
-#header #header-menu .title.dropdown.active, #header #header-menu .title.dropdown.active:hover { 
-  background: url(/images/layouts/menu/dropdown-active.png) no-repeat;
-}
-
-#header #header-menu .title.dropdown:hover { 
-  background: url(/images/layouts/menu/dropdown-over.png) no-repeat;
+#header #header-menu .title.about:hover {
+  background: url(/images/layouts/menu/menu_sobreH.png) no-repeat;
 }
 
 #header #header-menu .dropdown ul {
   display: none;
   position: absolute;
   z-index: 999;
-  padding: 2px;
+  padding: 1px 1px 5px 1px;
   background-color: white;
+  -moz-border-radius-bottomleft: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  margin-top: 38px;
 }
 
 #header #header-menu .dropdown a {
@@ -235,7 +263,7 @@ body {
 
 #header #header-menu .dropdown li {
   color: #34378A;
-  padding: 2px 8px 2px 6px;
+  padding: 3px 5px 3px 6px;
   list-style-image: url(/images/layouts/menu/bullet-normal.png);
   list-style-position: inside;
 }
@@ -243,7 +271,7 @@ body {
 #header #header-menu .dropdown li:hover {
   background-color: #f27f00;
   color: white;
-  padding: 2px 6px;
+  padding: 3px 4px 3px 5px;
   list-style-image: url(/images/layouts/menu/bullet-mouseover.png);
 }
 
@@ -291,7 +319,7 @@ body {
   letter-spacing: -1px;
 }
 
-#search #firefox-addon { 
+#search #firefox-addon {
   float: right;
   padding: 0 0 0 10px;
   margin: 9px 10px 0 0;
@@ -303,10 +331,11 @@ body {
 
 #search #search-form {
   float: right;
-  margin: 14px 50px 0 0;
+  margin: 14px 50px 0px 0px;
   width: 426px;
   height: 61px;
-  background: url(/images/layouts/fundo-busca.png);
+  background: url(/images/layouts/fundo-busca.png) no-repeat;
+  padding:0px;
 }
 
 #search #search-form #q {
@@ -314,17 +343,20 @@ body {
   border: 0 solid transparent;
   background-color: transparent;
   color: #8E8E8E;
-  height: 23px;
-  margin: 8px 0 0 73px;
+  height: 26px;
+  margin: 4px 0px 0px 73px;
+  padding:0px;
 }
 
 #search #search-form #search-button {
   color: white;
-  font-size: 12px;
   border: 0 solid transparent;
   width: 114px;
   height: 23px;
-  background: url(/images/layouts/botao-off.png);
+  background: url(/images/layouts/botao-off.png) no-repeat;
+  padding:0px;
+  margin:0px;
+  cursor: pointer;
 }
 
 /* @end */
@@ -333,7 +365,7 @@ body {
 
 #footer {
   clear: both;
-  height: 238px;
+  height: 230px;
   margin-top: 16px;
   width: 100%;
   background: url(/images/layouts/rodape.png) repeat-x;
@@ -409,15 +441,15 @@ body {
 }
 
 #footer #logos #rss {
-		margin: 11px 23px 0 0;
+    margin: 11px 23px 0 0;
   float: right;
 }
 
 #footer #logos #twitter {
-	margin: 11px 27px 0 0;
+  margin: 11px 27px 0 0;
   float: right;
 }
- 
+
 #footer #logos #certisign {
   margin-top: 9px;
   float: right;
@@ -454,11 +486,11 @@ p.notifications {
   z-index: 9999;
 }
 
-p.notice { 
+p.notice {
   color: green;
 }
 
-p.alert { 
+p.alert {
   color: red;
 }
 
@@ -466,14 +498,14 @@ p.alert {
 
 /* @group Pagination */
 
-.pagination a, .pagination span { 
+.pagination a, .pagination span {
   display: inline-block;
   background: white;
   padding: 3px 5px;
   border-radius: 3px;
 }
 
-.pagination em, .pagination a:hover { 
+.pagination em, .pagination a:hover {
   font-style: normal;
   color: white;
   background: #82bace;
@@ -481,13 +513,78 @@ p.alert {
   border-radius: 3px;
 }
 
-.pagination .previous_page { 
+.pagination .previous_page {
   margin-right: 15px;
 }
 
-.pagination .next_page { 
+.pagination .next_page {
   margin-left: 15px;
 }
 
+/* @end */
+
+/* @group Input Styling */
+
+.field-container {
+  margin: 0 0 5px 0;
+}
+
+.field-container .file-field {
+  display: inline-block;
+  position: relative;
+  border: 0 transparent;
+  background: url(/images/user_panel/field_middle.png) repeat-x;
+  width: 471px;
+  top: -6px;
+  color: #8e8e8e;
+  height: 19px;
+  margin: 0;
+  padding: 7px 0;
+}
+
+.field-container .left {
+  display: inline-block;
+  width: 4px;
+  height: 32px;
+  padding: 0;
+  background: url(/images/user_panel/field_left.png) no-repeat;
+}
+
+.field-container .right {
+  display: inline-block;
+  width: 5px;
+  padding: 0;
+  height: 32px;
+  background: url(/images/user_panel/field_right.png) no-repeat;
+}
+
+.field-container .file-field .file-button {
+  display: inline-block;
+  position: relative;
+  float: right;
+  width: 122px;
+  height: 23px;
+  top: -2px;
+  color: white;
+  text-align: center;
+  line-height: 23px;
+  background: url(/images/user_files/botao-rename-off.png) no-repeat;
+}
+
+.field-container .file-field .file-name {
+  display: inline-block;
+  height: 19px;
+  overflow: hidden;
+}
+
+.checkbox {
+  width: 20px;
+  height: 25px;
+  padding: 0 5px 0 0;
+  background: url(/images/layouts/checkbox.png) no-repeat;
+  display: block;
+  clear: left;
+  float: left;
+}
 
 /* @end */

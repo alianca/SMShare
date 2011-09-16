@@ -30,7 +30,7 @@ body {
 
 #user_panel-container {
   float: right;
-  width: 625px;
+  width: 655px;
   margin: 0 42px 0 0;
 }
 
@@ -212,6 +212,11 @@ body {
   padding: 2px 0 0 25px;
 }
 
+.more-urls {
+  clear: both;
+  height: 20px;
+}
+
 .files_form .more-urls {
   float: right;
   background: url(/images/user_files/mais_arquivos.png) no-repeat 3px 10px;
@@ -334,7 +339,7 @@ body {
 }
 
 #main_statistics #storage {
-  margin-left: 77px;
+  margin-left: 82px;
   width: 138px;
   float: left;
 }
@@ -1011,15 +1016,15 @@ table.file_list td.name {
 
 .text_field_small .right {
   padding-left: 5px;
-  padding-bottom: 21px;
-  padding-top: 4px;
+  padding-bottom: 6px;
+  padding-top: 5px;
   background: url(/images/user_panel/field_right_26.png) no-repeat;
 }
 
 .text_field_small .left {
-  padding-left: 4px;
-  padding-bottom: 21px;
-  padding-top: 4px;
+  padding-left: 5px;
+  padding-bottom: 6px;
+  padding-top: 5px;
   background: url(/images/user_panel/field_left_26.png) no-repeat;
 }
 
@@ -1522,8 +1527,6 @@ table.file_list td.name {
 /* edição do perfil */
 #config-profile {
   display: block;
-  margin-left: -30px;
-  width: 700px;
 }
 
 #config-profile .inputs {
@@ -1722,7 +1725,7 @@ table.file_list td.name {
 
 #personal-data #user_profile_birthday_input fieldset {
   display: inline;
-  margin-bottom: -11px;
+  margin-bottom: -12px;
 }
 
 #personal-data #user_profile_birthday_input .left,
@@ -1827,15 +1830,17 @@ table.file_list td.name {
 
 #personal-data .buttons .button .left {
   position: relative;
-  padding-left: 6px;
-  padding-bottom: 8px;
+  padding-left: 8px;
+  padding-bottom: 10px;
+  padding-top: 2px;
   margin-right: 0;
 }
 
 #personal-data .buttons .button .right {
   position: relative;
-  padding-left: 6px;
-  padding-bottom: 8px;
+  padding-left: 8px;
+  padding-bottom: 10px;
+  padding-top: 2px;
 }
 
 

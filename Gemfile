@@ -4,7 +4,7 @@ source 'http://rubygems.org'
 gem 'rails', '>= 3.0.3'
 
 # To use the latests rake
-gem 'rake', '>= 0.9.2'
+gem 'rake', '0.8.7'
 
 # To use debugger
 gem 'ruby-debug', :group => [:development, :test]

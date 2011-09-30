@@ -91,7 +91,8 @@ body {
 #sidebar li ul.dropdown li {
   list-style-image: url(/images/user_panel/menu/bullet-off.png);
   list-style-position: inside;
-  margin: 7px 0;
+  margin: 10px 0;
+  font-size: 11px;
 }
 
 #sidebar li ul.dropdown li.active {
@@ -880,7 +881,7 @@ table.file_list td.name {
 
 #customize-container {
   width: 680px !important;
-  margin-left: -20px;
+  margin-left: 20px;
 }
 
 #customize-container h3 {
@@ -1031,7 +1032,7 @@ table.file_list td.name {
 .text_field_small input,
 .text_field_small .custom-select {
   height: 26px;
-  line-height: 16px;
+  line-height: 26px;
   margin-left: 4px;
   color: #8e8e8e;
   border: none;
@@ -1311,7 +1312,7 @@ table.file_list td.name {
 }
 
 .button.orange span {
-  top: -6px;
+  top: -8px;
   padding-bottom: 30px;
 }
 
@@ -1323,7 +1324,7 @@ table.file_list td.name {
 .button.orange input[type=submit] {
   border: none;
   color: #ffffff;
-  height: 30px;
+  height: 31px;
   padding: 0 11px;
   background: url(/images/user_panel/orange_button_middle.png) repeat-x;
 }
@@ -1334,7 +1335,7 @@ table.file_list td.name {
 }
 
 .button.blue span {
-  top: -3px;
+  top: -5px;
   padding-bottom: 24px;
 }
 
@@ -1821,6 +1822,7 @@ table.file_list td.name {
   width: 140px;
   margin-top: -12px;
   margin-top: 0;
+  clear: both;
 }
 
 #personal-data .buttons input {
@@ -1832,7 +1834,6 @@ table.file_list td.name {
   position: relative;
   padding-left: 8px;
   padding-bottom: 10px;
-  padding-top: 2px;
   margin-right: 0;
 }
 
@@ -1840,7 +1841,6 @@ table.file_list td.name {
   position: relative;
   padding-left: 8px;
   padding-bottom: 10px;
-  padding-top: 2px;
 }
 
 

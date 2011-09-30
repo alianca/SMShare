@@ -1,0 +1,56 @@
+@-moz-document url-prefix() {
+  #sidebar li ul.dropdown li {
+    margin: 8px 0 !important;
+  }
+  
+  #values .received .title {
+    margin: 2px 0 !important;
+  }
+  
+  #values .available .title {
+    margin: 4px 0 !important;
+  }
+  
+  #user_panel-container table#report_footer {
+    height: 48px !important;
+    padding-top: 10px !important;
+    padding-bottom: 0 !important;
+  }
+  
+  #user_panel-container .submit_blue input[type="submit"] {
+    height: 25px !important;
+  }
+  
+  #background-form .button.orange span {
+    top: -9px !important;
+  }
+  
+  #style-list .button.blue span {
+    top: -6px !important;
+  }
+  
+  .styled_select .right {
+    margin-left: 0 !important;
+  }
+  
+  #user_profile_birthday_input span.left,
+  #user_profile_birthday_input span.right {
+    padding-top: 16px !important;
+  }
+  
+  #personal-data #user_profile_birthday_input ol li .custom-select select {
+    height: 25px;
+  }
+  
+  #personal-data .optional-forms li.text {
+    margin-right: -2px;
+  }
+  
+  #personal-data form:first-of-type .button.blue span {
+    top: -6px !important;
+  }
+  
+  .optional-forms .fields:first-of-type .text:last-of-type {
+    margin-top: -11px !important;
+  }
+}

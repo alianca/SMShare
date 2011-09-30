@@ -7,6 +7,9 @@
   </div>
   <h1 class="title"><%= news.title %></h1>
   <span class="news-text">
-    <%= news.short.html_safe %> <%= link_to "Ler mais...", news_path(:id => news.id) %>
+    <p>
+      <%= news.short.html_safe.gsub(/<\/?p>/, "") %>
+      <%= link_to "Ler mais...", news_path(:id => news.id) %>
+    </p>
   </span>
 </div>

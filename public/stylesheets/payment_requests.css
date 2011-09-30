@@ -61,7 +61,7 @@
 }
 
 form.payment_request {
-  width: 364px;
+  width: 365px;
   float: right;
 }
 
@@ -73,6 +73,10 @@ form.payment_request .inputs {
 #payment_request_payment_method_input legend,
 #payment_request_payment_account_input label {
   display: none;
+}
+
+#payment_request_payment_method_input label {
+  padding-top: 0;
 }
 
 #payment_request_payment_method_input {

@@ -11,7 +11,7 @@
 #news-banner {
   display: block;
   width: 180px;
-  height: 80px;
+  height: 78px;
   font-family: "Trebuchet MS";
   font-size: 40px;
   font-weight: bold;
@@ -81,8 +81,8 @@
   font-size: 12px;
   line-height: 18px;
   text-align: justify;
-  margin-top: -8px;
-  left: 15px;
+  margin-top: -15px;
+  left: 2px;
 }
 
 .full-text{
@@ -94,7 +94,6 @@
   line-height: 18px;
   text-align: justify;
   margin-top: -8px;
-  left: 15px;
 }
 
 #news-container a {

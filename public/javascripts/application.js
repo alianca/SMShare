@@ -114,6 +114,8 @@ $(document).ready(function() {
       $.make_checkbox($(this));
     }
   });
+  
+  
 });
 
 /* Estilo da checkbox */

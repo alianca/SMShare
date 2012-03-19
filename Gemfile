@@ -24,6 +24,7 @@ gem 'formtastic'
 
 # To use Carrierwave
 gem 'carrierwave'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
 # To use MiniMagick
 gem 'mini_magick'

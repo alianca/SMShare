@@ -2,7 +2,7 @@
   <div class="box-header">
     <% if @file %>
       <span class="header-glass"></span>
-      <p class="filename"><em>Arquivo:</em> <%= link_to @file.alias, user_file_url(@file) %></p>
+      <p class="filename"><em>Arquivo:</em> <%= link_to @file.alias, @file.file.url %></p>
       <p class="filesize"><em>(<%= number_to_human_size(@file.filesize) %>)</em></p>
       <span class="header-bottom"></span>
     <% else %>
@@ -20,8 +20,8 @@
 
     <div class="code_area">
       <%= form_tag download_user_file_url(@file), :method => :get do %>
-        <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus"%>
-        <%= submit_tag "Download", :class => "submit" %>
+	<%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus"%>
+	<%= submit_tag "Download", :class => "submit" %>
       <% end %>
     </div>
   <% else %>
@@ -30,10 +30,10 @@
       <p>Quem sabe você pode achar o que estava procurando em nosso sistema de busca, o smSearch!</p>
 
       <div class="code_area">
-        <%= form_tag search_index_url, :id => :search_field, :method => :get do %>
-          <%= text_field_tag :q %>
-          <%= submit_tag "Buscar" %>
-        <% end %>
+	<%= form_tag search_index_url, :id => :search_field, :method => :get do %>
+	  <%= text_field_tag :q %>
+	  <%= submit_tag "Buscar" %>
+	<% end %>
       </div>
     </div>
   <% end %>

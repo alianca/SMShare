@@ -1,7 +1,7 @@
 class UserFileImageUploader < CarrierWave::Uploader::Base
   storage :grid_fs
-  
+
   def store_dir
-    "images/#{model.id}"
+    "user_file_image/#{model.id}"
   end
 end

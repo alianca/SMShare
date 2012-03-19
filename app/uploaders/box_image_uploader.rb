@@ -1,7 +1,7 @@
 class BoxImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
-  storage :file
+  storage :grid_fs
 
   def extension_white_list
     %w(jpg jpeg gif png)
@@ -10,7 +10,7 @@ class BoxImageUploader < CarrierWave::Uploader::Base
   process :resize_to_fill => [345, 165]
 
   def store_dir
-    "box_images/#{model.id}"
+    "box_image/#{model.id}"
   end
 
 end

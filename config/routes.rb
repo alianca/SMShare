@@ -39,7 +39,7 @@ Smshare::Application.routes.draw do |map|
     resource :indicacoes, :as => :referrers, :controller => :referrers, :only => [:show]
     resource :pecas_publicitarias, :as => :advertising, :controller => :advertising, :only => [:show, :create]
   end
-  
+
   resources :smsearch, :controller => :search, :as => :search, :only => [:index] do
     get :opensearch, :on => :collection
   end
@@ -88,6 +88,8 @@ Smshare::Application.routes.draw do |map|
   end
 
   root :to => "home#index"
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

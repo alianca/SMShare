@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 class Profile
   include Mongoid::Document
-  
+
   # Campos do perfil
   field :country, :type => String
   field :state, :type => String
@@ -17,7 +18,7 @@ class Profile
   field :mobile_phone_area, :type => String
   field :mobile_provider, :type => String
   field :website, :type => String
-  
+
   # Campos da configuração
   field :show_name, :type => Boolean
   field :show_age, :type => Boolean
@@ -26,9 +27,9 @@ class Profile
   field :show_website, :type => Boolean
   field :show_email, :type => Boolean
   field :description, :type => String
-  
-  embeds_one :avatar
-  
+
+  mount_uploader :avatar, AvatarUploader
+
   embedded_in :user, :inverse_of => :profile
 end
 

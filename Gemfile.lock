@@ -52,6 +52,9 @@ GEM
     carmen (0.2.8)
     carrierwave (0.5.1)
       activesupport (~> 3.0)
+    carrierwave-mongoid (0.1.0)
+      carrierwave
+      mongoid
     celerity (0.8.5)
     childprocess (0.1.4)
       ffi (~> 0.6.3)
@@ -229,6 +232,7 @@ DEPENDENCIES
   capybara
   carmen
   carrierwave
+  carrierwave-mongoid
   cucumber
   cucumber-rails
   curb

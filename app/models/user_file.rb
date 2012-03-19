@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 class UserFile
   include Mongoid::Document
   include Mongoid::Timestamps
-  
+
   require "lib/sentenced_fields"
   include SentencedFields
-  
+
   # Busca
   include Tire::Model::Search
   include Tire::Model::Callbacks
@@ -20,7 +21,7 @@ class UserFile
     indexes :comments_count, :type => :integer
     indexes :rate, :type => :float, :index_name => :rating, :boost => 3
   end
-  
+
   # Gera o JSON para o ElasticSearch
   def to_indexed_json
     {
@@ -38,11 +39,11 @@ class UserFile
       # o ElasticSearch não rematerializa os resultados de busca
       :owner_id => self.owner_id,
       :filename => self.filename,
-      }.to_json
+    }.to_json
   end
-  
+
   # Define o esquema logico db.user_files
-  # filename já é criado pelo CarrierWave  
+  # filename já é criado pelo CarrierWave
   field :tags, :type => Array
   field :description, :type => String
   field :filetype, :type => String
@@ -51,43 +52,43 @@ class UserFile
   field :public, :type => Boolean, :default => true
   field :path, :type => String, :default => "/"
   field :blocked, :type => Boolean, :default => false
-  
+
   # O GridFS não permite alterar o nome de um arquivo existente
   # Então criei um campo alias para poder renomear os arquivos
   field :alias, :type => String
   before_save :generate_alias
-  
+
   # Usuario
   belongs_to_related :owner, :class_name => "User"
-  
+
   # Imagem
   has_many_related :images, :class_name => "UserFileImage", :stored_as => :array
-  
+
   # Categoria
   has_many_related :categories, :stored_as => :array
-  
+
   # Comentários
   embeds_many :comments
-  
+
   # Denuncias
   embeds_many :reports, :class_name => "UserFileReport"
-  
+
   # Pasta
   def folder
     owner.folders.where(:path => path).first
   end
-  
+
   def folder= a_folder
     self.path = a_folder.path
   end
-  
+
   # Arquivo
   mount_uploader :file, UserFileUploader, :mount_on => :filename
-  after_save :cache_filetype, :cache_filesize # TODO descobrir como fazer isso em um unico passo
-  
+  after_save :cache_filetype, :cache_filesize
+
   # Downloads
   has_many_related :downloads, :foreign_key => :file_id
-  
+
   # Estatisticas
   embeds_one :statistics, :class_name => "UserFileStatistic"
   after_create :build_statistics
@@ -96,19 +97,19 @@ class UserFile
   attr_accessor :url
   before_validation :download_file_from_url
   after_save :cleanup_tempfile
-  
+
   # Limpa as tags
   before_save :normalize_tags
-  
+
   # Validações
   validates :owner, :presence => true
   validates :file, :presence => true
   validates :description, :presence => true
   before_validation :cleanup_description
-  
+
   # Sentenced Fields para as Tags
   sentenced_fields :tags
-    
+
   def resolve_filetype
     case self.filetype
       when /image.*/
@@ -134,7 +135,7 @@ class UserFile
         { :name => self.filetype, :icon => "search/icone-other.png", :thumb => "search/thumb-other.png" }
     end
   end
-  
+
   def file_extension
     File.extname(self.alias)
   end
@@ -144,42 +145,42 @@ class UserFile
       self.filetype = self.file.file.content_type
       save if changed?
     end
-    
+
     def cache_filesize
       self.filesize = self.file.file.file_length
       save if changed?
     end
 
-    def download_file_from_url
-      if @url
-        uri = URI.parse(@url)
-        filename = uri.path.match(/.*\/(.*)/)[1]
-        filename = uri.host if filename.blank?
-        FileUtils.mkdir_p(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
-        tempfile = File.open(Rails.root + "tmp/tempfiles/user_file/#{self.id}/#{filename}", "w")
-        tempfile.write Curl::Easy.perform(uri.to_s).body_str
-        tempfile.flush
-        self.file = tempfile
-      end
-    end
-    
+    # def download_file_from_url
+    #   if @url
+    #     uri = URI.parse(@url)
+    #     filename = uri.path.match(/.*\/(.*)/)[1]
+    #     filename = uri.host if filename.blank?
+    #     FileUtils.mkdir_p(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
+    #     tempfile = File.open(Rails.root + "tmp/tempfiles/user_file/#{self.id}/#{filename}", "w")
+    #     tempfile.write Curl::Easy.perform(uri.to_s).body_str
+    #     tempfile.flush
+    #     self.file = tempfile
+    #   end
+    # end
+
     def cleanup_tempfile
       if File.directory?(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
         FileUtils.remove_dir(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
       end
     end
-    
+
     def cleanup_description
       self.description = nil if self.description == "Digite uma descrição objetiva para seu arquivo."
     end
-    
+
     def normalize_tags
       tags.collect! do |tag|
         tag.strip.parameterize
       end
       tags.delete("")
     end
-    
+
     def generate_alias
       self.alias ||= self.filename
     end

@@ -112,27 +112,45 @@ class UserFile
 
   def resolve_filetype
     case self.filetype
-      when /image.*/
-        { :name => "Gráfico", :icon => "search/icone-grafico.png", :thumb => "search/thumb-grafico.png" }
-      when /application.*/
-        case self.filetype
-          when /application\/(x-gzip|x-tar|zip|x-rar)/
-            { :name => "Compactado", :icon => "search/icone-compactado.png", :thumb => "search/thumb-compactado.png" }
-          when /application\/(word|rtf|pdf|postscript)/
-            { :name => "Documento", :icon => "search/icone-documento.png", :thumb => "search/thumb-documento.png" }
-          else
-            { :name => "Programa", :icon => "search/icone-programa.png", :thumb => "search/thumb-programa.png" }
-        end
-      when /audio.*/
-        { :name => "Áudio", :icon => "search/icone-audio.png", :thumb => "search/thumb-audio.png" }
-      when /video.*/
-        { :name => "Vídeo", :icon => "search/icone-video.png", :thumb => "search/thumb-video.png" }
-      when /text\/(html|javascript|css)/
-        { :name => "Web", :icon => "search/icone-web.png", :thumb => "search/thumb-web.png" }
-      when /application\/(jar|vnd.android.package-archive)/
-        { :name => "Móvel", :icon => "search/icone-mobile.png", :thumb => "search/thumb-mobile.png" }
+    when /image.*/
+      { :name => "Gráfico",
+        :icon => "search/icone-grafico.png",
+        :thumb => "search/thumb-grafico.png" }
+    when /application.*/
+      case self.filetype
+      when /application\/(x-gzip|x-tar|zip|x-rar)/
+        { :name => "Compactado",
+          :icon => "search/icone-compactado.png",
+          :thumb => "search/thumb-compactado.png" }
+      when /application\/(word|rtf|pdf|postscript)/
+        { :name => "Documento",
+          :icon => "search/icone-documento.png",
+          :thumb => "search/thumb-documento.png" }
       else
-        { :name => self.filetype, :icon => "search/icone-other.png", :thumb => "search/thumb-other.png" }
+        { :name => "Programa",
+          :icon => "search/icone-programa.png",
+          :thumb => "search/thumb-programa.png" }
+      end
+    when /audio.*/
+      { :name => "Áudio",
+        :icon => "search/icone-audio.png",
+        :thumb => "search/thumb-audio.png" }
+    when /video.*/
+      { :name => "Vídeo",
+        :icon => "search/icone-video.png",
+        :thumb => "search/thumb-video.png" }
+    when /text\/(html|javascript|css)/
+      { :name => "Web",
+        :icon => "search/icone-web.png",
+        :thumb => "search/thumb-web.png" }
+    when /application\/(jar|vnd.android.package-archive)/
+      { :name => "Móvel",
+        :icon => "search/icone-mobile.png",
+        :thumb => "search/thumb-mobile.png" }
+    else
+      { :name => self.filetype,
+        :icon => "search/icone-other.png",
+        :thumb => "search/thumb-other.png" }
     end
   end
 
@@ -141,28 +159,30 @@ class UserFile
   end
 
   private
-    def cache_filetype
-      self.filetype = self.file.file.content_type
-      save if changed?
-    end
+  def cache_filetype
+    self.filetype = self.file.file.content_type
+    save if changed?
+  end
 
-    def cache_filesize
-      self.filesize = self.file.file.file_length
-      save if changed?
-    end
+  def cache_filesize
+    self.filesize = self.file.file.file_length
+    save if changed?
+  end
 
-    # def download_file_from_url
-    #   if @url
-    #     uri = URI.parse(@url)
-    #     filename = uri.path.match(/.*\/(.*)/)[1]
-    #     filename = uri.host if filename.blank?
-    #     FileUtils.mkdir_p(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
-    #     tempfile = File.open(Rails.root + "tmp/tempfiles/user_file/#{self.id}/#{filename}", "w")
-    #     tempfile.write Curl::Easy.perform(uri.to_s).body_str
-    #     tempfile.flush
-    #     self.file = tempfile
-    #   end
-    # end
+    def download_file_from_url
+      if @url
+        uri = URI.parse(@url)
+        filename = uri.path.match(/.*\/(.*)/)[1]
+        filename = uri.host if filename.blank?
+        FileUtils.mkdir_p(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
+        tempfile = File.open(Rails.root +
+                             "tmp/tempfiles/user_file/#{self.id}/#{filename}",
+                             "w")
+        tempfile.write Curl::Easy.perform(uri.to_s).body_str
+        tempfile.flush
+        self.file = tempfile
+      end
+    end
 
     def cleanup_tempfile
       if File.directory?(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
@@ -171,7 +191,9 @@ class UserFile
     end
 
     def cleanup_description
-      self.description = nil if self.description == "Digite uma descrição objetiva para seu arquivo."
+      if self.description == "Digite uma descrição objetiva para seu arquivo."
+        self.description = nil
+      end
     end
 
     def normalize_tags

@@ -10,7 +10,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   process :resize_to_fill => [90, 90]
 
   def store_dir
-    "avatar/#{model.id}"
+    "avatars/#{model.id}"
   end
 
   def default_url

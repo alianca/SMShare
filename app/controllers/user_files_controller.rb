@@ -64,8 +64,7 @@ class UserFilesController < ApplicationController
     # rescue Mongoid::Errors::DocumentNotFound
     #   render :file => Rails.root + 'public/404.html', :status => 404
     # end
-    redirect_to @file.file.file.url
-
+    redirect_to @file.file.url
   end
 
   def download_box
@@ -73,9 +72,10 @@ class UserFilesController < ApplicationController
     headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
     headers['Access-Control-Allow-Headers'] = 'x-requested-with'
     headers['Access-Control-Allow-Origin'] = '*'
-    @file = UserFile.find(params[:id]) if params[:id] =~
-      /^[a-f0-9]{24}$/ and !UserFile.where(:_id =>
-                                           BSON::ObjectId(params[:id])).empty?
+    if params[:id] =~ /^[a-f0-9]{24}$/ and
+        !UserFile.where(:_id => BSON::ObjectId(params[:id])).empty?
+      @file = UserFile.find(params[:id])
+    end
     @style = (params[:style] ?
               BoxStyle.find(params[:style]) :
               (@file ? @file.owner.default_style : BoxStyle.default))
@@ -88,8 +88,7 @@ class UserFilesController < ApplicationController
 
   private
     def save_download_info
-      Download.create(:file => @file,
-                      :downloaded_by_ip => request.env['REMOTE_ADDR'])
+      Download.create(:file => @file, :downloaded_by_ip => request.env['REMOTE_ADDR'])
       @file.save
     end
 end

@@ -15,12 +15,15 @@ class UsersController < ApplicationController
   end
 
   def update
-    if params[:user][:profile][:avatar]
-      @user.profile.avatar = params[:user][:profile].delete(:avatar)
-    end
+    # @user.profile.destroy_avatar
+    # if params[:user][:profile][:avatar]
+    #   @user.profile.create_avatar :image =>
+    #     params[:user][:profile].delete(:avatar)
+    # end
+    puts params[:user]
     @user.update_attributes(params[:user])
 
-    if (@user.save)
+    if (@user.profile.save and @user.save)
       flash[:notice] = "As alterações do perfil foram salvas com sucesso."
     else
       flash[:alert] = "As alterações não puderam ser salvas."

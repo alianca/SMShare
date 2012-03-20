@@ -62,9 +62,9 @@
 	<%= @file.downloads.count %> downloads<br/>
       </div>
 
-      <a href="<%= @file.file. %>" rel="smshare" class="download-button">
-	<span class="download-title">Baixar o arquivo!</span><br/>
-	<span class="virus">Nenhum virus detectado</span>
+      <a href="<%= user_file_url(@file) %>" rel="smshare" class="download-button">
+	      <span class="download-title">Baixar o arquivo!</span><br/>
+	      <span class="virus">Nenhum virus detectado</span>
       </a>
       <span class="antivirus">Testado por <%= link_to "Kaspersky Anti-Virus" %></span>
     </div>

@@ -10,8 +10,7 @@ class UserPanelController < ApplicationController
   def show
     @file = UserFile.new
     @most_downloaded_files = current_user.files.
-      order_by(:"statistics.downloads").limit(10).to_a.
-      sort { |x, y|
+      order_by(:"statistics.downloads").limit(10).to_a.sort { |x, y|
       (y.statistics.downloads || 0) <=> (x.statistics.downloads || 0) }
   end
 
@@ -28,8 +27,14 @@ class UserPanelController < ApplicationController
   end
 
   def destroy
-    UserFile.where(:_id.in => (params[:files].collect { |id| BSON::ObjectId(id) })).destroy_all if params[:files]
-    Folder.where(:_id.in => (params[:files].collect { |id| BSON::ObjectId(id) })).each { |folder| folder.remove }  if params[:files]
+    if params[:files]
+      UserFile.where(:_id.in => (params[:files].collect { |id|
+                                   BSON::ObjectId(id)
+                                 })).destroy_all
+      Folder.where(:_id.in => (params[:files].collect { |id|
+                                 BSON::ObjectId(id)
+                               })).each { |folder| folder.remove }
+    end
     redirect_to :back
   end
 
@@ -69,7 +74,9 @@ class UserPanelController < ApplicationController
 
   def compression_state
     status = Resque::Status.get session[:job_id]
-    session[:job_id] = nil if status and ["completed", "failed"].include? status["status"]
+    if status and ["completed", "failed"].include? status["status"]
+      session[:job_id] = nil
+    end
     render :json => status ? status.to_json : {:status => "no_job"}
   end
 
@@ -97,4 +104,3 @@ class UserPanelController < ApplicationController
       end
     end
 end
-

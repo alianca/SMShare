@@ -6,6 +6,7 @@ class ServeGridfsFiles
   end
 
   def call(env)
+    puts("PATH INFO: ", env["PATH_INFO"].to_s)
     if env["PATH_INFO"] =~ /^\/grid\/(.+)$/
       process_request(env, $1)
     else

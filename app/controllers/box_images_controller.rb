@@ -3,7 +3,7 @@ class BoxImagesController < ApplicationController
     current_user.box_images.create(params[:background])
     redirect_to :back
   end
-  
+
   def set_default
     current_user.default_box_image = BoxImage.find(params[:bg][:selected_bg])
     current_user.save

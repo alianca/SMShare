@@ -79,8 +79,15 @@ function load_css(base_url) {
 
 $(document).ready(function() {
   $("a[rel~=\"smshare\"]").click(function (sender) {
+    sender.stopImmediatePropagation();
+    
+    var button = sender;
+    while(button.srcElement.localName != "a") {
+      button = button.parent("a.download-button");
+    }
+    
     /* Pega os dados do link */
-    var link = $(sender.target);
+    var link = $(button.target);
     var user_file_id = link.attr("href").match(/arquivos\/([0-9a-f]{24})\/?$/)[1];
 
     /* Verifica se já está aberto para poder fechar */

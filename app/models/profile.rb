@@ -28,7 +28,8 @@ class Profile
   field :show_email, :type => Boolean
   field :description, :type => String
 
-  mount_uploader :avatar, AvatarUploader
+  # Avatar
+  mount_uploader :avatar, AvatarUploader, :mount_on => :filename
 
   embedded_in :user, :inverse_of => :profile
 end

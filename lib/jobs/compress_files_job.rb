@@ -3,16 +3,16 @@ require 'lib/file_name'
 
 class Jobs::CompressFilesJob < Resque::JobWithStatus
   @queue = :compress
-  
+
   def perform
     param = JSON.parse(options["parameter"])
     param["files"].delete_if { |f| f.blank? }
-    
+
     files = UserFile.where(:_id.in => (param["files"].collect { |id| BSON::ObjectId(id) }))
     folders = Folder.where(:_id.in => (param["files"].collect { |id| BSON::ObjectId(id) }))
     current_dir = Folder.find(options["folder_id"]["$oid"])
     user = User.find(options["user_id"]["$oid"])
-    
+
     @num = 1
     @total = files.count
     zip_name = FileName.sanitize(param["filename"])
@@ -28,10 +28,10 @@ class Jobs::CompressFilesJob < Resque::JobWithStatus
     end
     user.files.create(:file => zip_file.open, :public => true, :description => "Arquivo compactado", :folder => current_dir, :filename => zip_name)
     zip_file.close
-    
+
     completed
   end
-  
+
   private
     def compress_recursively zip, folder, path
       zip.add_dir(path)

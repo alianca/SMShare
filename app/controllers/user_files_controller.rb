@@ -36,8 +36,7 @@ class UserFilesController < ApplicationController
     @file = current_user.files.create(params[:user_file])
     flash[:notice] = "Arquivo enviado com sucesso." if @file.valid?
     flash[:alert] = @file.errors.full_messages.first unless @file.valid?
-    respond_with(@file,
-                 :location => categorize_user_files_path(:files => [@file]))
+    respond_with(@file, :location => categorize_user_files_path(:files => [@file]))
   end
 
   def update_categories

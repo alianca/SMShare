@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'zipruby'
 
 class UserPanelController < ApplicationController
@@ -9,9 +10,8 @@ class UserPanelController < ApplicationController
 
   def show
     @file = UserFile.new
-    @most_downloaded_files = current_user.files.
-      order_by(:"statistics.downloads").limit(10).to_a.sort { |x, y|
-      (y.statistics.downloads || 0) <=> (x.statistics.downloads || 0) }
+    @most_downloaded_files = current_user.files.order_by(:"statistics.downloads").
+      limit(10).to_a.sort { |x, y| (y.statistics.downloads || 0) <=> (x.statistics.downloads || 0) }
   end
 
   def create
@@ -28,12 +28,8 @@ class UserPanelController < ApplicationController
 
   def destroy
     if params[:files]
-      UserFile.where(:_id.in => (params[:files].collect { |id|
-                                   BSON::ObjectId(id)
-                                 })).destroy_all
-      Folder.where(:_id.in => (params[:files].collect { |id|
-                                 BSON::ObjectId(id)
-                               })).each { |folder| folder.remove }
+      UserFile.where(:_id.in => (params[:files].collect { |id| BSON::ObjectId(id) })).destroy_all
+      Folder.where(:_id.in => (params[:files].collect { |id| BSON::ObjectId(id) })).each { |folder| folder.remove }
     end
     redirect_to :back
   end
@@ -42,7 +38,7 @@ class UserPanelController < ApplicationController
     params[:user_file][:files].delete_if { |f| f.blank? }
     @folder = current_user.folders.find(params[:user_file][:folder])
     @files = UserFile.where(:_id.in => (params[:user_file][:files].collect { |id| BSON::ObjectId(id) }))
-    @folders = Folder.where(:_id.in => ((params[:user_file][:files]-[params[:user_file][:folder]]).collect { |id| BSON::ObjectId(id) }))
+    @folders = Folder.where(:_id.in => ((params[:user_file][:files] - [params[:user_file][:folder]]).collect { |id| BSON::ObjectId(id) }))
 
     @files.each { |file| file.folder = @folder; file.save! }
     @folders.each { |folder| folder.parent = @folder; folder.save! }
@@ -55,8 +51,12 @@ class UserPanelController < ApplicationController
     @files = UserFile.where(:_id.in => (params[:user_file][:files].collect { |id| BSON::ObjectId(id) }))
     @folders = Folder.where(:_id.in => (params[:user_file][:files].collect { |id| BSON::ObjectId(id) }))
 
-    @files.each { |file| file.alias = params[:user_file][:new_name][file.id.to_s]; file.save! }
-    @folders.each { |folder| folder.name = params[:user_file][:new_name][folder.id.to_s]; folder.save! }
+    begin
+      @files.each { |file| file.alias = params[:user_file][:new_name][file.id.to_s]; file.save! }
+      @folders.each { |folder| folder.name = params[:user_file][:new_name][folder.id.to_s]; folder.save! }
+    rescue
+      flash[:error] = "Não foi possível renomear os arquivos."
+    end
 
     redirect_to :back
   end
@@ -96,11 +96,11 @@ class UserPanelController < ApplicationController
   end
 
   private
-    def fetch_folder
-      if params[:folder_id]
-        @folder = current_user.folders.find(params[:folder_id])
-      else
-        @folder = current_user.root_folder
-      end
+  def fetch_folder
+    if params[:folder_id]
+      @folder = current_user.folders.find(params[:folder_id])
+    else
+      @folder = current_user.root_folder
     end
+  end
 end

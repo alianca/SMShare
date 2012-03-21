@@ -6,5 +6,5 @@ module FileName
     name = "unnamed" if name.blank?
     return name.downcase
   end
-  
+
 end

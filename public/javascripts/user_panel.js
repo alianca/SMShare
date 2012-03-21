@@ -10,12 +10,12 @@ $(document).ready(function() {
 
   /* Troca o fundo do botão em mouse over */
   $("#folder_new #folder_submit").mouseover(function () {
-    $(this).css("background", "url(/images/layouts/botao-on.png)")
+    $(this).css("background", "url(/images/layouts/botao-on.png)");
   });
 
   /* Volta o fundo padrão quando perde o mouse over */
   $("#folder_new #folder_submit").mouseout(function () {
-    $(this).css("background", "url(/images/layouts/botao-off.png)")
+    $(this).css("background", "url(/images/layouts/botao-off.png)");
   });
 
   function show_form(name) {
@@ -68,8 +68,10 @@ $(document).ready(function() {
 
   /* Copia a seleção de arquivos da tabela para a lista oculta */
   $(".file_list .select_file").change(function () {
-    $("#actions_forms .hidden_file_list input[value=" + this.value + "]").attr("checked", $(this).attr("checked"));
-    $(".actions_menu .hidden_file_list input[value=" + this.value + "]").attr("checked", $(this).attr("checked"));
+    $("#actions_forms .hidden_file_list input[value=" + this.value + "]").
+      attr("checked", $(this).attr("checked"));
+    $(".actions_menu .hidden_file_list input[value=" + this.value + "]").
+      attr("checked", $(this).attr("checked"));
 
     if ($(this).attr("checked")) {
       $("#" + this.value).removeClass("hidden-field");
@@ -114,18 +116,18 @@ $(document).ready(function() {
 
   /* Helpers para os multiplos arquivos */
   function ms_to_hour_min_sec(ms) {
-    secs = Math.floor(ms/1000)%60;
-    if(secs < 10) secs = "0" + secs;
-    mins = Math.floor(ms/60000)%60;
-    if(mins < 10) mins = "0" + mins;
-    hours = Math.floor(ms/3600000);
-    if(hours < 10) hours = "0" + hours;
+    var secs = Math.floor(ms/1000)%60;
+    if(secs < 10) { secs = "0" + secs; }
+    var mins = Math.floor(ms/60000)%60;
+    if(mins < 10) { mins = "0" + mins; }
+    var hours = Math.floor(ms/3600000);
+    if(hours < 10) { hours = "0" + hours; }
 
     return hours + ":" + mins + ":" + secs;
   }
 
   function round_with_2_decimals(number) {
-    return Math.round(number*100)/100
+    return Math.round(number*100)/100;
   }
 
   function readable_speed(speed) {
@@ -135,11 +137,14 @@ $(document).ready(function() {
   function readable_size(size) {
     if(size >= 0 && size < 1024) {
       return size + " B";
-    } else if(size >= 1024 && size < 1048768) {
+    }
+    else if(size >= 1024 && size < 1048768) {
       return round_with_2_decimals(size/1024) + " KB";
-    } else if(size >= 1048768 && size < 1073741824) {
+    }
+    else if(size >= 1048768 && size < 1073741824) {
       return round_with_2_decimals(size/1048768) + " MB";
-    } else if(size >= 1073741824) {
+    }
+    else if(size >= 1073741824) {
       return round_with_2_decimals(size/1073741824) + " GB";
     }
   }
@@ -150,7 +155,7 @@ $(document).ready(function() {
   $("#upload_forms .buttons").click(function () {
     $("#user_files_forms form").submit();
 
-    statuses = []
+    var statuses = [];
 
     // Desabilita os botões
     $(".more-files a").unbind("click").hide();
@@ -160,8 +165,8 @@ $(document).ready(function() {
     $("#user_files_forms form fieldset").hide();
     $("#user_files_forms form .progress_info").show();
     $("#user_files_forms form").each(function (i, form) {
-      statuses[i] = {started_at: new Date(), updating: false}
-      filename = /[^\\]*$/.exec($(form).find("li.file input").val());
+      statuses[i] = {started_at: new Date(), updating: false};
+      var filename = /[^\\]*$/.exec($(form).find("li.file input").val());
       $(form).find(".progress_info .filename")[0].innerHTML = filename;
     });
 
@@ -170,19 +175,19 @@ $(document).ready(function() {
     $("#user_files_forms form").attr("data-status", "uploading");
 
     /* Função que verifica o estado dos downloads e redireciona no final */
-    status_interval = setInterval(function () {
-      not_done = false;
+    var status_interval = setInterval(function () {
+      var not_done = false;
       $("#user_files_forms form").each(function (i, form) {
-        not_done = not_done || $(form).attr("data-status") == "uploading"
+        not_done = not_done || $(form).attr("data-status") == "uploading";
       });
 
       if(!not_done) {
-        errors = false;
-        success = false;
+        var errors = false;
+        var success = false;
 
         $("#user_files_forms form").each(function (i, form) {
-          errors = errors || $(form).attr("data-status") == "error"
-          success = success || $(form).attr("data-status") == "success"
+          errors = errors || $(form).attr("data-status") == "error";
+          success = success || $(form).attr("data-status") == "success";
 
           // Marca como 100% os que ainda não estiverem
           $(form).find(".progress_info .uploaded").width("100%");
@@ -192,40 +197,47 @@ $(document).ready(function() {
         if(errors && !success) { // Só errors
           window.location = window.location; // Reload
         } else {
-          parameter = ""
+          var parameter = "";
           $("#user_files_forms form").each(function (i, form) {
             if($(form).attr("data-status") == "success") {
-              parameter += "files[]=" + $(form).attr("data-created_id") + "&"
+              parameter += "files[]=" + $(form).attr("data-created_id") + "&";
             }
           });
 
-          window.location = "/arquivos/categorizar?" + parameter; // Vai para o categorizar
+          window.location = "/arquivos/categorizar?" + parameter;
         }
 
         clearInterval(status_interval);
       } else {
         $("#user_files_forms form").each(function (i, form) {
-          if($(form).attr("data-status") == "uploading" && !statuses[i].updating) {
+          if($(form).attr("data-status") == "uploading" &&
+             !statuses[i].updating) {
             statuses[i].updating = true;
-            progress_url = "/progress?X-Progress-ID=" + $(form).find(".file_fields input[type=hidden]").val();
+            progress_url = "/progress?X-Progress-ID=" + $(form).
+              find(".file_fields input[type=hidden]").val();
             $.ajax({
               url: progress_url,
               dataType: "json",
               success: function (data) {
                 if(data && data.state == "uploading") {
-                  updated_at = new Date();
+                  var updated_at = new Date();
                   percentage = Math.floor(data.received*100/data.size) + "%";
-                  elapsed_time = updated_at-statuses[i].started_at; // ms
-                  speed = data.received*1000/elapsed_time; // bytes/s
-                  eta = (data.size-data.received)*1000/speed; // ms
+                  var elapsed_time = updated_at-statuses[i].started_at; // ms
+                  var speed = data.received*1000/elapsed_time; // bytes/s
+                  var eta = (data.size-data.received)*1000/speed; // ms
 
                   $(form).find(".progress_info .uploaded").width(percentage);
                   $(form).find(".progress_info .percentage").html(percentage);
-                  $(form).find(".progress_info .uptime .data").html(ms_to_hour_min_sec(elapsed_time));
-                  $(form).find(".progress_info .eta .data").html(ms_to_hour_min_sec(eta));
-                  $(form).find(".progress_info .speed .data").html(readable_speed(speed));
-                  $(form).find(".progress_info .data_amount .sent").html(readable_size(data.received));
-                  $(form).find(".progress_info .data_amount .total").html(readable_size(data.size));
+                  $(form).find(".progress_info .uptime .data").
+                    html(ms_to_hour_min_sec(elapsed_time));
+                  $(form).find(".progress_info .eta .data").
+                    html(ms_to_hour_min_sec(eta));
+                  $(form).find(".progress_info .speed .data").
+                    html(readable_speed(speed));
+                  $(form).find(".progress_info .data_amount .sent").
+                    html(readable_size(data.received));
+                  $(form).find(".progress_info .data_amount .total").
+                    html(readable_size(data.size));
                 }
 
                 statuses[i].updating = false;
@@ -239,19 +251,20 @@ $(document).ready(function() {
   });
 
   /* Salva o id do upload */
-  upload_id = $("#new_user_file .file_fields input[type=hidden]").val();
-  upload_action = $("#new_user_file").attr("action");
+  var upload_id = $("#new_user_file .file_fields input[type=hidden]").val();
+  var upload_action = $("#new_user_file").attr("action");
 
   /* Arruma o primero form */
   $("#new_user_file").attr("id", "new_user_file_0");
   $("#new_user_file_0").attr("target", "new_user_file_iframe_0");
   $("#new_user_file_0").attr("action", upload_action + "-0");
-  $("#new_user_file_0").append("<iframe name=\"new_user_file_iframe_0\"></iframe>");
+  $("#new_user_file_0").
+    append("<iframe name=\"new_user_file_iframe_0\"></iframe>");
   $("#new_user_file_0 .file_fields input[type=hidden]").val(upload_id + "-0");
   var file_form_template = $("#new_user_file_0").clone();
   $.make_file_field($("#new_user_file_0 .file_fields .file input[type=file]"));
   $.make_checkbox($("#new_user_file_0 input[type=checkbox]"));
-  form_count = 1;
+  var form_count = 1;
 
   /* Botão de mais arquivos */
   $(".more-files a").click(function () {
@@ -259,13 +272,19 @@ $(document).ready(function() {
     $(new_form).attr("id", "new_user_file_" + form_count);
     $(new_form).attr("target", "new_user_file_iframe_" + form_count);
     $(new_form).attr("action", upload_action + "-" + form_count);
-    $(new_form).children("iframe").attr("name", "new_user_file_iframe_" + form_count);
-    $(new_form).find(".file_fields input[type=hidden]").val(upload_id + "-" + form_count);
+    $(new_form).children("iframe").
+      attr("name", "new_user_file_iframe_" + form_count);
+    $(new_form).find(".file_fields input[type=hidden]").
+      val(upload_id + "-" + form_count);
     new_form[0].reset();
-    $(new_form).find(".clear-on-focus").val($(new_form).find(".clear-on-focus").attr("title"));
-    $(new_form).find(".public_field input[type=checkbox]").attr("id", "user_file_" + form_count + "_public");
-    $(new_form).find(".public_field input[type=checkbox]").attr("name", "user_file_" + form_count + "[public]");
-    $(new_form).find(".public_field label").attr("for", "user_file_" + form_count + "_public");
+    $(new_form).find(".clear-on-focus").
+      val($(new_form).find(".clear-on-focus").attr("title"));
+    $(new_form).find(".public_field input[type=checkbox]").
+      attr("id", "user_file_" + form_count + "_public");
+    $(new_form).find(".public_field input[type=checkbox]").
+      attr("name", "user_file_" + form_count + "[public]");
+    $(new_form).find(".public_field label").
+      attr("for", "user_file_" + form_count + "_public");
     $("#user_files_forms").append(new_form);
 
     $.make_file_field($(new_form).find(".file_fields .file input[type=file]"));
@@ -278,13 +297,15 @@ $(document).ready(function() {
   // Só executa dentro do iFrame
   try {
     if(window.parent != window) {
-      form_id = window.name.replace("new_user_file_iframe_", "");
-      form = $("#new_user_file_" + form_id, window.parent.document);
+      var form_id = window.name.replace("new_user_file_iframe_", "");
+      var form = $("#new_user_file_" + form_id, window.parent.document);
       if($(".file_fields .error").length > 0) {
         form.attr("data-status", "error");
       } else {
         form.attr("data-status", "success");
-        form.attr("data-created_id", $(".sentenced_tags")[0].id.replace("files_", "").replace("_sentenced_tags", ""));
+        form.attr("data-created_id", $(".sentenced_tags")[0].id.
+                  replace("files_", "").
+                  replace("_sentenced_tags", ""));
       }
     }
   } catch (Exception) {}
@@ -293,60 +314,61 @@ $(document).ready(function() {
   $("#style-customize ol li input[type=text]").change(function() {
     $(this).parent("li").children("div").css("background-color", $(this).val());
     switch ($(this).attr("name").match(/box_style\[([_a-z]+)\]/)[1]) {
-      case "box_border":
-        $("#download_box, \
-           #style-customize .thumbnail").css("border", "1px solid " + $(this).val());
-        break;
-      case "box_background":
-        $("#download_box, \
-           #style-customize .thumbnail").css("background-color", $(this).val());
-        break;
-      case "header_text":
-        $("#download_box .box-header, \
-           #download_box .filename, \
-           #download_box .filesize, \
-           #style-customize .thumbnail .title").css("color", $(this).val());
-        break;
-      case "header_background":
-        $("#download_box .box-header, \
-           #style-customize .thumbnail .title").css("background-color", $(this).val());
-        break;
-      case "upper_text":
-        $("#download_box .call-to-action, \
-           #style-customize .thumbnail .top").css("color", $(this).val());
-        break;
-      case "para_text":
-        $("#download_box .sms, \
-           #style-customize .thumbnail .middle span").css("color", $(this).val());
-        break;
-      case "number_text":
-        $("#download_box .sms em, \
-           #style-customize .thumbnail .middle").css("color", $(this).val());
-        break;
-      case "cost_text":
-        $("#download_box .price").css("color", $(this).val());
-        break;
-      case "form_background":
-        $("#download_box .code_area, \
-           #style-customize .thumbnail .input").css("background-color", $(this).val());
-        break;
-      case "form_border":
-        $("#download_box .code_area, \
-           #style-customize .thumbnail .input").css("border", "1px solid " + $(this).val());
-        break;
-      case "form_text":
-        $("#download_box .code_area .code_field").css("color", $(this).val());
-        break;
-      case "button_background":
-        $("#download_box .code_area .submit, \
-           #style-customize .thumbnail .input .thumb-button").css("background-color", $(this).val());
-        break;
-      case "button_text":
-        $("#download_box .code_area .submit").css("color", $(this).val());
-        break;
-      case "bottom_text":
-        $("#download_box .have_one").css("color", $(this).val());
-        break;
+    case "box_border":
+      $("#download_box, style-customize .thumbnail").
+        css("border", "1px solid " + $(this).val());
+      break;
+    case "box_background":
+      $("#download_box, #style-customize .thumbnail").
+        css("background-color", $(this).val());
+      break;
+    case "header_text":
+      $("#download_box .box-header," +
+        "#download_box .filename," +
+        "#download_box .filesize," +
+        "#style-customize .thumbnail .title").css("color", $(this).val());
+      break;
+    case "header_background":
+      $("#download_box .box-header, #style-customize .thumbnail .title").
+        css("background-color", $(this).val());
+      break;
+    case "upper_text":
+      $("#download_box .call-to-action, #style-customize .thumbnail .top").
+        css("color", $(this).val());
+      break;
+    case "para_text":
+      $("#download_box .sms, #style-customize .thumbnail .middle span").
+        css("color", $(this).val());
+      break;
+    case "number_text":
+      $("#download_box .sms em, #style-customize .thumbnail .middle").
+        css("color", $(this).val());
+      break;
+    case "cost_text":
+      $("#download_box .price").css("color", $(this).val());
+      break;
+    case "form_background":
+      $("#download_box .code_area, #style-customize .thumbnail .input").
+        css("background-color", $(this).val());
+      break;
+    case "form_border":
+      $("#download_box .code_area, #style-customize .thumbnail .input").
+        css("border", "1px solid " + $(this).val());
+      break;
+    case "form_text":
+      $("#download_box .code_area .code_field").css("color", $(this).val());
+      break;
+    case "button_background":
+      $("#download_box .code_area .submit," +
+        "#style-customize .thumbnail .input .thumb-button").
+        css("background-color", $(this).val());
+      break;
+    case "button_text":
+      $("#download_box .code_area .submit").css("color", $(this).val());
+      break;
+    case "bottom_text":
+      $("#download_box .have_one").css("color", $(this).val());
+      break;
     }
   });
 
@@ -387,61 +409,63 @@ $(document).ready(function() {
     $(thumbnail + " .middle").css("color", style.number_text);
     $(thumbnail + " .input").css("background-color", style.form_background);
     $(thumbnail + " .input").css("border", "1px solid " + style.form_border);
-    $(thumbnail + " .input .thumb-button").css("background-color", style.button_background);
+    $(thumbnail + " .input .thumb-button").
+      css("background-color", style.button_background);
   }
 
   function update_thumbnails() {
     var count = $("#style-list span.style").text();
     for (var i = 0; i < count; i++) {
-      var style = jQuery.parseJSON($("#style-list .thumbnail.index" + i.toString() + " .style").text());
+      var style = jQuery.parseJSON($("#style-list .thumbnail.index" +
+                                     i.toString() + " .style").text());
       set_thumbnail_style("#style-list .thumbnail.index" + i.toString(), style);
     }
   }
   update_thumbnails();
 
-  $("#style-customize ol li input[type=text]").bind('changed_style', function(e, style) {
-    var field_name = $(this).attr("name").match(/box_style\[([_a-z]+)\]/)[1];
-    $(this).attr("value", style[field_name]);
-    $(this).change();
-  });
+  $("#style-customize ol li input[type=text]").
+    bind('changed_style', function(e, style) {
+      var field_name = $(this).attr("name").match(/box_style\[([_a-z]+)\]/)[1];
+      $(this).attr("value", style[field_name]);
+      $(this).change();
+    });
 
   var code_options = '';
   function code_box_set(attribute, value, is_default) {
     var args = [];
-    if (code_options != '') {
-      var arg_str = code_options.match(/<script src="(.*)" type="text\/javascript"><\/script>/)[1].split('?')[1];
-      if (arg_str) args = arg_str.split('&');
+    if (code_options !== '') {
+      var arg_str = code_options.match(/<script src="(.*)" type="text\/javascript"><\/script>/)[1].split('?');
+      arg_str = arg_str ? arg_str[1] : null;
+      if (arg_str) {
+        args = arg_str.split('&');
+      }
     }
+
     // TODO colocar o endereço real
     code_options = '<script src=\"http://www.smshare.com.br/caixa_download/template';
     if (args.length > 0) {
-      var first = true;
-      for (var i = 0; i < args.length; i++) {
-        var argument = args[i].split('=');
-        if (argument[0] != attribute) {
-          if (first) {
-            first = false;
-            code_options += '?';
-          } else {
-            code_options += '&';
-          }
-          code_options += argument[0] + '=' + argument[1];
-        }
-      }
-      if (!is_default) code_options += '&';
-    } else {
-      if (!is_default) code_options += '?';
+      code_options += '?' +
+        args.map(function(a) {
+          if (a.split('=')[0] !== attribute) { return a; } }).
+        filter(function(a) { return a; }).join('&');
     }
-    if (!is_default) code_options += attribute + '=' + value;
+
+    if (!is_default) {
+      code_options = [code_options, [attribute, value].join('=')].
+        join(args.length > 0 ? '&' : '?');
+    }
+
     code_options += '\" type=\"text/javascript\"></script>';
 
     $("#code-area input[type=text]").attr('value', code_options);
   }
 
   $("#style-list .style-list-item").click(function(e) {
-    var style = jQuery.parseJSON($(this).children(".thumbnail").children(".style").text());
+    var style = jQuery.
+      parseJSON($(this).children(".thumbnail").children(".style").text());
     var style_id = $(this).attr("class").match(/id([a-f0-9]{24})/)[1];
-    $("#style-customize ol li input[type=text]").trigger('changed_style', [style]);
+    $("#style-customize ol li input[type=text]").
+      trigger('changed_style', [style]);
     $("#style-list form #style_selected_style").attr("value", style_id);
     $("#style-list .style-list-item.selected").removeClass("selected");
     $(this).addClass("selected");
@@ -449,7 +473,8 @@ $(document).ready(function() {
     code_box_set('estilo', style_id, $(this).hasClass("default"));
 
     /* Aplica o fundo padrão do estilo selecionado */
-    $("#background-list .bg-list-item.id" + style['box_background_image']).click();
+    $("#background-list .bg-list-item.id" +
+      style.box_background_image).click();
 
     e.stopImmediatePropagation();
   });
@@ -457,8 +482,10 @@ $(document).ready(function() {
   function update_backgrounds() {
     var count = $("#background-list .count").text();
     for (var i = 0; i < count; i++) {
-      var url = $("#background-list .img-thumbnail.index" + i.toString() + " span").text();
-      $("#background-list .img-thumbnail.index" + i.toString()).css("background", "url(" + url + ") no-repeat");
+      var url = $("#background-list .img-thumbnail.index" +
+                  i.toString() + " span").text();
+      $("#background-list .img-thumbnail.index" + i.toString()).
+        css("background", "url(" + url + ") no-repeat");
     }
   }
   update_backgrounds();
@@ -554,7 +581,7 @@ $(document).ready(function() {
           }
         });
       }
-    }, 500);
+    }, 2000);
   }
 
   // Verifica operações em andamento ao abrir a página
@@ -598,7 +625,8 @@ $(document).ready(function() {
       success: function(data) {
         html = "<option value>Escolha</option>";
         for (var i = 0; i < data.length; i++) {
-          html += "<option value=\"" + data[i][1] + "\">" + data[i][0] + "</option>";
+          html += "<option value=\"" + data[i][1] +
+            "\">" + data[i][0] + "</option>";
         }
         $("#user_profile_state").html(html);
       },
@@ -606,7 +634,8 @@ $(document).ready(function() {
     });
   });
 
-  $.make_file_field($("#customize-container #bottom #background-form input[type=file]"));
+  $.make_file_field($("#customize-container #bottom " +
+                      "#background-form input[type=file]"));
 
   /* Estilo do ComboBox */
   $("select").each(function() {
@@ -628,8 +657,6 @@ $(document).ready(function() {
     $(this).change();
   });
 });
-
-
 
 
 /* Faz pre-cache das imagens do cadastro */

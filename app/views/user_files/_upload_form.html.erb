@@ -6,15 +6,15 @@
         <%= f.input :file %>
         <%= f.input :description, :input_html => { :title => "Digite uma descrição objetiva para seu arquivo.", :class => "clear-on-focus" } %>
         <% end %>
-        
+
       <%= f.inputs :class => :public_field do %>
         <%= f.input :public, :as => :boolean, :default => true, :label => "Arquivo público (?)" %>
         <% end %>
-        
+
       <%= f.buttons do %>
         <%= f.commit_button "Enviar" %>
       <% end %>
-      
+
       <div class="progress_info">
         <p class="filename"></p>
         <div class="progress_bar">
@@ -26,7 +26,7 @@
         <p class="speed">Velocidade: <span class="data">0 Kb/s</span></p>
         <p class="data_amount"><span class="sent">0 kb</span> / <span class="total">0 kb</span></p>
       </div>
-    <% end %>    
+    <% end %>
   </div>
 
   <p class="more-files"><%= link_to "Enviar mais arquivos" %></p>

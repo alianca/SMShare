@@ -19,9 +19,10 @@
     <p class="price">*custo de R$ 0,86 + impostos</p>
 
     <div class="code_area">
-      <%= form_tag download_user_file_url(@file), :method => :get do %>
-	<%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus"%>
-	<%= submit_tag "Download", :class => "submit" %>
+      <%= form_tag @file.file.url, :method => :get do %>
+        <%= hidden_field :filename, @file.alias %>
+        <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus"%>
+        <%= submit_tag "Download", :class => "submit" %>
       <% end %>
     </div>
   <% else %>
@@ -30,10 +31,10 @@
       <p>Quem sabe você pode achar o que estava procurando em nosso sistema de busca, o smSearch!</p>
 
       <div class="code_area">
-	<%= form_tag search_index_url, :id => :search_field, :method => :get do %>
-	  <%= text_field_tag :q %>
-	  <%= submit_tag "Buscar" %>
-	<% end %>
+        <%= form_tag search_index_url, :id => :search_field, :method => :get do %>
+          <%= text_field_tag :q %>
+          <%= submit_tag "Buscar" %>
+        <% end %>
       </div>
     </div>
   <% end %>

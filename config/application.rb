@@ -44,7 +44,7 @@ module Smshare
     config.generators do |g|
       g.orm             :mongoid
       g.template_engine :erb
-      g.test_framework   :rspec
+      g.test_framework  :rspec
     end
 
     # Configure the default encoding used in templates for Ruby 1.9.
@@ -53,6 +53,6 @@ module Smshare
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    config.middleware.use "ServeGridfsFiles"
+    # config.middleware.use "ServeGridfsFiles"
   end
 end

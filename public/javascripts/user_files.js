@@ -48,4 +48,4 @@ $(document).ready(function() {
 });
 
 /* Faz pre-cache das imagens do cadastro */
-$.cacheImages("/images/user_files/botao-on.png");
+cache_images("/images/user_files/botao-on.png");

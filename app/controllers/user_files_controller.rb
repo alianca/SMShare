@@ -55,33 +55,16 @@ class UserFilesController < ApplicationController
     respond_with(@file = UserFile.find(params[:id]), :layout => nil)
   end
 
-  def download
-    #begin
-    @file = UserFile.find(params[:id])
-    #   headers["Content-Disposition"] = "attachment; filename=\"#{@file.alias}\""
-    #   render :text => @file.file.file.read, :content_type => @file.filetype
-    # rescue Mongoid::Errors::DocumentNotFound
-    #   render :file => Rails.root + 'public/404.html', :status => 404
-    # end
-    redirect_to @file.file.url
-  end
-
   def download_box
     # Cabeçalhos necessários para o Cross Origin Resource Sharing
     headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
     headers['Access-Control-Allow-Headers'] = 'x-requested-with'
     headers['Access-Control-Allow-Origin'] = '*'
-    if params[:id] =~ /^[a-f0-9]{24}$/ and
-        !UserFile.where(:_id => BSON::ObjectId(params[:id])).empty?
+    if params[:id] =~ /^[a-f0-9]{24}$/ and !UserFile.where(:_id => BSON::ObjectId(params[:id])).empty?
       @file = UserFile.find(params[:id])
     end
-    @style = (params[:style] ?
-              BoxStyle.find(params[:style]) :
-              (@file ? @file.owner.default_style : BoxStyle.default))
-    @background = (params[:background] ?
-                   BoxImage.find(params[:background]) :
-                   (@file ? @file.owner.default_box_image : BoxImage.default))
-    logger.info @background.to_json
+    @style = params[:style] ? BoxStyle.find(params[:style]) : (@file ? @file.owner.default_style : BoxStyle.default)
+    @background = params[:background] ? BoxImage.find(params[:background]) : (@file ? @file.owner.default_box_image : BoxImage.default)
     respond_with(@file, :layout => nil)
   end
 

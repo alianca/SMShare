@@ -102,7 +102,7 @@ $(document).ready(function() {
 
   /* Dropdown da sidebar */
   $("#sidebar li.menu").click(function(e) {
-    if (!$(this).hasClass("no-dropdown") && this == e.target) {
+    if (!$(this).hasClass("no-dropdown") && this === e.target) {
       if ($(this).hasClass("active")) {
         $(this).children("ul.dropdown").hide("fast");
         $(this).removeClass("active");
@@ -151,11 +151,8 @@ $(document).ready(function() {
 
   /* Upload de Multiplos Arquivos */
   /* Tira o botão de dentro do form e faz com que ele submeta os formularios */
-  $("#upload_forms").append($(".files_form .buttons").remove());
-  $("#upload_forms .buttons").click(function () {
+  function setup_progress_bars() {
     $("#user_files_forms form").submit();
-
-    var statuses = [];
 
     // Desabilita os botões
     $(".more-files a").unbind("click").hide();
@@ -165,89 +162,109 @@ $(document).ready(function() {
     $("#user_files_forms form fieldset").hide();
     $("#user_files_forms form .progress_info").show();
     $("#user_files_forms form").each(function (i, form) {
-      statuses[i] = {started_at: new Date(), updating: false};
+      form.started_at = new Date()
+      form.is_updating = false;
       var filename = /[^\\]*$/.exec($(form).find("li.file input").val());
       $(form).find(".progress_info .filename")[0].innerHTML = filename;
     });
 
-
     // Define o estado como uploading
     $("#user_files_forms form").attr("data-status", "uploading");
+  }
 
-    /* Função que verifica o estado dos downloads e redireciona no final */
-    var status_interval = setInterval(function () {
-      var not_done = false;
-      $("#user_files_forms form").each(function (i, form) {
-        not_done = not_done || $(form).attr("data-status") == "uploading";
-      });
+  function update_status(form, callback) {
+    if (!form.is_updating) {
+      form.is_updating = true;
+      $.ajax({
+        url: "/progress?X-Progress-ID=" + $(form).find(".file_fields input[type=hidden]").val(),
+        dataType: "json",
+        success: function (data) {
+          if (data) {
+            if (data.state === 'uploading') {
+              var updated_at = new Date();
+              var percentage = Math.floor(data.received * 99 / data.size) + "%";
+              var elapsed_time = updated_at - form.started_at; // ms
+              var speed = data.received * 1000 / elapsed_time; // bytes/s
+              var eta = (data.size - data.received) * 1000 / speed; // ms
 
-      if(!not_done) {
-        var errors = false;
-        var success = false;
-
-        $("#user_files_forms form").each(function (i, form) {
-          errors = errors || $(form).attr("data-status") == "error";
-          success = success || $(form).attr("data-status") == "success";
-
-          // Marca como 100% os que ainda não estiverem
-          $(form).find(".progress_info .uploaded").width("100%");
-          $(form).find(".progress_info .percentage").html("100%");
-        });
-
-        if(errors && !success) { // Só errors
-          window.location = window.location; // Reload
-        } else {
-          var parameter = "";
-          $("#user_files_forms form").each(function (i, form) {
-            if($(form).attr("data-status") == "success") {
-              parameter += "files[]=" + $(form).attr("data-created_id") + "&";
+              $(form).find(".progress_info .uploaded").width(percentage);
+              $(form).find(".progress_info .percentage").html(percentage);
+              $(form).find(".progress_info .uptime .data").html(ms_to_hour_min_sec(elapsed_time));
+              $(form).find(".progress_info .eta .data").html(ms_to_hour_min_sec(eta));
+              $(form).find(".progress_info .speed .data").html(readable_speed(speed));
+              $(form).find(".progress_info .data_amount .sent").html(readable_size(data.received));
+              $(form).find(".progress_info .data_amount .total").html(readable_size(data.size));
             }
-          });
-
-          window.location = "/arquivos/categorizar?" + parameter;
-        }
-
-        clearInterval(status_interval);
-      } else {
-        $("#user_files_forms form").each(function (i, form) {
-          if($(form).attr("data-status") == "uploading" &&
-             !statuses[i].updating) {
-            statuses[i].updating = true;
-            progress_url = "/progress?X-Progress-ID=" + $(form).
-              find(".file_fields input[type=hidden]").val();
-            $.ajax({
-              url: progress_url,
-              dataType: "json",
-              success: function (data) {
-                if(data && data.state == "uploading") {
-                  var updated_at = new Date();
-                  percentage = Math.floor(data.received*100/data.size) + "%";
-                  var elapsed_time = updated_at-statuses[i].started_at; // ms
-                  var speed = data.received*1000/elapsed_time; // bytes/s
-                  var eta = (data.size-data.received)*1000/speed; // ms
-
-                  $(form).find(".progress_info .uploaded").width(percentage);
-                  $(form).find(".progress_info .percentage").html(percentage);
-                  $(form).find(".progress_info .uptime .data").
-                    html(ms_to_hour_min_sec(elapsed_time));
-                  $(form).find(".progress_info .eta .data").
-                    html(ms_to_hour_min_sec(eta));
-                  $(form).find(".progress_info .speed .data").
-                    html(readable_speed(speed));
-                  $(form).find(".progress_info .data_amount .sent").
-                    html(readable_size(data.received));
-                  $(form).find(".progress_info .data_amount .total").
-                    html(readable_size(data.size));
-                }
-
-                statuses[i].updating = false;
-              },
-              error: function (e) { console.log(e); }
-            });
+            callback(data.state);
           }
+        },
+        error: function (e) {
+          console.log(e);
+          callback('error');
+        },
+        complete: function() { form.is_updating = false; }
+      });
+    }
+    else {
+      callback('updating');
+    }
+  }
+
+  function reload() {
+    window.location = window.location;
+  }
+
+  function go_to_categorize() {
+    var parameter = "";
+    $("#user_files_forms form").each(function (i, form) {
+      if($(form).attr("data-status") === "success") {
+        parameter += "files[]=" + $(form).attr("data-created_id") + "&";
+      }
+    });
+    window.location = "/arquivos/categorizar?" + parameter;
+  }
+
+  function tick() {
+    var all_done = true;
+    var all_errors = true;
+    var forms = $("#user_files_forms form");
+
+    function update_all(i) {
+      if (i < forms.length) {
+        update_status(forms[i], function(status) {
+          console.log(i, status);
+          if (status !== 'error') {
+            all_errors = false;
+          }
+          if (status === 'done') {
+            $(forms[i]).find(".progress_info .uploaded").width("100%");
+            $(forms[i]).find(".progress_info .percentage").html("100%");
+          } else {
+            all_done = false;
+          }
+          update_all(i + 1);
         });
       }
-    }, 100);
+      else {
+        if (all_errors) {
+          reload();
+        }
+        else if (all_done) {
+          go_to_categorize();
+        }
+        else {
+          setTimeout(tick, 1000);
+        }
+      }
+    }
+
+    update_all(0);
+  }
+
+  $("#upload_forms").append($(".files_form .buttons").remove());
+  $("#upload_forms .buttons").click(function () {
+    setup_progress_bars();
+    tick();
   });
 
   /* Salva o id do upload */
@@ -262,8 +279,8 @@ $(document).ready(function() {
     append("<iframe name=\"new_user_file_iframe_0\"></iframe>");
   $("#new_user_file_0 .file_fields input[type=hidden]").val(upload_id + "-0");
   var file_form_template = $("#new_user_file_0").clone();
-  $.make_file_field($("#new_user_file_0 .file_fields .file input[type=file]"));
-  $.make_checkbox($("#new_user_file_0 input[type=checkbox]"));
+  make_file_field($("#new_user_file_0 .file_fields .file input[type=file]"));
+  make_checkbox($("#new_user_file_0 input[type=checkbox]"));
   var form_count = 1;
 
   /* Botão de mais arquivos */
@@ -287,8 +304,8 @@ $(document).ready(function() {
       attr("for", "user_file_" + form_count + "_public");
     $("#user_files_forms").append(new_form);
 
-    $.make_file_field($(new_form).find(".file_fields .file input[type=file]"));
-    $.make_checkbox($(new_form).find(".public_field input[type=checkbox]"));
+    make_file_field($(new_form).find(".file_fields .file input[type=file]"));
+    make_checkbox($(new_form).find(".public_field input[type=checkbox]"));
 
     form_count++;
     return false; // Para não redirecionar
@@ -308,7 +325,10 @@ $(document).ready(function() {
                   replace("_sentenced_tags", ""));
       }
     }
-  } catch (Exception) {}
+  }
+  catch (exception) {
+    console.log(exception);
+  }
 
   /* Atualiza as caixas de cores na personalização */
   $("#style-customize ol li input[type=text]").change(function() {
@@ -409,8 +429,7 @@ $(document).ready(function() {
     $(thumbnail + " .middle").css("color", style.number_text);
     $(thumbnail + " .input").css("background-color", style.form_background);
     $(thumbnail + " .input").css("border", "1px solid " + style.form_border);
-    $(thumbnail + " .input .thumb-button").
-      css("background-color", style.button_background);
+    $(thumbnail + " .input .thumb-button").css("background-color", style.button_background);
   }
 
   function update_thumbnails() {
@@ -461,11 +480,9 @@ $(document).ready(function() {
   }
 
   $("#style-list .style-list-item").click(function(e) {
-    var style = jQuery.
-      parseJSON($(this).children(".thumbnail").children(".style").text());
+    var style = jQuery.parseJSON($(this).children(".thumbnail").children(".style").text());
     var style_id = $(this).attr("class").match(/id([a-f0-9]{24})/)[1];
-    $("#style-customize ol li input[type=text]").
-      trigger('changed_style', [style]);
+    $("#style-customize ol li input[type=text]").trigger('changed_style', [style]);
     $("#style-list form #style_selected_style").attr("value", style_id);
     $("#style-list .style-list-item.selected").removeClass("selected");
     $(this).addClass("selected");
@@ -473,8 +490,7 @@ $(document).ready(function() {
     code_box_set('estilo', style_id, $(this).hasClass("default"));
 
     /* Aplica o fundo padrão do estilo selecionado */
-    $("#background-list .bg-list-item.id" +
-      style.box_background_image).click();
+    $("#background-list .bg-list-item.id" + style.box_background_image).click();
 
     e.stopImmediatePropagation();
   });
@@ -482,10 +498,8 @@ $(document).ready(function() {
   function update_backgrounds() {
     var count = $("#background-list .count").text();
     for (var i = 0; i < count; i++) {
-      var url = $("#background-list .img-thumbnail.index" +
-                  i.toString() + " span").text();
-      $("#background-list .img-thumbnail.index" + i.toString()).
-        css("background", "url(" + url + ") no-repeat");
+      var url = $("#background-list .img-thumbnail.index" + i.toString() + " span").text();
+      $("#background-list .img-thumbnail.index" + i.toString()).css("background", "url(" + url + ") no-repeat");
     }
   }
   update_backgrounds();
@@ -625,8 +639,7 @@ $(document).ready(function() {
       success: function(data) {
         html = "<option value>Escolha</option>";
         for (var i = 0; i < data.length; i++) {
-          html += "<option value=\"" + data[i][1] +
-            "\">" + data[i][0] + "</option>";
+          html += "<option value=\"" + data[i][1] + "\">" + data[i][0] + "</option>";
         }
         $("#user_profile_state").html(html);
       },
@@ -634,8 +647,7 @@ $(document).ready(function() {
     });
   });
 
-  $.make_file_field($("#customize-container #bottom " +
-                      "#background-form input[type=file]"));
+  make_file_field($("#customize-container #bottom " + "#background-form input[type=file]"));
 
   /* Estilo do ComboBox */
   $("select").each(function() {
@@ -660,5 +672,5 @@ $(document).ready(function() {
 
 
 /* Faz pre-cache das imagens do cadastro */
-$.cacheImages("/images/layouts/botao-on.png");
+cache_images("/images/layouts/botao-on.png");
 

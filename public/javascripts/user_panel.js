@@ -116,18 +116,18 @@ $(document).ready(function() {
 
   /* Helpers para os multiplos arquivos */
   function ms_to_hour_min_sec(ms) {
-    var secs = Math.floor(ms/1000)%60;
+    var secs = Math.floor(ms / 1000) % 60;
     if(secs < 10) { secs = "0" + secs; }
-    var mins = Math.floor(ms/60000)%60;
+    var mins = Math.floor(ms / 60000) % 60;
     if(mins < 10) { mins = "0" + mins; }
-    var hours = Math.floor(ms/3600000);
+    var hours = Math.floor(ms / 3600000);
     if(hours < 10) { hours = "0" + hours; }
 
     return hours + ":" + mins + ":" + secs;
   }
 
   function round_with_2_decimals(number) {
-    return Math.round(number*100)/100;
+    return Math.round(number * 100) / 100;
   }
 
   function readable_speed(speed) {
@@ -173,41 +173,35 @@ $(document).ready(function() {
   }
 
   function update_status(form, callback) {
-    if (!form.is_updating) {
-      form.is_updating = true;
-      $.ajax({
-        url: "/progress?X-Progress-ID=" + $(form).find(".file_fields input[type=hidden]").val(),
-        dataType: "json",
-        success: function (data) {
-          if (data) {
-            if (data.state === 'uploading') {
-              var updated_at = new Date();
-              var percentage = Math.floor(data.received * 99 / data.size) + "%";
-              var elapsed_time = updated_at - form.started_at; // ms
-              var speed = data.received * 1000 / elapsed_time; // bytes/s
-              var eta = (data.size - data.received) * 1000 / speed; // ms
+    if (form.is_updating) { callback('updating'); return; }
+    form.is_updating = true;
 
-              $(form).find(".progress_info .uploaded").width(percentage);
-              $(form).find(".progress_info .percentage").html(percentage);
-              $(form).find(".progress_info .uptime .data").html(ms_to_hour_min_sec(elapsed_time));
-              $(form).find(".progress_info .eta .data").html(ms_to_hour_min_sec(eta));
-              $(form).find(".progress_info .speed .data").html(readable_speed(speed));
-              $(form).find(".progress_info .data_amount .sent").html(readable_size(data.received));
-              $(form).find(".progress_info .data_amount .total").html(readable_size(data.size));
-            }
-            callback(data.state);
+    $.ajax({
+      url: "/progress?X-Progress-ID=" + $(form).find(".file_fields input[type=hidden]").val(),
+      dataType: "json",
+      complete: function() { form.is_updating = false; },
+      error: function (e) { callback('error', e); },
+      success: function (data) {
+        if (data) {
+          if (data.state === 'uploading') {
+            var updated_at = new Date();
+            var percentage = Math.floor(data.received * 99 / data.size) + "%";
+            var elapsed_time = updated_at - form.started_at; // ms
+            var speed = data.received * 1000 / elapsed_time; // bytes/s
+            var eta = (data.size - data.received) * 1000 / speed; // ms
+
+            $(form).find(".progress_info .uploaded").width(percentage);
+            $(form).find(".progress_info .percentage").html(percentage);
+            $(form).find(".progress_info .uptime .data").html(ms_to_hour_min_sec(elapsed_time));
+            $(form).find(".progress_info .eta .data").html(ms_to_hour_min_sec(eta));
+            $(form).find(".progress_info .speed .data").html(readable_speed(speed));
+            $(form).find(".progress_info .data_amount .sent").html(readable_size(data.received));
+            $(form).find(".progress_info .data_amount .total").html(readable_size(data.size));
           }
-        },
-        error: function (e) {
-          console.log(e);
-          callback('error');
-        },
-        complete: function() { form.is_updating = false; }
-      });
-    }
-    else {
-      callback('updating');
-    }
+          callback(data.state, data);
+        }
+      }
+    });
   }
 
   function reload() {
@@ -232,16 +226,17 @@ $(document).ready(function() {
     function update_all(i) {
       if (i < forms.length) {
         update_status(forms[i], function(status) {
-          console.log(i, status);
           if (status !== 'error') {
             all_errors = false;
           }
+
           if (status === 'done') {
             $(forms[i]).find(".progress_info .uploaded").width("100%");
             $(forms[i]).find(".progress_info .percentage").html("100%");
           } else {
             all_done = false;
           }
+
           update_all(i + 1);
         });
       }
@@ -673,4 +668,3 @@ $(document).ready(function() {
 
 /* Faz pre-cache das imagens do cadastro */
 cache_images("/images/layouts/botao-on.png");
-

@@ -39,6 +39,11 @@ class UserFilesController < ApplicationController
     respond_with(@file, :location => categorize_user_files_path(:files => [@file]))
   end
 
+  def download
+    @file = UserFile.find(params[:id])
+    redirect_to @file.file.url + (params[:filename] ? '?filename=' + params[:filename].to_s : '')
+  end
+
   def update_categories
     @files = params[:files].collect do |file_id, file_params|
       file = UserFile.find(file_id)

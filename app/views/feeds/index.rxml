@@ -1,0 +1,19 @@
+# -*- coding: utf-8 -*-
+xml.instruct!
+
+xml.rss :version => 2.0 do
+  xml.channel do
+    xml.title "SMShare Notícias"
+    xml.link news_index_url
+    xml.description "<Descrição>"
+
+    @news.each do |n|
+      xml.item do
+        xml.title n.title
+        xml.link news_url(n)
+        xml.guid news_url(n)
+        xml.description n.short
+      end
+    end
+  end
+end

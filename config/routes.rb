@@ -68,6 +68,8 @@ Smshare::Application.routes.draw do |map|
 
   resources :denunciar_abuso, :as => :report_abuse, :controller => "report_abuse", :only => [:index]
 
+  resources :feeds, :only => [:index, :show]
+
   resources :caixa_download, :controller => :box_styles, :only => [:create] do
     collection do
       post :set_default

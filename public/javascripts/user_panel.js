@@ -205,7 +205,7 @@ $(document).ready(function() {
   }
 
   function reload() {
-    window.location = window.location;
+    location.reload(true);
   }
 
   function go_to_categorize() {
@@ -532,70 +532,52 @@ $(document).ready(function() {
     e.stopImmediatePropagation();
   });
 
-  function track_status() {
-    var done = false;
-    var error = false;
-    var no_job = false;
-    var error_message = "";
-
-    var check_interval = setInterval(function () {
-      if (done) {
-        if (error) {
-          force_hide_notifications();
-          $(".alert").html(error_message);
-          $(".notice").html("");
-        } else if (no_job) {
-          clearInterval(check_interval);
-          $("#block_user_input").hide();
-          return;
-        } else {
-          $(".notice").html("Operação completa.");
-        }
-        show_notifications(false);
-        clearInterval(check_interval);
-        setTimeout(function() {
-          location.reload(true);
-          return;
-        }, 2000);
-      } else {
-        $.ajax({
-          url: "compression_state",
-          dataType: "json",
-          success: function(data) {
-            if (!no_job) {
-              switch (data.status) {
-              case "queued":
-                $(".notice").html("Aguardando início da operação...");
-                break;
-              case "working":
-                $(".notice").html(data.message);
-                break;
-              case "failed":
-                error = done = true;
-                error_message = data.message;
-                break;
-              case "completed":
-                done = true;
-                break;
-              case "no_job":
-                no_job = done = true;
-                break;
-              }
-              show_notifications(true);
-              $("#block_user_input").show();
-            }
-          },
-          error: function(e) {
-            no_job = done = true;
-          }
-        });
-      }
-    }, 2000);
+  function done_compress(status, message) {
+    if (status === 'failed') {
+      force_hide_notifications();
+      $(".alert").html(message);
+      $(".notice").html("");
+    }
+    else if (status === 'completed') {
+      $(".notice").html("Operação completa.");
+    }
   }
 
-  // Verifica operações em andamento ao abrir a página
+  function update_compress_status() {
+    var shall_continue = true;
+    $.ajax({
+      url: "compression_state",
+      dataType: "json",
+      success: function(data) {
+        console.log(data);
+        switch (data.status) {
+        case "queued":
+          $(".notice").html("Aguardando início da operação..."); break;
+        case 'working':
+          $(".notice").html(data.message); break;
+        case 'no_job':
+          shall_continue = false; break;
+        case 'failed': case 'completed':
+          done_compress(data.status, data.message);
+          setTimeout(reload, 3000);
+          shall_continue = false;
+          break;
+        }
+        if (shall_continue) {
+          $("#block_user_input").show();
+          show_notifications(true);
+          setTimeout(update_compress_status, 1000);
+        }
+        else {
+          $("#block_user_input").hide();
+          show_notifications(false);
+        }
+      }
+    });
+  }
+
   if (window.location.pathname.search(/manage/) >= 0) {
-    track_status();
+    update_compress_status();
   }
 
   /* Compressão em background */
@@ -606,7 +588,7 @@ $(document).ready(function() {
       dataType: "json",
       data: $("#compress").serialize(),
       type: "POST",
-      success: function(data) { track_status(); },
+      success: function(data) { update_compress_status(); },
       error: function(e) { console.log(e); }
     });
   });
@@ -619,7 +601,7 @@ $(document).ready(function() {
       dataType: "json",
       data: $(".actions_menu .decompress form").serialize(),
       type: "POST",
-      success: function(data) { track_status(); },
+      success: function(data) { update_compress_status(); },
       error: function(e) { console.log(e); }
     });
   });

@@ -10,15 +10,15 @@ class Jobs::CompressFilesJob < Resque::JobWithStatus
 
     files = UserFile.where(:_id.in => (param["files"].collect { |id| BSON::ObjectId(id) }))
     folders = Folder.where(:_id.in => (param["files"].collect { |id| BSON::ObjectId(id) }))
-    current_dir = Folder.find(options["folder_id"]["$oid"])
-    user = User.find(options["user_id"]["$oid"])
+    current_dir = Folder.find(options["folder_id"])
+    user = User.find(options["user_id"])
 
     @num = 1
     @total = files.count
     zip_name = FileName.sanitize(param["filename"])
     zip_name += '.zip' unless zip_name =~ /.*\.zip$/
     zip_file = Tempfile.new zip_name
-    Zip::Archive.open(zip_file.path, Zip::CREATE, Zip::BEST_SPEED) do |zip|
+    Zip::Archive.open(zip_file.path, Zip::CREATE, Zip::BEST_COMPRESSION) do |zip|
       files.each do |file|
         zip.add_buffer(file.alias, file.file.file.read)
         at(@num, @total, "Compactando arquivo #{@num} de #{@total}: ./#{file.alias}")
@@ -33,14 +33,16 @@ class Jobs::CompressFilesJob < Resque::JobWithStatus
   end
 
   private
-    def compress_recursively zip, folder, path
-      zip.add_dir(path)
-      @total = @num + folder.files.count - 1
-      folder.files.each do |file|
-        zip.add_buffer(path + file.alias, file.file.file.read)
-        at(@num, @total, "Compactando arquivo #{@num} de #{@total}: ./#{path}#{file.alias}")
-        @num += 1
-      end
-      folder.children.each { |child| compress_recursively zip, child, path + child.name + '/' }
+
+  def compress_recursively zip, folder, path
+    zip.add_dir(path)
+    @total = @num + folder.files.count - 1
+    folder.files.each do |file|
+      zip.add_buffer(path + file.alias, file.file.file.read)
+      at(@num, @total, "Compactando arquivo #{@num} de #{@total}: ./#{path}#{file.alias}")
+      @num += 1
     end
+    folder.children.each { |child| compress_recursively zip, child, path + child.name + '/' }
+  end
+
 end

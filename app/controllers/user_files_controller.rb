@@ -41,7 +41,7 @@ class UserFilesController < ApplicationController
 
   def download
     @file = UserFile.find(params[:id])
-    redirect_to @file.file.url + (params[:filename] ? '?filename=' + params[:filename].to_s : '')
+    redirect_to "#{@file.file.url}?filename=#{@file.alias}"
   end
 
   def update_categories

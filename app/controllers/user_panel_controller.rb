@@ -4,13 +4,14 @@ require 'zipruby'
 class UserPanelController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
-  before_filter :fetch_folder, :only => [:create, :manage]
+  before_filter :fetch_folder, :only => [:create, :manage, :compress]
 
   layout 'user_panel'
 
   def show
     @file = UserFile.new
-    @most_downloaded_files = current_user.files.order_by(:"statistics.downloads").limit(10).to_a.sort { |x, y| (y.statistics.downloads || 0) <=> (x.statistics.downloads || 0) }
+    @most_downloaded_files = current_user.files.order_by(:"statistics.downloads").limit(10).to_a
+    @most_downloaded_files.sort! { |x, y| (y.statistics.downloads || 0) <=> (x.statistics.downloads || 0) }
   end
 
   def create
@@ -61,20 +62,22 @@ class UserPanelController < ApplicationController
   end
 
   def compress
-    folder = params[:folder_id] ? BSON::ObjectId(params[:folder_id]) : current_user.root_folder._id
-    session[:job_id] = Jobs::CompressFilesJob.create(:user_id => current_user._id, :folder_id => folder, :parameter => params[:user_file].to_json)
+    session[:job_id] = Jobs::CompressFilesJob.create(:user_id => current_user._id,
+                                                     :folder_id => @folder._id,
+                                                     :parameter => params[:user_file].to_json)
     render :json => [session[:job_id]].to_json
   end
 
   def decompress
-    session[:job_id] = Jobs::DecompressFilesJob.create(:user_id => current_user._id, :files => params[:files].to_json)
+    session[:job_id] = Jobs::DecompressFilesJob.create(:user_id => current_user._id,
+                                                       :files => params[:files].to_json)
     render :json => [session[:job_id]].to_json
   end
 
   def compression_state
     status = Resque::Status.get session[:job_id]
     if status and ["completed", "failed"].include? status["status"]
-      session[:job_id] = nil
+      session.delete :job_id
     end
     render :json => status ? status.to_json : {:status => "no_job"}
   end

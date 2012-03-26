@@ -16,20 +16,16 @@ class ServeGridfsFiles
   end
 
   private
+
   def process_request(env, key)
     request = Rack::Request.new(env)
-    begin
-      Mongo::GridFileSystem.new(Mongoid.database).open(key, 'r') do |file|
-        [200,
-         { 'Content-Type' => file.content_type,
-           'Content-Length' => file.file_length.to_s,
-           #'Content-Disposition' => "attachment; filename=\"#{params[:filename] || file.filename}\""
-         },
-         file]
-      end
-    rescue
-      file = open(File.expand_path(Rails.root + 'public/404.html'))
-      [404, {'Content-Type' => 'html'}, file.read]
+    Mongo::GridFileSystem.new(Mongoid.database).open(key, 'r') do |file|
+      [200,
+       { 'Content-Type' => file.content_type,
+         'Content-Length' => file.file_length.to_s,
+         'Content-Disposition' => 'attachment; filename="' + (request[:filename] || file.filename) + '"'
+       },
+       file]
     end
   end
 

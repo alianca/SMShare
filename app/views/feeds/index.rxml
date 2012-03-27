@@ -13,6 +13,7 @@ xml.rss :version => 2.0 do
         xml.link news_url(n)
         xml.guid news_url(n)
         xml.description n.short
+        xml.pubDate pub_date(n.created_at)
       end
     end
   end

@@ -9,7 +9,8 @@ class FeedsController < ApplicationController
   end
 
   def show
-    @news = Users.find(params[:id]).news_for_feed
+    @user = User.find params[:id]
+    @files = @user.files.to_a.sort { |a, b| b.created_at <=> a.created_at }
     render :layout => false
   end
 

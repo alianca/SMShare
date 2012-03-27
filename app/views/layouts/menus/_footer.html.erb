@@ -14,7 +14,7 @@
     </li>
 
     <li class="<%= yield(:page) == "rss" ? "active" : "" %>">
-      <%= link_to "Feed RSS" %>
+      <%= link_to "Feed RSS", feeds_path %>
     </li>
 
     <li class="<%= yield(:page) == "report" ? "active" : "" %>">
@@ -110,4 +110,3 @@
     </li>
   </ul>
 </div>
-

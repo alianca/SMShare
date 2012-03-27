@@ -159,6 +159,7 @@ class UserFile
   end
 
   private
+
   def cache_filetype
     self.filetype = self.file.file.content_type
     save if changed?
@@ -169,42 +170,41 @@ class UserFile
     save if changed?
   end
 
-    def download_file_from_url
-      if @url
-        uri = URI.parse(@url)
-        filename = uri.path.match(/.*\/(.*)/)[1]
-        filename = uri.host if filename.blank?
-        FileUtils.mkdir_p(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
-        tempfile = File.open(Rails.root +
-                             "tmp/tempfiles/user_file/#{self.id}/#{filename}",
-                             "w")
-        tempfile.write Curl::Easy.perform(uri.to_s).body_str
+  def download_file_from_url
+    if @url
+      uri = URI.parse(@url)
+      filename = uri.path.match(/.*\/(.*)/)[1]
+      filename = uri.host if filename.blank?
+      FileUtils.mkdir_p(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
+      tempfile = File.open(Rails.root +
+                           "tmp/tempfiles/user_file/#{self.id}/#{filename}",
+                           "w")
+      tempfile.write Curl::Easy.perform(uri.to_s).body_str
         tempfile.flush
-        self.file = tempfile
-      end
+      self.file = tempfile
     end
+  end
 
-    def cleanup_tempfile
-      if File.directory?(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
-        FileUtils.remove_dir(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
-      end
+  def cleanup_tempfile
+    if File.directory?(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
+      FileUtils.remove_dir(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
     end
+  end
 
-    def cleanup_description
-      if self.description == "Digite uma descrição objetiva para seu arquivo."
-        self.description = nil
-      end
+  def cleanup_description
+    if self.description == "Digite uma descrição objetiva para seu arquivo."
+      self.description = nil
     end
+  end
 
-    def normalize_tags
-      tags.collect! do |tag|
-        tag.strip.parameterize
-      end
-      tags.delete("")
+  def normalize_tags
+    tags.collect! do |tag|
+      tag.strip.parameterize
     end
+    tags.delete("")
+  end
 
-    def generate_alias
-      self.alias ||= self.filename
-    end
+  def generate_alias
+    self.alias ||= self.filename
+  end
 end
-

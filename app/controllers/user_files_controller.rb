@@ -21,6 +21,7 @@ class UserFilesController < ApplicationController
   end
 
   def links
+    params[:files].delete_if { |f| f.blank? }
     respond_with(@files = current_user.files.find(params[:files]))
   end
 
@@ -29,6 +30,7 @@ class UserFilesController < ApplicationController
   end
 
   def categorize
+    params[:files].delete_if { |f| f.blank? }
     respond_with(@files = current_user.files.find(params[:files]))
   end
 
@@ -40,8 +42,12 @@ class UserFilesController < ApplicationController
   end
 
   def download
-    @file = UserFile.find(params[:id])
-    redirect_to "#{@file.file.url}?filename=#{@file.alias}"
+    begin
+      @file = UserFile.find(params[:id])
+      redirect_to "#{@file.file.url}?filename=#{@file.alias}"
+    rescue
+      render :file => Rails.root + 'public/404.html', :status => 404
+    end
   end
 
   def update_categories

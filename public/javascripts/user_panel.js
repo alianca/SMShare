@@ -190,7 +190,7 @@ $(document).ready(function() {
             var speed = data.received * 1000 / elapsed_time; // bytes/s
             var eta = (data.size - data.received) * 1000 / speed; // ms
 
-            $(form).find(".progress_info .uploaded").width(percentage);
+            $(form).find(".progress_info .uploaded").animate({ width: percentage }, 200);
             $(form).find(".progress_info .percentage").html(percentage);
             $(form).find(".progress_info .uptime .data").html(ms_to_hour_min_sec(elapsed_time));
             $(form).find(".progress_info .eta .data").html(ms_to_hour_min_sec(eta));
@@ -211,6 +211,7 @@ $(document).ready(function() {
   function go_to_categorize() {
     var parameter = "";
     $("#user_files_forms form").each(function (i, form) {
+      console.log($(form));
       if($(form).attr("data-status") === "success") {
         parameter += "files[]=" + $(form).attr("data-created_id") + "&";
       }

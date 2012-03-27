@@ -15,12 +15,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    # @user.profile.destroy_avatar
-    # if params[:user][:profile][:avatar]
-    #   @user.profile.create_avatar :image =>
-    #     params[:user][:profile].delete(:avatar)
-    # end
-    puts params[:user]
     @user.update_attributes(params[:user])
 
     if (@user.profile.save and @user.save)

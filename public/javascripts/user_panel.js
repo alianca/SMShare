@@ -187,8 +187,12 @@ $(document).ready(function() {
             var updated_at = new Date();
             var percentage = Math.floor(data.received * 99 / data.size) + "%";
             var elapsed_time = updated_at - form.started_at; // ms
-            var speed = data.received * 1000 / elapsed_time; // bytes/s
-            var eta = (data.size - data.received) * 1000 / speed; // ms
+            var speed = 0;
+            var eta = 0;
+            if (data.received < data.size) {
+              speed = data.received * 1000 / elapsed_time; // bytes/s
+              eta = (data.size - data.received) * 1000 / speed; // ms
+            }
 
             $(form).find(".progress_info .uploaded").animate({ width: percentage }, 200);
             $(form).find(".progress_info .percentage").html(percentage);

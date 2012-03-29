@@ -1,4 +1,4 @@
-#user_new { 
+#user_new {
   background: url(/images/sessions/fundo.png);
   width: 831px;
   height: 186px;
@@ -6,16 +6,16 @@
   padding: 11px 14px;
 }
 
-#user_new .title { 
+#user_new .title {
   float: left;
 }
 
-#user_new .title p { 
+#user_new .title p {
   font-weight: bold;
   text-align: center;
 }
 
-#user_new .title .line1 { 
+#user_new .title .line1 {
 
   width: 188px;
   height: 52px;
@@ -25,7 +25,7 @@
   font-size: 40px;
 }
 
-#user_new .title .line2 { 
+#user_new .title .line2 {
   width: 188px;
   height: 28px;
   background: #7bbacf;
@@ -34,11 +34,11 @@
   font-size: 18px;
 }
 
-#user_new .title img { 
+#user_new .title img {
   margin: 71px 0 0 67px;
 }
 
-#user_new .call-to-action { 
+#user_new .call-to-action {
   width: 525px;
   padding: 9px 11px 0 0;
   float: right;
@@ -46,16 +46,16 @@
   line-height: 18px;
 }
 
-#user_new #login_fields { 
+#user_new #login_fields {
   margin: 59px 0 0 223px;
   width: 520px;
 }
 
-#user_new #login_fields ol li { 
+#user_new #login_fields ol li {
   margin-bottom: 6px;
 }
 
-#user_new #login_fields label { 
+#user_new #login_fields label {
   text-align: right;
   padding-right: 5px;
   line-height: 21px;
@@ -72,28 +72,30 @@
 }
 
 #user_new #login_fields p {
-  position: absolute;
+  display: block;
+  float: right;
   top: 220px;
-  padding: 0 0 0 390px;
+  padding: 0;
+  margin-right: 0;
 }
 
 
-#user_new #remember_field label { 
+#user_new #remember_field label {
   padding-left: 348px;
   margin: 0;
 }
 
-#user_new #remember_field ol li { 
+#user_new #remember_field ol li {
   margin-bottom: 12px;
   overflow: hidden;
 }
 
-#user_new .buttons { 
+#user_new .buttons {
   padding-left: 0;
   margin: 0 0 0 348px;
 }
 
-#user_new .buttons input { 
+#user_new .buttons input {
   color: white;
   font-size: 12px;
   border: 0;

@@ -1,17 +1,17 @@
 <h2>Enviar arquivos</h2>
-  
+
 <div id="categorize-container">
   <p class="categorize-info">Preencha o(s) campo(s) abaixo com tags relacionadas ao(s) arquivo(s), separando-as por vírgula e selecione as categorias referentes ao seu conteúdo.</p>
 
-  <ul id="categories-list">
+  <ol id="categories-list">
     <% Category.all.each do |category| %>
     <li>
       <p class="name"><%= category.name %></p>
       <%= check_box_tag "user_file[category_ids][]", category._id %>
     </li>
     <% end %>
-  </ul>
-  
+  </ol>
+
   <%= semantic_form_for :files, :url => {:action => :update_categories} do |f| %>
     <% i = 0 %>
     <% @files.each do |file| %>

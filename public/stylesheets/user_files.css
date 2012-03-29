@@ -71,23 +71,44 @@ li.tab-content.remote-tab {
 
 #categorize-container #categories-list {
   list-style-type: none;
-  width: 389px;
-  padding: 0;
+  width: 392px;
   background: url(/images/user_files/categorizar/fundo-cabecalho.png);
   margin: 0 0 0 241px;
-  padding-left: 7px;
+  padding: 0;
+  padding-left: 5px;
+  overflow: auto;
 }
 
 #categorize-container #categories-list li {
   display: inline-block;
-  width: 52px;
+  float: left;
   text-align: center;
-  margin: 0;
+  overflow: hidden;
+  width: 56px;
+  margin: 0 auto;
+  padding: 0;
 }
 
 #categorize-container #categories-list .name {
   font-size: 10px;
-  height: 20px;
+  height: 28px;
+  width: 56px;
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
+}
+
+
+#categorize-container #categories-list .checkbox {
+  width: 56px;
+  margin: 0 15px;
+  padding: 0;
+}
+
+#categorize-container form li {
+  margin-bottom: 0;
+  height: 30px;
+  overflow: hidden;
 }
 
 #categorize-container form li.string.required label {
@@ -108,6 +129,7 @@ li.tab-content.remote-tab {
   background: url(/images/user_files/categorizar/fundo-arquivo.png) repeat-y;
   width: 638px;
   height: 58px;
+  overflow: hidden;
   border-radius: 0 0 7px 7px;
   -moz-border-radius: 0 0 7px 7px;
 }
@@ -131,8 +153,8 @@ li.tab-content.remote-tab {
   border: 0;
   width: 232px;
   max-width: 232px;
-  height: 32px;
-  margin-top: 1px;
+  height: 30px;
+  line-height: 24px;
   padding: 0 5px;
   font-size: 11px;
   overflow: hidden;
@@ -141,23 +163,23 @@ li.tab-content.remote-tab {
 #categorize-container form li.check_boxes {
   float: left;
   width: 392px;
-  padding-left: 4px;
+  overflow: hidden;
 }
 
 
 #categorize-container form li.check_boxes ol {
   list-style-type: none;
   width: 392px;
-  padding: 0;
+  padding: 0 20px;
 }
 
 #categorize-container form li.check_boxes li {
   display: inline-block;
   width: 56px;
-  height: 32px;
+  height: 28px;
   text-align: center;
   margin: 0;
-  padding: 5px 0;
+  padding: 0;
 }
 
 #categorize-container .buttons {

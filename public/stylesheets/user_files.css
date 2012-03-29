@@ -92,7 +92,7 @@ li.tab-content.remote-tab {
 
 #categorize-container form li.string.required label {
   display: none;
-} 
+}
 
 #categorize-container form li.string.required label,
 #categorize-container form li.check_boxes .label {
@@ -648,4 +648,3 @@ li.tab-content.remote-tab {
   margin: 0 10px;
   top: -25px;
 }
-

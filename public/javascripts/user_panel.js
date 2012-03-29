@@ -276,8 +276,7 @@ $(document).ready(function() {
   $("#new_user_file").attr("id", "new_user_file_0");
   $("#new_user_file_0").attr("target", "new_user_file_iframe_0");
   $("#new_user_file_0").attr("action", upload_action + "-0");
-  $("#new_user_file_0").
-    append("<iframe name=\"new_user_file_iframe_0\"></iframe>");
+  $("#new_user_file_0").append("<iframe name=\"new_user_file_iframe_0\"></iframe>");
   $("#new_user_file_0 .file_fields input[type=hidden]").val(upload_id + "-0");
   var file_form_template = $("#new_user_file_0").clone();
   make_file_field($("#new_user_file_0 .file_fields .file input[type=file]"));
@@ -290,19 +289,13 @@ $(document).ready(function() {
     $(new_form).attr("id", "new_user_file_" + form_count);
     $(new_form).attr("target", "new_user_file_iframe_" + form_count);
     $(new_form).attr("action", upload_action + "-" + form_count);
-    $(new_form).children("iframe").
-      attr("name", "new_user_file_iframe_" + form_count);
-    $(new_form).find(".file_fields input[type=hidden]").
-      val(upload_id + "-" + form_count);
+    $(new_form).children("iframe").attr("name", "new_user_file_iframe_" + form_count);
+    $(new_form).find(".file_fields input[type=hidden]").val(upload_id + "-" + form_count);
     new_form[0].reset();
-    $(new_form).find(".clear-on-focus").
-      val($(new_form).find(".clear-on-focus").attr("title"));
-    $(new_form).find(".public_field input[type=checkbox]").
-      attr("id", "user_file_" + form_count + "_public");
-    $(new_form).find(".public_field input[type=checkbox]").
-      attr("name", "user_file_" + form_count + "[public]");
-    $(new_form).find(".public_field label").
-      attr("for", "user_file_" + form_count + "_public");
+    $(new_form).find(".clear-on-focus").val($(new_form).find(".clear-on-focus").attr("title"));
+    $(new_form).find(".public_field input[type=checkbox]").attr("id", "user_file_" + form_count + "_public");
+    $(new_form).find(".public_field input[type=checkbox]").attr("name", "user_file_" + form_count + "[public]");
+    $(new_form).find(".public_field label").attr("for", "user_file_" + form_count + "_public");
     $("#user_files_forms").append(new_form);
 
     make_file_field($(new_form).find(".file_fields .file input[type=file]"));

@@ -220,6 +220,7 @@ $(document).ready(function() {
         parameter += "files[]=" + $(form).attr("data-created_id") + "&";
       }
     });
+    console.log(parameter);
     window.location = "/arquivos/categorizar?" + parameter;
   }
 
@@ -250,10 +251,10 @@ $(document).ready(function() {
           reload();
         }
         else if (all_done) {
-          go_to_categorize();
+          setTimeout(go_to_categorize, 2000);
         }
         else {
-          setTimeout(tick, 1000);
+          setTimeout(tick, 500);
         }
       }
     }
@@ -312,22 +313,17 @@ $(document).ready(function() {
   });
 
   // Só executa dentro do iFrame
-  try {
-    if(window.parent != window) {
-      var form_id = window.name.replace("new_user_file_iframe_", "");
-      var form = $("#new_user_file_" + form_id, window.parent.document);
-      if($(".file_fields .error").length > 0) {
-        form.attr("data-status", "error");
-      } else {
-        form.attr("data-status", "success");
-        form.attr("data-created_id", $(".sentenced_tags")[0].id.
-                  replace("files_", "").
-                  replace("_sentenced_tags", ""));
-      }
+  if(window.parent != window) {
+    var form_id = window.name.replace("new_user_file_iframe_", "");
+    var form = $("#new_user_file_" + form_id, window.parent.document);
+    if($(".file_fields .error").length > 0) {
+      form.attr("data-status", "error");
+    } else {
+      form.attr("data-status", "success");
+      form.attr("data-created_id", $(".sentenced_tags")[0].id.
+                replace("files_", "").
+                replace("_sentenced_tags", ""));
     }
-  }
-  catch (exception) {
-    console.log(exception);
   }
 
   /* Atualiza as caixas de cores na personalização */

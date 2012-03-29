@@ -10,7 +10,7 @@
 
     <div class="go-back">
       <a href="<%= search_index_path(:q => params[:q],
-	       :filter => params[:filter], :order => params[:order])%>">
+               :filter => params[:filter], :order => params[:order])%>">
     <span></span>Voltar para o resultado da busca
       </a>
     </div>
@@ -24,47 +24,43 @@
       <p class="description"><%= @file.description %></p>
     </div>
 
-    <div class="images">
-      <% for i in 0..3 %>
-      <%# TODO Remove this for with indexes, use a collect instead %>
-    <% image = (@file.images.select { |img| img.index == i }).first %>
-    <% if image %>
-      <%= image_tag image.get, :class => "filled index%d" % i %>
-    <% else %>
-      <%= image_tag "search/sem-imagem.png", :class => "index%d" % i %>
+    <% if (@file.images.count > 0) %>
+      <div class="images">
+        <%= @file.images.collect do |img| %>
+          <%= image_tag image.get, :class => "filled index%d" % i %>
+        <% end %>
+      </div>
     <% end %>
-      <% end %>
-    </div>
 
     <div class="file-info">
       <div class="left">
-	<%= image_tag "search/icone-data.png" %>
-	Enviado em <%= @file.created_at.strftime "%d/%m/%Y" %><br/>
-	<%= image_tag "search/icone-dono.png" %>
-	Enviado por <%= link_to @file.owner.name %><br/>
-	<%= image_tag @filetype[:icon] %>
-	Arquivo do tipo <%= @filetype[:name] %><br/>
-	<%= image_tag "search/icone-categoria.png" %>
-	Categoria <%= link_to @file.categories.first.name,
-		      search_index_path(:q => params[:q],
-	:filter => @file.categories.first._id,
-	:order => params[:order])
-	%><br/>
+        <%= image_tag "search/icone-data.png" %>
+        Enviado em <%= @file.created_at.strftime "%d/%m/%Y" %><br/>
+        <%= image_tag "search/icone-dono.png" %>
+        Enviado por <%= link_to @file.owner.name %><br/>
+        <%= image_tag @filetype[:icon] %>
+        Arquivo do tipo <%= @filetype[:name] %><br/>
+        <%= image_tag "search/icone-categoria.png" %>
+        Categoria <%= link_to @file.categories.first.name,
+                      search_index_path(:q => params[:q],
+        :filter => @file.categories.first._id,
+        :order => params[:order])
+        %><br/>
       </div>
       <div class="right">
-	<%= image_tag "search/icone-tamanho.png" %>
-	Tamanho <%= number_to_human_size(@file.filesize, :precision => 3) %><br/>
-	<%= image_tag "search/icone-comentarios.png" %>
-	<%= link_to (@file.comments.count > 0 ? @file.comments.count.to_s + " comentários" : "Comente") %><br/>
-	<%= image_tag "search/icone-nota.png" %>
-	<%= link_to (@file.rate > 0.0 ? "Nota %0.1f" % @file.rate : "Avalie") %><br/>
-	<%= image_tag "search/icone-downloads.png" %>
-	<%= @file.downloads.count %> downloads<br/>
+        <%= image_tag "search/icone-tamanho.png" %>
+        Tamanho <%= number_to_human_size(@file.filesize, :precision => 3) %><br/>
+        <%= image_tag "search/icone-comentarios.png" %>
+        <%= link_to (@file.comments.count > 0 ? @file.comments.count.to_s + " comentários" : "Comente") %><br/>
+        <%= image_tag "search/icone-nota.png" %>
+        <%= link_to (@file.rate > 0.0 ? "Nota %0.1f" % @file.rate : "Avalie") %><br/>
+        <%= image_tag "search/icone-downloads.png" %>
+        <%= @file.downloads.count %> downloads<br/>
       </div>
 
       <a href="<%= user_file_url(@file) %>" rel="smshare" class="download-button">
-	      <span class="download-title">Baixar o arquivo!</span><br/>
-	      <span class="virus">Nenhum virus detectado</span>
+              <span class="download-title">Baixar o arquivo!</span><br/>
+              <span class="virus">Nenhum virus detectado</span>
       </a>
       <span class="antivirus">Testado por <%= link_to "Kaspersky Anti-Virus" %></span>
     </div>
@@ -72,48 +68,48 @@
     <div class="share">
       <h5>Compartilhe esse arquivo</h5>
       <div class="labels">
-	URL:<br/>
-	HTML:<br/>
-	Forum:<br/>
+        URL:<br/>
+        HTML:<br/>
+        Forum:<br/>
       </div>
       <div class="fields">
-	<%= text_field_tag :link, user_file_url(@file), :class => "link-field" %><br/>
-	<%= text_field_tag :link, "<a rel=\"smshare\" href=\""+user_file_url(@file)+"\">Link</a>", :class => "html-field" %><br/>
-	<%= text_field_tag :link, "[URL=\""+user_file_url(@file)+"\"]Link[/URL]", :class => "forum-field" %><br/>
+        <%= text_field_tag :link, user_file_url(@file), :class => "link-field" %><br/>
+        <%= text_field_tag :link, "<a rel=\"smshare\" href=\""+user_file_url(@file)+"\">Link</a>", :class => "html-field" %><br/>
+        <%= text_field_tag :link, "[URL=\""+user_file_url(@file)+"\"]Link[/URL]", :class => "forum-field" %><br/>
       </div>
       <div class="share-icons">
-	<%= image_tag("search/icones-compartilhar/twitter.png")%>
-	<%= image_tag("search/icones-compartilhar/youtube.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_15.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_16.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_19.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_17.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_20.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_18.png")%>
-	<%= image_tag("search/icones-compartilhar/google.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_11.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_13.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_10.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_8.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_12.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_9.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_14.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_7.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_2.png")%>
-	<%= image_tag("search/icones-compartilhar/facebook.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_5.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_4.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_3.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_6.png")%>
-	<%= image_tag("search/icones-compartilhar/UNK_1.png")%>
+        <%= image_tag("search/icones-compartilhar/twitter.png")%>
+        <%= image_tag("search/icones-compartilhar/youtube.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_15.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_16.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_19.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_17.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_20.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_18.png")%>
+        <%= image_tag("search/icones-compartilhar/google.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_11.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_13.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_10.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_8.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_12.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_9.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_14.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_7.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_2.png")%>
+        <%= image_tag("search/icones-compartilhar/facebook.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_5.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_4.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_3.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_6.png")%>
+        <%= image_tag("search/icones-compartilhar/UNK_1.png")%>
       </div>
     </div>
 
     <div class="comments">
       <h5>Comentários
-	<% if @comments.count > 0 %>
-	<span>(<%= @file.comments.count %>)</span>
-	<% end %>
+        <% if @comments.count > 0 %>
+        <span>(<%= @file.comments.count %>)</span>
+        <% end %>
       </h5>
 
       <% if @comments.count > 0 %>
@@ -121,8 +117,8 @@
       <%= will_paginate @comments %>
       <% else %>
       <div class="no-comments">
-	<%= image_tag("search/sem-comentarios.png") %>
-	<p>Seja o primeiro a comentar sobre esse arquivo!</p>
+        <%= image_tag("search/sem-comentarios.png") %>
+        <p>Seja o primeiro a comentar sobre esse arquivo!</p>
       </div>
       <% end %>
 
@@ -137,16 +133,13 @@
       <%= f.commit_button "Enviar" %>
       <% end %>
       <span class="rate-file">
-	Avalie esse arquivo:
-	<% for i in 1..5 %>
-	<img class="star index<%= i %>" />
-	<% end %>
+        Avalie esse arquivo:
+        <% for i in 1..5 %>
+        <img class="star index<%= i %>" />
+        <% end %>
       </span>
       <% end %>
 
     </div>
   </div>
 </div>
-
-
-

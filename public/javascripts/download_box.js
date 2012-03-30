@@ -57,7 +57,11 @@ function after_create_box(box, base_url) {
 }
 
 function get_base_url(url) {
-  return url.match(/(http:\/\/.*)\/arquivos/)[1];
+  var matches = url.match(/(http:\/\/.*)\/arquivos/);
+  if (matches) {
+    return matches[1];
+  }
+  return '';
 }
 
 function load_css(base_url) {
@@ -82,14 +86,15 @@ $(document).ready(function() {
     sender.stopImmediatePropagation();
 
     var button = sender;
-    var src = button.srcElement || button.target;
-    while(src.localName != "a") {
-      button = button.parent("a.download-button");
+    var link = button.srcElement || button.target;
+    while(link.localName != "a") {
+      link = $(link).parent("a.download-button")[0];
     }
 
+    link = $(link);
     /* Pega os dados do link */
-    var link = $(button.target);
-    var user_file_id = link.attr("href").match(/arquivos\/([0-9a-f]{24})\/?$/)[1];
+    var path = link.attr("href");
+    var user_file_id = path.match(/arquivos\/([0-9a-f]{24})\/?$/)[1];
 
     /* Verifica se já está aberto para poder fechar */
     if($("#download_box-" + user_file_id)[0]) {
@@ -97,15 +102,15 @@ $(document).ready(function() {
       return false;
     }
 
-    var base_url = get_base_url(link.attr("href"));
+    var base_url = get_base_url(path);
     load_css(base_url);
 
     /* Cria a caixa de download via AJAX */
     $.ajax({
-      url: link.attr("href") + "/download_box" + options,
+      url: path + "/download_box" + options,
       type: "GET",
       async: false,
-      success: function (data) {
+      success: function(data) {
         link.after(data);
       }
     });

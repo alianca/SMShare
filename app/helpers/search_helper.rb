@@ -1,4 +1,4 @@
-module SearchHelper  
+module SearchHelper
   def search_pagination_info collection, search_term
     if collection.total_pages < 2
       case collection.size
@@ -7,14 +7,14 @@ module SearchHelper
       else;   "Mostrando <b>todos os #{collection.size}</b> arquivos para '#{search_term}'".html_safe
       end
     else
-      (%{Monstrando arquivos <b>%d&nbsp;-&nbsp;%d</b> de <b>%d</b> para '#{search_term}'} % [
+      (%{Mostrando arquivos <b>%d&nbsp;-&nbsp;%d</b> de <b>%d</b> para '#{search_term}'} % [
         (collection.current_page-1)*collection.options[:per_page] + 1,
         (collection.current_page-1)*collection.options[:per_page] + collection.count,
         collection.total
         ]).html_safe
     end
   end
-  
+
   def result_for_search_item search_item
     search_item.class.find(search_item.id)
   end

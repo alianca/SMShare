@@ -185,7 +185,7 @@ $(document).ready(function() {
         if (data) {
           if (data.state === 'uploading') {
             var updated_at = new Date();
-            var percentage = Math.floor(data.received * 99 / data.size) + "%";
+            var percentage = Math.floor(data.received / data.size * 99) + "%";
             var elapsed_time = updated_at - form.started_at; // ms
             var speed = 0;
             var eta = 0;
@@ -220,8 +220,9 @@ $(document).ready(function() {
         parameter += "files[]=" + $(form).attr("data-created_id") + "&";
       }
     });
-    console.log(parameter);
-    window.location = "/arquivos/categorizar?" + parameter;
+    if (parameter.length > 0) {
+      window.location = "/arquivos/categorizar?" + parameter;
+    }
   }
 
   function tick() {
@@ -251,7 +252,7 @@ $(document).ready(function() {
           reload();
         }
         else if (all_done) {
-          setTimeout(go_to_categorize, 2000);
+          setTimeout(go_to_categorize, 4000);
         }
         else {
           setTimeout(tick, 500);

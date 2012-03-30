@@ -53,23 +53,13 @@ class UserDailyStatistic
     graph = LazyHighCharts::HighChart.new(:graph) do |g|
       g.chart(:width => 635, :height => 200, :spacingLeft => -280, :zoomType => :x)
 
-      g.series(:name => "Downloads",
-               :data => daily_statistics.collect { |ds|
-                 { :name => I18n.l(ds.date, :format => I18n.t("date.formats.long")),
-                   :y => ds.downloads
-                 }
-               })
+      g.series(:name => "Downloads", :data => daily_statistics.collect { |ds|
+                 {:name => I18n.l(ds.date, :format => I18n.t("date.formats.long")), :y => ds.downloads} })
+      g.series(:name => "2º Nivel", :data => daily_statistics.collect { |ds|
+                 {:name => I18n.l(ds.date, :format => I18n.t("date.formats.long")), :y => ds.referred_downloads} })
 
-      g.series(:name => "2º Nivel",
-               :data => daily_statistics.collect { |ds|
-                 { :name => I18n.l(ds.date, :format => I18n.t("date.formats.long")),
-                   :y => ds.referred_downloads
-                 }
-               })
-
-      g.xAxis(:categories => dates_array)
+      g.xAxis(:categories => dates_array, :legend => nil)
       g.yAxis(:title => {:text => "Downloads"}, :allowDecimals => false)
-      g.legend({})
       g.title nil
     end
   end

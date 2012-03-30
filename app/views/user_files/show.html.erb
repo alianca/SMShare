@@ -51,7 +51,7 @@
         <%= image_tag "search/icone-tamanho.png" %>
         Tamanho <%= number_to_human_size(@file.filesize, :precision => 3) %><br/>
         <%= image_tag "search/icone-comentarios.png" %>
-        <%= link_to (@file.comments.count > 0 ? @file.comments.count.to_s + " comentários" : "Comente") %><br/>
+        <%= link_to (@file.comments.count > 0 ? pluralize(@file.comments.count, "comentário") : "Comente") %><br/>
         <%= image_tag "search/icone-nota.png" %>
         <%= link_to (@file.rate > 0.0 ? "Nota %0.1f" % @file.rate : "Avalie") %><br/>
         <%= image_tag "search/icone-downloads.png" %>

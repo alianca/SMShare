@@ -158,6 +158,10 @@ class UserFile
     File.extname(self.alias)
   end
 
+  def validate_code(code)
+    code == '12345'
+  end
+
   private
 
   def cache_filetype

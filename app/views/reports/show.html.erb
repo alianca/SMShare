@@ -30,7 +30,7 @@
   <tbody>
     <% @statistics.each do |statistic| %>
       <tr>
-        <td class="date"><%= statistic.date.strftime(I18n.t("date.formats.long")) %></td>
+        <td class="date"><%= I18n.l statistic.date, :format => I18n.t('date.formats.long') %></td>
         <td class="downloads"><%= statistic.downloads %></td>
         <td class="revenue"><%= number_to_currency(statistic.revenue) %></td>
         <td class="referred_downloads"><%= statistic.referred_downloads %></td>
@@ -40,7 +40,7 @@
     <% end %>
   </tbody>
 </table>
-<table id="report_footer" class="report">  
+<table id="report_footer" class="report">
   <tfoot>
     <tr>
       <td class="date"></td>

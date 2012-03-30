@@ -1,9 +1,8 @@
-<%# TODO Sidebar Hardcoded por enquanto %>
 <ul id="sidebar">
   <li class="no-dropdown">
-    <%= link_to "Página principal", root_path %>
+    <%= link_to "Página principal", user_panel_path %>
   </li>
-  
+
   <li class="menu <%= yield(:page).split('_')[1] == "files" ? "active" : "" %>">
     Meus arquivos
     <ul class="dropdown">
@@ -18,7 +17,7 @@
       </li>
     </ul>
   </li>
-  
+
   <li class="menu <%= yield(:page).split('_')[1] == "statistics" ? "active" : "" %>">
     Relatórios
     <ul class="dropdown">
@@ -30,7 +29,7 @@
       </li>
     </ul>
   </li>
-  
+
   <li class="menu <%= yield(:page).split('_')[1] == "tools" ? "active" : "" %>">
     Ferramentas
     <ul class="dropdown">
@@ -42,7 +41,7 @@
       </li>
     </ul>
   </li>
-  
+
   <li class="menu <%= yield(:page).split('_')[1] == "data" ? "active" : "" %>">
     Dados da conta
     <ul class="dropdown">

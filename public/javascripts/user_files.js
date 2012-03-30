@@ -23,7 +23,7 @@ $(document).ready(function() {
         } else if (selected == "type-forum") {
             field.attr('value', '[url=\"' + field.attr('url-text') + '\"]Link[/url]');
         } else if (selected == "type-sharebox") {
-            field.attr('value', field.attr('url-text'));
+            field.attr('value', '<a rel="smshare" href="' + field.attr('url-text') + '">Link</a>');
         } else {
             field.attr('value', field.attr('url-text'));
         }

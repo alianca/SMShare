@@ -96,7 +96,7 @@ GEM
       thor (~> 0.14.4)
     json (1.4.6)
     json_pure (1.4.6)
-    lazy_high_charts (1.1.1)
+    lazy_high_charts (1.1.5)
       bundler (~> 1.0)
     linecache (0.43)
     macaddr (1.0.0)

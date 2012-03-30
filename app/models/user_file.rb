@@ -162,6 +162,18 @@ class UserFile
     code == '12345'
   end
 
+  def summarize_rate!
+    rates = self.comments.to_a.collect { |c| c.rate if c.rate > 0 }.compact
+
+    if rates.count > 0
+      self.rate = rates.sum * 1.0 / rates.count
+    else
+      self.rate = 0.0
+    end
+
+    save! if changed?
+  end
+
   private
 
   def cache_filetype

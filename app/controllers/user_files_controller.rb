@@ -2,9 +2,7 @@
 
 class UserFilesController < ApplicationController
   respond_to :html
-  before_filter :authenticate_user!, :only =>
-    [:new, :create, :categorize, :update, :links]
-  after_filter :save_download_info, :only => [:download]
+  before_filter :authenticate_user!, :only => [:new, :create, :categorize, :update, :links]
 
   layout "user_panel", :except => [:show, :download_box]
 
@@ -44,7 +42,13 @@ class UserFilesController < ApplicationController
   def download
     begin
       @file = UserFile.find(params[:id])
-      redirect_to "#{@file.file.url}?filename=#{@file.alias}"
+      if @file.validate_code params[:code]
+        redirect_to "#{@file.file.url}?filename=#{@file.alias}"
+        save_download_info
+      else
+        flash[:alert] = "O código digitado é inválido."
+        redirect_to :back
+      end
     rescue
       render :file => Rails.root + 'public/404.html', :status => 404
     end
@@ -53,8 +57,7 @@ class UserFilesController < ApplicationController
   def update_categories
     @files = params[:files].collect do |file_id, file_params|
       file = UserFile.find(file_id)
-      file.category_ids = file_params[:categories].delete_if { |c|
-        c.blank? }.collect { |c| BSON::ObjectId(c) }
+      file.category_ids = file_params[:categories].delete_if { |c| c.blank? }.collect { |c| BSON::ObjectId(c) }
       file.sentenced_tags = file_params[:sentenced_tags]
       file.save ? file : nil
     end.compact
@@ -80,8 +83,9 @@ class UserFilesController < ApplicationController
   end
 
   private
-    def save_download_info
-      Download.create(:file => @file, :downloaded_by_ip => request.env['REMOTE_ADDR'])
-      @file.save
-    end
+  def save_download_info
+    Download.create(:file => @file, :downloaded_by_ip => request.env['REMOTE_ADDR'])
+    @file.save
+  end
+
 end

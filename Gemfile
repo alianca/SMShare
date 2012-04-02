@@ -42,7 +42,7 @@ gem 'SystemTimer'
 gem 'resque-status'
 
 # LazyHighcharts
-gem 'lazy_high_charts'
+gem 'lazy_high_charts', '~> 1.1.1'
 
 # To use pagination
 gem "will_paginate", "~> 3.0.pre2"
@@ -67,7 +67,7 @@ group :development, :test do
   gem 'cucumber-rails'
   gem 'cucumber'
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
+  # gem 'factory_girl_rails'
 end
 
 # Correção temporaria para um erro que começou a aparecer de repente

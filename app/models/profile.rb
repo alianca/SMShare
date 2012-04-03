@@ -32,5 +32,5 @@ class Profile
   mount_uploader :avatar, AvatarUploader, :mount_on => :filename
 
   embedded_in :user, :inverse_of => :profile
-end
 
+end

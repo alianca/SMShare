@@ -34,13 +34,15 @@
 
     <div class="file-info">
       <div class="left">
-        <%= image_tag "search/icone-data.png" %>
+        <%= image_tag "search/icone-data.png", :class => :icon %>
         Enviado em <%= @file.created_at.strftime "%d/%m/%Y" %><br/>
-        <%= image_tag "search/icone-dono.png" %>
-        Enviado por <%= link_to @file.owner.name %><br/>
-        <%= image_tag @filetype[:icon] %>
+        <%= image_tag "search/icone-dono.png", :class => :icon %>
+        Enviado por <%= link_to @file.owner.name, user_path(@file.owner) %>
+        <%= link_to image_tag("search/small_rss.png"), feed_path(@file.owner) %>
+        <br/>
+        <%= image_tag @filetype[:icon], :class => :icon %>
         Arquivo do tipo <%= @filetype[:name] %><br/>
-        <%= image_tag "search/icone-categoria.png" %>
+        <%= image_tag "search/icone-categoria.png", :class => :icon %>
         Categoria <%= link_to @file.categories.first.name,
                       search_index_path(:q => params[:q],
         :filter => @file.categories.first._id,
@@ -48,13 +50,13 @@
         %><br/>
       </div>
       <div class="right">
-        <%= image_tag "search/icone-tamanho.png" %>
+        <%= image_tag "search/icone-tamanho.png", :class => :icon %>
         Tamanho <%= number_to_human_size(@file.filesize, :precision => 3) %><br/>
-        <%= image_tag "search/icone-comentarios.png" %>
+        <%= image_tag "search/icone-comentarios.png", :class => :icon %>
         <%= link_to (@file.comments.count > 0 ? pluralize(@file.comments.count, "comentário") : "Comente") %><br/>
-        <%= image_tag "search/icone-nota.png" %>
+        <%= image_tag "search/icone-nota.png", :class => :icon %>
         <%= link_to (@file.rate > 0.0 ? "Nota %0.1f" % @file.rate : "Avalie") %><br/>
-        <%= image_tag "search/icone-downloads.png" %>
+        <%= image_tag "search/icone-downloads.png", :class => :icon %>
         <%= @file.downloads.count %> downloads<br/>
       </div>
 

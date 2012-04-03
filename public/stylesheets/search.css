@@ -14,7 +14,7 @@
   z-index: 2;
 }
 
-#search-header #firefox-addon { 
+#search-header #firefox-addon {
   float: right;
   padding: 0 0 0 10px;
   margin: 45px 18px 0 0;
@@ -148,8 +148,8 @@
   font-size: 16px;
   line-height: 16px;
   margin: 0;
-  overflow: hidden;  
-  color: #383289;  
+  overflow: hidden;
+  color: #383289;
 }
 
 .search-result .description {
@@ -159,7 +159,7 @@
   font-size: 12px;
   line-height: 16px;
   margin: 5px 0;
-  overflow: hidden;  
+  overflow: hidden;
 }
 
 .search-result .download {
@@ -200,6 +200,12 @@
   background: url(/images/search/icone-data.png) no-repeat;
 }
 
+.search-result .owner .user .rss img {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
 .search-result .comments {
   clear: right;
   background: url(/images/search/icone-comentarios.png) no-repeat;
@@ -228,7 +234,7 @@
   width: 222px;
 }
 
-#categorias h5 {  
+#categorias h5 {
   width: 310px;
   height: 16px;
   font-size: 16px;

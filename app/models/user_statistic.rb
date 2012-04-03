@@ -29,6 +29,9 @@ class UserStatistic
 
     self.bandwidth = user.file_downloads.where(:filesize.gt => 0).sum(:filesize) || 0
 
+    self.rating = user.files.collect(&:rate).sum
+    self.comments = user.files.collect(&:comments).flatten.count
+
     self.revenue = downloads * 0.5
     self.total_referred_revenue = referred_downloads * 0.5
     self.referred_revenue = referred_downloads * 0.1

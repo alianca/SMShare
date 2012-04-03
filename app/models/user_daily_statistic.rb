@@ -84,15 +84,14 @@ class UserDailyStatistic
     # the first argument is a Symbol, so you need to_s it if you want to pattern match
     case method_sym.to_s
     when /^today_(.*)$/
-      self.where(:date => Date.today).sum($1.to_sym)
+      self.where(:date => Date.today.end_of_day).collect(&$1.to_sym).compact.sum
     when /^yesterday_(.*)$/
-      self.where(:date => Date.yesterday).sum($1.to_sym)
+      self.where(:date => Date.yesterday.end_of_day).collect(&$1.to_sym).compact.sum
     when /^this_month_(.*)$/
       self.where(:date.gte => Time.now.beginning_of_month.to_date).
-        where(:date.lte => Time.now.end_of_month.to_date).sum($1.to_sym)
+        where(:date.lte => Time.now.end_of_month.to_date).collect(&$1.to_sym).compact.sum
     when /^last_month_(.*)$/
-      self.where(:date.lte => 1.month.ago.end_of_month.to_date).
-        sum($1.to_sym) # TODO improve this
+      self.where(:date.lt => Time.now.beginning_of_month.to_date).collect(&$1.to_sym).compact.sum
     else
       super
     end

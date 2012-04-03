@@ -85,16 +85,21 @@ class User
   end
 
   def age
-    ((DateTime.now - self.profile.birthday) / 365.25).to_i
+    if (self.profile.birthday)
+      ((Date.today - self.profile.birthday) / 365.25).to_i
+    else
+      nil
+    end
   end
 
   private
-    def build_root_folder
-      self.root_folder = Folder.find_or_create_by(:owner_id => self._id, :path => "/") unless root_folder
-    end
 
-    def set_default_box_style
-      self.default_style ||= BoxStyle.default
-      self.default_box_image ||= BoxImage.default
-    end
+  def build_root_folder
+    self.root_folder = Folder.find_or_create_by(:owner_id => self._id, :path => "/") unless root_folder
+  end
+
+  def set_default_box_style
+    self.default_style ||= BoxStyle.default
+    self.default_box_image ||= BoxImage.default
+  end
 end

@@ -462,7 +462,7 @@ li.tab-content.remote-tab {
   border-bottom: 1px dotted black;
 }
 
-#file-container .file-info img {
+#file-container .file-info img.icon {
   width: 15px;
   height: 15px;
 }

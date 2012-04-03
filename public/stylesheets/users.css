@@ -71,8 +71,7 @@
   background: url(/images/profile/people.png) no-repeat;
 }
 
-
-#user-profile #personal-info .name .gender {
+#user-profile #personal-info .left .gender {
   position: relative;
   padding-left: 18px;
   padding-bottom: 18px;
@@ -80,11 +79,11 @@
   margin-right: 3px;
 }
 
-#user-profile #personal-info .name .gender.male {
+#user-profile #personal-info .left .gender.male {
   background: url(/images/profile/male.png) no-repeat;
 }
 
-#user-profile #personal-info .name .gender.female {
+#user-profile #personal-info .left .gender.female {
   background: url(/images/profile/female.png) no-repeat;
 }
 
@@ -185,4 +184,3 @@
   margin-right: 2px;
   background: url(/images/profile/views.png) no-repeat;
 }
-

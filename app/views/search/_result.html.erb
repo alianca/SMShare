@@ -9,7 +9,10 @@
   <p class="owner">
     <span class="when">Há <%= distance_of_time_in_words_to_now(result.created_at) %></span>
     por
-    <span class="user"><%= result.owner.name %></span>
+    <span class="user">
+      <%= link_to result.owner.name, user_path(result.owner) %>
+      <%= link_to image_tag("search/small_rss.png"), feed_path(result.owner), :class => "rss" %>
+    </span>
   </p>
   <p class="description"><%= result.description %><br/></p>
   <p class="comments"><%= pluralize(result.comments.count, "comentário") %></p>

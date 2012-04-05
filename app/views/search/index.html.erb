@@ -7,7 +7,7 @@
   <%= render :partial => 'layouts/search/categories' %>
 
   <div id="search-results">
-    <% if params[:q].blank? %>
+    <% if @files.count == 0 %>
       <p class="search-info">Sua busca não pode ser vazia</p>
     <% else %>
       <p class="search-info"><%= search_pagination_info @files, params[:q] %></p>

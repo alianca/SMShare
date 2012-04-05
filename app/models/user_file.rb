@@ -162,16 +162,44 @@ class UserFile
     code == '12345'
   end
 
-  def summarize_rate!
-    rates = self.comments.to_a.collect { |c| c.rate if c.rate > 0 }.compact
+  def summarize_rate
+    rates = self.comments.to_a.collect{ |c| c.rate if c.rate > 0 }.compact
+    rates.count > 0 ? rates.sum * 1.0 / rates.count : 0.0
+  end
 
-    if rates.count > 0
-      self.rate = rates.sum * 1.0 / rates.count
-    else
-      self.rate = 0.0
+  def self.find_filter_and_order(query, filter, order)
+    results = []
+    if !query.blank?
+      results = self.search(query).to_a
+    elsif not (filter.blank? and order.blank?)
+      results = User.all.collect(&:files).flatten
     end
 
-    save! if changed?
+    if !filter.blank?
+      results.delete_if { |f| !f.category_ids.include?(BSON::ObjectId(filter)) }
+    end
+
+    if !order.blank?
+      begin
+        results.sort! do |a,b|
+          case order
+          when "downloads_count"
+            b.statistics.downloads <=> a.statistics.downloads
+          when "comments_count"
+            b.statistics.comments <=> a.statistics.comments
+          else
+            b.send(order) <=> a.send(order)
+          end
+        end
+      rescue
+      end
+    end
+
+    results
+  end
+
+  def build_statistics
+    self.statistics.generate_statistics!
   end
 
   private
@@ -223,4 +251,5 @@ class UserFile
   def generate_alias
     self.alias ||= self.filename
   end
+
 end

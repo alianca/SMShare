@@ -2,7 +2,9 @@ class SearchController < ApplicationController
   before_filter :only => [:index, :show]
 
   def index
-    @files = UserFile.search(params[:q], :per_page => 10, :page => params[:page] || 1) if params[:q]
+    @files = UserFile.find_filter_and_order(params[:q], params[:filter], params[:order]).
+      paginate(:per_page => 10, :page => params[:page])
+
     respond_to do |f|
       f.html {}
       f.json { render :json => [params[:q], @files.collect(&:alias).uniq],

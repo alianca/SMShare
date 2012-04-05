@@ -13,10 +13,11 @@ class UserDailyStatistic
   embedded_in :user, :inverse_of => :daily_statistics
 
   def self.generate_statistics_for_user! user
-    #(1.month.ago.beginning_of_month.to_date..Date.today).each do |date|
-      #user.daily_statistics.find_or_create_by_date date
-    #end
-    #user.daily_statistics.collect(&:generate_statistics!)
+    user.daily_statistics.destroy_all
+    (1.month.ago.beginning_of_month.to_date..Date.today).each do |date|
+      self.find_or_create_by(:date => date, :user => user)
+    end
+    user.daily_statistics.collect(&:generate_statistics!)
   end
 
   def self.cleanup_old_statistics_for_user! user
@@ -47,17 +48,25 @@ class UserDailyStatistic
     end
 
     dates_array = daily_statistics.collect(&:date).collect { |d| d.strftime("%d/%m") }
-    if dates_array.length > 8
-      dates_array.each_with_index { |d,i| dates_array[i] = "" if i % (dates_array.length/8.0).ceil != 0}
+
+    data = daily_statistics.collect do |ds|
+      name = I18n.l(ds.date, :format => I18n.t("date.formats.long"))
+      {
+        :download => { :name => name, :y => ds.downloads },
+        :referred => { :name => name, :y => ds.referred_downloads }
+      }
     end
 
     graph = LazyHighCharts::HighChart.new(:graph) do |g|
       g.chart(:width => 635, :height => 200, :spacingLeft => -280, :zoomType => :x)
-      g.series(:name => "Downloads", :data=> daily_statistics.collect { |ds| {:name => ds.date.strftime(I18n.t("date.formats.long")), :y => ds.downloads} })
-      g.series(:name => "2º Nivel", :data=> daily_statistics.collect { |ds| {:name => ds.date.strftime(I18n.t("date.formats.long")), :y => ds.referred_downloads} })
-
-      g.xAxis(:categories => dates_array)
+      g.series(:name => "Downloads", :data => data.collect{ |d| d[:download] })
+      g.series(:name => "2º Nivel", :data => data.collect{ |d| d[:referred] })
+      g.xAxis(:categories => dates_array, :labels => { :step => (dates_array.length/8.0).ceil })
       g.yAxis(:title => {:text => "Downloads"}, :allowDecimals => false)
+      g.tooltip(:useHTML => true,
+                :headerFormat => "<table>",
+                :pointFormat => "<tr><td>Teste</td></tr>",
+                :footerFormat => "</table>")
       g.title nil
     end
   end

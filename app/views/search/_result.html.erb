@@ -15,8 +15,8 @@
     </span>
   </p>
   <p class="description"><%= result.description %><br/></p>
-  <p class="comments"><%= pluralize(result.comments.count, "comentário") %></p>
-  <p class="rate"><%= "Nota %0.1f" % result.rate %></p>
+  <p class="comments"><%= pluralize(result.statistics.comments, "comentário") %></p>
+  <p class="rate"><%= "Nota %0.1f" % result.statistics.rate %></p>
   <p class="download">
     <span class="download-link"><%= link_to "Baixar Arquivo", user_file_path(result), :rel => "smshare" %></span>
     <span class="filesize"><%= filesize_for_stat(result.filesize) %></span>

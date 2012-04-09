@@ -51,24 +51,24 @@
 <div class="section" id="smsearch-menu">
   <p class="title">sm<span class="special-s"><span>S</span></span>earch</p>
   <ul>
-    <li class="<%= yield(:page) == "search_files" ? "active" : "" %>">
+    <li class="<%= yield(:page) == "search_files" and !params[:order] ? "active" : "" %>">
       <%= link_to "Procurar arquivos", search_index_path %>
     </li>
 
-    <li class="<%= yield(:page) == "categories" ? "active" : "" %>">
-      <%= link_to "Todas as categorias" %>
+    <li class="<%= params[:order] == "created_at" ? "active" : "" %>">
+      <%= link_to "Arquivos mais recentes", search_index_path(:order => 'created_at', :q => params[:q], :filter => params[:filter]) %>
     </li>
 
-    <li class="<%= yield(:page) == "most_downloaded" ? "active" : "" %>">
-      <%= link_to "Arquivos mais baixados" %>
+    <li class="<%= params[:order] == "downloads_count" ? "active" : "" %>">
+      <%= link_to "Arquivos mais baixados", search_index_path(:order => 'downloads_count', :q => params[:q], :filter => params[:filter]) %>
     </li>
 
-    <li class="<%= yield(:page) == "most_commented" ? "active" : "" %>">
-      <%= link_to "Arquivos mais comentados" %>
+    <li class="<%= params[:order] == "comments_count" ? "active" : "" %>">
+      <%= link_to "Arquivos mais comentados", search_index_path(:order => 'comments_count', :q => params[:q], :filter => params[:filter]) %>
     </li>
 
-    <li class="<%= yield(:page) == "favorites" ? "active" : "" %>">
-      <%= link_to "Arquivos favoritos" %>
+    <li class="<%= params[:order] == "rate" ? "active" : "" %>">
+      <%= link_to "Arquivos favoritos", search_index_path(:order => 'rate', :q => params[:q], :filter => params[:filter]) %>
     </li>
   </ul>
 </div>

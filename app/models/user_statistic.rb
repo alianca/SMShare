@@ -32,10 +32,10 @@ class UserStatistic
     self.rating = user.files.collect(&:rate).sum
     self.comments = user.files.collect(&:comments).flatten.count
 
-    self.revenue = downloads * 0.5
-    self.total_referred_revenue = referred_downloads * 0.5
-    self.referred_revenue = referred_downloads * 0.1
-    self.referrer_comission = downloads * 0.1
+    self.revenue = downloads * 0.05
+    self.total_referred_revenue = referred_downloads * 0.05
+    self.referred_revenue = referred_downloads * 0.01
+    self.referrer_comission = downloads * 0.01
 
     self.payments_received = user.payment_requests.completed.sum(:value) || 0
     self.revenue_available_for_payment = revenue - payments_received

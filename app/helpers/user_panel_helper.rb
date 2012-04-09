@@ -5,7 +5,7 @@ module UserPanelHelper
   end
 
   def revenue_for_stat stat, unit_class = "stat_unit"
-    number_to_currency(stat / 10.0 || 0, :format => "<span class=\"#{unit_class}\">R$</span>%n").html_safe
+    number_to_currency(stat || 0, :format => "<span class=\"#{unit_class}\">R$</span>%n").html_safe
   end
 
   def folders_to_move

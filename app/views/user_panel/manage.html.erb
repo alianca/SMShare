@@ -55,10 +55,10 @@
           <tr class="folder">
             <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file" %></td>
             <td class="name"><%= link_to f.name, manage_user_panel_path(:folder_id => f) %></td>
-            <td class="size"></td>
-            <td class="created_at"></td>
-            <td class="downloads"></td>
-            <td class="revenue"></td>
+            <td class="size"><%= filesize_for_stat(f.total_size) %></td>
+            <td class="created_at"><%= f.created_at.strftime("%d/%m/%Y") %></td>
+            <td class="downloads"><%= f.total_downloads %></td>
+            <td class="revenue"><%= revenue_for_stat(f.total_revenue) %></td>
           </tr>
         <% elsif f.instance_of? UserFile %>
           <tr class="file">
@@ -66,7 +66,7 @@
             <td class="name"><%= f.alias %></td>
             <td class="size"><%= filesize_for_stat(f.filesize)%></td>
             <td class="created_at"><%= f.created_at.strftime("%d/%m/%Y") %></td>
-            <td class="downloads"><%= f.statistics.downloads %></td>
+            <td class="downloads"><%= f.downloads_count %></td>
             <td class="revenue"><%= revenue_for_stat(f.statistics.revenue) %></td>
           </tr>
         <% end %>

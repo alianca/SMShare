@@ -11,7 +11,7 @@ class PaymentRequestsController < ApplicationController
   end
 
   def create
-    PaymentRequest.create(params[:payment_request].merge({:user => current_user, :requested_at => Date.today}))
+    current_user.payment_requests.create(params[:payment_request])
     respond_with(@payment_requests, :location => user_panel_payment_requests_path)
   end
 

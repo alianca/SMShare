@@ -21,13 +21,13 @@ class PaymentRequest
   field :value, :type => Float
   field :referred_value, :type => Float
   field :completed_at, :type => Date
-  field :requested_at, :type => Date
+  field :requested_at, :type => Date, :default => Date.today
   field :request_month, :type => Date
 
-  before_validation :set_request_month
-  validates_uniqueness_of :request_month, :scope => [:user_id]
-
   belongs_to_related :user
+
+  before_validation :set_request_month
+  validate :request_month, :uniqueness => true, :scope => [:user_id]
 
   scope :completed, where(:status => :complete)
   scope :pending, where(:status.in => [:pending, :waiting_user])

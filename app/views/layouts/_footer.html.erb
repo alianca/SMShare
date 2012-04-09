@@ -2,20 +2,20 @@
   <div id="footer-menu">
     <%= render :partial => "layouts/menus/footer" %>
   </div>
-  
+
   <div id="logos">
     <%= link_to image_tag("layouts/logos/talk.png"), "", :id => :talk %>
-    <%= link_to image_tag("layouts/logos/alianca.png"), "", :id => :alianca %>    
+    <%= link_to image_tag("layouts/logos/alianca.png"), "", :id => :alianca %>
     <%= link_to image_tag("layouts/logos/certisign.png"), "", :id => :certisign %>
     <%= link_to image_tag("layouts/logos/twitter.png"), "", :id => :twitter %>
-    <%= link_to image_tag("layouts/logos/rss.png"), "", :id => :rss %>
+    <%= link_to image_tag("layouts/logos/rss.png"), feeds_url, :id => :rss %>
   </div>
-  
+
   <div id="copyright">
     &copy; Copyright 2010 smShare. Todos os direitos reservados.
-    
+
     <br />
-    
+
     <%= link_to "Política de privacidade", "", :id => "policy" %>
     |
     <%= link_to "Termos de serviço", "", :id => "terms-of-use" %>

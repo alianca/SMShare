@@ -3,7 +3,7 @@ class Jobs::UserFileStatisticsJob
 
   def self.perform
     User.all.collect(&:files).flatten.each do |file|
-      file.build_statistics
+      file.statistics.generate_statistics!
     end
   end
 end

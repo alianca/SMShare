@@ -11,14 +11,14 @@
     <div class="go-back">
       <a href="<%= search_index_path(:q => params[:q],
                :filter => params[:filter], :order => params[:order])%>">
-    <span></span>Voltar para o resultado da busca
+        <span></span>Voltar para o resultado da busca
       </a>
     </div>
 
     <div class="general-info">
       <div class="filetype">
-    <div><%= image_tag @filetype[:thumb] %></div>
-    <span><%= File.extname(@file.alias) %></span>
+        <div><%= image_tag @filetype[:thumb] %></div>
+        <span><%= File.extname(@file.alias) %></span>
       </div>
       <h5 class="title"><%= @file.alias %></h5>
       <p class="description"><%= @file.description %></p>
@@ -45,24 +45,24 @@
         <%= image_tag "search/icone-categoria.png", :class => :icon %>
         Categoria <%= link_to @file.categories.first.name,
                       search_index_path(:q => params[:q],
-        :filter => @file.categories.first._id,
-        :order => params[:order])
+                                        :filter => @file.categories.first._id,
+                                        :order => params[:order])
         %><br/>
       </div>
       <div class="right">
         <%= image_tag "search/icone-tamanho.png", :class => :icon %>
         Tamanho <%= number_to_human_size(@file.filesize, :precision => 3) %><br/>
         <%= image_tag "search/icone-comentarios.png", :class => :icon %>
-        <%= link_to (@file.statistics.comments > 0 ? pluralize(@file.statistics.comments, "comentário") : "Comente") %><br/>
+        <%= link_to (@file.comments_count > 0 ? pluralize(@file.comments_count, "comentário") : "Comente") %><br/>
         <%= image_tag "search/icone-nota.png", :class => :icon %>
         <%= link_to (@file.statistics.rate > 0.0 ? "Nota %0.1f" % @file.statistics.rate : "Avalie") %><br/>
         <%= image_tag "search/icone-downloads.png", :class => :icon %>
-        <%= pluralize(@file.statistics.downloads, "download") %><br/>
+        <%= pluralize(@file.downloads_count, "download") %><br/>
       </div>
 
       <a href="<%= user_file_url(@file) %>" rel="smshare" class="download-button">
-              <span class="download-title">Baixar o arquivo!</span><br/>
-              <span class="virus">Nenhum virus detectado</span>
+        <span class="download-title">Baixar o arquivo!</span><br/>
+        <span class="virus">Nenhum virus detectado</span>
       </a>
       <span class="antivirus">Testado por <%= link_to "Kaspersky Anti-Virus" %></span>
     </div>
@@ -109,19 +109,19 @@
 
     <div class="comments">
       <h5>Comentários
-        <% if @comments.count > 0 %>
-        <span>(<%= @file.comments.count %>)</span>
+        <% if @file.comments_count > 0 %>
+        <span>(<%= @file.comments_count %>)</span>
         <% end %>
       </h5>
 
-      <% if @comments.count > 0 %>
-      <%= render :partial => "comment", :collection => @comments %>
-      <%= will_paginate @comments %>
+      <% if @file.comments.count > 0 %>
+        <%= render :partial => "comment", :collection => @comments %>
+        <%= will_paginate @comments %>
       <% else %>
-      <div class="no-comments">
-        <%= image_tag("search/sem-comentarios.png") %>
-        <p>Seja o primeiro a comentar sobre esse arquivo!</p>
-      </div>
+        <div class="no-comments">
+          <%= image_tag("search/sem-comentarios.png") %>
+          <p>Seja o primeiro a comentar sobre esse arquivo!</p>
+        </div>
       <% end %>
 
       <%= semantic_form_for @comment, :html => { :id => "new-comment-form" } do |f| %>

@@ -4,7 +4,7 @@ class FeedsController < ApplicationController
   after_filter :append_xml_type
 
   def index
-    @news = News.all
+    @news = News.all.to_a.sort { |a, b| b.created_at <=> a.created_at }
     render :layout => false
   end
 

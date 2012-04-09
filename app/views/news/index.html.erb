@@ -6,13 +6,14 @@
       Últimas novidades
     </span>
   </div>
-  
+
   <div id="news-items">
     <%= render :partial => "news", :collection => @news %>
   </div>
   <span class="navigation">
-    <%= will_paginate :page_links => false, :previous_label => "&laquo; Anterior", :next_label => "Próximo &raquo;", :separator => (params[:page].to_i == 1 || params[:page].to_i == @news.total_pages ? "" : "<span class=\"separator\">|</span>") %>
-    
+    <%= will_paginate :page_links => false, :previous_label => "&laquo; Anterior", :next_label => "Próximo &raquo;",
+          :separator => (params[:page].to_i == 1 || params[:page].to_i == @news.total_pages ? "" : "<span class=\"separator\">|</span>") %>
+
   </span>
 </div>
 

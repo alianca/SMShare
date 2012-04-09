@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 xml.instruct!
 
 xml.rss :version => 2.0 do
   xml.channel do
-    xml.title "SMShare - #{@user.name}"
+    xml.title "SMShare - Arquivos de #{@user.name}"
     xml.link user_url(@user)
     xml.description @user.profile.description
 
@@ -12,7 +11,7 @@ xml.rss :version => 2.0 do
         xml.title f.alias
         xml.link user_file_url(f)
         xml.guid user_file_url(f)
-        xml.description "<Descrição do arquivo>"
+        xml.description ""
         xml.pubDate pub_date(f.created_at)
       end
     end

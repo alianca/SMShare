@@ -19,7 +19,6 @@ class UserFile
     indexes :created_at, :type => :date, :analyzed => false
     indexes :downloads_count, :type => :integer, :boost => 2
     indexes :comments_count, :type => :integer
-    indexes :rate, :type => :float, :index_name => :rating, :boost => 3
   end
 
   # Gera o JSON para o ElasticSearch
@@ -32,9 +31,9 @@ class UserFile
       :category => self.categories.collect(&:name),
       :description => self.description,
       :created_at => self.created_at,
-      :downloads_count => self.statistics.downloads,
-      :comments_count => self.comments.count,
-      :rate => self.rate,
+      :downloads_count => self.downloads_count,
+      :comments_count => self.comments_count,
+      :rate => self.statistics.rate,
       # Campos que precisam ser indexados pois
       # o ElasticSearch não rematerializa os resultados de busca
       :owner_id => self.owner_id,
@@ -48,7 +47,6 @@ class UserFile
   field :description, :type => String
   field :filetype, :type => String
   field :filesize, :type => Integer
-  field :rate, :type => Float, :default => 0.0
   field :public, :type => Boolean, :default => true
   field :path, :type => String, :default => "/"
   field :blocked, :type => Boolean, :default => false
@@ -91,7 +89,7 @@ class UserFile
 
   # Estatisticas
   embeds_one :statistics, :class_name => "UserFileStatistic"
-  after_create :build_statistics
+  after_create :generate_statistics_data
 
   # Upload Remoto
   attr_accessor :url
@@ -163,7 +161,7 @@ class UserFile
   end
 
   def summarize_rate
-    rates = self.comments.to_a.collect{ |c| c.rate if c.rate > 0 }.compact
+    rates = self.comments.collect{ |c| c.rate if c.rate > 0 }.compact
     rates.count > 0 ? rates.sum * 1.0 / rates.count : 0.0
   end
 
@@ -181,16 +179,7 @@ class UserFile
 
     if !order.blank?
       begin
-        results.sort! do |a,b|
-          case order
-          when "downloads_count"
-            b.statistics.downloads <=> a.statistics.downloads
-          when "comments_count"
-            b.statistics.comments <=> a.statistics.comments
-          else
-            b.send(order) <=> a.send(order)
-          end
-        end
+        results.sort! { |a,b| b.send(order) <=> a.send(order) }
       rescue
       end
     end
@@ -198,8 +187,18 @@ class UserFile
     results
   end
 
-  def build_statistics
-    self.statistics.generate_statistics!
+  # Atalho para as estatísticas para ordenação
+
+  def downloads_count
+    self.statistics.downloads
+  end
+
+  def comments_count
+    self.statistics.comments
+  end
+
+  def rate
+    self.statistics.rate
   end
 
   private
@@ -224,7 +223,7 @@ class UserFile
                            "tmp/tempfiles/user_file/#{self.id}/#{filename}",
                            "w")
       tempfile.write Curl::Easy.perform(uri.to_s).body_str
-        tempfile.flush
+      tempfile.flush
       self.file = tempfile
     end
   end
@@ -250,6 +249,11 @@ class UserFile
 
   def generate_alias
     self.alias ||= self.filename
+  end
+
+  def generate_statistics_data
+    self.create_statistics
+    self.save! if changed?
   end
 
 end

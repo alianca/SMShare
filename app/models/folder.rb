@@ -48,7 +48,7 @@ class Folder
   end
 
   def total_downloads
-    files.collect{|f| f.downloads_count}.sum + children.collect(&:total_downloads).sum
+    files.collect(&:downloads_count).sum + children.collect(&:total_downloads).sum
   end
 
   # Remove a pasta e o conteúdo recursivamente

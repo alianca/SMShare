@@ -418,19 +418,90 @@ li.tab-content.remote-tab {
   margin: 0;
 }
 
-#file-container .images img.filled {
-  width: 140px;
-  height: 105px;
+#file-container .images .remove-button {
+  display: inline-block;
+  width: 135px;
+  height: 100px;
+  background-color: red;
+  opacity: 50%;
+}
+
+#file-container .images :hover {
+  cursor: pointer;
+}
+
+#file-container .images .image.hidden:hover {
+  cursor: default;
+}
+
+#file-container .images .image {
+  display: inline-block;
+  margin: 12px 2px 15px 7px;
+  padding: 3px;
+  float: left;
+  width: 135px;
+  height: 100px;
   background-color: white;
 }
 
+#file-container .images .image.empty {
+  background: url(/images/search/sem-imagem.png);
+}
+
+#file-container .images .image.empty.hidden {
+  background: transparent;
+}
+
+
+#file-container .images .image.empty .link-button {
+  width: 135px;
+  display: inline-block;
+  color: #dddddd;
+  font-size: 12px;
+  text-align: center;
+  margin: 90px auto;
+}
+
+#file-container .images .image.empty .image-button {
+  display: block;
+  width: 58px;
+  height: 58px;
+  margin: -85px auto;
+  background: url(/images/user_files/adicionar-imagem-off.png) no-repeat;
+
+}
+
+#file-container .images .image.empty:hover .link-button {
+  color: #34378a;
+  text-decoration: underline;
+}
+
+#file-container .images .image.empty:hover .image-button {
+  background: url(/images/user_files/adicionar-imagem.png) no-repeat;
+}
+
 #file-container .images img {
-  display: inline;
-  margin: 12px 2px 15px 7px;
-  width: 140px;
-  height: 105px;
+  width: 135px;
+  height: 100px;
   box-shadow: 1px 1px 1px 1px rgba(50,50,50,0.075);
 }
+
+#file-container .images li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#file-container .images label {
+  display: none;
+}
+
+#file-container .images input {
+  opacity: 0;
+  width: 135px;
+  height: 100px;
+}
+
 
 #file-container h5 {
   width: 310px;

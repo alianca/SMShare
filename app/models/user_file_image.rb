@@ -1,8 +1,7 @@
 class UserFileImage
   include Mongoid::Document
 
-  mount_uploader :user_file_image, UserFileImageUploader, :mount_on => :filename
+  mount_uploader :image, UserFileImageUploader, :mount_on => :filename
 
-  belongs_to_related :file, :class_name => "UserFile"
-
+  embedded_in :file, :class_name => "UserFile", :inverse_of => :images
 end

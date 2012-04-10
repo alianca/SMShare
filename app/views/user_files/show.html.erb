@@ -24,13 +24,27 @@
       <p class="description"><%= @file.description %></p>
     </div>
 
-    <% if (@file.images.count > 0) %>
-      <div class="images">
-        <%= @file.images.collect do |img| %>
-          <%= image_tag image.get, :class => "filled index%d" % i %>
+    <div class="images">
+      <% @file.images.each do |img| %>
+        <% if @owner %>
+          <%= link_to image_tag(img.image.url, :class => "image"), user_file_image_path(img, :file_id => img.file), :method => :delete %>
+        <% else %>
+          <%= image_tag(img.image.url, :class => "image") %>
         <% end %>
-      </div>
-    <% end %>
+      <% end %>
+      <% (4 - @file.images.count).times do %>
+        <div class="image empty <%= @owner ? "" : "hidden" %>">
+          <% if @file.images.count < 4 and @owner %>
+            <%= semantic_form_for @user_file_image, :method => :create, :html => { :id => "new-image-form", :multipart => true } do |f| %>
+              <%= f.hidden_field :file, :value => @file._id %>
+              <%= f.input :image, :as => :file %>
+            <% end %>
+            <div class="image-button"></div>
+            <span class="link-button">Adicionar Imagem</span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
 
     <div class="file-info">
       <div class="left">
@@ -125,21 +139,21 @@
       <% end %>
 
       <%= semantic_form_for @comment, :html => { :id => "new-comment-form" } do |f| %>
-      <%= f.inputs do %>
-      <%= f.hidden_field :file, :value => @file._id %>
-      <%= f.text_area :message, :maxlength => 280 %>
-      <%= f.hidden_field :rate, :value => 0 %>
-      <% end %>
-      <span class="characters">Caracteres restantes: <span class="character-counter">280</span></span>
-      <%= f.buttons do %>
-      <%= f.commit_button "Enviar" %>
-      <% end %>
-      <span class="rate-file">
-        Avalie esse arquivo:
-        <% for i in 1..5 %>
-        <img class="star index<%= i %>" />
+        <%= f.inputs do %>
+          <%= f.hidden_field :file, :value => @file._id %>
+          <%= f.text_area :message, :maxlength => 280 %>
+          <%= f.hidden_field :rate, :value => 0 %>
         <% end %>
-      </span>
+        <span class="characters">Caracteres restantes: <span class="character-counter">280</span></span>
+        <%= f.buttons do %>
+          <%= f.commit_button "Enviar" %>
+        <% end %>
+        <span class="rate-file">
+          Avalie esse arquivo:
+          <% for i in 1..5 %>
+            <img class="star index<%= i %>" />
+          <% end %>
+        </span>
       <% end %>
 
     </div>

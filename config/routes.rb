@@ -60,6 +60,8 @@ Smshare::Application.routes.draw do |map|
 
   resources :comments, :only => [:create, :destroy]
 
+  resources :imagens, :as => :user_file_images, :controller => "user_file_images", :only => [:create, :destroy]
+
   resources :news, :only => [:index, :show]
 
   resources :guide, :only => [:index]

@@ -3,7 +3,6 @@
 class UserFilesController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!, :only => [:new, :create, :categorize, :update, :links]
-
   layout "user_panel", :except => [:show, :download_box]
 
   def new
@@ -14,6 +13,8 @@ class UserFilesController < ApplicationController
     @file = UserFile.find(params[:id])
     @filetype = @file.resolve_filetype
     @comment = Comment.new
+    @owner = current_user._id == @file.owner._id
+    @user_file_image = UserFileImage.new
     @comments = @file.comments.paginate(:per_page => 6, :page => params[:page])
     render(:show, :layout => 'application')
   end

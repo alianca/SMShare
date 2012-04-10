@@ -59,11 +59,11 @@ class UserFile
   # Usuario
   belongs_to_related :owner, :class_name => "User"
 
-  # Imagem
-  has_many_related :images, :class_name => "UserFileImage", :stored_as => :array
-
   # Categoria
   has_many_related :categories, :stored_as => :array
+
+  # Imagem
+  embeds_many :images, :class_name => "UserFileImage"
 
   # Comentários
   embeds_many :comments

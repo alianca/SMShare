@@ -1,10 +1,6 @@
 Endereço: 187.17.123.253
 
 Falta:
-    * Interface para as imagens do arquivo
-      - http://www.smshare.com.br/pngs/smsearch_arquivo2.png
-      - http://www.smshare.com.br/psds/smsearch_arquivo2.psd
-      - Lightbox
     * Integração com o Mozca
       - Autenticação do código
       - Valor de cada download

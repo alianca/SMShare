@@ -16,10 +16,10 @@
   <li class="title search dropdown <%= yield(:tab) == "search" ? "active" : "" %>">
     <ul>
       <li><%= link_to "Procurar arquivos", search_index_path %></li>
-      <li><%= link_to "Todas as categorias" %></li>
-      <li><%= link_to "Arquivos mais baixados" %></li>
-      <li><%= link_to "Arquivos mais comentados" %></li>
-      <li><%= link_to "Arquivos favoritos" %></li>
+      <li><%= link_to "Arquivos mais recentes", search_index_path(:order => 'created_at', :q => params[:q], :filter => params[:filter]) %></li>
+      <li><%= link_to "Arquivos mais baixados", search_index_path(:order => 'downloads_count', :q => params[:q], :filter => params[:filter]) %></li>
+      <li><%= link_to "Arquivos mais comentados", search_index_path(:order => 'comments_count', :q => params[:q], :filter => params[:filter]) %></li>
+      <li><%= link_to "Arquivos favoritos", search_index_path(:order => 'rate', :q => params[:q], :filter => params[:filter]) %></li>
     </ul>
   </li>
 

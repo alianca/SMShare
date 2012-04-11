@@ -418,23 +418,15 @@ li.tab-content.remote-tab {
   margin: 0;
 }
 
-#file-container .images .remove-button {
-  display: inline-block;
-  width: 135px;
-  height: 100px;
-  background-color: red;
-  opacity: 50%;
-}
-
 #file-container .images :hover {
   cursor: pointer;
 }
 
-#file-container .images .image.hidden:hover {
+#file-container .images .image-container.hidden:hover {
   cursor: default;
 }
 
-#file-container .images .image {
+#file-container .images .image-container {
   display: inline-block;
   margin: 12px 2px 15px 7px;
   padding: 3px;
@@ -444,16 +436,52 @@ li.tab-content.remote-tab {
   background-color: white;
 }
 
-#file-container .images .image.empty {
+#file-container .images .image-container .image-preview {
+  position: absolute;
+}
+
+#file-container .images .image-container .delete-image {
+  position: absolute;
+  width: 135px;
+  height: 100px;
+  background: transparent;
+}
+
+#file-container .images .image-container .delete-image:hover {
+  background-color: rgba(255, 0, 0, 0.5);
+  background-image: url(/images/user_files/remover-imagem.png);
+  background-repeat: no-repeat;
+  background-position: 38px 15px;
+}
+
+#file-container .images .image-container .delete-image .label {
+  position: absolute;
+  top: 75px;
+  left: 20px;
+  color: white;
+  opacity: 0;
+}
+
+#file-container .images .image-container .display-image {
+  position: absolute;
+  width: 135px;
+  height: 100px;
+}
+
+#file-container .images .image-container .delete-image:hover .label {
+  opacity: 100;
+}
+
+#file-container .images .image-container.empty {
   background: url(/images/search/sem-imagem.png);
 }
 
-#file-container .images .image.empty.hidden {
+#file-container .images .image-container.empty.hidden {
   background: transparent;
 }
 
 
-#file-container .images .image.empty .link-button {
+#file-container .images .image-container.empty .link-button {
   width: 135px;
   display: inline-block;
   color: #dddddd;
@@ -462,21 +490,20 @@ li.tab-content.remote-tab {
   margin: 90px auto;
 }
 
-#file-container .images .image.empty .image-button {
+#file-container .images .image-container.empty .image-button {
   display: block;
   width: 58px;
   height: 58px;
   margin: -85px auto;
   background: url(/images/user_files/adicionar-imagem-off.png) no-repeat;
-
 }
 
-#file-container .images .image.empty:hover .link-button {
+#file-container .images .image-container.empty:hover .link-button {
   color: #34378a;
   text-decoration: underline;
 }
 
-#file-container .images .image.empty:hover .image-button {
+#file-container .images .image-container.empty:hover .image-button {
   background: url(/images/user_files/adicionar-imagem.png) no-repeat;
 }
 

@@ -10,7 +10,6 @@ $(document).ready(function() {
   });
 
   $("#categories-list input[type=checkbox]").change(function () {
-
     $("#user_file_categories_input input[value=" + this.value + "]").attr("checked", $(this).attr("checked"));
   });
 
@@ -45,7 +44,7 @@ $(document).ready(function() {
     counter.text(280 - $(this).val().length);
   });
 
-  $("input[name=user_file_image[image]]").change(function() {
+  $("input[name='user_file_image[image]']").change(function() {
     $(this).parents("#new-image-form").submit();
   });
 

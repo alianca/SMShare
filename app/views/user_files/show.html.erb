@@ -26,14 +26,19 @@
 
     <div class="images">
       <% @file.images.each do |img| %>
-        <% if @owner %>
-          <%= link_to image_tag(img.image.url, :class => "image"), user_file_image_path(img, :file_id => img.file), :method => :delete %>
-        <% else %>
-          <%= image_tag(img.image.url, :class => "image") %>
-        <% end %>
+        <div class="image-container">
+          <%= image_tag img.image.url, :class => "image-preview" %>
+          <% if @owner %>
+            <%= link_to user_file_image_path(img, :file_id => img.file), :method => :delete, :class => "delete-image" do %>
+              <span class="label">Remover Imagem</span>
+            <% end %>
+          <% else %>
+            <%= link_to "", img.image.url, :rel => "lightbox[previews]", :class => "display-image" %>
+          <% end %>
+        </div>
       <% end %>
       <% (4 - @file.images.count).times do %>
-        <div class="image empty <%= @owner ? "" : "hidden" %>">
+        <div class="image-container empty <%= @owner ? "" : "hidden" %>">
           <% if @file.images.count < 4 and @owner %>
             <%= semantic_form_for @user_file_image, :method => :create, :html => { :id => "new-image-form", :multipart => true } do |f| %>
               <%= f.hidden_field :file, :value => @file._id %>

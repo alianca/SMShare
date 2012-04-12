@@ -1,7 +1,19 @@
 - Executar reset.sh pra atualizar as gems e resetar o banco de dados
 - Criar scripts do cron pra executar as tasks do rake de coleção de estatísticas:
   Estatísticas diárias do usuário:
-  - $ rake resque:daily
+   $ rake resque:daily
 
   Estatísticas dos arquivos a cada n minutos (ver algum valor que faça sentido)
-  - $ rake resque:files
+   $ rake resque:files
+
+- Configurar o Apache pra servir o estado do upload:
+
+<Location />
+    # enable tracking uploads in /
+    TrackUploads On
+</Location>
+
+<Location /progress>
+    # enable upload progress reports
+    ReportUploads On
+</Location>

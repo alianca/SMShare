@@ -63,10 +63,6 @@ class UserDailyStatistic
       g.series(:name => "2º Nivel", :data => data.collect{ |d| d[:referred] })
       g.xAxis(:categories => dates_array, :labels => { :step => (dates_array.length/8.0).ceil })
       g.yAxis(:title => {:text => "Downloads"}, :allowDecimals => false)
-      g.tooltip(:useHTML => true,
-                :headerFormat => "<table>",
-                :pointFormat => "<tr><td>Teste</td></tr>",
-                :footerFormat => "</table>")
       g.title nil
     end
   end

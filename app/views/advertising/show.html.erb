@@ -36,7 +36,7 @@
   <tbody>
     <% @references.each do |r| %>
       <tr>
-        <td class="reference"><div><%= r.name %></div></td>
+        <td class="reference"><div><%= r.name %> <%= r.created_at.strftime("%d/%m/%Y") %></div></td>
         <td class="clicks"><div><%= r.clicks %></div></td>
         <td class="signups"><div><%= r.signups %></div></td>
         <td class="comission"><div><%= r.comission %></div></td>
@@ -95,5 +95,3 @@
 <%= render :partial => @tab.to_s %>
 
 </div>
-
-

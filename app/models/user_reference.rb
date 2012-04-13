@@ -14,6 +14,11 @@ class UserReference
   end
 
   def comission
-    user.referred.where(:referred_by => self.name).collect(&:'statistics.referrer_comission').sum
+    self.user.referred.where(:referred_by => self.name).collect{|r| r.statistics.referrer_comission}.sum
+  end
+
+  def got_click
+    self.clicks += 1
+    save!
   end
 end

@@ -1,4 +1,4 @@
-class UserFileStatistic
+class UserFileStatistic < Statistic
   include Mongoid::Document
 
   field :downloads, :type => Integer
@@ -17,7 +17,7 @@ class UserFileStatistic
     self.comments = file.comments.count
     self.rate = file.summarize_rate
     self.bandwidth = file.downloads.where(:filesize.gt => 0).sum(:filesize) || 0
-    self.revenue = downloads * 0.05
+    self.revenue = downloads * TOTAL_VALUE
 
     self.updated_at = Time.now.utc
 

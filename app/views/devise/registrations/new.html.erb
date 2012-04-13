@@ -2,10 +2,10 @@
   <div class="title">
     <p class="line1">Registrar</p>
     <p class="line2">Criar conta gratuita</p>
-    
+
     <%= image_tag "registrations/bloco_de_notas.png" %>
-  </div>  
-  
+  </div>
+
   <p class="call-to-action">Para criar sua conta, certifique-se de digitar um endereço de email válido, após o registro, será necessário confirma-lo em sua caixa de email. Esse passo é necessário para garantir a utilização de todas as funcões da sua conta.</p>
 
   <% f.inputs :id => :user_fields do %>
@@ -15,11 +15,11 @@
     <%= f.input :password, :label => "Escolha uma senha:", :hint => "Sua senha deve possuir pelo menos 5 caracteres. Recomenda-se o uso de integração de números, símbolos, letras maiúsculas e minúsculas para garantir uma maior segurança em sua conta." %>
     <%= f.input :password_confirmation, :label => "Confirme a senha:", :hint => "Repita pausadamente a senha informada anteriormente para garantir que não houve nenhum engano durante a digitação." %>
   <% end %>
-  
+
   <% f.inputs :id => :terms_field do %>
     <%= f.input :accepted_terms, :as => :boolean, :label => "Declaro que li e concordo com os Termos e Condições." %>
   <% end %>
-  
+
   <% f.buttons do %>
     <%= f.commit_button "Confirmar" %>
   <% end %>
@@ -29,4 +29,3 @@
 <div id="search" class="container">
   <%= render :partial => "layouts/search" %>
 </div>
-

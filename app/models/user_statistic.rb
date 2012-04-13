@@ -1,4 +1,4 @@
-class UserStatistic
+class UserStatistic < Statistic
   include Mongoid::Document
 
   field :files, :type => Integer
@@ -32,10 +32,10 @@ class UserStatistic
     self.rating = user.files.collect(&:rate).sum
     self.comments = user.files.collect(&:comments).flatten.count
 
-    self.revenue = downloads * 0.05
-    self.total_referred_revenue = referred_downloads * 0.05
-    self.referred_revenue = referred_downloads * 0.01
-    self.referrer_comission = downloads * 0.01
+    self.revenue = downloads * TOTAL_VALUE
+    self.total_referred_revenue = referred_downloads * TOTAL_VALUE
+    self.referred_revenue = referred_downloads * REFERED_VALUE
+    self.referrer_comission = downloads * REFERED_VALUE
 
     self.payments_received = user.payment_requests.completed.sum(:value) || 0
     self.revenue_available_for_payment = revenue - payments_received

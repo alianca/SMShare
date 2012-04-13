@@ -18,11 +18,11 @@
       <%= f.label "Cria ID de referência" %>
 
       <span class="text-field">
-        <span class="left"></span><%= text_field_tag :user_reference_name, "", :name => "user_reference[name]" %><span class="right"></span>
+        <span class="left"></span><%= f.text_field :name %><span class="right"></span>
       </span>
 
       <span class="submit_blue">
-        <span class="left"></span><%= submit_tag "Confirmar" %><span class="right"></span>
+        <span class="left"></span><%= f.submit "Confirmar" %><span class="right"></span>
       </span>
     </div>
   <% end %>

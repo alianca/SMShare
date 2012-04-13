@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class UserDailyStatistic
+class UserDailyStatistic < Statistic
   include Mongoid::Document
 
   field :date, :type => Date
@@ -93,8 +93,8 @@ class UserDailyStatistic
       where(:downloaded_at.gte => date.to_time.utc.beginning_of_day).
       where(:downloaded_at.lte => date.to_time.utc.end_of_day).count
 
-    self.revenue = self.downloads * 0.05
-    self.referred_revenue = self.referred_downloads * 0.01
+    self.revenue = self.downloads * TOTAL_VALUE
+    self.referred_revenue = self.referred_downloads * REFERED_VALUE
 
     self.updated_at = Time.now.utc
     save! if changed?

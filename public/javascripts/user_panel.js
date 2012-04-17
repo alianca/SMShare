@@ -194,7 +194,7 @@ $(document).ready(function() {
               eta = (data.size - data.received) * 1000 / speed; // ms
             }
 
-            $(form).find(".progress_info .uploaded").animate({ width: percentage }, 200);
+            $(form).find(".progress_info .uploaded").css('width', percentage);
             $(form).find(".progress_info .percentage").html(percentage);
             $(form).find(".progress_info .uptime .data").html(ms_to_hour_min_sec(elapsed_time));
             $(form).find(".progress_info .eta .data").html(ms_to_hour_min_sec(eta));

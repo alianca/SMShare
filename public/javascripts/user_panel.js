@@ -1,10 +1,8 @@
 $(document).ready(function() {
   if($("input#all_files")) {
-    $("input#all_files").live('click', function() {
-      $("input.select_file").each(function() {
-        $(this).attr("checked", $("input#all_files").attr("checked"));
-        $(this).change();
-      });
+    $("input#all_files").click(function() {
+      $(".select_file").attr("checked", $(this).attr("checked") && true);
+      $(".select_file").change();
     });
   }
 
@@ -66,39 +64,40 @@ $(document).ready(function() {
     e.stopImmediatePropagation();
   });
 
+  function selected_boxes() {
+    var result = { any: false, all: true };
+    $(".file_list .select_file").each(function() {
+      var checked = $(this).attr("checked");
+      result.any = result.any || checked;
+      result.all = result.all && checked;
+    });
+    return result;
+  }
+
   /* Copia a seleção de arquivos da tabela para a lista oculta */
   $(".file_list .select_file").change(function () {
-    $("#actions_forms .hidden_file_list input[value=" + this.value + "]").
-      attr("checked", $(this).attr("checked"));
-    $(".actions_menu .hidden_file_list input[value=" + this.value + "]").
-      attr("checked", $(this).attr("checked"));
+    $("#actions_forms .hidden_file_list input[value=" + this.value + "]").attr("checked", $(this).attr("checked"));
+    $(".actions_menu .hidden_file_list input[value=" + this.value + "]").attr("checked", $(this).attr("checked"));
 
     if ($(this).attr("checked")) {
-      $("#" + this.value).removeClass("hidden-field");
+      $("#" + $(this).attr("value")).removeClass("hidden-field");
       $("#rename_placeholder").css("margin-bottom", $("#rename").height() + 27);
     } else {
-      $("#" + this.value).addClass("hidden-field");
+      $("#" + $(this).attr("value")).addClass("hidden-field");
       $("#rename_placeholder").css("margin-bottom", $("#rename").height() + 27);
     }
 
-    var has_selected = false;
-    $("#actions_forms .hidden_file_list input[type=checkbox]").each(function() {
-      if ($(this).attr("checked")) {
-        has_selected = true;
-      }
-    });
-
-    if (has_selected) {
-      $(".actions_menu .need-files").removeClass("off");
+    if (selected_boxes().any) {
+      $(".actions_menu .need-files.off").removeClass("off");
     } else {
       $(".actions_menu .need-files").addClass("off");
       if ($("#actions_forms .need-files:visible")[0]) {
-        $("#actions_forms form").hide();
+        $("#actions_forms").hide();
         $("#rename_placeholder").hide();
       }
     }
-
   });
+
 
   /* Dropdown da sidebar */
   $("#sidebar li.menu").click(function(e) {

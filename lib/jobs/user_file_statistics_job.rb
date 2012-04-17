@@ -1,9 +1,7 @@
 class Jobs::UserFileStatisticsJob
   @queue = :statistics
 
-  def self.perform
-    User.all.collect(&:files).flatten.each do |file|
-      file.statistics.generate_statistics!
-    end
+  def self.perform file_id
+    UserFile.find(file_id).statistics.generate_statistics!
   end
 end

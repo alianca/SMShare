@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+require 'lib/jobs/user_file_statistics_job'
+
 class UserFile
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -90,6 +93,7 @@ class UserFile
   # Estatisticas
   embeds_one :statistics, :class_name => "UserFileStatistic"
   after_create :generate_statistics_data
+  after_save :needs_statistics!
 
   # Upload Remoto
   attr_accessor :url
@@ -199,6 +203,10 @@ class UserFile
 
   def rate
     self.statistics.rate
+  end
+
+  def needs_statistics!
+    Resque.enqueue Jobs::UserFileStatisticsJob, self._id
   end
 
   private

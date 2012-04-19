@@ -45,8 +45,8 @@
     <tr>
       <td class="date"></td>
       <td class="downloads"><%= @statistics.collect(&:downloads).sum %></td>
-      <td class="revenue"><%= number_to_currency(@statistics.collect(&:revenue).sum) %></td>
-      <td class="referred_downloads"><%= @statistics.collect(&:referred_downloads).sum %></td>
+      <td class="revenue"><%= number_to_currency(@statistics.collect(&:revenue).compact.sum) %></td>
+      <td class="referred_downloads"><%= @statistics.collect(&:referred_downloads).compact.sum %></td>
       <td class="referred_revenue"><%= number_to_currency(@statistics.collect(&:referred_revenue).sum) %></td>
       <td class="total"><%= number_to_currency(@statistics.collect { |s| s.revenue + s.referred_revenue }.sum) %></td>
     </tr>

@@ -2,28 +2,28 @@
   <div id="storage">
     <p class="title">Total Armazenado</span>
     <div class="stats_box storage">
-      <p class="stat"><%= filesize_for_stat(current_user.statistics.files_size) %></p>
+      <p class="stat"><%= filesize_for_stat(current_user.statistics.files_size || 0) %></p>
       <p class="stat_observation">no total de <%= current_user.statistics.files %> arquivos</p>
     </div>
   </div>
   <div id="bandwidth">
     <p class="title">Banda Consumida</span>
     <div class="stats_box bandwidth">
-      <p class="stat"><%= filesize_for_stat(current_user.statistics.bandwidth) %></p>
+      <p class="stat"><%= filesize_for_stat(current_user.statistics.bandwidth || 0) %></p>
       <p class="stat_observation">por todos os arquivos</p>
     </div>
   </div>
   <div id="downloads">
     <p class="title">Total de Downloads</span>
     <div class="stats_box downloads">
-      <p class="stat"><%= number_with_delimiter(current_user.statistics.downloads) %></p>
+      <p class="stat"><%= number_with_delimiter(current_user.statistics.downloads || 0) %></p>
       <p class="stat_observation">desde <%= I18n.l current_user.created_at, :format => ("%B de %Y") %></p>
     </div>
   </div>
   <div id="revenue">
     <p class="title">Lucro Total</span>
     <div class="stats_box revenue">
-      <p class="stat"><%= revenue_for_stat(current_user.statistics.revenue) %></p>
+      <p class="stat"><%= revenue_for_stat(current_user.statistics.total_revenue || 0) %></p>
       <p class="stat_observation">incluindo 2º nível</p>
     </div>
   </div>
@@ -60,25 +60,25 @@
         <td>Hoje:</td>
         <td><%= current_user.daily_statistics.today_downloads %></td>
         <td><%= current_user.daily_statistics.today_referred_downloads %></td>
-        <td class="revenue"><%= number_to_currency(current_user.daily_statistics.today_revenue) %></td>
+        <td class="revenue"><%= number_to_currency(current_user.daily_statistics.today_total_revenue) %></td>
       </tr>
       <tr>
         <td>Ontem:</td>
         <td><%= current_user.daily_statistics.yesterday_downloads %></td>
         <td><%= current_user.daily_statistics.yesterday_referred_downloads %></td>
-        <td class="revenue"><%= number_to_currency(current_user.daily_statistics.yesterday_revenue) %></td>
+        <td class="revenue"><%= number_to_currency(current_user.daily_statistics.yesterday_total_revenue) %></td>
       </tr>
       <tr>
         <td>Este mês:</td>
         <td><%= current_user.daily_statistics.this_month_downloads %></td>
         <td><%= current_user.daily_statistics.this_month_referred_downloads %></td>
-        <td class="revenue"><%= number_to_currency(current_user.daily_statistics.this_month_revenue) %></td>
+        <td class="revenue"><%= number_to_currency(current_user.daily_statistics.this_month_total_revenue) %></td>
       </tr>
       <tr>
         <td>Mês passado:</td>
         <td><%= current_user.daily_statistics.last_month_downloads %></td>
         <td><%= current_user.daily_statistics.last_month_referred_downloads %></td>
-        <td class="revenue"><%= number_to_currency(current_user.daily_statistics.last_month_revenue) %></td>
+        <td class="revenue"><%= number_to_currency(current_user.daily_statistics.last_month_total_revenue) %></td>
       </tr>
     </tbody>
   </table>

@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
+
+require 'lib/jobs/user_statistics_job'
+
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
 
   # Inclui os modulos padrões do Devise. Outros disponiveis são:
   # :token_authenticatable, :confirmable, :lockable e :timeoutable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
   # Define o esquema logico db.users
   # email, e os campos de autenticação já são criados pelo Devise
@@ -44,6 +46,7 @@ class User
   embeds_one :statistics, :class_name => "UserStatistic"
   after_create :build_statistics
   embeds_many :daily_statistics, :class_name => "UserDailyStatistic" # , :order => :date.asc
+  after_create :generate_statistics!
 
   # Perfil
   embeds_one :profile, :class_name => "Profile"
@@ -92,9 +95,13 @@ class User
     end
   end
 
-  def set_referred user, banner
-    self.referred_by = banner if banner
-    self.referrer = User.all.where(:nickname => user) if user
+  def downloads_for date
+    file_downloads.where(:downloaded_at.gte => date.to_time.utc.beginning_of_day).where(:downloaded_at.lte => date.to_time.utc.end_of_day).count
+  end
+
+  def generate_statistics!
+    UserDailyStatistic.generate_statistics_for_user! self
+    self.statistics.generate_statistics!
   end
 
   private

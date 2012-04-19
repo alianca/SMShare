@@ -4,6 +4,10 @@ class Statistic
   TOTAL_VALUE = 0.05
 
   # Valor de cada download em segundo nivel
-  REFERED_VALUE = 0.2 * TOTAL_VALUE
+  REFERRED_VALUE = 0.2 * TOTAL_VALUE
+
+  def total_revenue
+    revenue + referred_revenue
+  end
 
 end

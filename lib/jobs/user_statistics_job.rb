@@ -1,10 +1,7 @@
 class Jobs::UserStatisticsJob
   @queue = :statistics
 
-  def self.perform
-    User.all.each do |user|
-      UserDailyStatistic.generate_statistics_for_user! user
-      user.statistics.generate_statistics!
-    end
+  def self.perform user_id
+    User.find(BSON::ObjectId(user_id)).build_statistics
   end
 end

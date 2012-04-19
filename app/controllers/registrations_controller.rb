@@ -2,8 +2,6 @@ class RegistrationsController < Devise::RegistrationsController
   respond_to :html
   prepend_view_path "app/views/devise"
 
-  after_filter :generate_references, :only => [:create]
-
   layout :choose_layout
 
   def edit
@@ -22,16 +20,31 @@ class RegistrationsController < Devise::RegistrationsController
     render :json => params[:user].keys.collect { |k| {k => user.errors[k].first} unless user.errors[k].first.blank? }.compact
   end
 
-  private
-    def choose_layout
-      if ['edit', 'update'].include? action_name
-        "user_panel"
-      else
-        "application"
-      end
-    end
+  def create
+    super # completes registration and yields @user
+    save_referred_signup!
+  end
 
-    def generate_references
-      current_user.set_referred cookies[:referred_user], cookies[:referred_banner]
+  private
+
+  def choose_layout
+    if ['edit', 'update'].include? action_name
+      "user_panel"
+    else
+      "application"
     end
+  end
+
+  def save_referred_signup!
+    if cookies[:referred_user]
+      referred_user = User.where(:nickname => cookies[:referred_user]).first
+      referred_user.referred << @user
+      referred_user.save
+      @user.referred_by = cookies[:referred_banner]
+      @user.save
+      cookies.delete :referred_user
+      cookies.delete :referred_banner
+    end
+  end
+
 end

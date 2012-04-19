@@ -1,12 +1,15 @@
+var timeout = null;
 function setAnimation(i) {
   /* Menu */
+  clearTimeout(timeout);
+
   $("#tv-menu li").removeClass("active");
   $("#tv-menu li:nth(" + i + ")").addClass("active");
   /* Slide */
   $(".slide").hide();
   $(".slide:nth(" + i + ")").show();
 
-  setTimeout(function() {
+  timeout = setTimeout(function() {
     setAnimation((i + 1) % $("#tv-menu li").length);
   }, 6000);
 }

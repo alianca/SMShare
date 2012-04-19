@@ -7,21 +7,22 @@ class UserReference
 
   embedded_in :user, :inverse_of => :reference
 
-  validates :name, :presence => true
+  validates :name, :presence => true, :uniqueness => true
 
   def signups
-    self.user.referred.where(:referred_by => self.name).count
+    referees.count
   end
 
   def comission
-    self.user.referred.
-      where(:referred_by => self.name).
-      collect{|r| r.statistics.referrer_comission}.
-      sum
+    referees.collect(&:statistics).compact.collect(&:referred_revenue).sum
   end
 
   def got_click
     self.clicks += 1
     save!
+  end
+
+  def referees
+    self.user.referred.where(:referred_by => self.name).compact
   end
 end

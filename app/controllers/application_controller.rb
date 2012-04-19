@@ -21,12 +21,13 @@ class ApplicationController < ActionController::Base
   def save_reference!
     if params[:ref]
       cookies[:referred_user] = params[:ref]
-      @referred_user = User.where(:nickname => params[:ref]).first
+      referred_user = User.where(:nickname => params[:ref]).first
       if params[:ban]
         cookies[:referred_banner] = params[:ban]
-        @referred_banner = @referred_user.references.where(:name => params[:ban]).first
-        @referred_banner.got_click unless @referred_banner.user == @referred_user
+        referred_banner = referred_user.references.where(:name => params[:ban]).first
+        referred_banner.got_click unless current_user == referred_user
       end
     end
   end
+
 end

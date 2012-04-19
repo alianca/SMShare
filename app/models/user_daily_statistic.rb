@@ -70,31 +70,24 @@ class UserDailyStatistic < Statistic
   def self.method_missing(method_sym, *arguments, &block)
     case method_sym.to_s
     when /^today_(.*)$/
-      self.where(:date => Date.today).sum($1.to_sym)
+      self.where(:date => Date.today).collect(&$1.to_sym).sum
     when /^yesterday_(.*)$/
-      self.where(:date => Date.yesterday).sum($1.to_sym)
+      self.where(:date => Date.yesterday).collect(&$1.to_sym).sum
     when /^this_month_(.*)$/
       self.where(:date.gte => Time.now.beginning_of_month.to_date).
-        where(:date.lte => Time.now.end_of_month.to_date).sum($1.to_sym)
+        where(:date.lte => Time.now.end_of_month.to_date).collect(&$1.to_sym).sum
     when /^last_month_(.*)$/
-      self.where(:date.lte => 1.month.ago.end_of_month.to_date).sum($1.to_sym)
+      self.where(:date.lte => 1.month.ago.end_of_month.to_date).collect(&$1.to_sym).sum
     else
       super
     end
   end
 
   def generate_statistics!
-    self.downloads = user.file_downloads.
-      where(:downloaded_at.gte => date.to_time.utc.beginning_of_day).
-      where(:downloaded_at.lte => date.to_time.utc.end_of_day).count
-
-    self.referred_downloads = Download.
-      where(:file_owner_id.in => user.referred.collect(&:_id)).
-      where(:downloaded_at.gte => date.to_time.utc.beginning_of_day).
-      where(:downloaded_at.lte => date.to_time.utc.end_of_day).count
-
-    self.revenue = self.downloads * TOTAL_VALUE
-    self.referred_revenue = self.referred_downloads * REFERED_VALUE
+    self.downloads = user.downloads_for date
+    self.referred_downloads = user.referred.collect{|r| r.downloads_for date}.sum
+    self.revenue = downloads * TOTAL_VALUE
+    self.referred_revenue = referred_downloads * REFERRED_VALUE
 
     self.updated_at = Time.now.utc
     save! if changed?

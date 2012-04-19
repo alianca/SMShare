@@ -25,17 +25,17 @@ class UserStatistic < Statistic
     self.files_size = user.files.where(:filesize.gt => 0).sum(:filesize) || 0
 
     self.downloads = user.file_downloads.count
-    self.referred_downloads = Download.where(:file_owner_id.in => user.referred.collect(&:_id)).count
+    self.referred_downloads = user.referred.collect{|r| r.file_downloads.count }.sum
 
     self.bandwidth = user.file_downloads.where(:filesize.gt => 0).sum(:filesize) || 0
 
-    self.rating = user.files.collect(&:rate).sum
+    self.rating = user.files.sum(:rate)
     self.comments = user.files.collect(&:comments).flatten.count
 
     self.revenue = downloads * TOTAL_VALUE
     self.total_referred_revenue = referred_downloads * TOTAL_VALUE
-    self.referred_revenue = referred_downloads * REFERED_VALUE
-    self.referrer_comission = downloads * REFERED_VALUE
+    self.referred_revenue = referred_downloads * REFERRED_VALUE
+    self.referrer_comission = downloads * REFERRED_VALUE
 
     self.payments_received = user.payment_requests.completed.sum(:value) || 0
     self.revenue_available_for_payment = revenue - payments_received
@@ -45,4 +45,5 @@ class UserStatistic < Statistic
     self.updated_at = Time.now.utc
     save! if changed?
   end
+
 end

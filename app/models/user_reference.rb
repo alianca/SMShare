@@ -14,7 +14,7 @@ class UserReference
   end
 
   def comission
-    referees.collect(&:statistics).compact.collect(&:referred_revenue).sum
+    referees.collect{|r| r.statistics.referrer_comission}.sum
   end
 
   def got_click

@@ -1,27 +1,27 @@
 <div id="main_statistics">
   <div id="storage">
-    <p class="title">Total Armazenado</span>
+    <p class="title">Total Armazenado</p>
     <div class="stats_box storage">
       <p class="stat"><%= filesize_for_stat(current_user.statistics.files_size || 0) %></p>
       <p class="stat_observation">no total de <%= current_user.statistics.files %> arquivos</p>
     </div>
   </div>
   <div id="bandwidth">
-    <p class="title">Banda Consumida</span>
+    <p class="title">Banda Consumida</p>
     <div class="stats_box bandwidth">
       <p class="stat"><%= filesize_for_stat(current_user.statistics.bandwidth || 0) %></p>
       <p class="stat_observation">por todos os arquivos</p>
     </div>
   </div>
   <div id="downloads">
-    <p class="title">Total de Downloads</span>
+    <p class="title">Total de Downloads</p>
     <div class="stats_box downloads">
       <p class="stat"><%= number_with_delimiter(current_user.statistics.downloads || 0) %></p>
       <p class="stat_observation">desde <%= I18n.l current_user.created_at, :format => ("%B de %Y") %></p>
     </div>
   </div>
   <div id="revenue">
-    <p class="title">Lucro Total</span>
+    <p class="title">Lucro Total</p>
     <div class="stats_box revenue">
       <p class="stat"><%= revenue_for_stat(current_user.statistics.total_revenue || 0) %></p>
       <p class="stat_observation">incluindo 2º nível</p>

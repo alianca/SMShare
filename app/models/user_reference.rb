@@ -10,11 +10,14 @@ class UserReference
   validates :name, :presence => true
 
   def signups
-    user.referred.where(:referred_by => self.name).count
+    self.user.referred.where(:referred_by => self.name).count
   end
 
   def comission
-    self.user.referred.where(:referred_by => self.name).collect{|r| r.statistics.referrer_comission}.sum
+    self.user.referred.
+      where(:referred_by => self.name).
+      collect{|r| r.statistics.referrer_comission}.
+      sum
   end
 
   def got_click

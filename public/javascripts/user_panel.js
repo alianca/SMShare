@@ -1,8 +1,8 @@
 $(document).ready(function() {
   if($("input#all_files")) {
     $("input#all_files").click(function() {
-      $(".select_file").attr("checked", $(this).attr("checked") && true);
-      $(".select_file").change();
+      $("input.select_file").attr("checked", $(this).attr("checked"));
+      $("input.select_file").change();
     });
   }
 
@@ -76,8 +76,8 @@ $(document).ready(function() {
 
   /* Copia a seleção de arquivos da tabela para a lista oculta */
   $(".file_list .select_file").change(function () {
-    $("#actions_forms .hidden_file_list input[value=" + this.value + "]").attr("checked", $(this).attr("checked"));
-    $(".actions_menu .hidden_file_list input[value=" + this.value + "]").attr("checked", $(this).attr("checked"));
+    $("#actions_forms .hidden_file_list input[value=" + $(this).attr("value") + "]").attr("checked", $(this).attr("checked"));
+    $(".actions_menu .hidden_file_list input[value=" + $(this).attr("value") + "]").attr("checked", $(this).attr("checked"));
 
     if ($(this).attr("checked")) {
       $("#" + $(this).attr("value")).removeClass("hidden-field");
@@ -193,7 +193,7 @@ $(document).ready(function() {
               eta = (data.size - data.received) * 1000 / speed; // ms
             }
 
-            $(form).find(".progress_info .uploaded").css('width', percentage);
+            $(form).find(".progress_info .uploaded").width(percentage);
             $(form).find(".progress_info .percentage").html(percentage);
             $(form).find(".progress_info .uptime .data").html(ms_to_hour_min_sec(elapsed_time));
             $(form).find(".progress_info .eta .data").html(ms_to_hour_min_sec(eta));

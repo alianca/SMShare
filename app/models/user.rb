@@ -92,6 +92,11 @@ class User
     end
   end
 
+  def set_referred user, banner
+    self.referred_by = banner if banner
+    self.referrer = User.all.where(:nickname => user) if user
+  end
+
   private
 
   def build_root_folder
@@ -102,4 +107,5 @@ class User
     self.default_style ||= BoxStyle.default
     self.default_box_image ||= BoxImage.default
   end
+
 end

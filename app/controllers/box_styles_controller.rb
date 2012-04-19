@@ -5,25 +5,33 @@ class BoxStylesController < ApplicationController
   end
 
   def set_default
-    current_user.default_style = BoxStyle.find(params[:style][:selected_style])
-    current_user.default_box_image = BoxImage.find(current_user.default_style.box_background_image)
+    begin
+      current_user.default_style = BoxStyle.find(params[:style][:selected_style])
+    rescue
+      current_user.default_style = current_user.box_styles.find(params[:style][:selected_style])
+    end
+    begin
+      current_user.default_box_image = BoxImage.find(current_user.default_style.box_background_image)
+    rescue
+      current_user.default_box_image = current_user.box_images.find(current_user.default_style.box_background_image)
+    end
     current_user.save
     redirect_to :back
   end
 
   def generate_javascript
-    style = params[:estilo]
-    background = params[:fundo]
-    render :text => generate_javascript_data(style, background), :content_type => "text/javascript"
+    @style = params[:estilo]
+    @background = params[:fundo]
+    render :text => generate_javascript_data, :content_type => "text/javascript"
   end
 
   private
-    def generate_javascript_data style, background
+    def generate_javascript_data
       data = "var options = '"
-      data += "?" if style || background
-      data += "style=" + style if style
-      data += "&" if style && background
-      data += "background=" + background if background
+      data += "?" if @style || @background
+      data += "style=" + @style if @style
+      data += "&" if @style && @background
+      data += "background=" + @background if @background
       data += "';\n"
       file = File.open(Rails.root + "public/javascripts/jquery.js", "r");
       data += file.read

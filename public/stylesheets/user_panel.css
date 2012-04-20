@@ -561,8 +561,7 @@ table.file_list td {
 }
 
 table.file_list td.select .checkbox {
-  margin-left: 12px;
-  margin-right: -12px;
+  margin: 0 auto;
 }
 
 table.file_list td.name {

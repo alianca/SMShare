@@ -1,10 +1,4 @@
 $(document).ready(function() {
-  if($("input#all_files")) {
-    $("input#all_files").click(function() {
-      $("input.select_file").attr("checked", $(this).attr("checked"));
-      $("input.select_file").change();
-    });
-  }
 
   /* Troca o fundo do botão em mouse over */
   $("#folder_new #folder_submit").mouseover(function () {
@@ -74,6 +68,24 @@ $(document).ready(function() {
     return result;
   }
 
+  var all_files = false;
+  function toggle_all_files(value) {
+    if (value === undefined) {
+      value = !all_files;
+    }
+    all_files = value;
+    $("input#all_files").attr("checked", all_files);
+    $("input#all_files").change();
+  }
+
+  if($("input#all_files")) {
+    $("input#all_files").click(function() {
+      toggle_all_files();
+      $("input.select_file").attr("checked", all_files);
+      $("input.select_file").change();
+    });
+  }
+
   /* Copia a seleção de arquivos da tabela para a lista oculta */
   $(".file_list .select_file").change(function () {
     $("#actions_forms .hidden_file_list input[value=" + $(this).attr("value") + "]").attr("checked", $(this).attr("checked"));
@@ -87,7 +99,8 @@ $(document).ready(function() {
       $("#rename_placeholder").css("margin-bottom", $("#rename").height() + 27);
     }
 
-    if (selected_boxes().any) {
+    var selected = selected_boxes();
+    if (selected.any) {
       $(".actions_menu .need-files.off").removeClass("off");
     } else {
       $(".actions_menu .need-files").addClass("off");
@@ -96,6 +109,8 @@ $(document).ready(function() {
         $("#rename_placeholder").hide();
       }
     }
+
+    toggle_all_files(selected.all);
   });
 
 

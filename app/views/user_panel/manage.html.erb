@@ -63,7 +63,7 @@
         <% elsif f.instance_of? UserFile %>
           <tr class="file">
             <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file" %></td>
-            <td class="name"><%= f.alias %></td>
+            <td class="name"><%= link_to f.alias, user_file_path(f) %></td>
             <td class="size"><%= filesize_for_stat(f.filesize)%></td>
             <td class="created_at"><%= f.created_at.strftime("%d/%m/%Y") %></td>
             <td class="downloads"><%= f.downloads_count %></td>

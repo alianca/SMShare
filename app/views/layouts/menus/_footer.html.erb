@@ -31,15 +31,15 @@
     </li>
 
     <li class="<%= yield(:page) == "manage_files" ? "active" : "" %>">
-      <%= link_to "Organize seus documentos" %>
+      <%= link_to "Organize seus documentos", manage_user_panel_path %>
     </li>
 
     <li class="<%= yield(:page) == "share_files" ? "active" : "" %>">
-      <%= link_to "Compartilhe seus arquivos" %>
+      <%= link_to "Compartilhe seus arquivos", customize_user_panel_path %>
     </li>
 
     <li class="<%= yield(:page) == "earn_money" ? "active" : "" %>">
-      <%= link_to "Lucre com os downloads $$" %>
+      <%= link_to "Lucre com os downloads $$", user_panel_reports_path %>
     </li>
 
     <li class="<%= yield(:page) == "advantages" ? "active" : "" %>">

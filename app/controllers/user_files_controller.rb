@@ -11,7 +11,7 @@ class UserFilesController < ApplicationController
 
   def show
     @file = UserFile.find(params[:id])
-    @filetype = @file.resolve_filetype
+    @mime = @file.filetype
     @comment = Comment.new
     @owner = current_user._id == @file.owner._id
     @user_file_image = UserFileImage.new

@@ -1,4 +1,6 @@
 module UserPanelHelper
+  require 'user_files_helper'
+
   def filesize_for_stat stat, unit_class = "stat_unit"
     filesize, unit = number_to_human_size(stat).split(" ")
     "#{filesize}<span class=\"#{unit_class}\">#{unit}</span>".html_safe

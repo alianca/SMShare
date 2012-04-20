@@ -112,49 +112,6 @@ class UserFile
   # Sentenced Fields para as Tags
   sentenced_fields :tags
 
-  def resolve_filetype
-    case self.filetype
-    when /image.*/
-      { :name => "Gráfico",
-        :icon => "search/icone-grafico.png",
-        :thumb => "search/thumb-grafico.png" }
-    when /application.*/
-      case self.filetype
-      when /application\/(x-gzip|x-tar|zip|x-rar)/
-        { :name => "Compactado",
-          :icon => "search/icone-compactado.png",
-          :thumb => "search/thumb-compactado.png" }
-      when /application\/(word|rtf|pdf|postscript)/
-        { :name => "Documento",
-          :icon => "search/icone-documento.png",
-          :thumb => "search/thumb-documento.png" }
-      else
-        { :name => "Programa",
-          :icon => "search/icone-programa.png",
-          :thumb => "search/thumb-programa.png" }
-      end
-    when /audio.*/
-      { :name => "Áudio",
-        :icon => "search/icone-audio.png",
-        :thumb => "search/thumb-audio.png" }
-    when /video.*/
-      { :name => "Vídeo",
-        :icon => "search/icone-video.png",
-        :thumb => "search/thumb-video.png" }
-    when /text\/(html|javascript|css)/
-      { :name => "Web",
-        :icon => "search/icone-web.png",
-        :thumb => "search/thumb-web.png" }
-    when /application\/(jar|vnd.android.package-archive)/
-      { :name => "Móvel",
-        :icon => "search/icone-mobile.png",
-        :thumb => "search/thumb-mobile.png" }
-    else
-      { :name => self.filetype,
-        :icon => "search/icone-other.png",
-        :thumb => "search/thumb-other.png" }
-    end
-  end
 
   def file_extension
     File.extname(self.alias)
@@ -227,9 +184,7 @@ class UserFile
       filename = uri.path.match(/.*\/(.*)/)[1]
       filename = uri.host if filename.blank?
       FileUtils.mkdir_p(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
-      tempfile = File.open(Rails.root +
-                           "tmp/tempfiles/user_file/#{self.id}/#{filename}",
-                           "w")
+      tempfile = File.open(Rails.root + "tmp/tempfiles/user_file/#{self.id}/#{filename}", "w")
       tempfile.write Curl::Easy.perform(uri.to_s).body_str
       tempfile.flush
       self.file = tempfile

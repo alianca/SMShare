@@ -17,7 +17,7 @@
 
     <div class="general-info">
       <div class="filetype">
-        <div><%= image_tag @filetype[:thumb] %></div>
+        <div><%= image_tag thumb_for type_of @mime %></div>
         <span><%= File.extname(@file.alias) %></span>
       </div>
       <h5 class="title"><%= @file.alias %></h5>
@@ -59,14 +59,13 @@
         Enviado por <%= link_to @file.owner.name, user_path(@file.owner) %>
         <%= link_to image_tag("search/small_rss.png"), feed_path(@file.owner) %>
         <br/>
-        <%= image_tag @filetype[:icon], :class => :icon %>
-        Arquivo do tipo <%= @filetype[:name] %><br/>
-        <%= image_tag "search/icone-categoria.png", :class => :icon %>
-        Categoria <%= link_to @file.categories.first.name,
-                      search_index_path(:q => params[:q],
-                                        :filter => @file.categories.first._id,
-                                        :order => params[:order])
-        %><br/>
+        <%= image_tag icon_for(type_of @mime), :class => :icon %>
+        Arquivo do tipo <%= truncate(name_for(type_of @mime), :length => 12, :omission => "...") %><br/>
+        <% unless @file.categories.empty? %>
+          <%= image_tag "search/icone-categoria.png", :class => :icon %>
+          Categoria <%= link_to @file.categories.first.name,
+                        search_index_path(:q => params[:q], :filter => @file.categories.first._id, :order => params[:order]) %><br/>
+        <% end %>
       </div>
       <div class="right">
         <%= image_tag "search/icone-tamanho.png", :class => :icon %>

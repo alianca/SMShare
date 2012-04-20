@@ -2,7 +2,9 @@
   <div class="box-header">
     <% if @file %>
       <span class="header-glass"></span>
-      <p class="filename"><em>Arquivo:</em> <%= link_to @file.alias, user_file_path(@file) %></p>
+      <p class="filename"><em>Arquivo:</em>
+        <%= link_to truncate(@file.alias, :omission => "..." + @file.alias[-4..-1], :length => 32), user_file_path(@file) %>
+      </p>
       <p class="filesize"><em>(<%= number_to_human_size(@file.filesize) %>)</em></p>
       <span class="header-bottom"></span>
     <% else %>

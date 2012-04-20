@@ -54,7 +54,9 @@
         <% if f.instance_of? Folder %>
           <tr class="folder">
             <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file" %></td>
-            <td class="name"><%= link_to f.name, manage_user_panel_path(:folder_id => f) %></td>
+            <td class="name">
+              <%= link_to truncate(f.name, :length => 50, :omission => "..."), manage_user_panel_path(:folder_id => f) %>
+            </td>
             <td class="size"><%= filesize_for_stat(f.total_size) %></td>
             <td class="created_at"><%= f.created_at.strftime("%d/%m/%Y") %></td>
             <td class="downloads"><%= f.total_downloads %></td>
@@ -63,7 +65,10 @@
         <% elsif f.instance_of? UserFile %>
           <tr class="file">
             <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file" %></td>
-            <td class="name"><%= link_to f.alias, user_file_path(f) %></td>
+            <td class="name">
+              <%= image_tag icon_for type_of f.filetype %>
+              <%= link_to truncate(f.alias, :length => 50, :omission => "..." + f.alias[-4..-1]), user_file_path(f) %>
+            </td>
             <td class="size"><%= filesize_for_stat(f.filesize)%></td>
             <td class="created_at"><%= f.created_at.strftime("%d/%m/%Y") %></td>
             <td class="downloads"><%= f.downloads_count %></td>

@@ -1,7 +1,8 @@
 <h2>Enviar arquivos</h2>
 
 <div id="categorize-container">
-  <p class="categorize-info">Preencha o(s) campo(s) abaixo com tags relacionadas ao(s) arquivo(s), separando-as por vírgula e selecione as categorias referentes ao seu conteúdo.</p>
+  <p class="categorize-info">Preencha o(s) campo(s) abaixo com tags relacionadas ao(s) arquivo(s),
+    separando-as por vírgula e selecione as categorias referentes ao seu conteúdo.</p>
 
   <ol id="categories-list">
     <% Category.all.each do |category| %>
@@ -18,7 +19,7 @@
       <%= f.semantic_fields_for file._id.to_s do |fi| %>
         <%= fi.inputs do %>
           <p class="filename">
-          <%= truncate(file.filename, :ommission => "..." + file.filename[-5..-1], :length => 41) %></p>
+          <%= truncate(file.alias, :ommission => "..." + file.alias[-5..-1], :length => 32) %></p>
           <%= fi.input :sentenced_tags,
                        :label => "Tags",
                        :input_html => { :title => "Ex.: zumbi, mortos-vivos, apocalipse, suspense",

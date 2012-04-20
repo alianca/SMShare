@@ -90,7 +90,9 @@
     <tbody>
       <% @most_downloaded_files.each do |file| %>
         <tr>
-          <td class="filename"><%= link_to file.alias, file %></td>
+          <td class="filename">
+            <%= link_to truncate(file.alias, :length => 41, :ommission => "..." + file.alias[-4..-1]), file %>
+          </td>
           <td class="count"><%= file.statistics.downloads %></td>
         </tr>
       <% end %>

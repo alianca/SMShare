@@ -546,6 +546,9 @@ li.tab-content.remote-tab {
 #file-container h5.title {
   color: #383289;
   margin-left: 0;
+  padding: 0;
+  width: 500px;
+  overflow:hidden;
 }
 
 

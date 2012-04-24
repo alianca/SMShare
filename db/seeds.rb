@@ -41,7 +41,7 @@ def box_bg_for type
   when :blank
     nil
   else
-    File.open('public/images/download_box/fundos/' + type.to_s + '.png')
+    File.open(File.join(Rails.root, 'public/images/download_box/fundos/' + type.to_s + '.png'))
   end
 end
 

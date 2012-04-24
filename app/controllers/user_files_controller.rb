@@ -34,10 +34,14 @@ class UserFilesController < ApplicationController
   end
 
   def create
-    @file = current_user.files.create(params[:user_file])
-    flash[:notice] = "Arquivo enviado com sucesso." if @file.valid?
-    flash[:alert] = @file.errors.full_messages.first unless @file.valid?
-    respond_with(@file, :location => categorize_user_files_path(:files => [@file]))
+    @file = current_user.files.create(params[:user_file]) unless params[:user_file].blank?
+    if @file.save and @file.valid?
+      flash[:notice] = "Arquivo enviado com sucesso."
+      respond_with(@file, :location => categorize_user_files_path(:files => [@file]))
+    else
+      flash[:alert] = @file.errors.full_messages.first
+      redirect_to :back
+    end
   end
 
   def download

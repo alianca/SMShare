@@ -1,67 +1,67 @@
 $(document).ready(function() {
 
   /* Troca o fundo do botão em mouse over */
-  $("#folder_new #folder_submit").mouseover(function () {
-    $(this).css("background", "url(/images/layouts/botao-on.png)");
+  $('#folder_new #folder_submit').mouseover(function () {
+    $(this).css('background', 'url(/images/layouts/botao-on.png)');
   });
 
   /* Volta o fundo padrão quando perde o mouse over */
-  $("#folder_new #folder_submit").mouseout(function () {
-    $(this).css("background", "url(/images/layouts/botao-off.png)");
+  $('#folder_new #folder_submit').mouseout(function () {
+    $(this).css('background', 'url(/images/layouts/botao-off.png)');
   });
 
   function show_form(name) {
-    if($("#actions_forms " + name + ":visible")[0]) {
-      $("#actions_forms form").hide();
-      $("#form_placeholder").hide();
+    if($('#actions_forms ' + name + ':visible')[0]) {
+      $('#actions_forms form').hide();
+      $('#form_placeholder').hide();
     } else {
-      $("#actions_forms form").hide();
-      $("#actions_forms " + name).show();
-      $("#form_placeholder").show();
+      $('#actions_forms form').hide();
+      $('#actions_forms ' + name).show();
+      $('#form_placeholder').show();
     }
   }
 
   function show_rename() {
-    if ($("#actions_forms #rename:visible")[0]) {
-      $("#actions_forms form").hide();
-      $("#rename_placeholder").hide();
+    if ($('#actions_forms #rename:visible')[0]) {
+      $('#actions_forms form').hide();
+      $('#rename_placeholder').hide();
     } else {
-      $("#actions_forms form").hide();
-      $("#actions_forms #rename").show();
-      $("#rename_placeholder").show();
+      $('#actions_forms form').hide();
+      $('#actions_forms #rename').show();
+      $('#rename_placeholder').show();
     }
   }
 
-  $(".actions_menu .create a").click(function (e) {
-    show_form("#new_folder");
+  $('.actions_menu .create a').click(function (e) {
+    show_form('#new_folder');
     e.stopImmediatePropagation();
   });
 
-  $(".actions_menu .move a").click(function (e) {
-    if (!($(this).hasClass("off"))) {
-      show_form("#move");
+  $('.actions_menu .move a').click(function (e) {
+    if (!($(this).hasClass('off'))) {
+      show_form('#move');
     }
     e.stopImmediatePropagation();
   });
 
-  $(".actions_menu .rename a").click(function (e) {
-    if (!($(this).hasClass("off"))) {
+  $('.actions_menu .rename a').click(function (e) {
+    if (!($(this).hasClass('off'))) {
       show_rename();
     }
     e.stopImmediatePropagation();
   });
 
-  $(".actions_menu .compress a").click(function (e) {
-    if (!($(this).hasClass("off"))) {
-      show_form("#compress");
+  $('.actions_menu .compress a').click(function (e) {
+    if (!($(this).hasClass('off'))) {
+      show_form('#compress');
     }
     e.stopImmediatePropagation();
   });
 
   function selected_boxes() {
     var result = { any: false, all: true };
-    $(".file_list .select_file").each(function() {
-      var checked = $(this).attr("checked");
+    $('.file_list .select_file').each(function() {
+      var checked = $(this).attr('checked');
       result.any = result.any || checked;
       result.all = result.all && checked;
     });
@@ -74,39 +74,39 @@ $(document).ready(function() {
       value = !all_files;
     }
     all_files = value;
-    $("input#all_files").attr("checked", all_files);
-    $("input#all_files").change();
+    $('input#all_files').attr('checked', all_files);
+    $('input#all_files').change();
   }
 
-  if($("input#all_files")) {
-    $("input#all_files").click(function() {
+  if($('input#all_files')) {
+    $('input#all_files').click(function() {
       toggle_all_files();
-      $("input.select_file").attr("checked", all_files);
-      $("input.select_file").change();
+      $('input.select_file').attr('checked', all_files);
+      $('input.select_file').change();
     });
   }
 
   /* Copia a seleção de arquivos da tabela para a lista oculta */
-  $(".file_list .select_file").change(function () {
-    $("#actions_forms .hidden_file_list input[value=" + $(this).attr("value") + "]").attr("checked", $(this).attr("checked"));
-    $(".actions_menu .hidden_file_list input[value=" + $(this).attr("value") + "]").attr("checked", $(this).attr("checked"));
+  $('.file_list .select_file').change(function () {
+    $('#actions_forms .hidden_file_list input[value=' + $(this).attr('value') + ']').attr('checked', $(this).attr('checked'));
+    $('.actions_menu .hidden_file_list input[value=' + $(this).attr('value') + ']').attr('checked', $(this).attr('checked'));
 
-    if ($(this).attr("checked")) {
-      $("#" + $(this).attr("value")).removeClass("hidden-field");
-      $("#rename_placeholder").css("margin-bottom", $("#rename").height() + 27);
+    if ($(this).attr('checked')) {
+      $('#' + $(this).attr('value')).removeClass('hidden-field');
+      $('#rename_placeholder').css('margin-bottom', $('#rename').height() + 27);
     } else {
-      $("#" + $(this).attr("value")).addClass("hidden-field");
-      $("#rename_placeholder").css("margin-bottom", $("#rename").height() + 27);
+      $('#' + $(this).attr('value')).addClass('hidden-field');
+      $('#rename_placeholder').css('margin-bottom', $('#rename').height() + 27);
     }
 
     var selected = selected_boxes();
     if (selected.any) {
-      $(".actions_menu .need-files.off").removeClass("off");
+      $('.actions_menu .need-files.off').removeClass('off');
     } else {
-      $(".actions_menu .need-files").addClass("off");
-      if ($("#actions_forms .need-files:visible")[0]) {
-        $("#actions_forms").hide();
-        $("#rename_placeholder").hide();
+      $('.actions_menu .need-files').addClass('off');
+      if ($('#actions_forms .need-files:visible')[0]) {
+        $('#actions_forms').hide();
+        $('#rename_placeholder').hide();
       }
     }
 
@@ -115,14 +115,14 @@ $(document).ready(function() {
 
 
   /* Dropdown da sidebar */
-  $("#sidebar li.menu").click(function(e) {
-    if (!$(this).hasClass("no-dropdown") && this === e.target) {
-      if ($(this).hasClass("active")) {
-        $(this).children("ul.dropdown").hide("fast");
-        $(this).removeClass("active");
+  $('#sidebar li.menu').click(function(e) {
+    if (!$(this).hasClass('no-dropdown') && this === e.target) {
+      if ($(this).hasClass('active')) {
+        $(this).children('ul.dropdown').hide('fast');
+        $(this).removeClass('active');
       } else {
-        $(this).children("ul.dropdown").show("fast");
-        $(this).addClass("active");
+        $(this).children('ul.dropdown').show('fast');
+        $(this).addClass('active');
       }
     }
     e.stopImmediatePropagation();
@@ -166,6 +166,10 @@ $(document).ready(function() {
   /* Upload de Multiplos Arquivos */
   /* Tira o botão de dentro do form e faz com que ele submeta os formularios */
   function setup_progress_bars() {
+    if (!$("#user_files_forms form li.file input").val()) {
+      return;
+    }
+
     $("#user_files_forms form").submit();
 
     // Desabilita os botões
@@ -242,7 +246,7 @@ $(document).ready(function() {
   function tick() {
     var all_done = true;
     var all_errors = true;
-    var forms = $("#user_files_forms form");
+    var forms = $('#user_files_forms form');
 
     function update_all(i) {
       if (i < forms.length) {
@@ -252,8 +256,8 @@ $(document).ready(function() {
           }
 
           if (status === 'done') {
-            $(forms[i]).find(".progress_info .uploaded").width("100%");
-            $(forms[i]).find(".progress_info .percentage").html("100%");
+            $(forms[i]).find('.progress_info .uploaded').width('100%');
+            $(forms[i]).find('.progress_info .percentage').html('100%');
           } else {
             all_done = false;
           }
@@ -277,44 +281,44 @@ $(document).ready(function() {
     update_all(0);
   }
 
-  $("#upload_forms").append($(".files_form .buttons").remove());
-  $("#upload_forms .buttons").click(function () {
+  $('#upload_forms').append($('.files_form .buttons').remove());
+  $('#upload_forms .buttons').click(function () {
     setup_progress_bars();
     tick();
   });
 
   /* Salva o id do upload */
-  var upload_id = $("#new_user_file .file_fields input[type=hidden]").val();
-  var upload_action = $("#new_user_file").attr("action");
+  var upload_id = $('#new_user_file .file_fields input[type=hidden]').val();
+  var upload_action = $('#new_user_file').attr('action');
 
   /* Arruma o primero form */
-  $("#new_user_file").attr("id", "new_user_file_0");
-  $("#new_user_file_0").attr("target", "new_user_file_iframe_0");
-  $("#new_user_file_0").attr("action", upload_action + "-0");
-  $("#new_user_file_0").append("<iframe name=\"new_user_file_iframe_0\"></iframe>");
-  $("#new_user_file_0 .file_fields input[type=hidden]").val(upload_id + "-0");
-  var file_form_template = $("#new_user_file_0").clone();
-  make_file_field($("#new_user_file_0 .file_fields .file input[type=file]"));
-  make_checkbox($("#new_user_file_0 input[type=checkbox]"));
+  $('#new_user_file').attr('id', 'new_user_file_0');
+  $('#new_user_file_0').attr('target', 'new_user_file_iframe_0');
+  $('#new_user_file_0').attr('action', upload_action + '-0');
+  $('#new_user_file_0').append('<iframe name="new_user_file_iframe_0"></iframe>');
+  $('#new_user_file_0 .file_fields input[type=hidden]').val(upload_id + '-0');
+  var file_form_template = $('#new_user_file_0').clone();
+  make_file_field($('#new_user_file_0 .file_fields .file input[type=file]'));
+  make_checkbox($('#new_user_file_0 input[type=checkbox]'));
   var form_count = 1;
 
   /* Botão de mais arquivos */
-  $(".more-files a").click(function () {
+  $('.more-files a').click(function () {
     var new_form = file_form_template.clone();
-    $(new_form).attr("id", "new_user_file_" + form_count);
-    $(new_form).attr("target", "new_user_file_iframe_" + form_count);
-    $(new_form).attr("action", upload_action + "-" + form_count);
-    $(new_form).children("iframe").attr("name", "new_user_file_iframe_" + form_count);
-    $(new_form).find(".file_fields input[type=hidden]").val(upload_id + "-" + form_count);
+    $(new_form).attr('id', 'new_user_file_' + form_count);
+    $(new_form).attr('target', 'new_user_file_iframe_' + form_count);
+    $(new_form).attr('action', upload_action + '-' + form_count);
+    $(new_form).children('iframe').attr('name', 'new_user_file_iframe_' + form_count);
+    $(new_form).find('.file_fields input[type=hidden]').val(upload_id + '-' + form_count);
     new_form[0].reset();
-    $(new_form).find(".clear-on-focus").val($(new_form).find(".clear-on-focus").attr("title"));
-    $(new_form).find(".public_field input[type=checkbox]").attr("id", "user_file_" + form_count + "_public");
-    $(new_form).find(".public_field input[type=checkbox]").attr("name", "user_file_" + form_count + "[public]");
-    $(new_form).find(".public_field label").attr("for", "user_file_" + form_count + "_public");
-    $("#user_files_forms").append(new_form);
+    $(new_form).find('.clear-on-focus').val($(new_form).find('.clear-on-focus').attr('title'));
+    $(new_form).find('.public_field input[type=checkbox]').attr('id', 'user_file_' + form_count + '_public');
+    $(new_form).find('.public_field input[type=checkbox]').attr('name', 'user_file_' + form_count + '[public]');
+    $(new_form).find('.public_field label').attr('for', 'user_file_' + form_count + '_public');
+    $('#user_files_forms').append(new_form);
 
-    make_file_field($(new_form).find(".file_fields .file input[type=file]"));
-    make_checkbox($(new_form).find(".public_field input[type=checkbox]"));
+    make_file_field($(new_form).find('.file_fields .file input[type=file]'));
+    make_checkbox($(new_form).find('.public_field input[type=checkbox]'));
 
     form_count++;
     return false; // Para não redirecionar
@@ -478,7 +482,7 @@ $(document).ready(function() {
         join(args.length > 0 ? '&' : '?');
     }
 
-    code_options += '\" type=\"text/javascript\"></script>';
+    code_options += '" type="text/javascript"></script>';
 
     $("#code-area input[type=text]").attr('value', code_options);
   }
@@ -555,15 +559,15 @@ $(document).ready(function() {
   function update_compress_status() {
     var shall_continue = true;
     $.ajax({
-      url: "compression_state",
-      dataType: "json",
+      url: 'compression_state',
+      dataType: 'json',
       success: function(data) {
         console.log(data);
         switch (data.status) {
-        case "queued":
-          $(".notice").html("Aguardando início da operação..."); break;
+        case 'queued':
+          $('.notice').html('Aguardando início da operação...'); break;
         case 'working':
-          $(".notice").html(data.message); break;
+          $('.notice').html(data.message); break;
         case 'no_job':
           shall_continue = false; break;
         case 'failed': case 'completed':
@@ -573,12 +577,12 @@ $(document).ready(function() {
           break;
         }
         if (shall_continue) {
-          $("#block_user_input").show();
+          $('#block_user_input').show();
           show_notifications(true);
           setTimeout(update_compress_status, 1000);
         }
         else {
-          $("#block_user_input").hide();
+          $('#block_user_input').hide();
           show_notifications(false);
         }
       }
@@ -590,13 +594,13 @@ $(document).ready(function() {
   }
 
   /* Compressão em background */
-  $("#compress").submit(function(e) {
+  $('#compress').submit(function(e) {
     e.preventDefault();
     $.ajax({
-      url: "compress",
-      dataType: "json",
-      data: $("#compress").serialize(),
-      type: "POST",
+      url: 'compress',
+      dataType: 'json',
+      data: $('#compress').serialize(),
+      type: 'POST',
       success: function(data) { update_compress_status(); },
       error: function(e) { console.log(e); }
     });
@@ -604,12 +608,12 @@ $(document).ready(function() {
 
 
   /* Descompressão em background */
-  $(".actions_menu .decompress a").click(function() {
+  $('.actions_menu .decompress a').click(function() {
     $.ajax({
-      url: "decompress",
-      dataType: "json",
-      data: $(".actions_menu .decompress form").serialize(),
-      type: "POST",
+      url: 'decompress',
+      dataType: 'json',
+      data: $('.actions_menu .decompress form').serialize(),
+      type: 'POST',
       success: function(data) { update_compress_status(); },
       error: function(e) { console.log(e); }
     });

@@ -560,6 +560,10 @@ table.file_list td {
   padding: 1px 5px;
 }
 
+table.file_list td.select {
+  width: 24px;
+}
+
 table.file_list td.select .checkbox {
   margin: 0 auto;
 }

@@ -98,7 +98,10 @@
         <%= text_field_tag :link, "[URL=\""+user_file_url(@file)+"\"]Link[/URL]", :class => "forum-field" %><br/>
       </div>
       <div class="share-icons">
-        <%= image_tag("search/icones-compartilhar/twitter.png") %>
+        <% @url = user_file_url(@file) %>
+        <a href="http://www.twitter.com/home?status=<%= @url %>">
+          <%= image_tag("search/icones-compartilhar/twitter.png") %>
+        </a>
         <%# image_tag("search/icones-compartilhar/youtube.png") %>
         <%# image_tag("search/icones-compartilhar/UNK_15.png") %>
         <%# image_tag("search/icones-compartilhar/UNK_16.png") %>
@@ -116,7 +119,9 @@
         <%# image_tag("search/icones-compartilhar/UNK_14.png") %>
         <%# image_tag("search/icones-compartilhar/UNK_7.png") %>
         <%# image_tag("search/icones-compartilhar/UNK_2.png") %>
-        <%= image_tag("search/icones-compartilhar/facebook.png") %>
+        <a href="http://www.facebook.com/sharer.php?u=<%= @url %>&t=<%= @file.alias %>">
+          <%= image_tag("search/icones-compartilhar/facebook.png") %>
+        </a>
         <%# image_tag("search/icones-compartilhar/UNK_5.png") %>
         <%# image_tag("search/icones-compartilhar/UNK_4.png") %>
         <%# image_tag("search/icones-compartilhar/UNK_3.png") %>

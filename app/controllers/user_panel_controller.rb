@@ -89,10 +89,10 @@ class UserPanelController < ApplicationController
   end
 
   def customize
-    @default_styles = BoxStyle.where(:user_id => nil)
+    @default_styles = BoxStyle.defaults
     @user_styles = current_user.box_styles.all
     @user_default_style = current_user.default_style
-    @default_backgrounds = BoxImage.where(:user_id => nil)
+    @default_backgrounds = BoxImage.default_list
     @user_backgrounds = current_user.box_images.all
     @user_default_background = current_user.default_box_image
   end

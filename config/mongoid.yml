@@ -12,5 +12,5 @@ test:
 production:
   <<: *defaults
   username: smshare
-  password: ahoy_and_avast
+  password: teste123
   database: smshare_production

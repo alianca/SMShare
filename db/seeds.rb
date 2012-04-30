@@ -7,8 +7,9 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-CATEGORIES = ["Desenhos e Animações", "Filmes e Televisão", "Jogos e Emulados",
-  "Músicas e Podcast", "Programas e Softwares", "Videos e Clipes", "Outras"]
+CATEGORIES = ["Desenhos e Animações", "Filmes e Televisão", "Músicas e Podcast",
+              "Programas e Softwares", "Videos e Clipes", "Jogos e Emulados",
+              "Outras"]
 
 CATEGORIES.each do |name|
   Category.create(:name => name)
@@ -72,7 +73,8 @@ STYLES = {
     :form_text => "#8E8E8E",
     :button_background => "#F27F00",
     :button_text => "#FFFFFF",
-    :bottom_text => "#5596AC"
+    :bottom_text => "#5596AC",
+    :order => 0
   },
 
   :bomboniere => {
@@ -89,7 +91,8 @@ STYLES = {
     :form_text => "#5d5d5d",
     :button_background => "#e36c56",
     :button_text => "#FFFFFF",
-    :bottom_text => "#d75a48"
+    :bottom_text => "#d75a48",
+    :order => 1
   },
 
   :carbono => {
@@ -106,7 +109,8 @@ STYLES = {
     :form_text => "#494949",
     :button_background => "#494949",
     :button_text => "#FFFFFF",
-    :bottom_text => "#9f9f9f"
+    :bottom_text => "#9f9f9f",
+    :order => 2
   },
 
   :blank => {
@@ -123,7 +127,8 @@ STYLES = {
     :form_text => "#767676",
     :button_background => "#3b5998",
     :button_text => "#FFFFFF",
-    :bottom_text => "#323232"
+    :bottom_text => "#323232",
+    :order => 3
   },
 
   :frutas_vermelhas => {
@@ -140,7 +145,8 @@ STYLES = {
     :form_text => "#a33039",
     :button_background => "#ef2f41",
     :button_text => "#c8c4a4",
-    :bottom_text => "#050f30"
+    :bottom_text => "#050f30",
+    :order => 4
   },
 
   :gelo => {
@@ -157,7 +163,8 @@ STYLES = {
     :form_text => "#477d96",
     :button_background => "#9abcc0",
     :button_text => "#ffffff",
-    :bottom_text => "#465f6c"
+    :bottom_text => "#465f6c",
+    :order => 5
   },
 
   :lava => {
@@ -174,7 +181,8 @@ STYLES = {
     :form_text => "#a80000",
     :button_background => "#ba1d1b",
     :button_text => "#f4b53b",
-    :bottom_text => "#f4b53b"
+    :bottom_text => "#f4b53b",
+    :order => 6
   },
 
   :luzes_urbanas => {
@@ -191,7 +199,8 @@ STYLES = {
     :form_text => "#2f4056",
     :button_background => "#0d141c",
     :button_text => "#728356",
-    :bottom_text => "#36444e"
+    :bottom_text => "#36444e",
+    :order => 7
   },
 
   :madeira => {
@@ -208,7 +217,8 @@ STYLES = {
     :form_text => "#4a1d11",
     :button_background => "#834217",
     :button_text => "#ddb97b",
-    :bottom_text => "#aa733d"
+    :bottom_text => "#aa733d",
+    :order => 8
   },
 
   :natal => {
@@ -225,7 +235,8 @@ STYLES = {
     :form_text => "#a33039",
     :button_background => "#a33039",
     :button_text => "#ffffff",
-    :bottom_text => "#39280c"
+    :bottom_text => "#39280c",
+    :order => 9
   },
 
   :oasis => {
@@ -242,7 +253,8 @@ STYLES = {
     :form_text => "#5d5d5d",
     :button_background => "#bc9b04",
     :button_text => "#c8c4a4",
-    :bottom_text => "#444a35"
+    :bottom_text => "#444a35",
+    :order => 10
   },
 
   :oleo => {
@@ -259,7 +271,8 @@ STYLES = {
     :form_text => "#5d5d5d",
     :button_background => "#bc9b04",
     :button_text => "#ffffff",
-    :bottom_text => "#6f4515"
+    :bottom_text => "#6f4515",
+    :order => 11
   },
 
   :orkut => {
@@ -276,7 +289,8 @@ STYLES = {
     :form_text => "#8e8e8e",
     :button_background => "#95bbf4",
     :button_text => "#ffffff",
-    :bottom_text => "#bbbbbb"
+    :bottom_text => "#bbbbbb",
+    :order => 12
   },
 
   :outono => {
@@ -293,7 +307,8 @@ STYLES = {
     :form_text => "#8e8e8e",
     :button_background => "#d2813a",
     :button_text => "#ffffff",
-    :bottom_text => "#ce9665"
+    :bottom_text => "#ce9665",
+    :order => 13
   },
 
 
@@ -311,7 +326,8 @@ STYLES = {
     :form_text => "#3a1235",
     :button_background => "#42153e",
     :button_text => "#f0b6df",
-    :bottom_text => "#3e1438"
+    :bottom_text => "#3e1438",
+    :order => 14
   },
 
   :refrescante => {
@@ -328,7 +344,8 @@ STYLES = {
     :form_text => "#53b26e",
     :button_background => "#91dcaf",
     :button_text => "#ffffff",
-    :bottom_text => "#247239"
+    :bottom_text => "#247239",
+    :order => 14
   },
 
   :sonho_infantil => {
@@ -345,7 +362,8 @@ STYLES = {
     :form_text => "#60acb4",
     :button_background => "#1c8085",
     :button_text => "#ffffff",
-    :bottom_text => "#1c8085"
+    :bottom_text => "#1c8085",
+    :order => 15
   },
 
   :twitter => {
@@ -362,13 +380,20 @@ STYLES = {
     :form_text => "#2f4e5f",
     :button_background => "#516f89",
     :button_text => "#d9f0ee",
-    :bottom_text => "#202225"
+    :bottom_text => "#202225",
+    :order => 16
   }
 }
 
 BG_NAMES.each do |k, v|
+  puts k, STYLES[k]
+  image = BoxImage.create(:name => v,
+                          :user => nil,
+                          :order => STYLES[k][:order],
+                          :image => box_bg_for(k))
+
   BoxStyle.create({ :name => box_style_name_for(k),
                     :user => nil,
-                    :box_background_image => BoxImage.create(:name => v, :user => nil, :image => box_bg_for(k))._id
-                  }.merge STYLES[k])
+                    :box_background_image => image._id
+                  }.merge(STYLES[k]))
 end

@@ -45,7 +45,7 @@ class UserFilesController < ApplicationController
   end
 
   def download
-    begin
+n    begin
       @file = UserFile.find(params[:id])
       if @file.validate_code params[:code]
         redirect_to "#{@file.file.url}?filename=#{@file.alias}"

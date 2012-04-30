@@ -1,16 +1,16 @@
 source 'http://rubygems.org'
 
 # Bundle edge Rails instead:
-gem 'rails', '>= 3.0.3'
+gem 'rails'
 
 # To use the latests rake
-gem 'rake', '0.8.7'
+gem 'rake'
 
 # To use debugger
-gem 'ruby-debug', :group => [:development, :test]
+#gem 'ruby-debug', :group => [:development, :test]
 
 # To use Mongoid
-gem 'mongoid', '>= 2.0.0.beta.20'
+gem 'mongoid'
 gem 'bson_ext'
 
 # To use Devise
@@ -38,14 +38,13 @@ gem 'capistrano'
 # To use Resque
 gem 'resque'
 gem 'resque-retry'
-gem 'SystemTimer'
 gem 'resque-status'
 
 # LazyHighcharts
-gem 'lazy_high_charts', '~> 1.1.1'
+gem 'lazy_high_charts'
 
 # To use pagination
-gem "will_paginate", "~> 3.0.pre2"
+gem "will_paginate"
 
 # To use Curl
 gem 'curb', :require => 'curl'
@@ -60,7 +59,7 @@ gem 'zipruby'
 gem 'carmen'
 
 # Bundle gems for certain environments:
-group :development, :test do
+group :test do
   gem 'rspec-rails'
   gem 'rspec'
   gem 'capybara'

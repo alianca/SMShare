@@ -1,4 +1,4 @@
-Smshare::Application.routes.draw do |map|
+Smshare::Application.routes.draw do
 
   # Rotas do Devise
   # TODO atualizar isso quando a DSL de rotas do Devise 1.1 estiver estavel

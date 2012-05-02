@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-require 'lib/jobs/user_file_statistics_job'
+require File.expand_path('./lib/jobs/user_file_statistics_job')
 
 class UserFile
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  require "lib/sentenced_fields"
+  require File.expand_path('./lib/sentenced_fields')
   include SentencedFields
 
   # Busca
@@ -63,7 +63,7 @@ class UserFile
   belongs_to_related :owner, :class_name => "User"
 
   # Categoria
-  has_many_related :categories, :stored_as => :array
+  has_many_related :categories # :stored_as => :array
 
   # Imagem
   embeds_many :images, :class_name => "UserFileImage"

@@ -3,11 +3,11 @@
     <p class="line1">Login</p>
     <p class="line2">Acesse sua conta</p>
   </div>
-  
+
   <p class="call-to-action">
     Digite seu nome de usuário e senha abaixo para acessar o painel do usuário.
     <br />
-    Se você ainda não é cadastrado, 
+    Se você ainda não é cadastrado,
     <%= link_to "clique aqui e cadastra-se agora mesmo!", new_user_registration_path %>
   </p>
 
@@ -16,15 +16,15 @@
     <%= f.input :password, :label => "Senha:" %>
     <p><%= link_to "Esqueceu sua senha?", new_user_password_path %></p>
   <% end %>
-  
+
   <% if devise_mapping.rememberable? %>
     <%= f.inputs :id => :remember_field do %>
       <%= f.input :remember_me, :as => :boolean, :label => "Lembrar-me" %>
     <% end %>
   <% end %>
-  
-  <%= f.buttons do %>
-    <%= f.commit_button "Acessar" %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :button, :label => "Acessar" %>
   <% end %>
 <% end %>
 

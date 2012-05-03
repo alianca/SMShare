@@ -157,7 +157,7 @@ button, input, textarea, select {
   padding: 5px 2px 2px 5px;
 }
 
-#header #header-login #login-form #user_submit {
+#header #header-login #login-form input[type=submit] {
   background: url(/images/layouts/login/botao-off.png);
   color: white;
   width: 53px;
@@ -344,7 +344,7 @@ button, input, textarea, select {
   background-color: transparent;
   color: #8E8E8E;
   height: 26px;
-  margin: 4px 0px 0px 73px;
+  margin: 7px 0px 0px 73px;
   padding:0px;
 }
 

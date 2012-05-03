@@ -11,8 +11,8 @@
         <%= f.input :public, :as => :boolean, :default => true, :label => "Arquivo público (?)" %>
         <% end %>
 
-      <%= f.buttons do %>
-        <%= f.commit_button "Enviar" %>
+      <%= f.actions do %>
+        <%= f.action :submit, :as => :button, :label => "Enviar" %>
       <% end %>
 
       <div class="progress_info">

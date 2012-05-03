@@ -6,8 +6,16 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable,
-         :registerable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
+
+  field :sign_in_count,      :type => Integer, :default => 0
+  field :current_sign_in_at, :type => Time
+  field :last_sign_in_at,    :type => Time
+  field :current_sign_in_ip, :type => String
+  field :last_sign_in_ip,    :type => String
+
+  field :encrypted_password, :type => String
+
 
   # Define o esquema logico db.users
   field :name, :type => String

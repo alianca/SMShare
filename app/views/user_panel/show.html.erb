@@ -58,27 +58,27 @@
     <tbody>
       <tr class="today">
         <td>Hoje:</td>
-        <td><%= current_user.daily_statistics.today_downloads %></td>
-        <td><%= current_user.daily_statistics.today_referred_downloads %></td>
-        <td class="revenue"><%= number_to_currency(current_user.daily_statistics.today_total_revenue) %></td>
+        <td><%= @today_downloads %></td>
+        <td><%= @today_referred_downloads %></td>
+        <td class="revenue"><%= number_to_currency(@today_total_revenue) %></td>
       </tr>
       <tr>
         <td>Ontem:</td>
-        <td><%= current_user.daily_statistics.yesterday_downloads %></td>
-        <td><%= current_user.daily_statistics.yesterday_referred_downloads %></td>
-        <td class="revenue"><%= number_to_currency(current_user.daily_statistics.yesterday_total_revenue) %></td>
+        <td><%= @yesterday_downloads %></td>
+        <td><%= @yesterday_referred_downloads %></td>
+        <td class="revenue"><%= number_to_currency(@yesterday_total_revenue) %></td>
       </tr>
       <tr>
         <td>Este mês:</td>
-        <td><%= current_user.daily_statistics.this_month_downloads %></td>
-        <td><%= current_user.daily_statistics.this_month_referred_downloads %></td>
-        <td class="revenue"><%= number_to_currency(current_user.daily_statistics.this_month_total_revenue) %></td>
+        <td><%= @this_month_downloads %></td>
+        <td><%= @this_month_referred_downloads %></td>
+        <td class="revenue"><%= number_to_currency(@this_month_total_revenue) %></td>
       </tr>
       <tr>
         <td>Mês passado:</td>
-        <td><%= current_user.daily_statistics.last_month_downloads %></td>
-        <td><%= current_user.daily_statistics.last_month_referred_downloads %></td>
-        <td class="revenue"><%= number_to_currency(current_user.daily_statistics.last_month_total_revenue) %></td>
+        <td><%= @last_month_downloads %></td>
+        <td><%= @last_month_referred_downloads %></td>
+        <td class="revenue"><%= number_to_currency(@last_month_total_revenue) %></td>
       </tr>
     </tbody>
   </table>

@@ -1,5 +1,5 @@
 pt-BR:
-  activemodel:
+  mongoid:
     models:
       user: Usuário
       user_file: Arquivos
@@ -10,3 +10,15 @@ pt-BR:
   will_paginate:
     previous_label: &laquo
     next_label: &raquo
+
+  mongoid:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              invalid: E-mail Inválido
+            password:
+              confirmation: Confirmação incorreta
+            nickname:
+              invalid: Nome de usuário inválido

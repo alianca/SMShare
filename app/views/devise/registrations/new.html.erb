@@ -1,4 +1,4 @@
-<% semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+<%= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <div class="title">
     <p class="line1">Registrar</p>
     <p class="line2">Criar conta gratuita</p>
@@ -8,13 +8,15 @@
 
   <p class="call-to-action">Para criar sua conta, certifique-se de digitar um endereço de email válido, após o registro, será necessário confirma-lo em sua caixa de email. Esse passo é necessário para garantir a utilização de todas as funcões da sua conta.</p>
 
-  <% f.inputs :id => :user_fields do %>
-    <%= f.input :name, :label => "Seu nome completo:", :required => true,
-          :hint => "Preencha o campo ao lado com seu nome e sobrenome completo." %>
+  <%= f.inputs :id => :user_fields do %>
+    <%= f.input :name, :label => "Seu nome completo:",
+                :hint => "Preencha o campo ao lado com seu nome e sobrenome completo." %>
     <%= f.input :email, :label => "Seu e-mail (válido):", :required => true,
-          :hint => "Tenha certeza que o e-mail digitado está correto e se trata de um endereço ativo para que você possa confirmar seu cadastro posteriormente." %>
+                :hint => "Tenha certeza que o e-mail digitado está correto e se trata
+                          de um endereço ativo para que você possa confirmar seu cadastro posteriormente." %>
     <%= f.input :nickname, :label => "Escolha um login:", :required => true,
-          :hint => "O login deve possuir pelo menos 4 caracteres. Podendo conter somente letras, números, e os símbolos ponto(.), hífen(-) e sublinhado(_)." %>
+                :hint => "O login deve possuir pelo menos 4 caracteres. Podendo conter somente letras, números,
+                          e os símbolos ponto(.), hífen(-) e sublinhado(_)." %>
     <%= f.input :password, :label => "Escolha uma senha:", :required => true,
           :hint => "Sua senha deve possuir pelo menos 5 caracteres. Recomenda-se o uso de integração de números,
                     símbolos, letras maiúsculas e minúsculas para garantir uma maior segurança em sua conta." %>
@@ -22,11 +24,11 @@
           :hint => "Repita pausadamente a senha informada anteriormente para garantir que não houve nenhum engano durante a digitação." %>
   <% end %>
 
-  <% f.inputs :id => :terms_field do %>
+  <%= f.inputs :id => :terms_field do %>
     <%= f.input :accepted_terms, :as => :boolean, :label => "Declaro que li e concordo com os Termos e Condições." %>
   <% end %>
 
-  <% f.actions do %>
+  <%= f.actions do %>
     <%= f.action :submit, :as => :button, :name => "Confirmar" %>
   <% end %>
 

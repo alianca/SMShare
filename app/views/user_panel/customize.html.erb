@@ -21,7 +21,7 @@
 
         <div class="code_area">
           <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus"%>
-          <%= submit_tag "Download", :class => "submit" %>
+          <%= button_tag "Download", :class => "submit" %>
         </div>
 
         <%= link_to image_tag("download_box/logo.png"), root_url, :class => :logo %>
@@ -58,7 +58,7 @@
       <%= form_for :style, :url => {:controller => :box_styles, :action => :set_default} do |f| %>
         <%= f.hidden_field :selected_style %>
         <span class="button blue">
-          <span class="left"></span><%= f.submit "Tornar padrão" %><span class="right"></span>
+          <span class="left"></span><%= f.button "Tornar padrão" %><span class="right"></span>
         </span>
       <% end %>
     </div>
@@ -102,7 +102,7 @@
 
         <%= f.text_field :name, :title => "Dê um nome para o modelo...", :class => "name clear-on-focus" %>
         <span class="button orange">
-          <span class="left"></span><%= f.submit "Salvar" %><span class="right"></span>
+          <span class="left"></span><%= f.button "Salvar" %><span class="right"></span>
         </span>
         <p>Após salvar seu modelo, se desejar utilizá-lo ou torná-lo padrão da sua conta, utilize o botão "Escolher Modelo" logo abaixo da Lista de Modelos.</p>
       <% end %>
@@ -130,7 +130,7 @@
       <%= form_for :bg, :url => {:controller => :box_images, :action => :set_default} do |f| %>
         <%= f.hidden_field :selected_bg %>
         <span class="button blue">
-          <span class="left"></span><%= f.submit "Tornar padrão" %><span class="right"></span>
+          <span class="left"></span><%= f.button "Tornar padrão" %><span class="right"></span>
         </span>
       <% end %>
     </div>
@@ -143,21 +143,9 @@
         <%= f.file_field :image %>
         <%= f.text_field :name %>
         <span class="button orange">
-          <span class="left"></span><%= f.submit "Confirmar" %><span class="right"></span>
+          <span class="left"></span><%= f.button "Confirmar" %><span class="right"></span>
         </span>
       <% end %>
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-

@@ -386,7 +386,6 @@ STYLES = {
 }
 
 BG_NAMES.each do |k, v|
-  puts k, STYLES[k]
   image = BoxImage.create(:name => v,
                           :user => nil,
                           :order => STYLES[k][:order],

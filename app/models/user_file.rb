@@ -162,33 +162,6 @@ class UserFile
     self.statistics.rate
   end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   def needs_statistics!
     Resque.enqueue Jobs::UserFileStatisticsJob, self._id
   end

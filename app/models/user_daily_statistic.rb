@@ -15,7 +15,7 @@ class UserDailyStatistic < Statistic
   def self.generate_statistics_for_user! user
     user.daily_statistics.destroy_all
     (1.month.ago.beginning_of_month.to_date..Date.today).each do |date|
-      self.find_or_create_by(:date => date, :user => user)
+      user.daily_statistics.find_or_create_by(:date => date)
     end
     user.daily_statistics.collect(&:generate_statistics!)
   end
@@ -68,16 +68,17 @@ class UserDailyStatistic < Statistic
   end
 
   def self.method_missing(method_sym, *arguments, &block)
+    user = arguments[0]
     case method_sym.to_s
-    when /^today_(.*)$/
-      self.where(:date => Date.today).collect(&$1.to_sym).sum
-    when /^yesterday_(.*)$/
-      self.where(:date => Date.yesterday).collect(&$1.to_sym).sum
-    when /^this_month_(.*)$/
-      self.where(:date.gte => Time.now.beginning_of_month.to_date).
+    when /^today_(.*)_for$/
+      user.daily_statistics.where(:date => Date.today).collect(&$1.to_sym).sum
+    when /^yesterday_(.*)_for$/
+      user.daily_statistics.where(:date => Date.yesterday).collect(&$1.to_sym).sum
+    when /^this_month_(.*)_for$/
+      user.daily_statistics.where(:date.gte => Time.now.beginning_of_month.to_date).
         where(:date.lte => Time.now.end_of_month.to_date).collect(&$1.to_sym).sum
-    when /^last_month_(.*)$/
-      self.where(:date.lte => 1.month.ago.end_of_month.to_date).collect(&$1.to_sym).sum
+    when /^last_month_(.*)_for$/
+      user.daily_statistics.where(:date.lte => 1.month.ago.end_of_month.to_date).collect(&$1.to_sym).sum
     else
       super
     end

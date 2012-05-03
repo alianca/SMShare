@@ -18,6 +18,11 @@ Falta:
          User Aguarda resposta 'finished' com 'success'
          Redireciona para download efetivo do arquivo
 
+    * Terminar atualização
+      * Layout botão azul
+      * will_paginate
+      * Layout do HighCharts
+
 **
 
  * Não implementados

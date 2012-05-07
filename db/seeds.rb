@@ -367,8 +367,10 @@ STYLES = {
 }
 
 BG_NAMES.each do |k, v|
+  img = BoxImage.create(:name => v, :user => nil, :image => box_bg_for(k))
+  img.save
   BoxStyle.create({ :name => box_style_name_for(k),
                     :user => nil,
-                    :box_background_image => BoxImage.create(:name => v, :user => nil, :image => box_bg_for(k))._id
-                  }.merge STYLES[k])
+                    :box_background_image => img._id
+                  }.merge STYLES[k]).save
 end

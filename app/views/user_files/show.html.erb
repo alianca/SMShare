@@ -154,8 +154,8 @@
           <%= f.hidden_field :rate, :value => 0 %>
         <% end %>
         <span class="characters">Caracteres restantes: <span class="character-counter">280</span></span>
-        <%= f.buttons do %>
-          <%= f.commit_button "Enviar" %>
+        <%= f.actions do %>
+          <%= f.action :submit, :as => :button, :label => "Enviar" %>
         <% end %>
         <span class="rate-file">
           Avalie esse arquivo:

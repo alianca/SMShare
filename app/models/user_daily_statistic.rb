@@ -27,12 +27,14 @@ class UserDailyStatistic < Statistic
   def self.last_7_days_graph
     daily_statistics = self.order_by(:date.desc).limit(7).reverse
     graph = LazyHighCharts::HighChart.new(:graph) do |g|
-      g.chart(:width => 280, :height => 150, :spacingLeft => -278)
+      g.chart(:width => 280, :height => 150, :spacingLeft => -2)
       g.colors(["#82BACE"])
-      g.series(:name => "Downloads", :data=> daily_statistics.collect { |ds|
-                 {:name => I18n.l(ds.date, :format => I18n.t("date.formats.long")), :y => ds.downloads} })
+      g.series(:name => "Downloads", :data=> daily_statistics.collect do |ds|
+                 {:name => I18n.l(ds.date, :format => I18n.t("date.formats.long")), :y => ds.downloads}
+               end)
       g.xAxis(:categories => daily_statistics.collect(&:date).collect { |d| I18n.t("date.abbr_day_names")[d.wday] })
       g.yAxis(:title => {:text => "Downloads", :style => {:color => "#82BACE"}}, :allowDecimals => false)
+      g.legend(:enabled => false)
       g.title nil
     end
   end
@@ -58,11 +60,12 @@ class UserDailyStatistic < Statistic
     end
 
     graph = LazyHighCharts::HighChart.new(:graph) do |g|
-      g.chart(:width => 635, :height => 200, :spacingLeft => -280, :zoomType => :x)
+      g.chart(:width => 635, :height => 200, :zoomType => :x, :spacingLeft => -2)
       g.series(:name => "Downloads", :data => data.collect{ |d| d[:download] })
       g.series(:name => "2º Nivel", :data => data.collect{ |d| d[:referred] })
       g.xAxis(:categories => dates_array, :labels => { :step => (dates_array.length/8.0).ceil })
       g.yAxis(:title => {:text => "Downloads"}, :allowDecimals => false)
+      g.legend(:enabled => false)
       g.title nil
     end
   end

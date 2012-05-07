@@ -44,7 +44,7 @@ gem 'resque-status'
 gem 'lazy_high_charts'
 
 # To use pagination
-gem "will_paginate", :require => 'will_paginate/array'
+gem "will_paginate", :require => ['will_paginate', 'will_paginate/array']
 
 # To use Curl
 gem 'curb', :require => 'curl'

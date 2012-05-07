@@ -45,7 +45,7 @@ class UserFilesController < ApplicationController
   end
 
   def download
-n    begin
+    begin
       @file = UserFile.find(params[:id])
       if @file.validate_code params[:code]
         redirect_to "#{@file.file.url}?filename=#{@file.alias}"
@@ -62,9 +62,9 @@ n    begin
   def update_categories
     @files = params[:files].collect do |file_id, file_params|
       file = UserFile.find(file_id)
-      file.category_ids = file_params[:categories].delete_if { |c| c.blank? }.collect { |c| BSON::ObjectId(c) }
+      file.category_ids = file_params[:categories].delete_if{ |c| c.blank? }.collect{ |c| BSON::ObjectId(c) }
       file.sentenced_tags = file_params[:sentenced_tags]
-      file.save ? file : nil
+      file.save! ? file : nil
     end.compact
 
     respond_with(@file, :location => links_user_files_path(:files => @files))

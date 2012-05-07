@@ -6,7 +6,7 @@ class Category
   field :name
 
   # Arquivos
-  has_many_related :files, :class_name => "UserFile", :foreign_key => :category_ids
+  has_and_belongs_to_many :files, :class_name => "UserFile"
 
   # Validações
   validate :name, :presence => true, :uniqueness => true

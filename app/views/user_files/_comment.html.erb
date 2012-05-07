@@ -11,9 +11,10 @@
     <% end %>
   </div>
   <div class="rate-stars">
-    <% if comment['rate'] > 0 %>
-      <%= image_tag("search/icone-nota-on.png") * comment['rate'] +
-          image_tag("search/icone-nota-off.png") * (5 - comment['rate']) %>
+    <% if comment.rate > 0 %>
+      <% (1..5).each do |i| %>
+        <%= image_tag("search/icone-nota-" + (i <= comment.rate ? "on" : "off") + ".png", :class => "star") %>
+      <% end %>
     <% end %>
   </div>
 

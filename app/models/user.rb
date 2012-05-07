@@ -13,6 +13,7 @@ class User
   field :last_sign_in_at,    :type => Time
   field :current_sign_in_ip, :type => String
   field :last_sign_in_ip,    :type => String
+  field :remember_created_at, :type => Time
 
   field :encrypted_password, :type => String
 

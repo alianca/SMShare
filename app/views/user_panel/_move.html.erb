@@ -6,8 +6,8 @@
   <%= f.inputs do %>
     <%= f.input :folder, :label => "Destino:", :as => :select, :include_blank => false, :collection => folders_to_move %>
   <% end %>
-    
-  <%= f.buttons do %>
-    <%= f.commit_button "Confirmar" %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :button, :label => "Confirmar" %>
   <% end %>
 <% end %>

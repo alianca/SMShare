@@ -175,18 +175,18 @@ li.tab-content.remote-tab {
 
 #categorize-container form li.check_boxes li {
   display: inline-block;
-  width: 56px;
+  width: 52px;
   height: 28px;
   text-align: center;
   margin: 0;
   padding: 0;
 }
 
-#categorize-container .buttons {
+#categorize-container .actions {
   margin: 10px 0 0 345px;
 }
 
-#categorize-container .buttons #files_submit {
+#categorize-container .actions button {
   border: 0;
   width: 132px;
   height: 33px;
@@ -691,14 +691,14 @@ li.tab-content.remote-tab {
   color: black;
 }
 
-#file-container .comments #new-comment-form .buttons {
+#file-container .comments #new-comment-form .actions {
   width: 128px;
   padding: 0;
   margin-right: -10px;
   float: right;
 }
 
-#file-container .comments #new-comment-form input[type=submit] {
+#file-container .comments #new-comment-form button {
   height: 26px;
   width: 122px;
   background: url(/images/search/botao-enviar-off.png) no-repeat;
@@ -735,8 +735,8 @@ li.tab-content.remote-tab {
   margin-top: -22px;
 }
 
-#file-container .comments .comment .rate-stars img {
-  margin: 0 1px;
+#file-container .comments .comment .rate-stars .star {
+  margin: 0 -1px;
 }
 
 #file-container .comments .comment p {

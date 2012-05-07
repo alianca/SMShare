@@ -3,7 +3,7 @@
 <h2>Enviar arquivos</h2>
 
 <%= render :partial => "user_files/tabs" %>
-  
+
 <ul class="tabs tabs-contents">
   <li class="tab-content remote-tab">
     <p>O upload remoto permite enviar arquivos de outros servidores (http://) ou (ftp://) para a sua conta do smShare, para isso, insira a URL e a descrição e clique em Enviar.</p>
@@ -15,8 +15,8 @@
 
       <p class="more-urls"></p>
 
-      <%= f.buttons do %>
-        <%= f.commit_button "Enviar" %>
+      <%= f.actions do %>
+        <%= f.action :submit, :as => :button, :label => "Enviar" %>
       <% end %>
     <% end %>
   </li>
@@ -24,7 +24,7 @@
 
 <div class="remote-upload-models">
   <h3>Modelos de endereços aceitos</h3>
-  
+
   <ol>
     <li>
       Links diretos para arquivos com ou sem autentificação HTTP/SSL.

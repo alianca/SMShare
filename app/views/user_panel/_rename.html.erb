@@ -14,10 +14,10 @@
       </div>
     <% end %>
   <% end %>
-    
-  <%= f.buttons do %>
+
+  <%= f.actions do %>
     <div class="rename-btn">
-      <%= f.commit_button "Renomear" %>
+      <%= f.action :submit, :as => :button, :label => "Renomear" %>
     </div>
   <% end %>
 <% end %>

@@ -52,10 +52,11 @@ class PaymentRequest
   def self.graph
     graph = LazyHighCharts::HighChart.new(:graph) do |g|
       payment_requests = self.order_by(:request_month.asc).limit(12)
-      g.chart(:width => 635, :height => 200, :spacingLeft => -240, :zoomType => :x)
-      g.series(:name => "Valor", :type => :area, :data=> payment_requests.collect { |pr| {:name => "Valor requisitado", :y => pr.total} })
+      g.chart(:width => 635, :height => 200, :spacingLeft => -2, :zoomType => :x)
+      g.series(:name => "Valor", :type => :area, :data=> payment_requests.collect { |pr| {:name => "Valor requisitado", :y => ("%0.2f"%pr.total).to_f} })
       g.xAxis(:categories => payment_requests.collect(&:request_month))
       g.yAxis(:title => {:text => "Valor"})
+      g.legend(:enabled => false)
       g.title nil
     end
   end

@@ -54,9 +54,9 @@
         <th class="request_month"><%= pr.request_month %></th>
         <th class="completed_at"><%= pr.completed_at %><%= "*" if pr.status != :complete %></th>
         <th class="payment_method <%= pr.payment_method %>"><%= pr.payment_method %></th>
-        <th class="value"><%= pr.value %></th>
-        <th class="referred_value"><%= pr.referred_value %></th>
-        <th class="total"><%= pr.value + pr.referred_value %></th>
+        <th class="value"><%= "%0.2f" % pr.value %></th>
+        <th class="referred_value"><%= "%0.2f" % pr.referred_value %></th>
+        <th class="total"><%= "%0.2f" % (pr.value + pr.referred_value) %></th>
       </tr>
     <% end %>
   </body>

@@ -107,14 +107,14 @@ form.payment_request .inputs {
   padding: 5px 7px;
 }
 
-form.payment_request .buttons {
+form.payment_request .actions {
   width: 164px;
   float: left;
   padding: 23px 0 0 0 !important;
 
 }
 
-form.payment_request .buttons input { 
+form.payment_request .actions button {
   color: white;
   font-size: 12px;
   border: 0;
@@ -122,4 +122,3 @@ form.payment_request .buttons input {
   height: 30px;
   background: url(/images/payment_requests/fundo_botao.png);
 }
-

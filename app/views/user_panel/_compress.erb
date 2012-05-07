@@ -2,12 +2,12 @@
   <%= f.inputs :class => :hidden_file_list do %>
     <%= f.input :files, :as => :check_boxes, :collection => @resources.collect { |r| [r._id, r._id] } %>
   <% end %>
-  
+
   <%= f.inputs do %>
     <%= f.input :filename, :label => "Nome do arquivo:" %>
   <% end %>
-  
-  <%= f.buttons do %>
-    <%= f.submit "Confirmar" %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :button, :label => "Confirmar" %>
   <% end %>
 <% end %>

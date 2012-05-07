@@ -10,6 +10,22 @@ class UserPanelController < ApplicationController
 
   def show
     @file = UserFile.new
+    @today_downloads = UserDailyStatistic.today_downloads_for current_user
+    @today_referred_downloads = UserDailyStatistic.today_referred_downloads_for current_user
+    @today_total_revenue = UserDailyStatistic.today_total_revenue_for current_user
+
+    @yesterday_downloads = UserDailyStatistic.yesterday_downloads_for current_user
+    @yesterday_referred_downloads = UserDailyStatistic.yesterday_referred_downloads_for current_user
+    @yesterday_total_revenue = UserDailyStatistic.yesterday_total_revenue_for current_user
+
+    @this_month_downloads = UserDailyStatistic.this_month_downloads_for current_user
+    @this_month_referred_downloads = UserDailyStatistic.this_month_referred_downloads_for current_user
+    @this_month_total_revenue = UserDailyStatistic.this_month_total_revenue_for current_user
+
+    @last_month_downloads = UserDailyStatistic.last_month_downloads_for current_user
+    @last_month_referred_downloads = UserDailyStatistic.last_month_referred_downloads_for current_user
+    @last_month_total_revenue = UserDailyStatistic.last_month_total_revenue_for current_user
+
     @most_downloaded_files = current_user.files.order_by(:"statistics.downloads").limit(10).to_a
     @most_downloaded_files.sort! { |x, y| (y.statistics.downloads || 0) <=> (x.statistics.downloads || 0) }
   end
@@ -89,10 +105,10 @@ class UserPanelController < ApplicationController
   end
 
   def customize
-    @default_styles = BoxStyle.where(:user_id => nil)
+    @default_styles = BoxStyle.defaults
     @user_styles = current_user.box_styles.all
     @user_default_style = current_user.default_style
-    @default_backgrounds = BoxImage.where(:user_id => nil)
+    @default_backgrounds = BoxImage.default_list
     @user_backgrounds = current_user.box_images.all
     @user_default_background = current_user.default_box_image
   end

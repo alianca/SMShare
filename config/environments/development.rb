@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 Smshare::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
@@ -11,13 +12,13 @@ Smshare::Application.configure do
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
-  config.action_view.debug_rjs             = true
+#  config.action_view.debug_rjs             = true
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-  
+
   # Ocultar deprecation warnings enquanto as gems ainda não estão 100% rails3
   config.active_support.deprecation = :log
 end

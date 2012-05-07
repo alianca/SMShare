@@ -1,11 +1,32 @@
 Endereço: 187.17.123.253
 
 Falta:
-    * Integração com o Mozca
-      - Autenticação do código
-      - Valor de cada download
+    * Fundos da DownBOX no servidor definitivo ???
     * Integração dos Pagamentos
       - Paypal
       - Pagseguro
     * Integração com redes sociais (Facebook e Twitter, por enquanto)
       - URL para like/tweet personalizável, se possível
+
+    * Integração com o Mozca
+      - Autenticação do código
+
+      --
+      * iframe oculto
+      * User clica em Download
+      -  Submit no iframe oculto
+         User Aguarda resposta 'finished' com 'success'
+         Redireciona para download efetivo do arquivo
+
+    * Terminar atualização
+      * Layout botão azul
+      * will_paginate
+      * Layout do HighCharts
+
+**
+
+ * Não implementados
+
+    * Botões Link e Propriedades do file manager
+    * Guia "via FTP"
+    * Verificar Validade

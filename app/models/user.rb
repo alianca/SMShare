@@ -1,18 +1,26 @@
 # -*- coding: utf-8 -*-
 
-require 'lib/jobs/user_statistics_job'
+require File.expand_path('./lib/jobs/user_statistics_job')
 
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  # Inclui os modulos padrões do Devise. Outros disponiveis são:
-  # :token_authenticatable, :confirmable, :lockable e :timeoutable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
+  field :sign_in_count,      :type => Integer, :default => 0
+  field :current_sign_in_at, :type => Time
+  field :last_sign_in_at,    :type => Time
+  field :current_sign_in_ip, :type => String
+  field :last_sign_in_ip,    :type => String
+  field :remember_created_at, :type => Time
+
+  field :encrypted_password, :type => String
+
+
   # Define o esquema logico db.users
-  # email, e os campos de autenticação já são criados pelo Devise
   field :name, :type => String
+  field :email, :type => String
   field :nickname, :type => String
   field :accepted_terms, :type => Boolean
   field :default_style_id, :type => BSON::ObjectId

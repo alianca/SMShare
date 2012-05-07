@@ -12,7 +12,7 @@
     <%= f.input :email, :label => "E-mail" %></p>
   <% end %>
 
-  <%= f.buttons do %>
-    <%= f.commit_button "Confirmar" %>
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :button, :label => "Confirmar" %>
   <% end %>
 <% end %>

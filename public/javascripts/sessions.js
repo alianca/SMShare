@@ -11,4 +11,4 @@ $(document).ready(function() {
 });
 
 /* Faz pre-cache das imagens do cadastro */
-$.cacheImages("/images/layouts/botao-on.png");
+cache_images("/images/layouts/botao-on.png");

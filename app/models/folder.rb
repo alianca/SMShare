@@ -32,8 +32,8 @@ class Folder
       elsif (current_page-1)*per_page > total_folders # só tem arquivos
         results = files.order_by(:name => :asc, :created_at => :asc).offset((current_page-1)*per_page-total_folders).limit(per_page)
       else # fodeu, tem arquivo e pasta
-        results = children.order_by(:name => :asc, :created_at => :asc).offset((current_page-1)*per_page).limit(total_folders%per_page).to_a
-        results += files.order_by(:name => :asc, :created_at => :asc).offset((current_page-1)*per_page-total_folders+total_folders%per_page).limit(per_page-(total_folders%per_page)).to_a
+        results = children.order_by(:name => :asc).offset((current_page-1)*per_page).limit(total_folders%per_page).to_a
+        results += files.order_by(:name => :asc).offset((current_page-1)*per_page-total_folders+total_folders%per_page).limit(per_page-(total_folders%per_page)).to_a
       end
       pager.replace(results.to_a)
     end

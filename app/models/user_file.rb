@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-require 'lib/jobs/user_file_statistics_job'
+require File.expand_path('./lib/jobs/user_file_statistics_job')
 
 class UserFile
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  require "lib/sentenced_fields"
+  require File.expand_path('./lib/sentenced_fields')
   include SentencedFields
 
   # Busca
@@ -63,7 +63,7 @@ class UserFile
   belongs_to_related :owner, :class_name => "User"
 
   # Categoria
-  has_many_related :categories, :stored_as => :array
+  has_and_belongs_to_many :categories, :inverse_of => :files
 
   # Imagem
   embeds_many :images, :class_name => "UserFileImage"
@@ -85,7 +85,7 @@ class UserFile
 
   # Arquivo
   mount_uploader :file, UserFileUploader, :mount_on => :filename
-  after_save :cache_filetype, :cache_filesize
+  before_save :cache_filetype, :cache_filesize
 
   # Downloads
   has_many_related :downloads, :foreign_key => :file_id
@@ -112,7 +112,6 @@ class UserFile
   # Sentenced Fields para as Tags
   sentenced_fields :tags
 
-
   def file_extension
     File.extname(self.alias)
   end
@@ -129,18 +128,19 @@ class UserFile
   def self.find_filter_and_order(query, filter, order)
     results = []
     if !query.blank?
-      results = self.search(query).to_a
-    elsif not (filter.blank? and order.blank?)
-      results = User.all.collect(&:files).flatten
+      results = self.tire.search(query).to_a
+    elsif (!filter.blank? || !order.blank?)
+      results = UserFile.all.to_a
     end
 
-    if !filter.blank?
-      results.delete_if { |f| !f.category_ids.include?(BSON::ObjectId(filter)) }
+    if !filter.blank? && filter != "all"
+      category = Category.find(filter)
+      results.delete_if{ |f| !category.file_ids.include? f._id }
     end
 
     if !order.blank?
       begin
-        results.sort! { |a,b| b.send(order) <=> a.send(order) }
+        results.sort!{ |a,b| b.send(order) <=> a.send(order) }
       rescue
       end
     end
@@ -170,12 +170,10 @@ class UserFile
 
   def cache_filetype
     self.filetype = self.file.file.content_type
-    save if changed?
   end
 
   def cache_filesize
-    self.filesize = self.file.file.file_length
-    save if changed?
+    self.filesize = self.file.file.size
   end
 
   def download_file_from_url
@@ -185,6 +183,7 @@ class UserFile
       filename = uri.host if filename.blank?
       FileUtils.mkdir_p(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
       tempfile = File.open(Rails.root + "tmp/tempfiles/user_file/#{self.id}/#{filename}", "w")
+      tempfile.set_encoding 'ASCII-8BIT'
       tempfile.write Curl::Easy.perform(uri.to_s).body_str
       tempfile.flush
       self.file = tempfile

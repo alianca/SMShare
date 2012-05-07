@@ -17,11 +17,17 @@ class BoxStyle
   field :button_text, :type => String
   field :bottom_text, :type => String
   field :name, :type => String
+  field :order, :type => Integer, :default => 0
 
   belongs_to_related :user
 
   def self.default
     BoxStyle.where(:name => "Estilo smShare").first
+  end
+
+  def self.defaults
+    styles = BoxStyle.where(:user => nil).to_a
+    styles.sort { |a, b| a.order <=> b.order }
   end
 
 end

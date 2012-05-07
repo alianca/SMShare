@@ -162,16 +162,16 @@ body {
   color: #34378A;
 }
 
-#upload_forms fieldset.buttons {
+#upload_forms fieldset.actions {
   clear: right;
   float: right;
   overflow: auto;
   border: 0;
-  margin: -40px 0 0 0;
+  margin: -85px 0 0 0;
   padding: 0;
 }
 
-#upload_forms fieldset.buttons ol {
+#upload_forms fieldset.actions ol {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -185,7 +185,7 @@ body {
   width: 343px;
 }
 
-#upload_forms fieldset.buttons li {
+#upload_forms fieldset.actions li {
   padding-right: 0;
   overflow: auto;
   margin-bottom: 1.5em;
@@ -193,7 +193,7 @@ body {
   padding: 0;
 }
 
-#upload_forms fieldset.buttons input[type=submit] {
+#upload_forms fieldset.actions button {
   border: 0;
   width: 132px;
   height: 33px;
@@ -681,7 +681,7 @@ table.file_list td.name {
   background: url(/images/user_panel/botoes/separador.png) no-repeat;
 }
 
-.actions_menu input[type=submit] {
+.actions_menu button {
   background: transparent;
   border: 0;
   margin-left: auto;
@@ -690,7 +690,7 @@ table.file_list td.name {
   font-size: 11px;
 }
 
-.actions_menu input[type=submit].icon {
+.actions_menu button.icon {
   position: relative;
   left: 0;
 }
@@ -834,17 +834,17 @@ table.file_list td.name {
   height: 23px;
 }
 
-#actions_forms #rename input[type=submit] {
+#actions_forms #rename button {
   width: 122px;
   background: url(/images/user_files/botao-rename-off.png);
 }
 
-#actions_forms .buttons {
+#actions_forms .actions {
   float: left;
   padding: 2px 0 2px 15px !important;
 }
 
-#actions_forms input[type=submit], #actions_forms .compress-button {
+#actions_forms button, #actions_forms .compress-button {
   color: white;
   font-size: 12px;
   border: 0 solid transparent;
@@ -1327,7 +1327,7 @@ table.file_list td.name {
   background: url(/images/user_panel/orange_button_left.png) no-repeat;
 }
 
-.button.orange input[type=submit] {
+.button.orange button {
   border: none;
   color: #ffffff;
   height: 31px;
@@ -1350,11 +1350,19 @@ table.file_list td.name {
   background: url(/images/user_panel/blue_button_left.png) no-repeat;
 }
 
-.button.blue input[type=submit] {
+.button.blue button {
   border: none;
   color: #ffffff;
   height: 25px;
   background: url(/images/user_panel/blue_button_middle.png) repeat-x;
+}
+
+.button.blue li {
+  margin: 0;
+  padding: 0;
+  height: 25px;
+  line-height: 25px;
+  display: inline-block;
 }
 
 .button.blue .right {
@@ -1649,14 +1657,14 @@ table.file_list td.name {
   top: 15px;
 }
 
-#config-profile #configs form .buttons {
+#config-profile #configs form .actions {
   position: relative;
   left: 445px;
   margin-top: 10px;
   padding: 0;
 }
 
-#config-profile #configs form .buttons .button .left {
+#config-profile #configs form .actions .button .left {
   position: relative;
   width: 5px;
   height: 26px;
@@ -1665,7 +1673,7 @@ table.file_list td.name {
   margin-right: 0px;
 }
 
-#config-profile #configs form .buttons .button .right {
+#config-profile #configs form .actions .button .right {
   position: relative;
   width: 6px;
   height: 26px;
@@ -1674,7 +1682,7 @@ table.file_list td.name {
   margin-left: -6px;
 }
 
-#config-profile #configs form .buttons .button input[type=submit] {
+#config-profile #configs form .buttons .button button {
   width: 114px;
 }
 
@@ -1811,19 +1819,17 @@ table.file_list td.name {
   width: 395px;
 }
 
-#personal-data .buttons {
+#personal-data .actions {
   padding: 0;
-  margin-left: 239px;
-  height: 32px;
-  margin-top: -12px;
-  margin-bottom: -30px;
+  margin: 0;
+  overflow: hidden;
 }
 
 #personal-data .optional-forms {
   height: 300px;
 }
 
-#personal-data .optional-forms .buttons {
+#personal-data .optional-forms .actions {
   margin-left: 368px;
   width: 140px;
   margin-top: -12px;
@@ -1831,19 +1837,19 @@ table.file_list td.name {
   clear: both;
 }
 
-#personal-data .buttons input {
+#personal-data .actions button {
   width: 113px;
   padding: 0;
 }
 
-#personal-data .buttons .button .left {
+#personal-data .actions .button .left {
   position: relative;
   padding-left: 8px;
   padding-bottom: 10px;
   margin-right: 0;
 }
 
-#personal-data .buttons .button .right {
+#personal-data .actions .button .right {
   position: relative;
   padding-left: 8px;
   padding-bottom: 10px;

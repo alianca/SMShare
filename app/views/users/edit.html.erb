@@ -37,16 +37,15 @@
           </div>
 
         <% end %>
-        
+
       <% end %>
 
-      <%= u.buttons do %>
+      <%= u.actions do %>
         <span class="button blue">
-          <span class="left"></span><%= u.commit_button "Salvar" %><span class="right"></span>
+          <span class="left"></span><%= u.action :submit, :as => :button, :label => "Salvar" %><span class="right"></span>
         </span>
       <% end %>
 
     <% end %>
   </div>
 </div>
-

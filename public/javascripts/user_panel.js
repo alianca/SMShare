@@ -174,7 +174,7 @@ $(document).ready(function() {
 
     // Desabilita os botões
     $(".more-files a").unbind("click").hide();
-    $("#upload_forms .buttons").unbind("click").hide();
+    $("#upload_forms .actions").unbind("click").hide();
 
     // Oculta os formulatios e mostra o progresso
     $("#user_files_forms form fieldset").hide();
@@ -281,8 +281,8 @@ $(document).ready(function() {
     update_all(0);
   }
 
-  $('#upload_forms').append($('.files_form .buttons').remove());
-  $('#upload_forms .buttons').click(function () {
+  $('#upload_forms').append($('.files_form .actions').remove());
+  $('#upload_forms .actions').click(function () {
     setup_progress_bars();
     tick();
   });

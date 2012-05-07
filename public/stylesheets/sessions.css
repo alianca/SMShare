@@ -1,4 +1,4 @@
-#user_new {
+#new_user {
   background: url(/images/sessions/fundo.png);
   width: 831px;
   height: 186px;
@@ -6,16 +6,16 @@
   padding: 11px 14px;
 }
 
-#user_new .title {
+#new_user .title {
   float: left;
 }
 
-#user_new .title p {
+#new_user .title p {
   font-weight: bold;
   text-align: center;
 }
 
-#user_new .title .line1 {
+#new_user .title .line1 {
 
   width: 188px;
   height: 52px;
@@ -25,7 +25,7 @@
   font-size: 40px;
 }
 
-#user_new .title .line2 {
+#new_user .title .line2 {
   width: 188px;
   height: 28px;
   background: #7bbacf;
@@ -34,11 +34,11 @@
   font-size: 18px;
 }
 
-#user_new .title img {
+#new_user .title img {
   margin: 71px 0 0 67px;
 }
 
-#user_new .call-to-action {
+#new_user .call-to-action {
   width: 525px;
   padding: 9px 11px 0 0;
   float: right;
@@ -46,23 +46,25 @@
   line-height: 18px;
 }
 
-#user_new #login_fields {
+#new_user #login_fields {
   margin: 59px 0 0 223px;
   width: 520px;
 }
 
-#user_new #login_fields ol li {
+#new_user #login_fields ol li {
   margin-bottom: 6px;
 }
 
-#user_new #login_fields label {
+#new_user #login_fields label {
   text-align: right;
   padding-right: 5px;
   line-height: 21px;
   width: 120px;
 }
 
-#user_new #login_fields input {
+
+
+#new_user #login_fields input {
   background: url(/images/registrations/input.png);
   border: 0;
   width: 232px;
@@ -71,7 +73,7 @@
   padding: 5px 7px;
 }
 
-#user_new #login_fields p {
+#new_user #login_fields p {
   display: block;
   float: right;
   top: 220px;
@@ -79,23 +81,25 @@
   margin-right: 0;
 }
 
-
-#user_new #remember_field label {
-  padding-left: 348px;
-  margin: 0;
+#new_user #remember_field {
+  margin-top: -12px;
 }
 
-#user_new #remember_field ol li {
-  margin-bottom: 12px;
+#new_user #remember_field label {
+  padding-left: 348px;
+  line-height: 27px;
+}
+
+#new_user #remember_field ol li {
   overflow: hidden;
 }
 
-#user_new .buttons {
+#new_user .actions {
   padding-left: 0;
-  margin: 0 0 0 348px;
+  margin: -12px 0 0 348px;
 }
 
-#user_new .buttons input {
+#new_user .actions button {
   color: white;
   font-size: 12px;
   border: 0;

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'zipruby'
+require 'resque/job_with_status'
 
 class UserPanelController < ApplicationController
   respond_to :html
@@ -91,7 +92,7 @@ class UserPanelController < ApplicationController
   end
 
   def compression_state
-    status = Resque::Status.get session[:job_id]
+    status = Resque::Plugins::Status::Hash.get session[:job_id]
     if status and ["completed", "failed"].include? status["status"]
       session.delete :job_id
     end

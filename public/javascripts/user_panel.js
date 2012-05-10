@@ -233,13 +233,15 @@ $(document).ready(function() {
   function go_to_categorize() {
     var parameter = "";
     $("#user_files_forms form").each(function (i, form) {
-      console.log($(form));
-      if($(form).attr("data-status") === "success") {
-        parameter += "files[]=" + $(form).attr("data-created_id") + "&";
+      var id = $(form).attr("data-created_id");
+      if($(form).attr("data-status") === "success" && id) {
+        parameter += "files[]=" + id + "&";
       }
     });
     if (parameter.length > 0) {
       window.location = "/arquivos/categorizar?" + parameter;
+    } else {
+      reload();
     }
   }
 

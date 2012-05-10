@@ -25,7 +25,7 @@ module UserFilesHelper
     when /text(.*)/
       case $1
       when /(html|javascript|css)/ then :web
-      else :document
+      else :documento
       end
     when /application(.*)/
       case $1

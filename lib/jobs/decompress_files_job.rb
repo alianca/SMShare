@@ -12,9 +12,8 @@ class Jobs::DecompressFilesJob < Resque::JobWithStatus
 
     files.each do |file|
       Zip::Archive.open_buffer(file.file.file.read) do |zip|
-        num = 1
         total = zip.count
-        zip.each do |z|
+        zip.each_with_index do |z, i|
           unless z.directory?
             components = z.name.split('/')
             filename = FileName.sanitize(components.last)
@@ -26,15 +25,14 @@ class Jobs::DecompressFilesJob < Resque::JobWithStatus
               current_dir = match ? match : current_dir.children.create(:name => component, :owner => user)
             end
 
-            at(num, total, "Descompactando #{file.alias}: ./#{z.name} (#{num} de #{total})")
+            at(i + 1, total, "Descompactando #{file.alias}: ./#{z.name} (#{i + 1} de #{total})")
 
             temp_file = Tempfile.new filename
+            temp_file.content_type = z.content_type
             temp_file.write z.read
             temp_file.rewind
-            user.files.create(:file => temp_file.open, :public => true, :description => "Arquivo compactado", :folder => current_dir, :filename => filename)
+            user.files.create(:file => temp_file.open, :public => true, :description => "Arquivo", :folder => current_dir, :filename => filename)
             temp_file.close
-
-            num += 1
           end
         end
       end

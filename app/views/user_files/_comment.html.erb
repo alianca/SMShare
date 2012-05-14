@@ -4,7 +4,9 @@
     <% if comment.owner %>
       <%= comment.owner.name %>
       <% if comment.owner == current_user %>
-      <span class="remove"><%= link_to "Remover", comment_path(comment, :file_id => comment.file), :method => :delete %></span>
+      <span class="remove">
+        <%= link_to "Remover", comment_path(comment, :file_id => comment.file), :method => :delete %>
+      </span>
       <% end %>
     <% else %>
       Anônimo
@@ -19,4 +21,28 @@
   </div>
 
   <p><%= comment.message %></p>
+
+  <% if comment.answers.count > 0 %>
+    <div class="answers">
+      <% render :partial => "answer", :collection => comment.answers %>
+    </div>
+  <% end %>
+
+  <% if comment.file.owner == current_user %>
+    <div class="comment-aggregator">
+      <a href="#" class="toggle-answer">Responder</a>
+      <div class="answer-form">
+        <%= semantic_form_for Answer.new do |f| %>
+          <%= f.inputs do %>
+            <%= f.hidden_field :comment_id, :value => comment._id %>
+            <%= f.text_area :message %>
+          <% end %>
+          <%= f.actions do %>
+            <%= f.action :submit, :as => :button, :label => "Enviar" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
 </div>

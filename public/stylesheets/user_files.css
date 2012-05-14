@@ -672,7 +672,7 @@ li.tab-content.remote-tab {
   margin-top: 10px;
 }
 
-#file-container .comments #new-comment-form textarea {
+#file-container .comments textarea {
   width: 600px;
   height: 80px;
   border: none;
@@ -680,6 +680,10 @@ li.tab-content.remote-tab {
   border-radius: 7px;
   border: 1px solid #7bbacf;
   -moz-border-radius: 7px;
+}
+
+#file-container .comments .new-answer-form textarea {
+  width: 200px;
 }
 
 #file-container .comments #new-comment-form .characters {
@@ -698,7 +702,7 @@ li.tab-content.remote-tab {
   float: right;
 }
 
-#file-container .comments #new-comment-form button {
+#file-container .comments button {
   height: 26px;
   width: 122px;
   background: url(/images/search/botao-enviar-off.png) no-repeat;
@@ -744,6 +748,10 @@ li.tab-content.remote-tab {
   margin-top: 5px;
   color: #4f4439;
   word-wrap: break-word;
+}
+
+#file-container .comments .comment .answer-form {
+  display: none;
 }
 
 #file-container .comments .comment.odd {

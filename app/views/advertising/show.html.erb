@@ -39,7 +39,7 @@
         <td class="reference"><div><%= r.name %> <%= r.created_at.strftime("%d/%m/%Y") %></div></td>
         <td class="clicks"><div><%= r.clicks %></div></td>
         <td class="signups"><div><%= r.signups %></div></td>
-        <td class="comission"><div><%= r.comission %></div></td>
+        <td class="comission"><div><%= "%0.2f" % r.comission %></div></td>
       </tr>
     <% end %>
   </tbody>
@@ -54,7 +54,7 @@
       <td class="reference"></td>
       <td class="clicks"><%= @total_clicks %></td>
       <td class="signups"><%= @total_signups %></td>
-      <td class="comission"><%= @total_comission %></td>
+      <td class="comission"><%= "%0.2f" % @total_comission %></td>
     </tr>
   </tfoot>
 </table>

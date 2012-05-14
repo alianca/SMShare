@@ -1,0 +1,13 @@
+<div class="answer">
+  <div class="header">
+    <%= answer.created_at.strftime("%d/%m/%Y") %> |
+    <%= answer.owner.name %>
+    <% if answer.owner == current_user %>
+      <span class="remove">
+        <%= link_to "Remover", answer_path(answer), :method => :delete %>
+      </span>
+    <% end %>
+  </div>
+
+  <p> <%= answer.message %> </p>
+</div>

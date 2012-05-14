@@ -29,8 +29,8 @@
       <td class="reference"><div><%= r.referred_by %></div></td>
       <td class="user"><div><%= r.name %></div></td>
       <td class="downloads"><div><%= r.statistics.downloads %></div></td>
-      <td class="revenue"><div><%= r.statistics.revenue %></div></td>
-      <td class="comission"><div><%= r.statistics.referrer_comission %></div></td>
+      <td class="revenue"><div><%= "%0.2f" % r.statistics.revenue %></div></td>
+      <td class="comission"><div><%= "%0.2f" % r.statistics.referrer_comission %></div></td>
       </tr>
       <% end %>
   </tbody>
@@ -48,8 +48,8 @@
       <td class="reference"></td>
       <td class="user"></td>
       <td class="downloads"><%= current_user.statistics.referred_downloads %></td>
-      <td class="revenue"><%= current_user.statistics.total_referred_revenue %></td>
-      <td class="comission"><%= current_user.statistics.referred_revenue %></td>
+      <td class="revenue"><%= "%0.2f" % current_user.statistics.total_referred_revenue %></td>
+      <td class="comission"><%= "%0.2f" % current_user.statistics.referred_revenue %></td>
     </tr>
   </tfoot>
 </table>

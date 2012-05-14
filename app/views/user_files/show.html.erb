@@ -147,24 +147,25 @@
         </div>
       <% end %>
 
-      <%= semantic_form_for @comment, :html => { :id => "new-comment-form" } do |f| %>
-        <%= f.inputs do %>
-          <%= f.hidden_field :file, :value => @file._id %>
-          <%= f.text_area :message, :maxlength => 280 %>
-          <%= f.hidden_field :rate, :value => 0 %>
-        <% end %>
-        <span class="characters">Caracteres restantes: <span class="character-counter">280</span></span>
-        <%= f.actions do %>
-          <%= f.action :submit, :as => :button, :label => "Enviar" %>
-        <% end %>
-        <span class="rate-file">
-          Avalie esse arquivo:
-          <% for i in 1..5 %>
-            <img class="star index<%= i %>" />
+      <% unless current_user == @file.owner %>
+        <%= semantic_form_for @comment, :html => { :id => "new-comment-form" } do |f| %>
+          <%= f.inputs do %>
+            <%= f.hidden_field :file, :value => @file._id %>
+            <%= f.text_area :message, :maxlength => 280 %>
+            <%= f.hidden_field :rate, :value => 0 %>
           <% end %>
-        </span>
+          <span class="characters">Caracteres restantes: <span class="character-counter">280</span></span>
+          <%= f.actions do %>
+            <%= f.action :submit, :as => :button, :label => "Enviar" %>
+          <% end %>
+          <span class="rate-file">
+            Avalie esse arquivo:
+            <% for i in 1..5 %>
+              <img class="star index<%= i %>" />
+            <% end %>
+          </span>
+        <% end %>
       <% end %>
-
     </div>
   </div>
 </div>

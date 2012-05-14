@@ -48,6 +48,11 @@ $(document).ready(function() {
     $(this).parents("#new-image-form").submit();
   });
 
+  $(".toggle-answer").click(function() {
+    $(this).parent(".comment-aggregator").find(".answer-form").toggle();
+    return false;
+  });
+
 });
 
 /* Faz pre-cache das imagens do cadastro */

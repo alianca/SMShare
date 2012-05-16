@@ -2,10 +2,14 @@
 class AnswersController < ApplicationController
 
   def create
-    @comment = Comment.find(params[:comment_id])
+    @comment = Comment.find(params[:answer][:comment_id])
     if current_user == @comment.file.owner
       @answer = @comment.answers.create(params[:answer].merge(:owner => current_user))
-      @answer.save
+      if @answer.save
+        flash[:notice] = "Resposta enviada com sucesso."
+      else
+        flash[:alert] = @answer.errors[0]
+      end
     end
 
     redirect_to :back

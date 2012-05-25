@@ -107,7 +107,7 @@ $(document).ready(function() {
 
     /* Cria a caixa de download via AJAX */
     $.ajax({
-      url: path + "/download_box" + options,
+      url: "/downloads/new?file_id=" + path.match(/([a-f0-9]{24})/)[1] + options,
       type: "GET",
       async: false,
       success: function(data) {

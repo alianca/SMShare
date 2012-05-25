@@ -21,7 +21,8 @@
     <p class="price">*custo de R$ 0,86 + impostos</p>
 
     <div class="code_area">
-      <%= form_tag download_user_file_url(@file), :method => :get do %>
+      <%= form_tag authorizations_path, :method => :post do %>
+        <%= hidden_field_tag :file_id, @file._id %>
         <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus"%>
         <%= submit_tag "Download", :class => "submit" %>
       <% end %>

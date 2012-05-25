@@ -1,6 +1,6 @@
 class Download
   include Mongoid::Document
-    
+
   field :downloaded_by_ip, :type => String
   field :downloaded_at, :type => Time
   before_create :set_downloaded_at
@@ -8,10 +8,10 @@ class Download
   before_create :set_filesize
 
   belongs_to_related :file, :class_name => "UserFile"
-  
+
   belongs_to_related :file_owner, :class_name => "User"
   before_create :set_file_owner
-  
+
   validates :downloaded_by_ip, :presence => true
   validates :file, :presence => true
 
@@ -19,11 +19,11 @@ class Download
     def set_downloaded_at
       self.downloaded_at = Time.now.utc if !downloaded_at
     end
-    
+
     def set_filesize
       self.filesize = file.filesize
     end
-    
+
     def set_file_owner
       self.file_owner = file.owner
     end

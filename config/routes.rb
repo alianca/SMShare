@@ -81,6 +81,8 @@ Smshare::Application.routes.draw do
     end
   end
 
+  resources :downloads, :as => :authorizations, :controller => "authorizations", :only => [:new, :create, :show]
+
   resources :box_images, :only => [:create] do
     collection do
       post :set_default

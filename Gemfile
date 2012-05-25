@@ -69,6 +69,8 @@ group :test do
   # gem 'factory_girl_rails'
 end
 
-# Correção temporaria para um erro que começou a aparecer de repente
-# TODO: Investigar melhor
-gem 'require_relative', '~> 1.0.1'
+# To use Redis
+gem 'redis'
+
+# To generate unique IDs
+gem 'uuid'

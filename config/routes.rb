@@ -8,7 +8,7 @@ Smshare::Application.routes.draw do
     post "cadastro/valida_campo" => "registrations#validate_field"
   end
 
-  resources :arquivos, :as=> :user_files, :controller => :user_files do
+  resources :arquivos, :as=> :user_files, :controller => :user_files, :except => [:create] do
     member do
       get :download
       get :example
@@ -22,6 +22,8 @@ Smshare::Application.routes.draw do
       get :links
     end
   end
+
+  resources :uploads, :as => :user_files, :controller => :user_files, :only => [:create]
 
   resource :painel, :as=> :user_panel, :controller => :user_panel, :only => [:show, :destroy, :edit, :create] do
     member do
@@ -81,7 +83,9 @@ Smshare::Application.routes.draw do
     end
   end
 
-  resources :downloads, :as => :authorizations, :controller => "authorizations", :only => [:new, :create, :show]
+  resources :downloads, :as => :authorizations, :controller => "authorizations", :only => [:new, :create, :show] do
+    post :activate
+  end
 
   resources :box_images, :only => [:create] do
     collection do

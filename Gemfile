@@ -68,9 +68,3 @@ group :test do
   gem 'database_cleaner'
   # gem 'factory_girl_rails'
 end
-
-# To use Redis
-gem 'redis'
-
-# To generate unique IDs
-gem 'uuid'

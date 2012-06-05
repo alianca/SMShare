@@ -34,7 +34,7 @@ class UserFilesController < ApplicationController
   end
 
   def create
-    @file = current_user.files.create(params[:user_file]) unless params[:user_file].blank?
+    @file = current_user.files.create(params[:user_file].merge(params[:user_file][:file]))
     if @file.save and @file.valid?
       flash[:notice] = "Arquivo enviado com sucesso."
       respond_with(@file, :location => categorize_user_files_path(:files => [@file]))
@@ -47,7 +47,9 @@ class UserFilesController < ApplicationController
   def update_categories
     @files = params[:files].collect do |file_id, file_params|
       file = UserFile.find(file_id)
-      file.category_ids = file_params[:categories].delete_if{ |c| c.blank? }.collect{ |c| BSON::ObjectId(c) }
+      file.category_ids = file_params[:categories].
+        delete_if{ |c| c.blank? }.
+        collect{ |c| BSON::ObjectId(c) }
       file.sentenced_tags = file_params[:sentenced_tags]
       file.save! ? file : nil
     end.compact

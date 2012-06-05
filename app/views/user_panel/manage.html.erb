@@ -67,7 +67,7 @@
             <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file" %></td>
             <td class="name">
               <%= image_tag icon_for type_of f.filetype %>
-              <%= link_to truncate(f.alias, :length => 50, :omission => "..." + f.alias[-4..-1]), user_file_path(f) %>
+              <%= link_to truncate(f.filename, :length => 50, :omission => "..." + f.filename[-4..-1]), user_file_path(f) %>
             </td>
             <td class="size"><%= filesize_for_stat(f.filesize)%></td>
             <td class="created_at"><%= f.created_at.strftime("%d/%m/%Y") %></td>

@@ -18,38 +18,40 @@
     <div class="general-info">
       <div class="filetype">
         <div><%= image_tag thumb_for type_of @mime %></div>
-        <span><%= File.extname(@file.alias) %></span>
+        <span><%= File.extname(@file.filename) %></span>
       </div>
-      <h5 class="title"><%= @file.alias %></h5>
+      <h5 class="title"><%= @file.filename %></h5>
       <p class="description"><%= @file.description %></p>
     </div>
 
-    <div class="images">
-      <% @file.images.each do |img| %>
-        <div class="image-container">
-          <%= image_tag img.image.url, :class => "image-preview" %>
-          <% if @owner %>
-            <%= link_to user_file_image_path(img, :file_id => img.file), :method => :delete, :class => "delete-image" do %>
-              <span class="label">Remover Imagem</span>
+    <% if @file.images.count > 0 %>
+      <div class="images">
+        <% @file.images.each do |img| %>
+          <div class="image-container">
+            <%= image_tag img.image.url, :class => "image-preview" %>
+            <% if @owner %>
+              <%= link_to user_file_image_path(img, :file_id => img.file), :method => :delete, :class => "delete-image" do %>
+                <span class="label">Remover Imagem</span>
+              <% end %>
+            <% else %>
+              <%= link_to "", img.image.url, :rel => "lightbox[previews]", :class => "display-image" %>
             <% end %>
-          <% else %>
-            <%= link_to "", img.image.url, :rel => "lightbox[previews]", :class => "display-image" %>
-          <% end %>
-        </div>
-      <% end %>
-      <% (4 - @file.images.count).times do %>
-        <div class="image-container empty <%= @owner ? "" : "hidden" %>">
-          <% if @file.images.count < 4 and @owner %>
-            <%= semantic_form_for @user_file_image, :method => :create, :html => { :id => "new-image-form", :multipart => true } do |f| %>
-              <%= f.hidden_field :file, :value => @file._id %>
-              <%= f.input :image, :as => :file %>
+          </div>
+        <% end %>
+        <% (4 - @file.images.count).times do %>
+          <div class="image-container empty <%= @owner ? "" : "hidden" %>">
+            <% if @file.images.count < 4 and @owner %>
+              <%= semantic_form_for @user_file_image, :method => :create, :html => { :id => "new-image-form", :multipart => true } do |f| %>
+                <%= f.hidden_field :file, :value => @file._id %>
+                <%= f.input :image, :as => :file %>
+              <% end %>
+              <div class="image-button"></div>
+              <span class="link-button">Adicionar Imagem</span>
             <% end %>
-            <div class="image-button"></div>
-            <span class="link-button">Adicionar Imagem</span>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
 
     <div class="file-info">
       <div class="left">
@@ -119,7 +121,7 @@
         <%# image_tag("search/icones-compartilhar/UNK_14.png") %>
         <%# image_tag("search/icones-compartilhar/UNK_7.png") %>
         <%# image_tag("search/icones-compartilhar/UNK_2.png") %>
-        <a href="http://www.facebook.com/sharer.php?u=<%= @url %>&t=<%= @file.alias %>">
+        <a href="http://www.facebook.com/sharer.php?u=<%= @url %>&t=<%= @file.filename %>">
           <%= image_tag("search/icones-compartilhar/facebook.png") %>
         </a>
         <%# image_tag("search/icones-compartilhar/UNK_5.png") %>

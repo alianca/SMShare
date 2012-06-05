@@ -4,7 +4,7 @@
       <span><%= result.file_extension %></span>
   </div>
   <h5 class="filename">
-    <%= link_to truncate(result.alias, :length => 36, :omission => "..."),
+    <%= link_to truncate(result.filename, :length => 36, :omission => "..."),
         user_file_path(result, :q => params[:q], :filter => params[:filter], :order => params[:order]) %>
   </h5>
   <p class="owner">

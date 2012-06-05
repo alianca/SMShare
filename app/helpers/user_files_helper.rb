@@ -5,7 +5,7 @@ module UserFilesHelper
     content_for :send_tab, a_tab
   end
 
-  TYPE_NAMES = {
+  TYPE_NAMES_ = {
     :grafico => "Gráfico",
     :audio => "Áudio",
     :video => "Vídeo",
@@ -39,7 +39,7 @@ module UserFilesHelper
   end
 
   def name_for type
-    TYPE_NAMES[type]
+    TYPE_NAMES_[type]
   end
 
   def icon_for type
@@ -48,6 +48,10 @@ module UserFilesHelper
 
   def thumb_for type
     "search/thumb-" + type.to_s + ".png"
+  end
+
+  def upload_path
+    "http://localhost:4242/user_file"
   end
 
 end

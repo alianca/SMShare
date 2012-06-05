@@ -1,20 +1,23 @@
 function install_clear_on_focus(context) {
   /* Escreve o texto do title no text_field, dessa maneira fazendo com que se o usuario desabilitou o javascript o text_field não vai conter lixo */
   $(context + " .clear-on-focus").each(function () {
-    if($(this).val() == "")
+    if($(this).val() == "") {
       $(this).val($(this).attr("title"));
+    }
   })
 
   /* Limpa quando o text_field ganhar o foco */
   $(context + " .clear-on-focus").focus(function() {
-    if($(this).val() == $(this).attr("title"))
+    if($(this).val() == $(this).attr("title")) {
       $(this).val("");
+    }
   });
 
   /* Retorna ao texto se o text_field está vazio quando ele perder o foco */
   $(context + " .clear-on-focus").blur(function() {
-    if($(this).val() == "")
+    if($(this).val() == "") {
       $(this).val($(this).attr("title"));
+    }
   });
 }
 
@@ -76,7 +79,7 @@ function load_css(base_url) {
   $.each([
     "/images/download_box/logo.png",
     "/images/download_box/botao-brilho.png"
-  ], function (i, val) {
+  ], function(i, val) {
     (new Image()).src = base_url + val;
   });
 }
@@ -87,7 +90,8 @@ $(document).ready(function() {
 
     var button = sender;
     var link = button.srcElement || button.target;
-    while(link.localName != "a") {
+
+    while (link.localName != "a") {
       link = $(link).parent("a.download-button")[0];
     }
 
@@ -97,7 +101,7 @@ $(document).ready(function() {
     var user_file_id = path.match(/arquivos\/([0-9a-f]{24})\/?$/)[1];
 
     /* Verifica se já está aberto para poder fechar */
-    if($("#download_box-" + user_file_id)[0]) {
+    if ($("#download_box-" + user_file_id)[0]) {
       $("#download_box-" + user_file_id).remove();
       return false;
     }
@@ -121,4 +125,5 @@ $(document).ready(function() {
     /* Retorna falso para o link não ser seguido caso tudo tenha dado certo */
     return false;
   });
+
 });

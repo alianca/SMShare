@@ -1,34 +1,41 @@
-class Authorization
+require 'redis_model'
 
-  BOUND = 6.hours
+class Authorization < RedisModel
 
-  def self.create(id, address)
-    $redis.hset("authorizations", key(id, address), Time.now)
+  ACTION = "http://mozcapag.com:2505/api/messaging/sendPinMt/"
+  KEY = "STUB" # TODO
+  MESSAGE = "STUB" # TODO
+
+  def self.create(file, address)
+    super
+    self.url = file.generate_url address
   end
 
-  def self.is_valid?(id, address)
-    key = key(id, address)
-    if $redis.hexists("authorizations", key)
-      $redis.hset("authorizations", key, Time.now)
-      true
-    else
-      false
-    end
+  def activate params
+    self.phone = params[:msisdn]
+    self.timestamp = Time.parse("#{params[:data]} #{params[:time]}").to_i
+    self.carrier = carrier_name(params[:carrier_id])
+    self.pin = params[:pin]
+    self.price = params[:pricepoint]
+    self.type = params[:type]
+    self.valid = true
   end
 
-  def self.cleanup!
-    $redis.hkeys("authorizations").each do |key|
-      last_access = $redis.hget("authorizations", key)
-      if Time.now - last_access > BOUND
-        $redis.hdel("authorizations", key)
-      end
-    end
+  def confirm
+    Curl::Easy.perform(url)
   end
 
   private
 
-  def self.key(id, address)
-    "#{id}-#{address}"
+  def url
+    args = {
+      :key => KEY,
+      :pin => self.pin,
+      :text => MESSAGE,
+      :phone => self.phone,
+      :carrier_id => self.carrier_id
+    }
+    "#{ACTION}?#{args.to_query}"
   end
 
 end

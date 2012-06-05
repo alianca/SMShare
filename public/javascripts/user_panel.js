@@ -180,7 +180,7 @@ $(document).ready(function() {
     $("#user_files_forms form fieldset").hide();
     $("#user_files_forms form .progress_info").show();
     $("#user_files_forms form").each(function (i, form) {
-      form.started_at = new Date()
+      form.started_at = new Date();
       form.is_updating = false;
       var filename = /[^\\]*$/.exec($(form).find("li.file input").val());
       $(form).find(".progress_info .filename")[0].innerHTML = filename;
@@ -191,7 +191,10 @@ $(document).ready(function() {
   }
 
   function update_status(form, callback) {
-    if (form.is_updating) { callback('updating'); return; }
+    if (form.is_updating) {
+      callback('updating');
+      return;
+    }
     form.is_updating = true;
 
     $.ajax({
@@ -200,28 +203,28 @@ $(document).ready(function() {
       complete: function() { form.is_updating = false; },
       error: function (e) { callback('error', e); },
       success: function (data) {
-        if (data) {
-          if (data.state === 'uploading') {
-            var updated_at = new Date();
-            var percentage = Math.floor(data.received / data.size * 99) + "%";
-            var elapsed_time = updated_at - form.started_at; // ms
-            var speed = 0;
-            var eta = 0;
-            if (data.received < data.size) {
-              speed = data.received * 1000 / elapsed_time; // bytes/s
-              eta = (data.size - data.received) * 1000 / speed; // ms
-            }
+        console.log('State:', JSON.stringify(data));
+        if (data.state === 'uploading') {
+          var updated_at = new Date();
+          var percentage = Math.floor(data.received / data.size * 99) + "%";
+          var elapsed_time = updated_at - form.started_at; // ms
+          var speed = 0;
+          var eta = 0;
 
-            $(form).find(".progress_info .uploaded").width(percentage);
-            $(form).find(".progress_info .percentage").html(percentage);
-            $(form).find(".progress_info .uptime .data").html(ms_to_hour_min_sec(elapsed_time));
-            $(form).find(".progress_info .eta .data").html(ms_to_hour_min_sec(eta));
-            $(form).find(".progress_info .speed .data").html(readable_speed(speed));
-            $(form).find(".progress_info .data_amount .sent").html(readable_size(data.received));
-            $(form).find(".progress_info .data_amount .total").html(readable_size(data.size));
+          if (data.received < data.size) {
+            speed = data.received * 1000 / elapsed_time; // bytes/s
+            eta = (data.size - data.received) * 1000 / speed; // ms
           }
-          callback(data.state, data);
+
+          $(form).find(".progress_info .uploaded").width(percentage);
+          $(form).find(".progress_info .percentage").html(percentage);
+          $(form).find(".progress_info .uptime .data").html(ms_to_hour_min_sec(elapsed_time));
+          $(form).find(".progress_info .eta .data").html(ms_to_hour_min_sec(eta));
+          $(form).find(".progress_info .speed .data").html(readable_speed(speed));
+          $(form).find(".progress_info .data_amount .sent").html(readable_size(data.received));
+          $(form).find(".progress_info .data_amount .total").html(readable_size(data.size));
         }
+        callback(data.state, data);
       }
     });
   }
@@ -245,46 +248,57 @@ $(document).ready(function() {
     }
   }
 
+  function foreach(list, each, after, i) {
+    if (i === undefined) {
+      i = 0;
+    }
+
+    if (i >= list.length) {
+      after();
+    }
+    else {
+      each(list[i], function() {
+        foreach(list, each, after, i + 1);
+      });
+    }
+  }
+
   function tick() {
     var all_done = true;
     var all_errors = true;
     var forms = $('#user_files_forms form');
 
-    function update_all(i) {
-      if (i < forms.length) {
-        update_status(forms[i], function(status) {
-          if (status !== 'error') {
-            all_errors = false;
-          }
-
-          if (status === 'done') {
-            $(forms[i]).find('.progress_info .uploaded').width('100%');
-            $(forms[i]).find('.progress_info .percentage').html('100%');
-          } else {
-            all_done = false;
-          }
-
-          update_all(i + 1);
-        });
-      }
-      else {
-        if (all_errors) {
-          reload();
-        }
-        else if (all_done) {
-          setTimeout(go_to_categorize, 4000);
+    foreach(forms, function(form, next) {
+      update_status(form, function(status, data) {
+        if (status === 'done') {
+          $(form).find('.progress_info .uploaded').width('100%');
+          $(form).find('.progress_info .percentage').html('100%');
         }
         else {
-          setTimeout(tick, 500);
+          all_done = false;
         }
-      }
-    }
 
-    update_all(0);
+        if (status != 'error') {
+          all_errors = false;
+        }
+
+        next();
+      });
+    }, function() {
+      if (all_errors) {
+        setTimeout(reload, 4000);
+      }
+      else if (all_done) {
+        setTimeout(go_to_categorize, 4000);
+      }
+      else {
+        setTimeout(tick, 200);
+      }
+    });
   }
 
   $('#upload_forms').append($('.files_form .actions').remove());
-  $('#upload_forms .actions').click(function () {
+  $('#upload_forms .actions').click(function(e) {
     setup_progress_bars();
     tick();
   });
@@ -480,8 +494,7 @@ $(document).ready(function() {
     }
 
     if (!is_default) {
-      code_options = [code_options, [attribute, value].join('=')].
-        join(args.length > 0 ? '&' : '?');
+      code_options = [code_options, [attribute, value].join('=')].join(args.length > 0 ? '&' : '?');
     }
 
     code_options += '" type="text/javascript"></script>';

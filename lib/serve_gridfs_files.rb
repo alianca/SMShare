@@ -19,6 +19,7 @@ class ServeGridfsFiles
 
   def process_request(env, key)
     request = Rack::Request.new(env)
+
     Mongo::GridFileSystem.new(Mongoid.database).open(key, 'r') do |file|
       [200,
        { 'Content-Type' => file.content_type,
@@ -27,6 +28,7 @@ class ServeGridfsFiles
        },
        file]
     end
+
   end
 
 end

@@ -8,10 +8,10 @@ module SearchHelper
       end
     else
       (%{Mostrando arquivos <b>%d&nbsp;-&nbsp;%d</b> de <b>%d</b> para '#{search_term}'} % [
-        (collection.current_page-1)*collection.options[:per_page] + 1,
-        (collection.current_page-1)*collection.options[:per_page] + collection.count,
-        collection.total
-        ]).html_safe
+        (collection.current_page-1) * collection.per_page + 1,
+        (collection.current_page-1) * collection.per_page + collection.count,
+        collection.count
+      ]).html_safe
     end
   end
 

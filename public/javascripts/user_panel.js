@@ -248,17 +248,15 @@ $(document).ready(function() {
     }
   }
 
-  function foreach(list, each, after, i) {
-    if (i === undefined) {
-      i = 0;
-    }
+  function async_foreach(list, each, after, i) {
+    if (i === undefined) i = 0;
 
     if (i >= list.length) {
       after();
     }
     else {
       each(list[i], function() {
-        foreach(list, each, after, i + 1);
+        async_foreach(list, each, after, i + 1);
       });
     }
   }
@@ -268,7 +266,7 @@ $(document).ready(function() {
     var all_errors = true;
     var forms = $('#user_files_forms form');
 
-    foreach(forms, function(form, next) {
+    async_foreach(forms, function(form, next) {
       update_status(form, function(status, data) {
         if (status === 'done') {
           $(form).find('.progress_info .uploaded').width('100%');

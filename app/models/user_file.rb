@@ -2,6 +2,7 @@
 
 require File.expand_path('./lib/jobs/user_file_statistics_job')
 require 'base64'
+require 'stringio'
 
 class UserFile
   include Mongoid::Document
@@ -9,6 +10,8 @@ class UserFile
 
   require File.expand_path('./lib/sentenced_fields')
   include SentencedFields
+
+  REMOTE_UPLOAD = "http://localhost/uploads"
 
   # Busca
   include Tire::Model::Search
@@ -43,6 +46,9 @@ class UserFile
 
   # Define o esquema logico db.user_files
   # filename já é criado pelo CarrierWave
+
+  # Remote Upload
+  field :url, :type => String
 
   # Storage fields
   field :filename, :type => String
@@ -115,7 +121,7 @@ class UserFile
     expire = (Time.now + 5.hours).to_i
     secret = 'it_is_people'
     path = self.filepath.split('/').last
-    hash = Base64.encode64(Digest::MD5.digest("#{address}:#{secret}:#{path}:#{expire}")).tr('+/', '-_').gsub('=', '')
+    hash = Base64.encode64(Digest::MD5.digest("#{address}:#{secret}:#{path}:#{expire}")).tr('+/', '-_').gsub(/[=\n]/, '')
     "/files/#{hash}/#{expire}/#{path}/#{self.filename}"
   end
 
@@ -165,28 +171,26 @@ class UserFile
     Resque.enqueue Jobs::UserFileStatisticsJob, self._id
   end
 
+  #TODO Fazer isso direto no nginx // Aparentemente não dá
+  def self.store_from_url(file)
+    uri = URI.parse(file[:url])
+
+    Curl::Easy.perform(uri.to_s) do |res|
+      req = Curl::Easy.new(REMOTE_UPLOAD)
+      req.multipart_form_post = true
+
+      file_field = Curl::PostField.content("user_file[file]", res.body_str) # TODO bug
+      file_field.remote_file = uri.path.match(/\/(.*\/)*(.*)/)[2]
+      file_field.content_type = remote_file.content_type
+
+      description_field = Curl::PostField.content('user_file[description]', file[:description])
+      public_field = Curl::PostField.content('user_file[public]', file[:public])
+
+      req.http_post(post_field, description_field, public_field)
+    end
+  end
+
   private
-
-  # TODO Fazer isso direto no nginx
-  # def download_file_from_url
-  #   if @url
-  #     uri = URI.parse(@url)
-  #     filename = uri.path.match(/.*\/(.*)/)[1]
-  #     filename = uri.host if filename.blank?
-  #     FileUtils.mkdir_p(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
-  #     tempfile = File.open(Rails.root + "tmp/tempfiles/user_file/#{self.id}/#{filename}", "w")
-  #     tempfile.set_encoding 'ASCII-8BIT'
-  #     tempfile.write Curl::Easy.perform(uri.to_s).body_str
-  #     tempfile.flush
-  #     self.file = tempfile
-  #   end
-  # end
-
-  # def cleanup_tempfile
-  #   if File.directory?(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
-  #     FileUtils.remove_dir(Rails.root + "tmp/tempfiles/user_file/#{self.id}")
-  #   end
-  # end
 
   def cleanup_description
     if self.description == "Digite uma descrição objetiva para seu arquivo."

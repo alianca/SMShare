@@ -7,7 +7,7 @@
 <ul class="tabs tabs-contents">
   <li class="tab-content remote-tab">
     <p>O upload remoto permite enviar arquivos de outros servidores (http://) ou (ftp://) para a sua conta do smShare, para isso, insira a URL e a descrição e clique em Enviar.</p>
-    <%= semantic_form_for @file, :html => {:multipart => true, :id => "upload_forms"} do |f| %>
+    <%= semantic_form_for @file, :url => remote_uploads_user_files_path, :html => {:id => "upload_forms"} do |f| %>
       <%= f.inputs :class => :file_fields do %>
         <%= f.input :url %>
         <%= f.input :description, :input_html => { :title => "Digite uma descrição objetiva para seu arquivo.", :class => "clear-on-focus" } %>

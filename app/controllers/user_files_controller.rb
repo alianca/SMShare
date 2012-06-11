@@ -28,6 +28,10 @@ class UserFilesController < ApplicationController
     respond_with(@file = UserFile.new)
   end
 
+  def remote_uploads
+      UserFile.store_from_url(params[:user_file])
+  end
+
   def categorize
     params[:files].delete_if { |f| f.blank? }
     respond_with(@files = current_user.files.find(params[:files]))

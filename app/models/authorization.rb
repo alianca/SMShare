@@ -6,34 +6,31 @@ class Authorization < RedisModel
   KEY = "STUB" # TODO
   MESSAGE = "STUB" # TODO
 
-  def self.create(file, address)
-    super
-    self.url = file.generate_url address
-  end
-
   def activate params
-    self.phone = params[:msisdn]
-    self.timestamp = Time.parse("#{params[:data]} #{params[:time]}").to_i
-    self.carrier = carrier_name(params[:carrier_id])
-    self.pin = params[:pin]
-    self.price = params[:pricepoint]
-    self.type = params[:type]
-    self.valid = true
-  end
-
-  def confirm
-    Curl::Easy.perform(url)
+    url = confirm_url(params[:pin], params[:msisdn], params[:carrier_id])
+    Curl::Easy.perform(url) do |response|
+      if response.body_str == "0"
+        begin
+          @file = UserFile.find(BSON::ObjectId(self.file_id))
+          self.url = @file.generate_url(self.address)
+        rescue
+          self.url = "/404.html"
+        end
+      else
+        self.url = "/404.html"
+      end
+    end
   end
 
   private
 
-  def url
+  def confirm_url(pin, phone, carrier)
     args = {
       :key => KEY,
-      :pin => self.pin,
+      :pin => pin,
       :text => MESSAGE,
-      :phone => self.phone,
-      :carrier_id => self.carrier_id
+      :phone => phone,
+      :carrier_id => carrier
     }
     "#{ACTION}?#{args.to_query}"
   end

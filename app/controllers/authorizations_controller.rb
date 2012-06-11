@@ -30,29 +30,29 @@ class AuthorizationsController < ApplicationController
   end
 
   def create
-    @auth = Authorization.create @file, request.headers["X-Real-IP"]
-    # store @auth.id somewhere
-    # Send code to movile (params[:code])
+    @auth = Authorization.new params[:code], {
+      :file_id => @file._id,
+      :address => request.headers["X-Real-IP"]
+    }
+    # Send code to movile
+    render :json => {:id => @auth.id}
   end
 
   def activate
-    id = "" # Retrieve @auth.id from somewhere
-    @auth = Authorization.find(id)
-    @auth.activate(params)
-    @auth.confirm
+    @auth = Authorization.find(params[:pin])
+    unless @auth.nil?
+      @auth.activate(params)
+    end
+    render :nothing => true
   end
 
   def check
     @auth = Authorization.find(params[:id])
-    if @auth.valid?
-      render @auth.url
-    else
-      render "0"
-    end
+    render :json => { :url => @auth.url }
+    @auth.destroy if @auth.url?
   end
 
   private
-
 
   def fetch_file
     @file = UserFile.find(params[:file_id])

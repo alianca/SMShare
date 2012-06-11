@@ -1,48 +1,57 @@
-require 'digest/md5'
-
 class RedisModel
+  attr_accessor :id
 
-  def self.create
-    self.new Digest::MD5.hexdigest($redis.incr("#{self.class.name}:count"))
+  def update(attributes)
+    $redis.hmset(key, attributes.to_a.flatten)
   end
 
-  def self.method_missing(method_sym, **kvargs)
+  def initialize(id, attributes = nil)
+    self.id = id
+    update(attributes) unless attributes.nil?
+  end
+
+  def method_missing(method_sym, *args, &block)
     case method_sym.to_s
-    when /(\w*)=/
-      $redis.hset(key, $1, kvargs[0])
-    when /(\w*)?/
-      $redis.hexists(key, $1)
-    when /(\w*)/
-      if self.send "#{$1}?"
-        $redis.hget(key, method_sym)
-      else
-        raise NoMethodError.new method_sym.to_s
-      end
+    when /^(\w+)=$/
+      set($1, args[0])
+    when /^(\w+)\?$/
+      has($1)
+    when /^(\w+)$/
+      get($1)
     else
       raise NoMethodError.new method_sym.to_s
     end
   end
 
-  def id
-    @id
+  def get(field)
+    $redis.hget(key, field)
   end
 
-  def self.find(id)
-    if $redis.exists("#{self.name}:#{id}")
-      model = self.new id
-    else
-      nil
-    end
+  def set(field, value)
+    $redis.hset(key, field, value)
   end
 
-  private
-
-  def initialize id
-    @id = id
+  def has(field)
+    $redis.hexists(key, field)
   end
 
   def key
-    "#{self.class.name}:#{id}"
+    "#{self.class.name}:#{self.id}"
+  end
+
+  def destroy
+    $redis.del(key)
+  end
+
+
+  # Class methods
+
+  def self.find(id)
+    if $redis.exists("#{self.name}:#{id}")
+      self.new id
+    else
+      nil
+    end
   end
 
 end

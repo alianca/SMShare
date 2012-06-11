@@ -9,7 +9,7 @@
       <span class="header-bottom"></span>
     <% else %>
       <span class="header-glass"></span>
-      <p class="filename"><em>Arquivo Indisponível</em></p>
+      <p class="filename"><em>Arquivo Indisponível</em></p>
       <p class="filesize"><em></em></p>
       <span class="header-bottom"></span>
     <% end %>
@@ -21,18 +21,24 @@
     <p class="price">*custo de R$ 0,86 + impostos</p>
 
     <div class="code_area">
-      <%= form_tag authorizations_path, :method => :post do %>
+      <%= form_tag authorizations_path, :class => :code, :method => :post do %>
         <%= hidden_field_tag :file_id, @file._id %>
-        <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus"%>
+        <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus" %>
         <%= submit_tag "Download", :class => "submit" %>
+      <% end %>
+    </div>
+
+    <div class="validation_progress">
+      <%= form_tag "#", :class => :download, :method => :get do %>
+        <span>Aguardando validação do código.</span>
       <% end %>
     </div>
 
   <% else %>
 
     <div class="not-found">
-      <p class="bold">O arquivo que procura foi removido ou não existe</p>
-      <p>Quem sabe você pode achar o que estava procurando em nosso sistema de busca, o smSearch!</p>
+      <p class="bold">O arquivo que procura foi removido ou não existe</p>
+      <p>Quem sabe você pode achar o que estava procurando em nosso sistema de busca, o smSearch!</p>
 
       <div class="code_area">
         <%= form_tag search_index_url, :id => :search_field, :method => :get do %>
@@ -44,11 +50,12 @@
 
   <% end %>
 
+
   <%= link_to root_url do %>
     <div class="logo"></div>
   <% end %>
   <%= link_to root_url, :class => :have_one do %>
-    Tenha um desses você também <span>»</span>
+    Tenha um desses você também <span>»</span>
   <% end %>
 
   <div id="style-data">

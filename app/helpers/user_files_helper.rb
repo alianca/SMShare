@@ -50,8 +50,4 @@ module UserFilesHelper
     "search/thumb-" + type.to_s + ".png"
   end
 
-  def upload_path
-    "http://localhost:4242/user_file"
-  end
-
 end

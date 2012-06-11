@@ -38,6 +38,32 @@ function set_box_style(box, style) {
   $(box + " form input[type=submit]").css("background-color", style.button_background);
   $(box + " form input[type=submit]").css("color", style.button_text);
   $(box + " .have_one").css("color", style.bottom_text);
+  $(box + " .validation-progress").hide();
+}
+
+function close_box(box) {
+  $(box).hide();
+  $(box).remove();
+}
+
+function check_validation(box, id, base_url) {
+  $.ajax({
+    url: '/downloads/' + id + '/check',
+    type: 'GET',
+    success: function(data) {
+      console.dir(data);
+      if (data.url) {
+        // Authentication confirmed, redirect to download URL
+        window.location = data.url;
+        close_box(box);
+      }
+      else {
+        setTimeout(function() {
+          check_validation(box, id, base_url);
+        }, 1000);
+      }
+    }
+  });
 }
 
 function after_create_box(box, base_url) {
@@ -49,14 +75,25 @@ function after_create_box(box, base_url) {
   set_box_style(box, style);
   $(box).css("background-image", "url(" + background + ")");
 
+  var validation_progress = $(box + " .validation_progress");
+  validation_progress.hide();
+
   /* Fecha após o download do arquivo */
-  $(box + " form").submit(function () {
-    $(box).hide();
-    setTimeout(function () {
-      $(box).remove();
-    }, 200);
-    return true;
+  $(box + " form.code").submit(function() {
+    var form = $(this);
+    $.ajax({
+      url: '/downloads',
+      data: $(this).serialize(),
+      type: 'POST',
+      success: function(data) {
+        form.hide();
+        validation_progress.show();
+        check_validation(box, data.id, base_url);
+      }
+    });
+    return false;
   });
+
 }
 
 function get_base_url(url) {
@@ -111,7 +148,7 @@ $(document).ready(function() {
 
     /* Cria a caixa de download via AJAX */
     $.ajax({
-      url: "/downloads/new?file_id=" + path.match(/([a-f0-9]{24})/)[1] + options,
+      url: "/downloads/new?file_id=" + user_file_id + options,
       type: "GET",
       async: false,
       success: function(data) {
@@ -120,7 +157,7 @@ $(document).ready(function() {
     });
 
     /* Executa as funções após a criação da caixa */
-    after_create_box(".download_box", base_url);
+    after_create_box("#download_box-" + user_file_id, base_url);
 
     /* Retorna falso para o link não ser seguido caso tudo tenha dado certo */
     return false;

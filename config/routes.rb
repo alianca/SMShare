@@ -16,15 +16,19 @@ Smshare::Application.routes.draw do
     end
 
     collection do
-      get :upload_remoto, :action => :remote_upload, :as => :remote_upload
-      post :remote_uploads
       get :categorizar, :action => :categorize, :as => :categorize
       post :update_categories
       get :links
     end
   end
 
-  resources :uploads, :as => :user_files, :controller => :user_files, :only => [:create]
+  resources :uploads, :as => :user_files, :controller => :user_files, :only => [:create] do
+    collection do
+      post :remote, :controller => :remote_uploads, :action => :remote_create
+    end
+  end
+
+  resources :remote_uploads, :only => [:new, :create, :show]
 
   resource :painel, :as=> :user_panel, :controller => :user_panel, :only => [:show, :destroy, :edit, :create] do
     member do
@@ -84,15 +88,7 @@ Smshare::Application.routes.draw do
     end
   end
 
-  resources :downloads, :as => :authorizations, :controller => "authorizations", :only => [:new, :create] do
-    collection do
-      post :activate
-    end
-
-    member do
-      get :check
-    end
-  end
+  resource :autorizacao, :as => :authorizations, :controller => "authorizations", :only => [:new, :create, :show]
 
   resources :box_images, :only => [:create] do
     collection do

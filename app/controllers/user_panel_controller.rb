@@ -82,21 +82,25 @@ class UserPanelController < ApplicationController
     session[:job_id] = Jobs::CompressFilesJob.create(:user_id => current_user._id,
                                                      :folder_id => @folder._id,
                                                      :parameter => params[:user_file].to_json)
-    render :json => [session[:job_id]].to_json
+    render :json => [session[:job_id]]
   end
 
   def decompress
     session[:job_id] = Jobs::DecompressFilesJob.create(:user_id => current_user._id,
                                                        :files => params[:files].to_json)
-    render :json => [session[:job_id]].to_json
+    render :json => [session[:job_id]]
   end
 
   def compression_state
-    status = Resque::Plugins::Status::Hash.get session[:job_id]
-    if status and ["completed", "failed"].include? status["status"]
-      session.delete :job_id
+    status = (session.include? :job_id) ? Resque::Plugins::Status::Hash.get(session[:job_id]) : nil
+    if status
+      if ['completed', 'failed'].include? status['status'].to_s
+        session.delete :job_id
+      end
+      render :json => status
+    else
+      render :json => {:status => 'no_job'}
     end
-    render :json => status ? status.to_json : {:status => "no_job"}
   end
 
   def edit

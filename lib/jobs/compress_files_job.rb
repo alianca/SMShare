@@ -20,8 +20,8 @@ class Jobs::CompressFilesJob < Resque::JobWithStatus
     zip_file = Tempfile.new zip_name
     Zip::Archive.open(zip_file.path, Zip::CREATE, Zip::BEST_COMPRESSION) do |zip|
       files.each do |file|
-        zip.add_buffer(file.alias, file.file.file.read)
-        at(@num, @total, "Compactando arquivo #{@num} de #{@total}: ./#{file.alias}")
+        zip.add_buffer(file.filename, file.file.file.read)
+        at(@num, @total, "Compactando arquivo #{@num} de #{@total}: ./#{file.filename}")
         @num += 1
       end
       folders.each { |folder| compress_recursively zip, folder, folder.name + '/' }
@@ -38,8 +38,8 @@ class Jobs::CompressFilesJob < Resque::JobWithStatus
     zip.add_dir(path)
     @total = @num + folder.files.count - 1
     folder.files.each do |file|
-      zip.add_buffer(path + file.alias, file.file.file.read)
-      at(@num, @total, "Compactando arquivo #{@num} de #{@total}: ./#{path}#{file.alias}")
+      zip.add_buffer(path + file.filename, file.file.file.read)
+      at(@num, @total, "Compactando arquivo #{@num} de #{@total}: ./#{path}#{file.filename}")
       @num += 1
     end
     folder.children.each { |child| compress_recursively zip, child, path + child.name + '/' }

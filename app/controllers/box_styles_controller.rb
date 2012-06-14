@@ -36,7 +36,7 @@ class BoxStylesController < ApplicationController
       file = File.open(Rails.root + "public/javascripts/jquery.js", "r");
       data += file.read
       file.close
-      file = File.open(Rails.root + "public/javascripts/download_box.js", "r");
+      file = File.open(Rails.root + "public/javascripts/authorizations.js", "r");
       data += file.read # TODO fazer algum processamento antes?
       file.close
 

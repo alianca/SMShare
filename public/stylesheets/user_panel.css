@@ -117,11 +117,13 @@ body {
   -moz-border-radius: 7px;
 }
 
+#remote_form input,
 #upload_forms input {
   margin-bottom: 7px;
   overflow: hidden;
 }
 
+#remote_form .file_fields,
 #upload_forms .file_fields {
   float: left;
   width: 481px;
@@ -129,14 +131,17 @@ body {
   margin-bottom: 10px;
 }
 
+#remote_form .inline-errors,
 #upload_forms .inline-errors {
   display: none;
 }
 
+#remote_form .file_fields label,
 #upload_forms .file_fields label {
   display: none;
 }
 
+#remote_form .file_fields input,
 #upload_forms .file_fields input {
   border: 0 transparent;
   min-width: 465px;
@@ -147,21 +152,25 @@ body {
   padding: 7px 8px;
 }
 
+#remote_form .file_fields li,
 #upload_forms .file_fields li {
   margin: 0;
 }
 
+#remote_form .public_field,
 #upload_forms .public_field {
   float: right;
   height: 34px;
   overflow: hidden;
 }
 
+#remote_form .public_field label,
 #upload_forms .public_field label {
   padding: 9px 3px 0 0;
   color: #34378A;
 }
 
+#remote_form fieldset.actions,
 #upload_forms fieldset.actions {
   clear: right;
   float: right;
@@ -171,20 +180,24 @@ body {
   padding: 0;
 }
 
+#remote_form fieldset.actions ol,
 #upload_forms fieldset.actions ol {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
+#remote_form .file-field,
 #upload_forms .file-field {
   width: 471px;
 }
 
+#remote_form .file-field .file-name,
 #upload_forms .file-field .file-name {
   width: 343px;
 }
 
+#remote_form fieldset.actions li,
 #upload_forms fieldset.actions li {
   padding-right: 0;
   overflow: auto;
@@ -193,6 +206,7 @@ body {
   padding: 0;
 }
 
+#remote_form fieldset.actions button,
 #upload_forms fieldset.actions button {
   border: 0;
   width: 132px;

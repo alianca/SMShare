@@ -5,10 +5,12 @@ $(document).ready(function() {
     $(this).css('background', 'url(/images/layouts/botao-on.png)');
   });
 
+
   /* Volta o fundo padrão quando perde o mouse over */
   $('#folder_new #folder_submit').mouseout(function () {
     $(this).css('background', 'url(/images/layouts/botao-off.png)');
   });
+
 
   function show_form(name) {
     if($('#actions_forms ' + name + ':visible')[0]) {
@@ -21,6 +23,7 @@ $(document).ready(function() {
     }
   }
 
+
   function show_rename() {
     if ($('#actions_forms #rename:visible')[0]) {
       $('#actions_forms form').hide();
@@ -32,10 +35,12 @@ $(document).ready(function() {
     }
   }
 
+
   $('.actions_menu .create a').click(function (e) {
     show_form('#new_folder');
     e.stopImmediatePropagation();
   });
+
 
   $('.actions_menu .move a').click(function (e) {
     if (!($(this).hasClass('off'))) {
@@ -44,6 +49,7 @@ $(document).ready(function() {
     e.stopImmediatePropagation();
   });
 
+
   $('.actions_menu .rename a').click(function (e) {
     if (!($(this).hasClass('off'))) {
       show_rename();
@@ -51,12 +57,14 @@ $(document).ready(function() {
     e.stopImmediatePropagation();
   });
 
+
   $('.actions_menu .compress a').click(function (e) {
     if (!($(this).hasClass('off'))) {
       show_form('#compress');
     }
     e.stopImmediatePropagation();
   });
+
 
   function selected_boxes() {
     var result = { any: false, all: true };
@@ -68,6 +76,7 @@ $(document).ready(function() {
     return result;
   }
 
+
   var all_files = false;
   function toggle_all_files(value) {
     if (value === undefined) {
@@ -78,6 +87,7 @@ $(document).ready(function() {
     $('input#all_files').change();
   }
 
+
   if($('input#all_files')) {
     $('input#all_files').click(function() {
       toggle_all_files();
@@ -85,6 +95,7 @@ $(document).ready(function() {
       $('input.select_file').change();
     });
   }
+
 
   /* Copia a seleção de arquivos da tabela para a lista oculta */
   $('.file_list .select_file').change(function () {
@@ -128,6 +139,7 @@ $(document).ready(function() {
     e.stopImmediatePropagation();
   });
 
+
   /* Helpers para os multiplos arquivos */
   function ms_to_hour_min_sec(ms) {
     var secs = Math.floor(ms / 1000) % 60;
@@ -140,13 +152,16 @@ $(document).ready(function() {
     return hours + ":" + mins + ":" + secs;
   }
 
+
   function round_with_2_decimals(number) {
     return Math.round(number * 100) / 100;
   }
 
+
   function readable_speed(speed) {
     return readable_size(speed) + "/s";
   }
+
 
   function readable_size(size) {
     if(size >= 0 && size < 1024) {
@@ -162,6 +177,7 @@ $(document).ready(function() {
       return round_with_2_decimals(size/1073741824) + " GB";
     }
   }
+
 
   /* Upload de Multiplos Arquivos */
   /* Tira o botão de dentro do form e faz com que ele submeta os formularios */
@@ -190,6 +206,28 @@ $(document).ready(function() {
     $("#user_files_forms form").attr("data-status", "uploading");
   }
 
+
+  function reload() {
+    location.reload(true);
+  }
+
+
+  function go_to_categorize() {
+    var parameter = "";
+    $("#user_files_forms form").each(function (i, form) {
+      var id = $(form).attr("data-created_id");
+      if($(form).attr("data-status") === "success" && id) {
+        parameter += "files[]=" + id + "&";
+      }
+    });
+    if (parameter.length > 0) {
+      window.location = "/arquivos/categorizar?" + parameter;
+    } else {
+      reload();
+    }
+  }
+
+
   function update_status(form, callback) {
     if (form.is_updating) {
       callback('updating');
@@ -201,12 +239,11 @@ $(document).ready(function() {
       url: "/progress?X-Progress-ID=" + $(form).find(".file_fields input[type=hidden]").val(),
       dataType: "json",
       complete: function() { form.is_updating = false; },
-      error: function (e) { callback('error', e); },
-      success: function (data) {
-        console.log('State:', JSON.stringify(data));
+      error: function(e) { callback('error', e); },
+      success: function(data) {
         if (data.state === 'uploading') {
           var updated_at = new Date();
-          var percentage = Math.floor(data.received / data.size * 99) + "%";
+          var percentage = Math.floor(data.received / data.size * 100) + "%";
           var elapsed_time = updated_at - form.started_at; // ms
           var speed = 0;
           var eta = 0;
@@ -229,37 +266,19 @@ $(document).ready(function() {
     });
   }
 
-  function reload() {
-    location.reload(true);
-  }
-
-  function go_to_categorize() {
-    var parameter = "";
-    $("#user_files_forms form").each(function (i, form) {
-      var id = $(form).attr("data-created_id");
-      if($(form).attr("data-status") === "success" && id) {
-        parameter += "files[]=" + id + "&";
-      }
-    });
-    if (parameter.length > 0) {
-      window.location = "/arquivos/categorizar?" + parameter;
-    } else {
-      reload();
-    }
-  }
 
   function async_foreach(list, each, after, i) {
     if (i === undefined) i = 0;
 
     if (i >= list.length) {
       after();
-    }
-    else {
+    } else {
       each(list[i], function() {
         async_foreach(list, each, after, i + 1);
       });
     }
   }
+
 
   function tick() {
     var all_done = true;
@@ -267,22 +286,24 @@ $(document).ready(function() {
     var forms = $('#user_files_forms form');
 
     async_foreach(forms, function(form, next) {
+
       update_status(form, function(status, data) {
         if (status === 'done') {
           $(form).find('.progress_info .uploaded').width('100%');
           $(form).find('.progress_info .percentage').html('100%');
-        }
-        else {
+        } else {
           all_done = false;
         }
 
-        if (status != 'error') {
+        if (status !== 'error') {
           all_errors = false;
         }
 
         next();
       });
+
     }, function() {
+      console.log(all_errors, all_done);
       if (all_errors) {
         setTimeout(reload, 4000);
       }
@@ -292,14 +313,17 @@ $(document).ready(function() {
       else {
         setTimeout(tick, 200);
       }
+
     });
   }
+
 
   $('#upload_forms').append($('.files_form .actions').remove());
   $('#upload_forms .actions').click(function(e) {
     setup_progress_bars();
     tick();
   });
+
 
   /* Salva o id do upload */
   var upload_id = $('#new_user_file .file_fields input[type=hidden]').val();
@@ -315,6 +339,7 @@ $(document).ready(function() {
   make_file_field($('#new_user_file_0 .file_fields .file input[type=file]'));
   make_checkbox($('#new_user_file_0 input[type=checkbox]'));
   var form_count = 1;
+
 
   /* Botão de mais arquivos */
   $('.more-files a').click(function () {
@@ -338,6 +363,7 @@ $(document).ready(function() {
     return false; // Para não redirecionar
   });
 
+
   // Só executa dentro do iFrame
   if(window.parent != window) {
     var form_id = window.name.replace("new_user_file_iframe_", "");
@@ -351,6 +377,7 @@ $(document).ready(function() {
                 replace("_sentenced_tags", ""));
     }
   }
+
 
   /* Atualiza as caixas de cores na personalização */
   $("#style-customize ol li input[type=text]").change(function() {
@@ -414,6 +441,7 @@ $(document).ready(function() {
     }
   });
 
+
   /* Ativa o color picker ao clicar na caixa de cor */
   $('#style-customize ol li input[type=text]').click(function() {
     // Posiciona o color picker ao lado da caixa selecionada
@@ -427,9 +455,11 @@ $(document).ready(function() {
     $('#color-picker').show('fast');
   });
 
+
   $('#style-customize ol li div').click(function() {
     $(this).parent("li").children("input[type=text]").click().focus();
   });
+
 
   /* Desativa o color picker quando a caixa de cor perde o foco */
   $('#style-customize ol li input[type=text]').blur(function() {
@@ -437,8 +467,10 @@ $(document).ready(function() {
     $('#color-picker').remove_farbtastic();
   });
 
+
   /* Aplica o estilo padrão inicialmente */
   $("#style-customize ol li input[type=text]").change();
+
 
   /* Aplica o estilo nos thumbnails */
   function set_thumbnail_style(thumbnail, style) {
@@ -454,6 +486,7 @@ $(document).ready(function() {
     $(thumbnail + " .input .thumb-button").css("background-color", style.button_background);
   }
 
+
   function update_thumbnails() {
     var count = $("#style-list span.style").text();
     for (var i = 0; i < count; i++) {
@@ -464,12 +497,13 @@ $(document).ready(function() {
   }
   update_thumbnails();
 
-  $("#style-customize ol li input[type=text]").
-    bind('changed_style', function(e, style) {
-      var field_name = $(this).attr("name").match(/box_style\[([_a-z]+)\]/)[1];
-      $(this).attr("value", style[field_name]);
-      $(this).change();
-    });
+
+  $("#style-customize ol li input[type=text]").bind('changed_style', function(e, style) {
+    var field_name = $(this).attr("name").match(/box_style\[([_a-z]+)\]/)[1];
+    $(this).attr("value", style[field_name]);
+    $(this).change();
+  });
+
 
   var code_options = '';
   function code_box_set(attribute, value, is_default) {
@@ -485,10 +519,13 @@ $(document).ready(function() {
     // TODO colocar o endereço real
     code_options = '<script src=\"http://www.smshare.com.br/caixa_download/template';
     if (args.length > 0) {
-      code_options += '?' +
-        args.map(function(a) {
-          if (a.split('=')[0] !== attribute) { return a; } }).
-        filter(function(a) { return a; }).join('&');
+      code_options += '?' + args.map(function(a) {
+        if (a.split('=')[0] !== attribute) {
+          return a;
+        }
+      }).filter(function(a) { // Remove all null/undefined
+        return a;
+      }).join('&');
     }
 
     if (!is_default) {
@@ -499,6 +536,7 @@ $(document).ready(function() {
 
     $("#code-area input[type=text]").attr('value', code_options);
   }
+
 
   $("#style-list .style-list-item").click(function(e) {
     var style = jQuery.parseJSON($(this).children(".thumbnail").children(".style").text());
@@ -516,6 +554,7 @@ $(document).ready(function() {
     e.stopImmediatePropagation();
   });
 
+
   function update_backgrounds() {
     var count = $("#background-list .count").text();
     for (var i = 0; i < count; i++) {
@@ -524,6 +563,7 @@ $(document).ready(function() {
     }
   }
   update_backgrounds();
+
 
   $("#background-list .bg-list-item").click(function(e) {
     var url = $(this).children(".img-thumbnail").children("span").text();
@@ -540,8 +580,10 @@ $(document).ready(function() {
     e.stopImmediatePropagation();
   });
 
+
   /* Aplica a imagem de fundo padrão */
   $("#background-list .bg-list-item.default").click();
+
 
   /* Alterna a exibição da caixa do 'código de inserção' */
   $("#generate-code").click(function(e) {
@@ -558,6 +600,7 @@ $(document).ready(function() {
     e.stopImmediatePropagation();
   });
 
+
   function done_compress(status, message) {
     if (status === 'failed') {
       force_hide_notifications();
@@ -568,6 +611,7 @@ $(document).ready(function() {
       $(".notice").html("Operação completa.");
     }
   }
+
 
   function update_compress_status() {
     var shall_continue = true;
@@ -602,9 +646,11 @@ $(document).ready(function() {
     });
   }
 
+
   if (window.location.pathname.search(/manage/) >= 0) {
     update_compress_status();
   }
+
 
   /* Compressão em background */
   $('#compress').submit(function(e) {

@@ -2,12 +2,8 @@
   <li class="tab-menu <%= yield(:send_tab) == "web" ? "active" : "" %>">
     <%= link_to "Via Web", new_user_file_path %>
   </li>
-  
-  <li class="tab-menu <%= yield(:send_tab) == "ftp" ? "active" : "" %>">
-    <%= link_to "Via FTP" %>
-  </li>
-  
+
   <li class="tab-menu <%= yield(:send_tab) == "remote" ? "active" : "" %>">
-    <%= link_to "Upload remoto", remote_upload_user_files_path %>
+    <%= link_to "Upload remoto", new_remote_upload_path %>
   </li>
 </ul>

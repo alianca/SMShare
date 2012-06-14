@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 require File.expand_path('./lib/jobs/user_file_statistics_job')
-require 'base64'
-require 'stringio'
 
 class UserFile
   include Mongoid::Document
@@ -46,9 +44,6 @@ class UserFile
 
   # Define o esquema logico db.user_files
   # filename já é criado pelo CarrierWave
-
-  # Remote Upload
-  field :url, :type => String
 
   # Storage fields
   field :filename, :type => String
@@ -98,9 +93,7 @@ class UserFile
   after_save :needs_statistics!
 
   # Upload Remoto
-#  attr_accessor :url
-#  before_validation :download_file_from_url
-#  after_save :cleanup_tempfile
+  attr_accessor :url
 
   # Limpa as tags
   before_save :normalize_tags
@@ -117,15 +110,7 @@ class UserFile
     File.extname(self.filename)
   end
 
-  def generate_url address
-    expire = (Time.now + 5.hours).to_i
-    secret = 'it_is_people'
-    path = self.filepath.split('/').last
-    hash = Base64.encode64(Digest::MD5.digest("#{address}:#{secret}:#{path}:#{expire}")).tr('+/', '-_').gsub(/[=\n]/, '')
-    "/files/#{hash}/#{expire}/#{path}/#{self.filename}"
-  end
-
- def summarize_rate
+  def summarize_rate
     rates = self.comments.collect{ |c| c.rate if c.rate > 0 }.compact
     rates.count > 0 ? rates.sum * 1.0 / rates.count : 0.0
   end
@@ -170,27 +155,6 @@ class UserFile
   def needs_statistics!
     Resque.enqueue Jobs::UserFileStatisticsJob, self._id
   end
-
-  #TODO Fazer isso direto no nginx // Aparentemente não dá
-  def self.store_from_url(file)
-    uri = URI.parse(file[:url])
-
-    Curl::Easy.perform(uri.to_s) do |res|
-      req = Curl::Easy.new(REMOTE_UPLOAD)
-      req.multipart_form_post = true
-
-      file_field = Curl::PostField.content("user_file[file]", res.body_str) # TODO bug
-      file_field.remote_file = uri.path.match(/\/(.*\/)*(.*)/)[2]
-      file_field.content_type = remote_file.content_type
-
-      description_field = Curl::PostField.content('user_file[description]', file[:description])
-      public_field = Curl::PostField.content('user_file[public]', file[:public])
-
-      req.http_post(post_field, description_field, public_field)
-    end
-  end
-
-  private
 
   def cleanup_description
     if self.description == "Digite uma descrição objetiva para seu arquivo."

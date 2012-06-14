@@ -1,35 +1,46 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <%= title_tag "smShare - Serviço smsharing" %>
-  <%= stylesheet_link_tag ["formtastic", "formtastic_changes", "farbtastic", "application", "user_panel", "firefox", stylesheet_for_controller].uniq %>
-  <%= javascript_include_tag ["modernizr", "jquery", "rails", "highcharts", "farbtastic", "application", "user_panel", javascript_for_controller].uniq %>
-  <%= csrf_meta_tag %>
-</head>
-<body>
 
-<div id="header" class="container">
-  <%= link_to image_tag("layouts/logos/smshare_pequeno.png"), root_path %>
-  <%= render :partial => "layouts/login_bar" %>
-</div>
+  <head>
 
-<div id="main-container" class="container">
-  <p class="notifications notice"><%= notice %></p>
-  <p class="notifications alert"><%= alert %></p>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <%= title_tag "smShare - Serviço smsharing" %>
+    <%= stylesheet_link_tag [
+        "formtastic", "formtastic_changes", "farbtastic", "application", "user_panel", "user_files", "firefox",
+        stylesheet_for_controller
+        ].uniq %>
+    <%= javascript_include_tag [
+        "modernizr", "jquery", "rails", "highcharts", "farbtastic", "application", "user_panel",
+        javascript_for_controller
+        ].uniq %>
+    <%= csrf_meta_tag %>
 
-  <%= render :partial => "layouts/menus/sidebar" %>
+  </head>
 
-  <div id="user_panel-container">
-    <%= yield %>
-  </div>
-</div>
+  <body>
 
-<div id="footer">
-  <%= render :partial => "layouts/footer" %>
-</div>
+    <div id="header" class="container">
+      <%= link_to image_tag("layouts/logos/smshare_pequeno.png"), root_path %>
+      <%= render :partial => "layouts/login_bar" %>
+    </div>
 
-<div id="block_user_input"></div>
+    <div id="main-container" class="container">
+      <p class="notifications notice"><%= notice %></p>
+      <p class="notifications alert"><%= alert %></p>
 
-</body>
+      <%= render :partial => "layouts/menus/sidebar" %>
+
+      <div id="user_panel-container">
+        <%= yield %>
+      </div>
+    </div>
+
+    <div id="footer">
+      <%= render :partial => "layouts/footer" %>
+    </div>
+
+    <div id="block_user_input"></div>
+
+  </body>
+
 </html>

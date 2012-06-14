@@ -21,16 +21,10 @@
     <p class="price">*custo de R$ 0,86 + impostos</p>
 
     <div class="code_area">
-      <%= form_tag authorizations_path, :class => :code, :method => :post do %>
+      <%= form_tag authorizations_path, :class => :code, :method => :get do %>
         <%= hidden_field_tag :file_id, @file._id %>
         <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus" %>
         <%= submit_tag "Download", :class => "submit" %>
-      <% end %>
-    </div>
-
-    <div class="validation_progress">
-      <%= form_tag "#", :class => :download, :method => :get do %>
-        <span>Aguardando validação do código.</span>
       <% end %>
     </div>
 
@@ -50,7 +44,6 @@
 
   <% end %>
 
-
   <%= link_to root_url do %>
     <div class="logo"></div>
   <% end %>
@@ -65,4 +58,5 @@
   <div id="background-data">
     <%= @background.image.url %>
   </div>
+
 </div>

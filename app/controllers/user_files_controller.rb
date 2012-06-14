@@ -3,7 +3,7 @@
 class UserFilesController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!, :only => [:new, :create, :categorize, :update, :links]
-  layout "user_panel", :except => [:show, :download_box]
+  layout "user_panel", :except => [:show]
 
   def new
     respond_with(@file = UserFile.new)
@@ -24,16 +24,8 @@ class UserFilesController < ApplicationController
     respond_with(@files = current_user.files.find(params[:files]))
   end
 
-  def remote_upload
-    respond_with(@file = UserFile.new)
-  end
-
-  def remote_uploads
-      UserFile.store_from_url(params[:user_file])
-  end
-
   def categorize
-    params[:files].delete_if { |f| f.blank? }
+    params[:files].delete_if{ |f| f.blank? }
     respond_with(@files = current_user.files.find(params[:files]))
   end
 

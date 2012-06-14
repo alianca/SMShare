@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 class AuthorizationsController < ApplicationController
   respond_to :html
-  after_filter :save_download_info, :only => :create
-  before_filter :fetch_file, :only => [:new, :create]
+  before_filter :fetch_file, :only => [:new, :show]
 
   def new
     # Cabeçalhos necessários para o Cross Origin Resource Sharing
@@ -29,27 +28,23 @@ class AuthorizationsController < ApplicationController
     respond_with(@file, :layout => nil)
   end
 
-  def create
-    @auth = Authorization.new params[:code], {
-      :file_id => @file._id,
-      :address => request.headers["X-Real-IP"]
-    }
-    # Send code to movile
-    render :json => {:id => @auth.id}
-  end
-
-  def activate
-    @auth = Authorization.find(params[:pin])
-    unless @auth.nil?
-      @auth.activate(params)
+  def show
+    begin
+      @auth = Authorization.find params[:code]
+      raise Error.new unless @auth
+      url = @auth.url_for(@file, request.headers["X-Real-IP"])
+      raise Error.new unless url
+      redirect_to url
+      @auth.destroy
+    rescue
+      render :file => File.join(Rails.root + 'public/404.html')
     end
-    render :nothing => true
   end
 
-  def check
-    @auth = Authorization.find(params[:id])
-    render :json => { :url => @auth.url }
-    @auth.destroy if @auth.url?
+  def create
+    @auth = Authorization.register params[:payment]
+    render :nothing => true
+    save_download_info
   end
 
   private
@@ -59,7 +54,7 @@ class AuthorizationsController < ApplicationController
   end
 
   def save_download_info
-    Download.create(:file => @file, :downloaded_by_ip => request.env["X-Real-IP"])
+    Download.create(:file => @file, :downloaded_by_ip => request.headers["X-Real-IP"])
     @file.save
   end
 

@@ -98,7 +98,7 @@ $(document).ready(function() {
 
 
   /* Copia a seleção de arquivos da tabela para a lista oculta */
-  $('.file_list .select_file').change(function () {
+  $('.file_list .select_file').change(function() {
     $('#actions_forms .hidden_file_list input[value=' + $(this).attr('value') + ']').attr('checked', $(this).attr('checked'));
     $('.actions_menu .hidden_file_list input[value=' + $(this).attr('value') + ']').attr('checked', $(this).attr('checked'));
 
@@ -601,57 +601,6 @@ $(document).ready(function() {
   });
 
 
-  function done_compress(status, message) {
-    if (status === 'failed') {
-      force_hide_notifications();
-      $(".alert").html(message);
-      $(".notice").html("");
-    }
-    else if (status === 'completed') {
-      $(".notice").html("Operação completa.");
-    }
-  }
-
-
-  function update_compress_status() {
-    var shall_continue = true;
-    $.ajax({
-      url: 'compression_state',
-      dataType: 'json',
-      success: function(data) {
-        console.log(data);
-        switch (data.status) {
-        case 'queued':
-          $('.notice').html('Aguardando início da operação...'); break;
-        case 'working':
-          $('.notice').html(data.message); break;
-        case 'no_job':
-          shall_continue = false; break;
-        case 'failed': case 'completed':
-          done_compress(data.status, data.message);
-          setTimeout(reload, 3000);
-          shall_continue = false;
-          break;
-        }
-        if (shall_continue) {
-          $('#block_user_input').show();
-          show_notifications(true);
-          setTimeout(update_compress_status, 1000);
-        }
-        else {
-          $('#block_user_input').hide();
-          show_notifications(false);
-        }
-      }
-    });
-  }
-
-
-  if (window.location.pathname.search(/manage/) >= 0) {
-    update_compress_status();
-  }
-
-
   /* Compressão em background */
   $('#compress').submit(function(e) {
     e.preventDefault();
@@ -660,20 +609,33 @@ $(document).ready(function() {
       dataType: 'json',
       data: $('#compress').serialize(),
       type: 'POST',
-      success: function(data) { update_compress_status(); },
+      success: function(data) { create_files([data]) },
       error: function(e) { console.log(e); }
     });
   });
 
 
+  function create_files(files) {
+    $.ajax({
+      url: 'virtual_create_multi',
+      data: JSON.stringify(files),
+      type: 'POST',
+      success: function(url) {
+          window.location = url;
+      },
+      error: console.log
+    });
+  }
+
+
   /* Descompressão em background */
   $('.actions_menu .decompress a').click(function() {
     $.ajax({
-      url: 'decompress',
+      url: '../decompress',
       dataType: 'json',
       data: $('.actions_menu .decompress form').serialize(),
-      type: 'POST',
-      success: function(data) { update_compress_status(); },
+      type: 'GET',
+      success: create_files,
       error: function(e) { console.log(e); }
     });
   });

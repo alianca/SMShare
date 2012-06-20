@@ -22,7 +22,7 @@
     <% @files.each do |file| %>
       <div class="link-box">
         <p class="filename">
-          <%= truncate(file.filename, :omission => "..." + file.filename[-5..-1], :length => 41) %>
+          <%= truncate(file.filename, :omission => "..." + file.filename[[-file.filename.length, -5].max..-1], :length => 41) %>
         </p>
         <%= text_field_tag :link, "", :class => "link-field", :'url-text' => user_file_url(file), :value => user_file_url(file) %>
       </div>

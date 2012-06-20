@@ -1,0 +1,45 @@
+<% send_tab "remote" %>
+<% page "send_files" %>
+<h2>Enviar arquivos</h2>
+
+<%= render :partial => "user_files/tabs" %>
+
+<ul class="tabs tabs-contents">
+  <li class="tab-content remote-tab">
+    <p>O upload remoto permite enviar arquivos de outros servidores (http://) ou (ftp://) para a sua conta do smShare, para isso, insira a URL e a descrição e clique em Enviar.</p>
+    <%= semantic_form_for @file, :url => remote_uploads_path, :html => {:id => "remote_form"} do |f| %>
+      <div id="fields">
+        <%= f.inputs :class => :file_fields do %>
+          <%= f.input :url %>
+          <%= f.input :description, :input_html => { :title => "Digite uma descrição objetiva para seu arquivo.", :class => "clear-on-focus" } %>
+          <%= f.input :filename, :as => :hidden %>
+          <%= f.input :filepath, :as => :hidden %>
+          <%= f.input :filesize, :as => :hidden %>
+          <%= f.input :filetype, :as => :hidden %>
+          <span id="progress"></span>
+        <% end %>
+
+        <p class="more-urls"></p>
+
+        <%= f.actions do %>
+          <%= f.action :submit, :as => :button, :label => "Enviar" %>
+        <% end %>
+      </div>
+    <% end %>
+  </li>
+</ul>
+
+<div class="remote-upload-models">
+  <h3>Modelos de endereços aceitos</h3>
+
+  <ol>
+    <li>
+      Links diretos para arquivos com ou sem autentificação HTTP/SSL.
+      <span class="example">Ex.: <span class="link">http://domain.com/folder/file.exe</span> ou <span class="link">http://login:password@domain.com/folder/file.exe</span></span>
+    </li>
+    <li>
+      Links diretos para arquivos em FTP.
+      <span class="example">Ex.: <span class="link">ftp://domain.com/folder/file.exe</span> ou <span class="link">ftp://login:password@domain.com/folder/file.exe</span></span>
+    </li>
+  </ol>
+</div>

@@ -28,7 +28,7 @@ Smshare::Application.routes.draw do
     end
   end
 
-  resources :remote_uploads, :only => [:new, :create, :show]
+  resources :remote_uploads, :only => [:new, :create]
 
   resource :painel, :as=> :user_panel, :controller => :user_panel, :only => [:show, :destroy, :edit, :create] do
     member do

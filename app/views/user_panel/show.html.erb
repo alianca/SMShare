@@ -91,7 +91,7 @@
       <% @most_downloaded_files.each do |file| %>
         <tr>
           <td class="filename">
-            <%= link_to truncate(file.filename, :length => 41, :ommission => "..." + file.filename[-4..-1]), file %>
+            <%= link_to truncate(file.filename, :length => 41, :ommission => "..." + file.filename[[-file.filename.length, -4].max..-1]), file %>
           </td>
           <td class="count"><%= file.statistics.downloads %></td>
         </tr>

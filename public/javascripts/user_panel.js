@@ -212,16 +212,18 @@ $(document).ready(function() {
   }
 
 
-  function go_to_categorize() {
-    var parameter = "";
-    $("#user_files_forms form").each(function (i, form) {
+  function go_to_categorize(forms) {
+    var parameters = [];
+    forms.forEach(function (form) {
+      console.log($(form).attr('data-created_id'));
       var id = $(form).attr("data-created_id");
-      if($(form).attr("data-status") === "success" && id) {
-        parameter += "files[]=" + id + "&";
+      if(id) {
+        parameters.push("files[]=" + id);
       }
     });
-    if (parameter.length > 0) {
-      window.location = "/arquivos/categorizar?" + parameter;
+    console.log(parameters);
+    if (parameters.length > 0) {
+      window.location = "/arquivos/categorizar?" + parameters.join('&');
     } else {
       reload();
     }
@@ -243,7 +245,7 @@ $(document).ready(function() {
       success: function(data) {
         if (data.state === 'uploading') {
           var updated_at = new Date();
-          var percentage = Math.floor(data.received / data.size * 100) + "%";
+          var percentage = Math.floor(data.received / data.size * 99) + "%";
           var elapsed_time = updated_at - form.started_at; // ms
           var speed = 0;
           var eta = 0;
@@ -270,54 +272,53 @@ $(document).ready(function() {
   function async_foreach(list, each, after, i) {
     if (i === undefined) i = 0;
 
+    var acc = [];
     if (i >= list.length) {
-      after();
+      after(acc);
     } else {
-      each(list[i], function() {
+      each(list[i], function(value) {
+        acc.push(value);
         async_foreach(list, each, after, i + 1);
       });
     }
   }
 
 
+  /* Atualiza estado do progresso do upload */
   function tick() {
-    var all_done = true;
-    var all_errors = true;
     var forms = $('#user_files_forms form');
+    var done = [];
+    var errors = [];
 
     async_foreach(forms, function(form, next) {
 
       update_status(form, function(status, data) {
         if (status === 'done') {
+          done.push(form);
           $(form).find('.progress_info .uploaded').width('100%');
           $(form).find('.progress_info .percentage').html('100%');
-        } else {
-          all_done = false;
-        }
-
-        if (status !== 'error') {
-          all_errors = false;
+        } else if (status === 'error') {
+          errors.push(form);
         }
 
         next();
       });
 
     }, function() {
-      console.log(all_errors, all_done);
-      if (all_errors) {
-        setTimeout(reload, 4000);
-      }
-      else if (all_done) {
-        setTimeout(go_to_categorize, 4000);
-      }
-      else {
+      if (errors.length + done.length == forms.length) { // Se ja concluiu tudo
+        if (done.length > 0) { // Se teve algum sucesso
+          setTimeout(function() { go_to_categorize(done); }, 4000);
+        } else {
+          reload();
+        }
+      } else {
         setTimeout(tick, 200);
       }
-
     });
   }
 
 
+  /* Prepara os uploads */
   $('#upload_forms').append($('.files_form .actions').remove());
   $('#upload_forms .actions').click(function(e) {
     setup_progress_bars();
@@ -328,6 +329,7 @@ $(document).ready(function() {
   /* Salva o id do upload */
   var upload_id = $('#new_user_file .file_fields input[type=hidden]').val();
   var upload_action = $('#new_user_file').attr('action');
+
 
   /* Arruma o primero form */
   $('#new_user_file').attr('id', 'new_user_file_0');
@@ -616,14 +618,18 @@ $(document).ready(function() {
 
 
   function create_files(files) {
-    $.ajax({
-      url: 'virtual_create_multi',
-      data: JSON.stringify(files),
-      type: 'POST',
-      success: function(url) {
-          window.location = url;
-      },
-      error: console.log
+    async_foreach(files, function(f, next) {
+      $.ajax({
+        url: 'virtual_create',
+        data: JSON.stringify(files),
+        type: 'POST',
+        success: next,
+        error: console.log
+      }, function(ids) {
+        window.location = 'categorizar?' + ids.map(function(id) {
+          return 'files[]=' + id;
+        }).join('&');
+      });
     });
   }
 
@@ -648,10 +654,10 @@ $(document).ready(function() {
       dataType: "json",
       type: "GET",
       success: function(data) {
-        html = "<option value>Escolha</option>";
-        for (var i = 0; i < data.length; i++) {
-          html += "<option value=\"" + data[i][1] + "\">" + data[i][0] + "</option>";
-        }
+        html = "<option value>Escolha</option>"
+        html += data.map(function(d) {
+          return '<option value"' + d[1] + '">' + d[0] + '</option>';
+        }).join('');
         $("#user_profile_state").html(html);
       },
       error: function(e) { console.log(e); }

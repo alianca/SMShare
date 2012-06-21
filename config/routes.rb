@@ -9,12 +9,6 @@ Smshare::Application.routes.draw do
   end
 
   resources :arquivos, :as=> :user_files, :controller => :user_files, :except => [:create] do
-    member do
-      get :download
-      get :example
-      match :download_box
-    end
-
     collection do
       get :categorizar, :action => :categorize, :as => :categorize
       post :update_categories
@@ -28,7 +22,7 @@ Smshare::Application.routes.draw do
     end
   end
 
-  resources :remote_uploads, :only => [:new, :create]
+  resources :files, :as => :remote_uploads, :controller => :remote_uploads, :only => [:new, :create]
 
   resource :painel, :as=> :user_panel, :controller => :user_panel, :only => [:show, :destroy, :edit, :create] do
     member do

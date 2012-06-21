@@ -20,7 +20,7 @@ class UserFilesController < ApplicationController
   end
 
   def links
-    params[:files].delete_if { |f| f.blank? }
+    params[:files].delete_if{ |f| f.blank? }
     respond_with(@files = current_user.files.find(params[:files]))
   end
 

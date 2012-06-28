@@ -45,10 +45,10 @@ class UserPanelController < ApplicationController
 
   def destroy
     if params[:files]
-      UserFile.where(:_id.in => (params[:files].collect { |id| BSON::ObjectId(id) })).destroy_all
-      Folder.where(:_id.in => (params[:files].collect { |id| BSON::ObjectId(id) })).each { |folder| folder.remove }
+      UserFile.where(:_id.in => (params[:files].collect{ |id| BSON::ObjectId(id) })).destroy_all
+      Folder.where(:_id.in => (params[:files].collect{ |id| BSON::ObjectId(id) })).destroy_all
     end
-    redirect_to :back
+    render :nothing => true
   end
 
   def move
@@ -69,8 +69,8 @@ class UserPanelController < ApplicationController
     @folders = Folder.where(:_id.in => (params[:user_file][:files].collect { |id| BSON::ObjectId(id) }))
 
     begin
-      @files.each { |file| file.alias = params[:user_file][:new_name][file.id.to_s]; file.save! }
-      @folders.each { |folder| folder.name = params[:user_file][:new_name][folder.id.to_s]; folder.save! }
+      @files.each{ |file| file.filename = params[:user_file][:new_name][file.id.to_s]; file.save! }
+      @folders.each{ |folder| folder.name = params[:user_file][:new_name][folder.id.to_s]; folder.save! }
     rescue
       flash[:error] = "Não foi possível renomear os arquivos."
     end
@@ -94,6 +94,7 @@ class UserPanelController < ApplicationController
   end
 
   private
+
   def fetch_folder
     if params[:folder_id]
       @folder = current_user.folders.find(params[:folder_id])
@@ -101,4 +102,5 @@ class UserPanelController < ApplicationController
       @folder = current_user.root_folder
     end
   end
+
 end

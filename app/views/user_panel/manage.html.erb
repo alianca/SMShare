@@ -3,7 +3,7 @@
 
 <%= render :partial => "actions_menu" %>
 
-<%= form_tag do %>
+<%= form_tag({}, :id => 'files_form') do %>
   <div id="form_placeholder"></div>
   <div id="rename_placeholder"></div>
 
@@ -64,7 +64,7 @@
           </tr>
         <% elsif f.instance_of? UserFile %>
           <tr class="file">
-            <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file" %></td>
+            <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file", :filepath => f.filepath, :filename => f.filename %></td>
             <td class="name">
               <%= image_tag icon_for type_of f.filetype %>
               <%= link_to truncate(f.filename, :length => 50, :omission => "..." + f.filename[-[4, f.filename.length].min..-1]), user_file_path(f) %>

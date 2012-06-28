@@ -656,11 +656,11 @@ table.file_list td.name {
   background: url(/images/user_panel/botoes/renomear_off.png) no-repeat;
 }
 
-.actions_menu li.link .icon {
+.actions_menu li.links_button .icon {
   background: url(/images/user_panel/botoes/link_on.png) no-repeat;
 }
 
-.actions_menu li.link .icon.off {
+.actions_menu li.links_button .icon.off {
   background: url(/images/user_panel/botoes/link_off.png) no-repeat;
 }
 

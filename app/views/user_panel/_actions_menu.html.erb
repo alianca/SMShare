@@ -4,7 +4,7 @@
     <%= link_to "Criar", "#" %>
   </li>
   <li class="separator"></li>
-  <li class="link">
+  <li class="links_button">
     <%= link_to "", "#", :class => "icon off need-files" %>
     <%= link_to "Link", "#", :class => "off need-files" %>
   </li>
@@ -14,15 +14,8 @@
     <%= link_to "Mover", "#", :class => "off need-files" %>
   </li>
   <li class="destroy">
-    <%= form_tag user_panel_path, :method => :delete do %>
-      <fieldset class="hidden_file_list">
-        <% @resources.each do |r| %>
-          <%= check_box_tag "files[]", r._id, false %>
-        <% end %>
-      </fieldset>
-      <%= button_tag "", :class => "icon off need-files" %>
-      <%= button_tag "Remover", :class => "label off need-files" %>
-    <% end %>
+    <%= link_to "", "#", :class => "icon off need-files" %>
+    <%= link_to "Remover", "#", :class => "off need-files" %>
   </li>
   <li class="rename">
     <%= link_to "", "#", :class => "icon off need-files" %>

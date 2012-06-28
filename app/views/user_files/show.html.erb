@@ -24,7 +24,7 @@
       <p class="description"><%= @file.description %></p>
     </div>
 
-    <% if @file.images.count > 0 %>
+    <% if @file.images.count > 0 || @file.owner == current_user %>
       <div class="images">
         <% @file.images.each do |img| %>
           <div class="image-container">

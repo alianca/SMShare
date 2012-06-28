@@ -106,6 +106,9 @@ class UserFile
   # Sentenced Fields para as Tags
   sentenced_fields :tags
 
+  # Remover arquivo fisico
+  after_destroy :cleanup_file
+
   def file_extension
     File.extname(self.filename)
   end
@@ -172,6 +175,10 @@ class UserFile
   def generate_statistics_data
     self.create_statistics
     self.save! if changed?
+  end
+
+  def cleanup_file
+
   end
 
 end

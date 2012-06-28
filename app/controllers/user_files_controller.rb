@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 class UserFilesController < ApplicationController
-  respond_to :html
-  before_filter :authenticate_user!, :only => [:new, :create, :categorize, :update, :links]
-  layout "user_panel", :except => [:show]
+  respond_to :html, :except => [:create]
+  before_filter :authenticate_user!, :except => [:show]
+  layout "user_panel", :except => [:show, :create]
 
   def new
     respond_with(@file = UserFile.new)
@@ -25,18 +25,20 @@ class UserFilesController < ApplicationController
   end
 
   def categorize
-    params[:files].delete_if{ |f| f.blank? }
-    respond_with(@files = current_user.files.find(params[:files]))
+    unless params[:files].blank?
+      params[:files].delete_if{ |f| f.blank? }
+      respond_with(@files = current_user.files.find(params[:files]))
+    else
+      redirect_to :back
+    end
   end
 
   def create
     @file = current_user.files.create(params[:user_file].merge(params[:user_file][:file]))
     if @file.save and @file.valid?
-      flash[:notice] = "Arquivo enviado com sucesso."
-      respond_with(@file, :location => categorize_user_files_path(:files => [@file]))
+      render :json => { :status => 'ok', :id => @file._id }
     else
-      flash[:alert] = @file.errors.full_messages.first
-      redirect_to :back
+      render  :json => { :status => 'error' }
     end
   end
 

@@ -52,10 +52,9 @@ class Folder
   end
 
   # Remove a pasta e o conteúdo recursivamente
-  def remove
+  def before_destroy
     self.files.all.destroy_all
-    self.children.each { |child| child.remove }
-    self.destroy
+    self.children.each { |child| child.destroy }
   end
 
   private

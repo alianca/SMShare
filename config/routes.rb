@@ -8,7 +8,7 @@ Smshare::Application.routes.draw do
     post "cadastro/valida_campo" => "registrations#validate_field"
   end
 
-  resources :arquivos, :as=> :user_files, :controller => :user_files, :except => [:create] do
+  resources :arquivos, :as=> :user_files, :controller => :user_files do
     collection do
       get :categorizar, :action => :categorize, :as => :categorize
       post :update_categories

@@ -64,29 +64,55 @@ $(document).ready(function() {
     e.stopImmediatePropagation();
   });
 
-
-  function selected(what) {
-    var result = (what ==   'any' ? false :
-                 (what ==   'all' ?  true :
-                 (what ==   'ids' ?    [] :
-                 (what == 'paths' ?    {} :
-                  undefined))));
-
+  function selected(interface) {
+    var value = interface.init();
     $('.file_list .select_file').each(function() {
-      var checked = $(this).attr('checked');
-      if (what == 'paths' && checked) {
-        var components = $(this).attr('filepath').split('/');
-        result[$(this).attr('filename')] = components[components.length-1];
-      } else if (what == 'ids' && checked) {
-        result.push($(this).val());
-      } else if (what == 'any') {
-        result = result || checked;
-      } else if (what == 'all') {
-        result = result && checked;
+      if ($(this).attr('checked')) {
+        value = interface.on(value, $(this));
+      } else {
+        value = interface.off(value, $(this));
       }
     });
+    return value;
+  }
 
-    return result;
+  function selected_any() {
+    return selected({
+      init: function() { return false; },
+      on: function() { return true; },
+      off: function(value) { return value; }
+    });
+  }
+
+  function selected_all() {
+    return selected({
+      init: function() { return true; },
+      on: function(value) { return value; },
+      off: function() { return false; }
+    });
+  }
+
+  function selected_ids() {
+    return selected({
+      init: function() { return []; },
+      on: function(value, c) {
+        value.push(c.val());
+        return value;
+      },
+      off: function(value) { return value; }
+    });
+  }
+
+  function selected_paths() {
+    return selected({
+      init: function() { return {}; },
+      on: function(value, c) {
+        var components = c.attr('filepath').split('/');
+        value[c.attr('filename')] = components[components.length-1];
+        return value;
+      },
+      off: function(value) { return value; }
+    });
   }
 
   var all_files = false;
@@ -111,7 +137,7 @@ $(document).ready(function() {
 
   $('.links_button').click(function(e) {
     window.location = '/arquivos/links?' +
-      selected('ids').
+      selected_ids().
       map(function(id){ return 'files[]=' + id; }).
       join('&');
     return false;
@@ -122,7 +148,7 @@ $(document).ready(function() {
     $.ajax({
       url: '/painel',
       data: $.param({
-        files: selected('ids'),
+        files: selected_ids(),
         _method: 'DELETE',
         authenticity_token: $('input[name=authenticity_token]').val()
       }),
@@ -133,55 +159,81 @@ $(document).ready(function() {
     return false;
   });
 
+  function get_values(object) {
+    return Object.keys(object).map(function(k){ return object[k]; });
+  }
+
+  function renew_form() {
+    $.ajax({
+      url: 'secret_file/new',
+      dataType: 'text/html',
+      async: false,
+      success: function(html) {
+        $('#hidden_form').html(html);
+      }
+    });
+  }
 
   /* Descompressão */
+  /* TODO Desse jeito não funciona. Preciso de um fork/join */
   $('.actions_menu .decompress a').click(function() {
-    var files = [];
-    var paths = selected('paths');
-    Object.keys(paths).
-      map(function(k){ return k + ':' + paths[k]; }).
-      forEach(function(path) {
-        $.ajax({
-          url: '/files/' + path + '/decompress',
-          dataType: 'JSON',
-          type: 'GET',
-          async: false,
-          error: function(data) {
-            console.log('Error: ', data.responseText);
-          },
-          success: function(data) {
-            console.log(data);
-            if (data.code == 'ok') {
-              files = files.concat(data.value);
-            } else {
-              console.log(data.value);
-            }
+    get_values(selected_paths()).forEach(function(path) {
+      $.ajax({
+        url: '/files/' + path + '/decompress',
+        dataType: 'JSON',
+        type: 'GET',
+        async: false,
+        error: function(data) {
+          console.log('Error: ', data.responseText);
+        },
+        success: function(data) {
+          if (data.code == 'ok') {
+            renew_form();
+            ['name', 'path', 'size', 'type'].forEach(function(t) {
+              $('#hidden_form #user_file_file' + t).val(data.value[t]);
+            });
+            $('#hidden_form').submit();
           }
-        });
+        }
       });
+    });
   });
 
+  function format_arch(name) {
+    var components = name.split('.');
+    var ext = components[components.length - 1];
+    var fname = components.slice(0, components.length - 1).join('.');
+
+    if (['zip', 'tar', 'gz', 'bz2'].indexOf(ext) < 0) {
+      if (['jar', 'egg', 'cbz'].indexOf(ext) >= 0) {
+        return fname + '.zip';
+      } else if (['tbz2', 'tgz'].indexOf(ext) >= 0) {
+        return fname + ext.replace('t', 'tar.');
+      }
+      return name + '.zip';
+    }
+
+    return name
+  }
 
   /* Compressão */
   $('#compress .actions').click(function(e) {
-    console.log(JSON.stringify(selected('paths')));
+    var paths = selected_paths();
     $.ajax({
-      url: '/files/compress/' + $('#user_file_filename').val(),
-      data: $.param(selected('paths')),
+      url: '/files/compress/' + format_arch($('#user_file_filename').val()),
+      data: $.param(paths),
       dataType: 'JSON',
       type: 'GET',
       error: console.log,
       success: function(data) {
-        console.log(JSON.stringify(data));
         if (data.code == 'ok') {
-          $('#compress #user_file_filename').val(data.value.name);
-          $('#compress #user_file_filetype').val(data.value.type);
-          $('#compress #user_file_filesize').val(data.value.size);
-          $('#compress #user_file_filepath').val(data.value.path);
-          $('#compress #user_file_description').val(Object.keys(selected('paths')).join(', '));
+          ['name', 'type', 'size', 'path'].forEach(function(t) {
+            $('#compress #user_file_file' + t).val(data.value[t]);
+          });
+          $('#compress #user_file_description').val(Object.keys(paths).join(', '));
           $('#compress').submit();
         } else {
-          console.log(data.value);
+          console.warn(data.value);
         }
       }
     });
@@ -201,7 +253,7 @@ $(document).ready(function() {
     }
 
     /* (des)Habilita os botões */
-    if (selected('any')) {
+    if (selected_any()) {
       $('.actions_menu .need-files.off').removeClass('off');
     } else {
       $('.actions_menu .need-files').addClass('off');
@@ -211,7 +263,7 @@ $(document).ready(function() {
       }
     }
 
-    toggle_all_files(selected('all'));
+    toggle_all_files(selected_all());
   });
 
 

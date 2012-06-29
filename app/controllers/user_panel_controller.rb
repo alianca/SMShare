@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-require 'zipruby'
-require 'resque/job_with_status'
 
 class UserPanelController < ApplicationController
   respond_to :html

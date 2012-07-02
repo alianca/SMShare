@@ -163,36 +163,47 @@ $(document).ready(function() {
     return Object.keys(object).map(function(k){ return object[k]; });
   }
 
-  function renew_form() {
+  function submit(form) {
     $.ajax({
-      url: 'secret_file/new',
-      dataType: 'text/html',
-      async: false,
-      success: function(html) {
-        $('#hidden_form').html(html);
+      url: '/arquivos',
+      type: 'POST',
+      data: form.serialize(),
+      dataType: 'JSON',
+      success: function(data) {
+        if (data.status === 'ok') {
+          console.log('Just done:', form.serialize());
+        }
       }
     });
   }
 
-  /* Descompressão */
-  /* TODO Desse jeito não funciona. Preciso de um fork/join */
+  function fetch_form(callback) {
+    $.ajax({
+      url: '/arquivos/clean_form',
+      success: callback,
+      error: console.log
+    });
+  }
+
   $('.actions_menu .decompress a').click(function() {
     get_values(selected_paths()).forEach(function(path) {
       $.ajax({
         url: '/files/' + path + '/decompress',
         dataType: 'JSON',
-        type: 'GET',
-        async: false,
         error: function(data) {
           console.log('Error: ', data.responseText);
         },
         success: function(data) {
-          if (data.code == 'ok') {
-            renew_form();
-            ['name', 'path', 'size', 'type'].forEach(function(t) {
-              $('#hidden_form #user_file_file' + t).val(data.value[t]);
+          if (data.code === 'ok') {
+            data.value.forEach(function(file) {
+              fetch_form(function(form) {
+                console.log($(form));
+                ['name', 'path', 'size', 'type'].forEach(function(t) {
+                  $(form).find('#user_file_' + t).val(file[t]);
+                });
+                submit($(form));
+              });
             });
-            $('#hidden_form').submit();
           }
         }
       });
@@ -213,8 +224,9 @@ $(document).ready(function() {
       return name + '.zip';
     }
 
-    return name
+    return name;
   }
+
 
   /* Compressão */
   $('#compress .actions').click(function(e) {

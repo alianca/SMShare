@@ -13,6 +13,7 @@ Smshare::Application.routes.draw do
       get :categorizar, :action => :categorize, :as => :categorize
       post :update_categories
       get :links
+      get :clean_form
     end
   end
 

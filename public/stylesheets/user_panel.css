@@ -123,6 +123,10 @@ body {
   overflow: hidden;
 }
 
+#multi_form {
+  display: none;
+}
+
 #remote_form .file_fields,
 #upload_forms .file_fields {
   float: left;

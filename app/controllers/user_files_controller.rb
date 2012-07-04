@@ -36,14 +36,17 @@ class UserFilesController < ApplicationController
   def create
     @file = current_user.files.create(params[:user_file].merge(params[:user_file][:file] || {}))
     if @file.save and @file.valid?
-      render :json => { :status => 'ok', :id => @file._id }
+      render :json => {:status => 'ok', :id => @file._id}
     else
-      render :json => { :status => 'error' }
+      render :json => {:status => 'error'}
     end
   end
 
-  def clean_form
-    render(:clean_form, :layout => nil)
+  def create_multi
+    @files = JSON.parse(params[:files]).
+      map{ |f| current_user.files.create(f) }.
+      delete_if{ |f| !f.save }
+    redirect_to categorize_user_files_path(:files => @files)
   end
 
   def update_categories

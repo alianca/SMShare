@@ -163,50 +163,56 @@ $(document).ready(function() {
     return Object.keys(object).map(function(k){ return object[k]; });
   }
 
-  function submit(form) {
-    $.ajax({
-      url: '/arquivos',
-      type: 'POST',
-      data: form.serialize(),
-      dataType: 'JSON',
-      success: function(data) {
-        if (data.status === 'ok') {
-          console.log('Just done:', form.serialize());
-        }
-      }
-    });
-  }
+  function decompress(files, callback, acc) {
+    acc = acc || []; // Default parameter
 
-  function fetch_form(callback) {
-    $.ajax({
-      url: '/arquivos/clean_form',
-      success: callback,
-      error: console.log
-    });
-  }
+    console.log("Decompressing:", files);
 
-  $('.actions_menu .decompress a').click(function() {
-    get_values(selected_paths()).forEach(function(path) {
+    if (files.length === 0) {
+      callback(acc);
+    }
+    else {
       $.ajax({
-        url: '/files/' + path + '/decompress',
+        url: '/files/' + files[0] + '/decompress',
+        type: 'GET',
         dataType: 'JSON',
         error: function(data) {
-          console.log('Error: ', data.responseText);
+          console.log(data.responseText);
         },
         success: function(data) {
+          console.log(JSON.stringify(data));
           if (data.code === 'ok') {
-            data.value.forEach(function(file) {
-              fetch_form(function(form) {
-                console.log($(form));
-                ['name', 'path', 'size', 'type'].forEach(function(t) {
-                  $(form).find('#user_file_' + t).val(file[t]);
-                });
-                submit($(form));
-              });
+            follow_status(data.value, 'decompress', function(data) {
+              setTimeout(function() {
+                var dec_files = JSON.parse(data.files).
+                  map(JSON.parse).
+                  map(function(f) {
+                    return {
+                      filename: f.name,
+                      filepath: f.path,
+                      filesize: f.size,
+                      filetype: f.type,
+                      description: "Arquivo descompactado.",
+                      public: true
+                    };
+                  });
+                console.log(dec_files);
+                decompress(files.slice(1, files.length), callback, acc.concat(dec_files));
+              }, 100);
             });
           }
         }
       });
+    }
+  }
+
+  $('.actions_menu .decompress a').click(function() {
+    decompress(get_values(selected_paths()), function(data) {
+      if (data.code === 'ok' && data.value) {
+        $('#multi_form #files').val(JSON.stringify(files));
+        $('#multi_form').submit();
+        console.log("Form submit");
+      }
     });
   });
 
@@ -227,10 +233,47 @@ $(document).ready(function() {
     return name;
   }
 
+  function follow_status(id, action, callback) {
+    console.log("still following...")
+    $.ajax({
+      url: '/files/' + action + '_status/' + id,
+      dataType: 'JSON',
+      type: 'GET',
+      error: function(e) {
+        console.log(e.responseText);
+      },
+      success: function(data) {
+        console.log(data.value)
+        if (data.code === 'ok' && data.value.status !== 'error') {
+          if (data.value.status === 'starting') {
+            console.log('Starting to', action, data.value.total, 'files.');
+          }
+          else if (data.value.status === 'working') {
+            console.log(action + 'ed', data.value.current, 'of', data.value.total);
+          }
+
+          if (data.value.status === 'done') {
+            console.log('-w')
+            callback(data.value);
+          }
+          else {
+            console.log('-q');
+            setTimeout(function() {
+              follow_status(id, action, callback);
+            }, 500);
+          }
+        }
+        else {
+          console.log(JSON.stringify(data.value));
+        }
+      }
+    });
+  }
 
   /* Compressão */
   $('#compress .actions').click(function(e) {
     var paths = selected_paths();
+
     $.ajax({
       url: '/files/compress/' + format_arch($('#user_file_filename').val()),
       data: $.param(paths),
@@ -238,17 +281,24 @@ $(document).ready(function() {
       type: 'GET',
       error: console.log,
       success: function(data) {
-        if (data.code == 'ok') {
-          ['name', 'type', 'size', 'path'].forEach(function(t) {
-            $('#compress #user_file_file' + t).val(data.value[t]);
+        if (data.code === 'ok') {
+          follow_status(data.value, 'compress', function(file) {
+            console.log('Done compressing.');
+
+            ['name', 'type', 'size', 'path'].forEach(function(t) {
+              $('#compress #user_file_file' + t).val(file[t]);
+            });
+            $('#compress #user_file_description').val(Object.keys(paths).join(','));
+            $('#compress').submit();
           });
-          $('#compress #user_file_description').val(Object.keys(paths).join(', '));
-          $('#compress').submit();
-        } else {
-          console.warn(data.value);
+        }
+        else {
+          console.log(JSON.stringify(data.value));
         }
       }
     });
+
+    // Don't let the browser handle the event
     return false;
   });
 

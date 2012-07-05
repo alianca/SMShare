@@ -154,7 +154,9 @@ $(document).ready(function() {
       }),
       type: 'POST',
       async: false,
-      complete: function() { location.reload(true); }
+      complete: function() {
+        location.reload(true);
+      }
     });
     return false;
   });
@@ -166,75 +168,59 @@ $(document).ready(function() {
   function decompress(files, callback, acc) {
     acc = acc || []; // Default parameter
 
-    console.log("Decompressing:", files);
-
     if (files.length === 0) {
       callback(acc);
+      return;
     }
-    else {
-      $.ajax({
-        url: '/files/' + files[0] + '/decompress',
-        type: 'GET',
-        dataType: 'JSON',
-        error: function(data) {
-          console.log(data.responseText);
-        },
-        success: function(data) {
-          console.log(JSON.stringify(data));
-          if (data.code === 'ok') {
-            follow_status(data.value, 'decompress', function(data) {
-              setTimeout(function() {
-                var dec_files = JSON.parse(data.files).
-                  map(JSON.parse).
-                  map(function(f) {
-                    return {
-                      filename: f.name,
-                      filepath: f.path,
-                      filesize: f.size,
-                      filetype: f.type,
-                      description: "Arquivo descompactado.",
-                      public: true
-                    };
-                  });
-                console.log(dec_files);
-                decompress(files.slice(1, files.length), callback, acc.concat(dec_files));
-              }, 100);
-            });
-          }
+
+    $.ajax({
+      url: '/files/' + files[0] + '/decompress',
+      type: 'GET',
+      dataType: 'JSON',
+      error: function(data) {
+        console.log(data.responseText);
+      },
+      success: function(data) {
+        if (data.code === 'ok') {
+          follow_status(data.value, 'decompress', function(data) {
+            var dec_files = JSON.parse(data.files.replace('\"', '"')).
+              map(function(f) {
+                return {
+                  filename: f.name,
+                  filepath: f.path,
+                  filesize: f.size,
+                  filetype: f.type,
+                  description: "Arquivo descompactado.",
+                  public: true
+                };
+              });
+
+            setTimeout(function() {
+              decompress(files.slice(1, files.length), callback, acc.concat(dec_files));
+            }, 100);
+          });
         }
-      });
-    }
+      }
+    });
   }
 
   $('.actions_menu .decompress a').click(function() {
     decompress(get_values(selected_paths()), function(data) {
-      if (data.code === 'ok' && data.value) {
-        $('#multi_form #files').val(JSON.stringify(files));
-        $('#multi_form').submit();
-        console.log("Form submit");
-      }
+      $('#multi_form #files').val(JSON.stringify(data));
+      $('#multi_form').submit();
     });
   });
 
   function format_arch(name) {
     var components = name.split('.');
     var ext = components[components.length - 1];
-    var fname = components.slice(0, components.length - 1).join('.');
-
-    if (['zip', 'tar', 'gz', 'bz2'].indexOf(ext) < 0) {
-      if (['jar', 'egg', 'cbz'].indexOf(ext) >= 0) {
-        return fname + '.zip';
-      } else if (['tbz2', 'tgz'].indexOf(ext) >= 0) {
-        return fname + ext.replace('t', 'tar.');
-      }
+    if (['zip', 'jar', 'pkg', 'egg', 'cbz'].indexOf(ext) < 0) {
       return name + '.zip';
     }
-
     return name;
   }
 
   function follow_status(id, action, callback) {
-    console.log("still following...")
     $.ajax({
       url: '/files/' + action + '_status/' + id,
       dataType: 'JSON',
@@ -243,28 +229,29 @@ $(document).ready(function() {
         console.log(e.responseText);
       },
       success: function(data) {
-        console.log(data.value)
+        console.log(data);
         if (data.code === 'ok' && data.value.status !== 'error') {
           if (data.value.status === 'starting') {
             console.log('Starting to', action, data.value.total, 'files.');
           }
           else if (data.value.status === 'working') {
-            console.log(action + 'ed', data.value.current, 'of', data.value.total);
+            console.log(action + 'ed',
+                        data.value.current, 'of',
+                        data.value.total);
           }
 
           if (data.value.status === 'done') {
-            console.log('-w')
             callback(data.value);
+            console.log('Done', action + 'ing:', data.value)
+            return;
           }
-          else {
-            console.log('-q');
-            setTimeout(function() {
-              follow_status(id, action, callback);
-            }, 500);
-          }
+
+          setTimeout(function() {
+            follow_status(id, action, callback);
+          }, 500);
         }
         else {
-          console.log(JSON.stringify(data.value));
+          console.log(data.value);
         }
       }
     });
@@ -279,21 +266,21 @@ $(document).ready(function() {
       data: $.param(paths),
       dataType: 'JSON',
       type: 'GET',
-      error: console.log,
+      error: function(e) {
+        console.log(e.responseText);
+      },
       success: function(data) {
         if (data.code === 'ok') {
           follow_status(data.value, 'compress', function(file) {
-            console.log('Done compressing.');
-
             ['name', 'type', 'size', 'path'].forEach(function(t) {
               $('#compress #user_file_file' + t).val(file[t]);
             });
-            $('#compress #user_file_description').val(Object.keys(paths).join(','));
+            $('#compress #user_file_description').val(Object.keys(paths).join(', '));
             $('#compress').submit();
           });
         }
         else {
-          console.log(JSON.stringify(data.value));
+          console.log(data.value);
         }
       }
     });

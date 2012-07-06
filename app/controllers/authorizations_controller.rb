@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
+
+require 'nokogiri'
+
 class AuthorizationsController < ApplicationController
   respond_to :html
   before_filter :fetch_file, :only => [:new, :show]
+  skip_before_filter :verify_authenticity_token, :only => [:create]
 
   def new
     # Cabeçalhos necessários para o Cross Origin Resource Sharing
@@ -29,22 +33,25 @@ class AuthorizationsController < ApplicationController
   end
 
   def show
-    begin
-      @auth = Authorization.find params[:code]
-      raise Error.new unless @auth
-      url = @auth.url_for(@file, request.headers["X-Real-IP"])
-      raise Error.new unless url
-      redirect_to url
-      @auth.destroy
-    rescue
-      render :file => File.join(Rails.root + 'public/404.html')
-    end
+    @auth = Authorization.find params[:code]
+    raise Error.new unless @auth
+    url = @auth.url_for(@file, request.headers["X-Real-IP"])
+    raise Error.new unless url
+    redirect_to url
+    @auth.destroy
+  rescue
+    render :file => File.join(Rails.root + 'public/404.html')
   end
 
   def create
-    @auth = Authorization.register params[:payment]
-    render :nothing => true
+    xml = Nokogiri::XML.fragment(request.body.read)
+    @auth = Authorization.register(:pin => xml.at('pin').text,
+                                   :msisdn => xml.at('msisdn').text,
+                                   :carrier_id => xml.at('carrier_id').text)
+    render :text => '1'
     save_download_info
+  rescue Exception => e
+    render :text => "0 # #{e.message}"
   end
 
   private
@@ -54,7 +61,7 @@ class AuthorizationsController < ApplicationController
   end
 
   def save_download_info
-    Download.create(:file => @file, :downloaded_by_ip => request.headers["X-Real-IP"])
+    Download.create(:file => @file, :downloaded_by_ip => request.headers['X-Real-IP'])
     @file.save
   end
 

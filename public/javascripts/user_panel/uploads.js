@@ -103,6 +103,8 @@ $(document).ready(function() {
           $(form).find(".progress_info .data_amount .total").html(readable_size(data.size));
           break;
         case 'done':
+          $(form).find(".progress_info .uploaded").width('100%');
+          $(form).find(".progress_info .percentage").html('100%');
           $(form).find('.progress_info .filename').append(' - Completo');
           break;
         case 'error':

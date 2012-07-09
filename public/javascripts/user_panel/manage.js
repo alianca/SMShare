@@ -196,7 +196,8 @@ $(document).ready(function() {
               });
 
             setTimeout(function() {
-              decompress(files.slice(1, files.length), callback, acc.concat(dec_files));
+              decompress(files.slice(1, files.length), callback,
+                         acc.concat(dec_files));
             }, 100);
           });
         }
@@ -242,7 +243,7 @@ $(document).ready(function() {
 
           if (data.value.status === 'done') {
             callback(data.value);
-            console.log('Done', action + 'ing:', data.value)
+            console.log('Done', action + 'ing:', JSON.stringify(data.value))
             return;
           }
 
@@ -275,7 +276,8 @@ $(document).ready(function() {
             ['name', 'type', 'size', 'path'].forEach(function(t) {
               $('#compress #user_file_file' + t).val(file[t]);
             });
-            $('#compress #user_file_description').val(Object.keys(paths).join(', '));
+            $('#compress #user_file_description').
+              val(Object.keys(paths).join(', '));
             $('#compress').submit();
           });
         }
@@ -295,10 +297,12 @@ $(document).ready(function() {
     /* Ajeita o formulário de rename */
     if ($(this).attr('checked')) {
       $('#' + $(this).attr('value')).removeClass('hidden-field');
-      $('#rename_placeholder').css('margin-bottom', $('#rename').height() + 27);
+      $('#rename_placeholder').
+        css('margin-bottom', $('#rename').height() + 27);
     } else {
       $('#' + $(this).attr('value')).addClass('hidden-field');
-      $('#rename_placeholder').css('margin-bottom', $('#rename').height() + 27);
+      $('#rename_placeholder').
+        css('margin-bottom', $('#rename').height() + 27);
     }
 
     /* (des)Habilita os botões */

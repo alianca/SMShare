@@ -1,31 +1,50 @@
 $(document).ready(function() {
 
-  $('#remote_form .actions').click(function() {
+  function track(id) {
+    $.ajax({
+      url: '/files/' + id,
+      dataType: 'JSON',
+      error: function(data) {
+        console.log(JSON.stringify(data));
+      },
+      success: function(data) {
+        console.log(JSON.stringify(data));
+        switch (data.status) {
+        case 'completed':
+          //window.location = '/arquivos/categorizar?files[]=' + data.file_id;
+          break;
+        case 'failed':
+          console.log('Erro:', data.error);
+          window.location = window.location;
+          break;
+        case 'working':
+          console.log('Progress:', data.message);
+        default:
+          setTimeout(function() { track(id); }, 500);
+        }
+      }
+    });
+  }
 
-    if ($('#user_file_description').val() ===
-        $('#user_file_description').prop('title')) {
+  $('#remote_form .actions').click(function() {
+    if ($('#user_file_description').val() === $('#user_file_description').prop('title')) {
       return false;
     }
-
     $.ajax({
-      url: '../files/fetch?url=' + $('#user_file_url').val().split('?')[0],
+      url: $('#remote_form').prop('action'),
+      data: $('#remote_form').serialize(),
+      type: 'POST',
       dataType: 'json',
       error: function(data) {
         console.log(JSON.stringify(data));
       },
       success: function(data) {
         console.log(JSON.stringify(data));
-
-        if (data.status == 'error') {
-          window.location = window.location;
-          return false;
+        if (!data.id) {
+          console.log('Error.');
+          return;
         }
-
-        ['path', 'name', 'type', 'size'].forEach(function(param) {
-          $('#user_file_file' + param).val(data[param]);
-        });
-
-        $('#remote_form').submit();
+        track(data.id);
       }
     });
     return false;

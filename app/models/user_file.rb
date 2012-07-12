@@ -9,7 +9,7 @@ class UserFile
   require File.expand_path('./lib/sentenced_fields')
   include SentencedFields
 
-  REMOTE_UPLOAD = "http://localhost/uploads"
+  FETCH_URL = "localhost:4242/files/fetch/"
 
   # Busca
   include Tire::Model::Search
@@ -80,8 +80,8 @@ class UserFile
     owner.folders.where(:path => path).first
   end
 
-  def folder= a_folder
-    self.path = a_folder.path
+  def folder=
+      a_folder self.path = a_folder.path
   end
 
   # Downloads
@@ -141,6 +141,12 @@ class UserFile
     results
   end
 
+  def self.download(user, url, description)
+    result = Curl::Easy.perform(FETCH_URL + CGI::escape(url) + '/' + CGI::escape(description))
+    res = JSON.parse(result.body_str)['ok']
+    Jobs::UserFileDownloadJob.create(:user_id => user._id, :id => "%s" % [res])
+  end
+
   # Atalho para as estatísticas para ordenação
 
   def downloads_count
@@ -178,7 +184,7 @@ class UserFile
   end
 
   def cleanup_file
-
+    # TODO
   end
 
 end

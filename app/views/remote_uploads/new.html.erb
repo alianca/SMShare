@@ -12,10 +12,6 @@
         <%= f.inputs :class => :file_fields do %>
           <%= f.input :url %>
           <%= f.input :description, :input_html => { :title => "Digite uma descrição objetiva para seu arquivo.", :class => "clear-on-focus" } %>
-          <%= f.input :filename, :as => :hidden %>
-          <%= f.input :filepath, :as => :hidden %>
-          <%= f.input :filesize, :as => :hidden %>
-          <%= f.input :filetype, :as => :hidden %>
           <span id="progress"></span>
         <% end %>
 

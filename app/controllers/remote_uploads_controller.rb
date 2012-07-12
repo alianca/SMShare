@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class RemoteUploadsController < ApplicationController
   layout 'user_panel'
 
@@ -6,13 +7,16 @@ class RemoteUploadsController < ApplicationController
   end
 
   def create
-    f = current_user.files.create params[:user_file]
-    if f.save
-      redirect_to categorize_user_files_path(:files => [f._id])
-    else
-      flash[:alert] = "Erro ao criar arquivo remoto."
-      redirect_to :back
-    end
+    render :json => {
+      :id => UserFile.download(current_user, params[:user_file][:url],
+                               params[:user_file][:description])
+    }
+  end
+
+  def show
+    job = Resque::Plugins::Status::Hash.get(params[:id])
+    logger.info job.failed?
+    render :json => job
   end
 
 end

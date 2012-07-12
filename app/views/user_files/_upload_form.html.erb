@@ -8,12 +8,17 @@
           <input type="file" name="user_file[file]">
         </li>
 
-        <%= f.input :description, :input_html => { :title => "Digite uma descrição objetiva para seu arquivo.", :class => "clear-on-focus" } %>
+        <%=
+          f.input :description, :input_html => {
+            :title => "Digite uma descrição objetiva para seu arquivo.",
+            :class => "clear-on-focus"
+          }
+        %>
       <% end %>
 
       <%= f.inputs :class => :public_field do %>
         <%= f.input :public, :as => :boolean, :default => true, :label => "Arquivo público (?)" %>
-        <% end %>
+      <% end %>
 
       <%= f.actions do %>
         <%= f.action :submit, :as => :button, :label => "Enviar" %>
@@ -22,7 +27,8 @@
       <div class="progress_info">
         <p class="filename"></p>
         <div class="progress_bar">
-          <div class="uploaded"></div>
+          <div class="uploaded">
+          </div>
         </div>
         <p class="percentage">0%</p>
         <p class="uptime">Decorrido: <span class="data">00:00:00</span></p>

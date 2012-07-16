@@ -33,7 +33,9 @@ class Folder
         results = files.order_by(:created_at => :desc).offset((current_page-1)*per_page-total_folders).limit(per_page)
       else # fodeu, tem arquivo e pasta
         results = children.order_by(:created_at => :desc).offset((current_page-1)*per_page).limit(total_folders%per_page).to_a
-        results += files.order_by(:created_at => :desc).offset((current_page-1)*per_page-total_folders+total_folders%per_page).limit(per_page-(total_folders%per_page)).to_a
+        results += files.order_by(:created_at => :desc).
+          offset((current_page-1)*per_page-total_folders+total_folders%per_page).
+          limit(per_page-(total_folders%per_page)).to_a
       end
       pager.replace(results.to_a)
     end
@@ -58,7 +60,15 @@ class Folder
   end
 
   private
-    def build_path
-      self.path = "#{parent.path}#{self._id}/" if parent
-    end
+
+  def build_path
+    files = self.files
+    self.path = "#{parent.path}#{self._id}/" if parent
+    files.each { |f|
+      f.folder = self
+      f.save!
+    }
+    self.children.each(&:save!)
+  end
+
 end

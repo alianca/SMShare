@@ -10,6 +10,7 @@ class UserFile
   include SentencedFields
 
   FETCH_URL = "localhost:4242/files/fetch/"
+  DESTROY_URL = "localhost:4242/files/destroy/"
 
   # Busca
   include Tire::Model::Search
@@ -80,8 +81,8 @@ class UserFile
     owner.folders.where(:path => path).first
   end
 
-  def folder=
-      a_folder self.path = a_folder.path
+  def folder= a_folder
+      self.path = a_folder.path
   end
 
   # Downloads
@@ -107,7 +108,7 @@ class UserFile
   sentenced_fields :tags
 
   # Remover arquivo fisico
-  after_destroy :cleanup_file
+  before_destroy :cleanup_file
 
   def file_extension
     File.extname(self.filename)
@@ -145,6 +146,8 @@ class UserFile
     result = Curl::Easy.perform(FETCH_URL + CGI::escape(url) + '/' + CGI::escape(description))
     res = JSON.parse(result.body_str)['ok']
     Jobs::UserFileDownloadJob.create(:user_id => user._id, :id => "%s" % [res])
+  rescue
+    nil
   end
 
   # Atalho para as estatísticas para ordenação
@@ -184,7 +187,7 @@ class UserFile
   end
 
   def cleanup_file
-    # TODO
+    Curl::Easy.perform(DESTROY_URL + self.filepath)
   end
 
 end

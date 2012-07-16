@@ -144,6 +144,21 @@ $(document).ready(function() {
   });
 
 
+  $('#move button').click(function(e) {
+    selected_ids().forEach(function(id) {
+      $('#move #user_file_files_' + id).attr('checked', true);
+    });
+    $.ajax({
+      url: '/painel/move',
+      type: 'POST',
+      data: $('#move').serialize(),
+      success: function() {
+        console.log("ok");
+      }
+    });
+  });
+
+
   $('.destroy').click(function(e) {
     $.ajax({
       url: '/painel',

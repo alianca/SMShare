@@ -40,7 +40,7 @@
       </tr>
     </tfoot>
     <tbody>
-      <% if @folder.parent %>
+      <% unless @folder.parent.nil? %>
         <tr class="folder">
           <td class="select"><%# check_box_tag "files[]", @folder.parent._id, false, :class => "select_file", :disabled => true %></td>
           <td class="name"><%= link_to "..", manage_user_panel_path(:folder_id => @folder.parent) %></td>

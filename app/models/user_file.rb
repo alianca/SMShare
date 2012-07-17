@@ -114,6 +114,10 @@ class UserFile
     File.extname(self.filename)
   end
 
+  def file_id
+    self.filepath.split('/').last
+  end
+
   def summarize_rate
     rates = self.comments.collect{ |c| c.rate if c.rate > 0 }.compact
     rates.count > 0 ? rates.sum * 1.0 / rates.count : 0.0
@@ -187,7 +191,8 @@ class UserFile
   end
 
   def cleanup_file
-    Curl::Easy.perform(DESTROY_URL + self.filepath)
+    res = JSON.parse(Curl::Easy.perform(DESTROY_URL + self.file_id).body_str)['ok']
+    raise res['error'] unless res == 'ok'
   end
 
 end

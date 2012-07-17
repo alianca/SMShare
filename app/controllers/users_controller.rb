@@ -34,13 +34,11 @@ class UsersController < ApplicationController
         params[:user][:password][:confirm_password]
       ok = @user.update_with_password params[:user]
     end
-
     if ok
       flash[:notice] = "Alterações salvas com successo."
     else
       flash[:alert] = "As alterações não puderam ser salvas."
     end
-
     redirect_to :back
   end
 

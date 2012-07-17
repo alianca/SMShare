@@ -5,20 +5,20 @@ class Folder
 
   # Define o esquema logico db.folders
   field :name, :type => String
-  field :path, :type => String, :default => "/"
+  field :path, :type => String, :default => nil
 
   # Relações da arvore
   belongs_to_related :parent, :class_name => "Folder"
   has_many_related :children, :class_name => "Folder", :foreign_key => :parent_id
   before_validation :build_path
 
+  before_destroy(:perform_mass_filicide)
+
   # Usuario
   belongs_to_related :owner, :class_name => "User"
 
-  # Arquivos
-  # has_many_related :files, :class_name => "UserFile", :primary_key => :path, :foreign_key => :path
   def files
-    UserFile.where(:path => path, :owner_id => owner_id)
+    path ? owner.files.where(:path => path) : []
   end
 
   def paginate current_page, per_page
@@ -27,15 +27,32 @@ class Folder
     total_files = files.count
     total_results = total_folders + total_files
     WillPaginate::Collection.create(current_page, per_page, total_results) do |pager|
-      if current_page*per_page <= total_folders # só tem pastas
-        results = children.order_by(:created_at => :desc).offset((current_page-1)*per_page).limit(per_page)
-      elsif (current_page-1)*per_page > total_folders # só tem arquivos
-        results = files.order_by(:created_at => :desc).offset((current_page-1)*per_page-total_folders).limit(per_page)
-      else # fodeu, tem arquivo e pasta
-        results = children.order_by(:created_at => :desc).offset((current_page-1)*per_page).limit(total_folders%per_page).to_a
-        results += files.order_by(:created_at => :desc).
-          offset((current_page-1)*per_page-total_folders+total_folders%per_page).
+
+      # Somente pastas
+      if current_page*per_page <= total_folders
+        results = children.
+          order_by(:created_at => :desc).
+          offset((current_page - 1) * per_page).
+          limit(per_page)
+
+      # Somente arquivos
+      elsif (current_page - 1) * per_page > total_folders
+        results = files.
+          order_by(:created_at => :desc).
+          offset((current_page - 1) * per_page-total_folders).
+          limit(per_page)
+
+      # Ambos
+      else
+        results = children.
+          order_by(:created_at => :desc).
+          offset((current_page - 1) * per_page).
+          limit(total_folders % per_page).to_a
+        results += files.
+          order_by(:created_at => :desc).
+          offset((current_page - 1) * per_page - total_folders + total_folders % per_page).
           limit(per_page-(total_folders%per_page)).to_a
+
       end
       pager.replace(results.to_a)
     end
@@ -54,21 +71,19 @@ class Folder
   end
 
   # Remove a pasta e o conteúdo recursivamente
-  def before_destroy
-    self.files.all.destroy_all
-    self.children.each { |child| child.destroy }
+  def perform_mass_filicide
+    self.files.each(&:destroy)
+    self.children.each(&:destroy)
   end
 
   private
 
   def build_path
-    files = self.files
+    fs = self.files
+    cs = self.children
     self.path = "#{parent.path}#{self._id}/" if parent
-    files.each { |f|
-      f.folder = self
-      f.save!
-    }
-    self.children.each(&:save!)
+    fs.each { |f| f.folder = self; f.save! }
+    cs.each(&:save!)
   end
 
 end

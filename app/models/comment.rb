@@ -9,7 +9,7 @@ class Comment
   embedded_in :file, :class_name => "UserFile", :inverse_of => :comments
   belongs_to_related :owner, :class_name => "User"
 
-  embeds_many :answers
+  embeds_many :answers, :class_name => "Answer"
 
   def self.search a_query
     fields_to_search = ["alias", "filename", "comments.message"]

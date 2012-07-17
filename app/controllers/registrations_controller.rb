@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class RegistrationsController < Devise::RegistrationsController
   respond_to :html
   prepend_view_path "app/views/devise"
@@ -5,7 +6,8 @@ class RegistrationsController < Devise::RegistrationsController
   layout :choose_layout
 
   def edit
-    @countries = Carmen.countries(:locale => :en, :default_country => @user.profile.country)
+    @countries = Carmen.countries(:locale => :en,
+                                  :default_country => @user.profile.country)
     begin
       @states = Carmen::states(@user.profile.country)
     rescue
@@ -17,12 +19,19 @@ class RegistrationsController < Devise::RegistrationsController
     user = User.new(params[:user])
     user.valid?
 
-    render :json => params[:user].keys.collect { |k| {k => user.errors[k].first} unless user.errors[k].first.blank? }.compact
+    render :json => params[:user].keys.collect { |k|
+      {k => user.errors[k].first} unless user.errors[k].first.blank?
+    }.compact
   end
 
   def create
-    super # completes registration and yields @user
-    save_referred_signup!
+    if params[:user][:admin]
+      flash[:alert] = "Boa tentativa, espertalhão"
+      redirect_to :back
+    else
+      super # completes registration and yields @user
+      save_referred_signup!
+    end
   end
 
   private

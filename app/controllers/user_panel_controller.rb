@@ -94,11 +94,9 @@ class UserPanelController < ApplicationController
   private
 
   def fetch_folder
-    if params[:folder_id]
-      @folder = current_user.folders.find(params[:folder_id])
-    else
-      @folder = current_user.root_folder
-    end
+    @folder = current_user.folders.find(params[:folder_id])
+  rescue
+    @folder = current_user.root_folder
   end
 
 end

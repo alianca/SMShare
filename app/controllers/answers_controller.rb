@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 class AnswersController < ApplicationController
 
+  before_filter :authenticate_user!
+
   def create
-    @comment = Comment.find(params[:answer][:comment_id])
-    if current_user == @comment.file.owner
-      @answer = @comment.answers.create(params[:answer].merge(:owner => current_user))
+    @file = File.find(params[:file_id])
+    if current_user == @file.owner
+      @comment = @file.comments.find(params[:answer][:comment_id])
+      @answer = @comment.answers.create(params[:answer].
+                                        merge(:owner => current_user))
       if @answer.save
         flash[:notice] = "Resposta enviada com sucesso."
       else

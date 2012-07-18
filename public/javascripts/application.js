@@ -1,3 +1,4 @@
+
 /* Mosta as notificações */
 function show_notifications(hold) {
   hasAlert = $(".alert").html() != ""
@@ -32,6 +33,33 @@ function show_notifications(hold) {
     });
   }
 }
+
+/* Simplificar exibição de mensagens */
+function inform_error(error) {
+  var message;
+  switch (error) {
+  case 'file_creation':
+    message = 'Descrição não pode ficar em branco.';
+    break;
+  case 'user_not_found':
+    message = 'Você deve estar logado para fazer isso.';
+    break;
+  case 'request_failed':
+    message = 'O serviço de transferência não está disponível.';
+  default:
+    message = error;
+    break;
+  }
+  $('.alert').html(message);
+  show_notifications(false);
+  setTimeout(function() { window.location = window.location; }, 3000);
+}
+
+function inform_progress(message) {
+  $('.notice').html(message);
+  show_notifications(true);
+}
+
 
 function force_hide_notifications() {
   $(".alert").slideUp("slow");

@@ -18,4 +18,12 @@ module UserPanelHelper
   def default_box_style
     @user_default_style
   end
+
+  def toolbar_button(label, name, options = "")
+    %$<li class="#{name}">
+        #{link_to '', '#', :class => 'icon ' + options, :action => name}
+        #{link_to label, '#', :class => options, :action => name}
+      </li>
+     $.html_safe
+  end
 end

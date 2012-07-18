@@ -644,11 +644,11 @@ table.file_list td.name {
   background: url(/images/user_panel/botoes/mover_off.png) no-repeat;
 }
 
-.actions_menu li.destroy .icon {
+.actions_menu li.remove .icon {
   background: url(/images/user_panel/botoes/remover_on.png) no-repeat;
 }
 
-.actions_menu li.destroy .icon.off {
+.actions_menu li.remove .icon.off {
   background: url(/images/user_panel/botoes/remover_off.png) no-repeat;
 }
 
@@ -660,11 +660,11 @@ table.file_list td.name {
   background: url(/images/user_panel/botoes/renomear_off.png) no-repeat;
 }
 
-.actions_menu li.links_button .icon {
+.actions_menu li.links .icon {
   background: url(/images/user_panel/botoes/link_on.png) no-repeat;
 }
 
-.actions_menu li.links_button .icon.off {
+.actions_menu li.links .icon.off {
   background: url(/images/user_panel/botoes/link_off.png) no-repeat;
 }
 
@@ -817,16 +817,16 @@ table.file_list td.name {
   float: none;
 }
 
-#actions_forms #rename .rename-field {
+#actions_forms #rename .field {
   display: block;
   margin: 3px;
 }
 
-#actions_forms #rename .rename-field label {
+#actions_forms #rename .field label {
   display: none;
 }
 
-#actions_forms #rename .hidden-field {
+#actions_forms #rename .hidden.field {
   display: none;
 }
 

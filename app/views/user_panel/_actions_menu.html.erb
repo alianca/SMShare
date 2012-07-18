@@ -1,45 +1,14 @@
 <ul class="actions_menu">
-  <li class="create">
-    <%= link_to "", "#", :class => "icon" %>
-    <%= link_to "Criar", "#" %>
-  </li>
+  <%= toolbar_button "Criar", "create" %>
   <li class="separator"></li>
-  <li class="links_button">
-    <%= link_to "", "#", :class => "icon off need-files" %>
-    <%= link_to "Link", "#", :class => "off need-files" %>
-  </li>
+  <%= toolbar_button "Link", "links", "off need-files" %>
   <li class="separator"></li>
-  <li class="move">
-    <%= link_to "", "#", :class => "icon off need-files" %>
-    <%= link_to "Mover", "#", :class => "off need-files" %>
-  </li>
-  <li class="destroy">
-    <%= link_to "", "#", :class => "icon off need-files" %>
-    <%= link_to "Remover", "#", :class => "off need-files" %>
-  </li>
-  <li class="rename">
-    <%= link_to "", "#", :class => "icon off need-files" %>
-    <%= link_to "Renomear", "#", :class => "off need-files" %>
-  </li>
+  <%= toolbar_button "Mover", "move", "off need-files" %>
+  <%= toolbar_button "Remover", "remove", "off need-files" %>
+  <%= toolbar_button "Renomear", "rename", "off need-files" %>
   <li class="separator"></li>
-  <li class="compress">
-    <%= link_to "", "#", :class => "icon off need-files" %>
-    <%= link_to "Compactar", "#", :class => "off need-files" %>
-  </li>
-  <li class="decompress">
-    <%= form_tag :action => "decompress" do %>
-      <fieldset class="hidden_file_list">
-        <% @resources.each do |r| %>
-          <%= check_box_tag "files[]", r._id, false %>
-        <% end %>
-      </fieldset>
-      <%= link_to "", "#", :class => "icon off need-files" %>
-      <%= link_to "Descompactar", "#", :class => "off need-files" %>
-    <% end %>
-  </li>
+  <%= toolbar_button "Compactar", "compress", "off need-files" %>
+  <%= toolbar_button "Descompactar", "decompress", "off need-files" %>
   <li class="separator"></li>
-  <li class="properties">
-    <%= link_to "", "#", :class => "icon off need-files" %>
-    <%= link_to "Propriedades", "#", :class => "off need-files" %>
-  </li>
+  <%= toolbar_button "Propriedades", "properties", "off need-files" %>
 </ul>

@@ -38,8 +38,7 @@ BG_NAMES = {
 }
 
 def box_bg_for type
-  case type
-  when :blank
+  if type == :blank
     nil
   else
     File.open(File.join(Rails.root, 'public/images/download_box/fundos/' + type.to_s + '.png'))
@@ -393,6 +392,6 @@ BG_NAMES.each do |k, v|
 
   BoxStyle.create({ :name => box_style_name_for(k),
                     :user => nil,
-                    :box_background_image => image._id
-                  }.merge(STYLES[k]))
+                    :box_image_id => image._id }.
+                  merge(STYLES[k]))
 end

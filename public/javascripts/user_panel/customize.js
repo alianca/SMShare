@@ -89,31 +89,27 @@ $(document).ready(function() {
   });
 
 
-  /* Aplica o estilo padrão inicialmente */
-  $("#style-customize ol li input[type=text]").change();
-
 
   /* Aplica o estilo nos thumbnails */
   function set_thumbnail_style(thumbnail, style) {
-    $(thumbnail).css("border", "1px solid " + style.box_border);
-    $(thumbnail).css("background-color", style.box_background);
-    $(thumbnail + " .title").css("color", style.header_text);
-    $(thumbnail + " .title").css("background-color", style.header_background);
-    $(thumbnail + " .top").css("color", style.upper_text);
-    $(thumbnail + " .middle span").css("color", style.para_text);
-    $(thumbnail + " .middle").css("color", style.number_text);
-    $(thumbnail + " .input").css("background-color", style.form_background);
-    $(thumbnail + " .input").css("border", "1px solid " + style.form_border);
-    $(thumbnail + " .input .thumb-button").css("background-color", style.button_background);
+    thumbnail.css("border", "1px solid " + style.box_border);
+    thumbnail.css("background-color", style.box_background);
+    thumbnail.find(".title").css("color", style.header_text);
+    thumbnail.find(".title").css("background-color", style.header_background);
+    thumbnail.find(".top").css("color", style.upper_text);
+    thumbnail.find(".middle span").css("color", style.para_text);
+    thumbnail.find(".middle").css("color", style.number_text);
+    thumbnail.find(".input").css("background-color", style.form_background);
+    thumbnail.find(".input").css("border", "1px solid " + style.form_border);
+    thumbnail.find(".input .thumb-button").css("background-color", style.button_background);
   }
 
-
   function update_thumbnails() {
-    var count = $("#style-list span.style").text();
-    for (var i = 0; i < count; i++) {
-      var style = jQuery.parseJSON($("#style-list .thumbnail.index" + i.toString() + " .style").text());
-      set_thumbnail_style("#style-list .thumbnail.index" + i.toString(), style);
-    }
+    $('#style-list .style-list-item').each(function() {
+      var thumb = $(this).find('.thumbnail');
+      var style = $.parseJSON(thumb.find('.style').text());
+      set_thumbnail_style(thumb, style);
+    });
   }
   update_thumbnails();
 
@@ -159,34 +155,38 @@ $(document).ready(function() {
 
 
   $("#style-list .style-list-item").click(function(e) {
-    var style = jQuery.parseJSON($(this).children(".thumbnail").children(".style").text());
-    var style_id = $(this).attr("class").match(/id([a-f0-9]{24})/)[1];
-    $("#style-customize ol li input[type=text]").trigger('changed_style', [style]);
-    $("#style-list form #style_selected_style").attr("value", style_id);
-    $("#style-list .style-list-item.selected").removeClass("selected");
-    $(this).addClass("selected");
+    var thumb = $(this).find('.thumbnail');
+    var style = $.parseJSON(thumb.find('.style').text());
+    var style_id = $(this).attr('class').match(/id([a-f0-9]{24})/)[1];
+    $('#style-customize ol li input[type=text]').trigger('changed_style', [style]);
+    $('#style-list form #style_selected_style').attr('value', style_id);
+    $('#style-list .style-list-item.selected').removeClass('selected');
+    $(this).addClass('selected');
 
     code_box_set('estilo', style_id, $(this).hasClass("default"));
 
     /* Aplica o fundo padrão do estilo selecionado */
-    $("#background-list .bg-list-item.id" + style.box_background_image).click();
+    $("#background-list .bg-list-item.id" + thumb.find('.bg').text()).click();
 
     e.stopImmediatePropagation();
   });
 
+  /* Aplica o estilo padrão inicialmente */
+  $("#style-list .style-list-item.default").click();
+
 
   function update_backgrounds() {
-    var count = $("#background-list .count").text();
-    for (var i = 0; i < count; i++) {
-      var url = $("#background-list .img-thumbnail.index" + i.toString() + " span").text();
-      $("#background-list .img-thumbnail.index" + i.toString()).css("background", "url(" + url + ") no-repeat");
-    }
+    $("#background-list .bg-list-item").each(function() {
+      var thumb = $(this).find('.img-thumbnail');
+      var url =  thumb.find('span').text();
+      thumb.css("background", "url(" + url + ") no-repeat");
+    });
   }
   update_backgrounds();
 
 
   $("#background-list .bg-list-item").click(function(e) {
-    var url = $(this).children(".img-thumbnail").children("span").text();
+    var url = $(this).find(".img-thumbnail span").text();
     var image_id = $(this).attr("class").match(/id([a-f0-9]{24})/)[1];
     if (url.length > 0) {
       $("#view #download_box").css("background-image", "url(" + url + ")");
@@ -197,6 +197,7 @@ $(document).ready(function() {
     $("#background-list .bg-list-item.selected").removeClass("selected");
     $(this).addClass("selected");
     code_box_set('fundo', image_id, $(this).hasClass("default"));
+    $('#box_style_box_image_id').val(image_id);
     e.stopImmediatePropagation();
   });
 

@@ -22,9 +22,9 @@
 
   <p><%= comment.message %></p>
 
-  <% if comment.answers.count > 0 %>
+  <% if comment.answers.length > 0 %>
     <div class="answers">
-      <% render :partial => "answer", :collection => comment.answers %>
+      <%= render :partial => "answer", :collection => comment.answers %>
     </div>
   <% end %>
 
@@ -35,6 +35,7 @@
         <%= semantic_form_for Answer.new do |f| %>
           <%= f.inputs do %>
             <%= f.hidden_field :comment_id, :value => comment._id %>
+            <%= f.hidden_field :file_id, :value => comment.file._id %>
             <%= f.text_area :message %>
           <% end %>
           <%= f.actions do %>

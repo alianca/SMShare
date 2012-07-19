@@ -657,6 +657,25 @@ li.tab-content.remote-tab {
   -moz-border-radius: 7px;
 }
 
+#file-container .comments .answers .answer {
+  background-color: #f0f8fa;
+  border: 1px solid #b9d1d9;
+  margin-left: 32px;
+  margin-bottom: 10px;
+  padding: 7px;
+}
+
+
+#file-container .comments #new_answer textarea {
+  width: 580px;
+  height: 80px;
+  border: none;
+  resize: none;
+  border-radius: 7px;
+  border: 1px solid #7bbacf;
+  -moz-border-radius: 7px;
+}
+
 #file-container .comments {
   padding-bottom: 10px;
 }
@@ -672,7 +691,7 @@ li.tab-content.remote-tab {
   margin-top: 10px;
 }
 
-#file-container .comments textarea {
+#file-container .comments #new-comment-form textarea {
   width: 600px;
   height: 80px;
   border: none;

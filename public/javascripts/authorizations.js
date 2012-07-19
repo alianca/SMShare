@@ -102,7 +102,7 @@ $(document).ready(function() {
 
     /* Cria a caixa de download via AJAX */
     $.ajax({
-      url: "/autorizacao/new?file_id=" + user_file_id + options,
+      url: '/autorizacao/new?file_id=' + user_file_id + '&' + options,
       type: "GET",
       async: false,
       success: function(data) {

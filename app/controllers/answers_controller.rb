@@ -4,7 +4,7 @@ class AnswersController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-    @file = File.find(params[:file_id])
+    @file = UserFile.find(params[:answer][:file_id])
     if current_user == @file.owner
       @comment = @file.comments.find(params[:answer][:comment_id])
       @answer = @comment.answers.create(params[:answer].
@@ -20,9 +20,13 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    @answer = Answer.find(params[:id])
+    @file = UserFile.find(params[:file_id])
+    @answer = @file.comments.map(&:answers).flatten.find(params[:id]).first
     @answer.destroy unless current_user != @answer.owner
-
+    flash[:notice] = "Resposta removida com sucesso."
+  rescue
+    flash[:alert] = "Não foi possível remover a resposta."
+  ensure
     redirect_to :back
   end
 

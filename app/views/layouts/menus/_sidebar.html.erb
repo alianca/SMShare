@@ -12,9 +12,11 @@
       <li class="<%= yield(:page) == "manage_files" ? "active" : "" %>">
         <%= link_to "Gerenciar arquivos", manage_user_panel_path %>
       </li>
+      <!-- UNIMPLEMENTED
       <li class="<%= yield(:page) == "verify_files" ? "active" : "" %>">
         <%= link_to "Verificar validade" %>
       </li>
+      -->
     </ul>
   </li>
 
@@ -51,9 +53,11 @@
       <li class="<%= yield(:page) == "profile_data" ? "active" : "" %>">
         <%= link_to "Meu Perfil", edit_user_path(current_user) %>
       </li>
+      <!-- UNIMPLEMENTED
       <li class="<%= yield(:page) == "payment-requests_data" ? "active" : "" %>">
         <%= link_to "Requisição de Pagamento", user_panel_payment_requests_path %>
       </li>
+      -->
     </ul>
   </li>
 </ul>

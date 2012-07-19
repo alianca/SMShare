@@ -85,6 +85,14 @@ class UserFile
       self.path = a_folder.path
   end
 
+  def name
+    self.filename
+  end
+
+  def name= new_name
+    self.filename = new_name
+  end
+
   # Downloads
   has_many_related :downloads, :foreign_key => :file_id
 

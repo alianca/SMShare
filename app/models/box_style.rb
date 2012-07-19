@@ -4,7 +4,6 @@ class BoxStyle
   field :box_background, :type => String
   field :box_border, :type => String
   field :header_background, :type => String
-  field :box_background_image, :type => BSON::ObjectId
   field :header_text, :type => String
   field :upper_text, :type => String
   field :number_text, :type => String
@@ -20,6 +19,14 @@ class BoxStyle
   field :order, :type => Integer, :default => 0
 
   belongs_to_related :user
+
+  has_one_related :box_image, :foreign_key => :box_style_id
+
+  def box_image
+    BoxImage.find(self.box_image_id)
+  rescue
+    BoxImage.default
+  end
 
   def self.default
     BoxStyle.where(:name => "Estilo smShare").first

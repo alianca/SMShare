@@ -58,21 +58,24 @@ class UserPanelController < ApplicationController
     @files.each { |file| file.folder = @folder; file.save! }
     @folders.each { |folder| folder.parent = @folder; folder.save! }
 
+    flash[:notice] = "Arquivos movidos com sucesso."
     respond_with(@folder, :location => manage_user_panel_path(:folder_id => @folder.parent))
+  rescue
+    flash[:alert] = "Não foi possível mover os arquivos."
+    redirect_to :back
   end
 
   def rename
-    params[:user_file][:files].delete_if { |f| f.blank? }
-    @files = UserFile.where(:_id.in => (params[:user_file][:files].collect { |id| BSON::ObjectId(id) }))
-    @folders = Folder.where(:_id.in => (params[:user_file][:files].collect { |id| BSON::ObjectId(id) }))
-
-    begin
-      @files.each{ |file| file.filename = params[:user_file][:new_name][file.id.to_s]; file.save! }
-      @folders.each{ |folder| folder.name = params[:user_file][:new_name][folder.id.to_s]; folder.save! }
-    rescue
-      flash[:error] = "Não foi possível renomear os arquivos."
+    ids = params[:user_file][:new_name].map{|p| BSON::ObjectId(p[0])}.compact
+    files = UserFile.where(:_id.in => ids) + Folder.where(:_id.in => ids)
+    files.each do |f|
+      f.name = params[:user_file][:new_name][f.id.to_s]
+      f.save!
     end
-
+    flash[:notice] = "Arquivos renomeados com sucesso."
+  rescue
+    flash[:alert] = "Não foi possível renomear os arquivos."
+  ensure
     redirect_to :back
   end
 
@@ -83,12 +86,10 @@ class UserPanelController < ApplicationController
   end
 
   def customize
-    @default_styles = BoxStyle.defaults
-    @user_styles = current_user.box_styles.all
-    @user_default_style = current_user.default_style
-    @default_backgrounds = BoxImage.default_list
-    @user_backgrounds = current_user.box_images.all
-    @user_default_background = current_user.default_box_image
+    @styles = (BoxStyle.defaults + current_user.box_styles.all).uniq
+    @default_style = current_user.default_box_style
+    @backgrounds = (BoxImage.default_list + current_user.box_images.all).uniq
+    @default_background = current_user.default_box_image
   end
 
   private

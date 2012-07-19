@@ -1,10 +1,10 @@
 <div class="answer">
   <div class="header">
     <%= answer.created_at.strftime("%d/%m/%Y") %> |
-    <%= answer.owner.name %>
+    <%= link_to answer.owner.name, user_path(answer.owner) %>
     <% if answer.owner == current_user %>
       <span class="remove">
-        <%= link_to "Remover", answer_path(answer), :method => :delete %>
+        <%= link_to "Remover", answer_path(answer, {:file_id => answer.comment.file._id}), :method => :delete %>
       </span>
     <% end %>
   </div>

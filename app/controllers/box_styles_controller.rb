@@ -1,21 +1,19 @@
+# -*- coding: utf-8 -*-
 class BoxStylesController < ApplicationController
+
   def create
     current_user.box_styles.create(params[:box_style])
     redirect_to :back
   end
 
   def set_default
-    begin
-      current_user.default_style = BoxStyle.find(params[:style][:selected_style])
-    rescue
-      current_user.default_style = current_user.box_styles.find(params[:style][:selected_style])
-    end
-    begin
-      current_user.default_box_image = BoxImage.find(current_user.default_style.box_background_image)
-    rescue
-      current_user.default_box_image = current_user.box_images.find(current_user.default_style.box_background_image)
-    end
-    current_user.save
+    current_user.default_box_style = fetch_box_style
+    current_user.save!
+    flash[:notice] = "Estilo padrão alterado com sucesso."
+  rescue StandardError => e
+    flash[:alert] = "Não foi possível alterar estilo padrão."
+    logger.error e.to_s
+  ensure
     redirect_to :back
   end
 
@@ -26,20 +24,24 @@ class BoxStylesController < ApplicationController
   end
 
   private
-    def generate_javascript_data
-      data = "var options = '"
-      data += "?" if @style || @background
-      data += "style=" + @style if @style
-      data += "&" if @style && @background
-      data += "background=" + @background if @background
-      data += "';\n"
-      file = File.open(Rails.root + "public/javascripts/jquery.js", "r");
-      data += file.read
-      file.close
-      file = File.open(Rails.root + "public/javascripts/authorizations.js", "r");
-      data += file.read # TODO fazer algum processamento antes?
-      file.close
 
-      data
+  def generate_javascript_data
+    opt = {}
+    opt[:style] = @style if @style
+    opt[:background] = @background if @background
+    %~var options = '#{opt.map{|p| p.join('=')}.join('&')}';
+      #{File.read(Rails.root + "public/javascripts/jquery.js")}
+      #{File.read(Rails.root + "public/javascripts/authorizations.js")}
+     ~
+  end
+
+  def fetch_box_style
+    id = params[:style][:selected_style]
+    begin
+      BoxStyle.find id
+    rescue
+      current_user.box_styles.find id
     end
+  end
+
 end

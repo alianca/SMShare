@@ -174,17 +174,7 @@ $(document).ready(function() {
     selected_ids().forEach(function(id) {
       $('#move #user_file_files_' + id).attr('checked', true);
     });
-    $.ajax({
-      url: '/painel/move',
-      type: 'POST',
-      data: $('#move').serialize(),
-      success: function() {
-        console.log("ok");
-      }
-    });
-    e.stopImmediatePropagation();
-    e.preventDefault();
-    return false;
+    $('#move').submit();
   });
 
 
@@ -226,44 +216,7 @@ $(document).ready(function() {
     });
   }
 
-  /* Compressão */
-  $('#compress .actions').click(function(e) {
-    var paths = selected_paths();
-
-    $.ajax({
-      url: '/files/compress/' + format_arch($('#user_file_filename').val()),
-      data: $.param(paths),
-      dataType: 'JSON',
-      type: 'GET',
-      error: function(e) {
-        console.log(e.responseText);
-      },
-      success: function(data) {
-        if (data.code === 'ok') {
-          follow_status(data.value, 'compress', function(file) {
-            ['name', 'type', 'size', 'path'].forEach(function(t) {
-              $('#compress #user_file_file' + t).val(file[t]);
-            });
-            $('#compress #user_file_description').
-              val(Object.keys(paths).join(', '));
-            $('#compress').submit();
-          });
-        }
-        else {
-          console.log(data.value);
-        }
-      }
-    });
-
-    // Don't let the browser handle the event
-    e.stopImmediatePropagation();
-    e.preventDefault();
-    return false;
-  });
-
-
-  $('.select_file').change(function() {
-    /* Ajeita o formulário de rename */
+  function update_rename_form() {
     selected(null, {
       on : function(_, c) {
         $('#rename .field.hidden.' + c.val()).removeClass('hidden');
@@ -273,17 +226,26 @@ $(document).ready(function() {
       }
     });
     $('#rename_placeholder').height($('#rename').height() + 20);
+  }
 
-    /* (des)Habilita os botões */
+  function update_toolbar_buttons() {
     if (selected_any()) {
       $('.actions_menu .need-files.off').removeClass('off');
     } else {
       $('.actions_menu .need-files').addClass('off');
       hide_form();
     }
+  }
 
+
+  $('.select_file').change(function() {
+    update_rename_form();
+    update_toolbar_buttons();
     toggle_all_files(selected_all());
   });
 
+
+  // Update page in case of coming back with saved state
+  $('.select_file').change();
 
 });

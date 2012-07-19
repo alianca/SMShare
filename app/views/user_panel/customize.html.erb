@@ -35,28 +35,27 @@
     <div id="style-list">
       <h3>Lista de modelos</h3>
       <div class="style-list-container">
-        <% i = 0 %>
-        <% [@default_styles, @user_styles].flatten.each do |item| %>
-          <a class="style-list-item <%= item._id == @user_default_style._id ? "selected default" : "" %> id<%= item._id %>">
-            <div class="thumbnail index<%= i %>">
+        <% @styles.each do |item| %>
+        <a class="style-list-item <%= item._id == @default_style._id ? "selected default" : "" %> id<%= item._id %>">
+            <div class="thumbnail">
               <div class="title"><span class="glass"></span>------<span class="right">--</span></div>
               <div class="top">---- ---- ---- ----</div>
               <div class="middle">==== <span>==</span> ====</div>
               <div class="input"><div class="thumb-button"></div></div>
               <div class="style"><%= item.to_json %></div>
+              <div class="bg"><%= item.box_image._id %></div>
             </div>
             <%= item.name %>
 
-            <% if item._id == @user_default_style._id %>
+            <% if item._id == @default_style._id %>
               <%= image_tag "user_panel/default_marker.png" %>
             <% end %>
           </a>
-          <% i += 1 %>
         <% end %>
-        <span class="style"><%= i %></span>
       </div>
       <%= form_for :style, :url => {:controller => :box_styles, :action => :set_default} do |f| %>
         <%= f.hidden_field :selected_style %>
+
         <span class="button blue">
           <span class="left"></span><%= f.button "Tornar padrão" %><span class="right"></span>
         </span>
@@ -100,6 +99,8 @@
 
         <p>Insira abaixo o nome do modelo para adicioná-lo a Lista de Modelos.</p>
 
+        <%= f.hidden_field :box_image_id %>
+
         <%= f.text_field :name, :title => "Dê um nome para o modelo...", :class => "name clear-on-focus" %>
         <span class="button orange">
           <span class="left"></span><%= f.button "Salvar" %><span class="right"></span>
@@ -111,21 +112,18 @@
     <div id="background-list">
       <h3>Lista de fundos</h3>
       <div class="bg-list-container">
-        <% i = 0 %>
-        <% [@default_backgrounds, @user_backgrounds].flatten.each do |item| %>
-          <a class="bg-list-item <%= item._id == @user_default_background._id ? "selected default" : "" %> id<%= item._id %>">
-            <div class="img-thumbnail index<%= i %>"><span class="hidden"><%= item.image.url %></span></div>
+        <% @backgrounds.each do |item| %>
+          <a class="bg-list-item <%= item._id == @default_background._id ? "selected default" : "" %> id<%= item._id %>">
+            <div class="img-thumbnail"><span class="hidden"><%= item.image.url %></span></div>
 
             <%= item.name %>
 
-            <% if item._id == @user_default_background._id %>
+            <% if item._id == @default_background._id %>
               <%= image_tag "user_panel/default_marker.png" %>
             <% end %>
           </a>
-          <% i += 1 %>
         <% end %>
-        <span class="hidden count"><%= i %></span>
-        <span class="hidden default"><%= @user_default_background.image.url %></span>
+        <span class="hidden default"><%= @default_background.image.url %></span>
       </div>
       <%= form_for :bg, :url => {:controller => :box_images, :action => :set_default} do |f| %>
         <%= f.hidden_field :selected_bg %>

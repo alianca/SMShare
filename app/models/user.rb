@@ -18,13 +18,12 @@ class User
   field :remember_created_at, :type => Time
   field :encrypted_password,  :type => String
 
-
   # Define o esquema logico db.users
   field :name,                 :type => String
   field :email,                :type => String
   field :nickname,             :type => String
   field :accepted_terms,       :type => Boolean
-  field :default_style_id,     :type => BSON::ObjectId
+  field :default_box_style_id, :type => BSON::ObjectId
   field :default_box_image_id, :type => BSON::ObjectId
   field :admin,                :type => Boolean, :default => false
   field :blocked,              :type => Boolean, :default => false
@@ -38,9 +37,8 @@ class User
   embeds_many :references, :class_name => "UserReference"
 
   # Caixa de Downloads
-  has_many_related :box_styles, :foreign_key => :user_id
-  has_many_related :box_images, :foreign_key => :user_id
-  before_save :set_default_box_style
+  has_many_related :box_styles, :inverse_of => :user
+  has_many_related :box_images, :inverse_of => :user
 
   # Arquivos
   has_many_related :files,          :class_name => "UserFile", :foreign_key => :owner_id
@@ -84,21 +82,37 @@ class User
     super
   end
 
-  def default_style
-    BoxStyle.find(self.default_style_id) if self.default_style_id
+
+  def default_box_style= style
+    self.default_box_style_id = style._id
+    self.default_box_image_id = nil
   end
 
-  def default_style= style
-    self.default_style_id = style._id
+  def default_box_style
+    begin
+      BoxStyle.find(default_box_style_id)
+    rescue
+      box_styles.find(default_box_style_id)
+    end
+  rescue StandardError => e
+    BoxStyle.default
   end
 
-  def default_box_image
-    BoxImage.find(self.default_box_image_id) if self.default_box_image_id
-  end
 
   def default_box_image= image
     self.default_box_image_id = image._id
   end
+
+  def default_box_image
+    begin
+      BoxImage.find(default_box_image_id)
+    rescue
+      box_images.find(default_box_image_id)
+    end
+  rescue
+    default_box_style.box_image
+  end
+
 
   def age
     if (self.profile.birthday)
@@ -123,11 +137,6 @@ class User
 
   def build_root_folder
     self.root_folder = self.folders.create(:path => "/") unless root_folder
-  end
-
-  def set_default_box_style
-    self.default_style ||= BoxStyle.default
-    self.default_box_image ||= BoxImage.default
   end
 
 end

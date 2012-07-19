@@ -16,7 +16,7 @@ class AuthorizationsController < ApplicationController
     if params[:style]
       @style = BoxStyle.find(params[:style])
     elsif @file
-      @style = @file.owner.default_style
+      @style = @file.owner.default_box_style
     else
       @style = BoxStyle.default
     end

@@ -16,9 +16,6 @@ gem 'bson_ext'
 # To use Devise
 gem 'devise'
 
-# To write news as admin
-gem 'tiny_mce'
-
 # To use Formtastic
 gem 'formtastic'
 

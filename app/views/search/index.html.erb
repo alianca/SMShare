@@ -7,16 +7,16 @@
   <%= render :partial => 'layouts/search/categories' %>
 
   <div id="search-results">
-    <% if @files.count == 0 %>
-      <p class="search-info">Sua busca não pode ser vazia</p>
+    <% if params[:q].blank? %>
+      <p class="search-info"></p>
     <% else %>
       <p class="search-info"><%= search_pagination_info @files, params[:q] %></p>
-
-      <% @files.each do |search_item| %>
-        <%= render :partial => "result", :object => result_for_search_item(search_item) %>
-      <% end %>
-
-      <%= will_paginate @files %>
     <% end %>
+
+    <% @files.each do |search_item| %>
+      <%= render :partial => "result", :object => result_for_search_item(search_item) %>
+    <% end %>
+
+    <%= will_paginate @files %>
   </div>
 </div>

@@ -2,13 +2,13 @@
 <div id="news_edit_container">
   <%= semantic_form_for [:admin, @item] do |f| %>
     <%= f.inputs do %>
-      <h3>Título</h3> <%= f.text_area :title %>
-      <h3>Resumo</h3> <%= f.text_area :short, :class => 'mceEditor' %>
-      <h3>Completa</h3> <%= f.text_area :full, :class => 'mceEditor' %>
+      <%= f.input :title %>
+      <h3>Resumo</h3> <%= f.text_area :short, :class => 'tinymce' %>
+      <h3>Completa</h3> <%= f.text_area :full, :class => 'tinymce' %>
     <% end %>
     <%= link_to "Ver todas as notícias", admin_news_index_path %>
-    <%= f.buttons do %>
-      <%= f.commit_button "Salvar" %>
+    <%= f.actions do %>
+      <%= f.submit "Salvar", :as => :button %>
     <% end %>
   <% end %>
 </div>

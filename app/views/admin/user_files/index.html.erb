@@ -13,7 +13,7 @@
   <tbody>
     <% @files.each do |file| %>
       <tr class="<%= "blocked" if file.blocked? %>">
-        <td><%= link_to file.alias, [:admin, file] %></td>
+        <td><%= link_to file.name, [:admin, file] %></td>
         <td><%= file.statistics.downloads %></td>
         <td><%= file.owner.name %>
         <td><%= file.reports.count %></td>

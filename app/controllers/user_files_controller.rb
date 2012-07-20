@@ -15,7 +15,7 @@ class UserFilesController < ApplicationController
     @comment = Comment.new
     @owner = current_user._id == @file.owner._id
     @user_file_image = UserFileImage.new
-    @comments = @file.comments.paginate(:per_page => 6, :page => params[:page])
+    @comments = @file.comments.to_a.delete_if{|c| c.blocked?}.paginate(:per_page => 6, :page => params[:page])
     render(:show, :layout => 'application')
   end
 

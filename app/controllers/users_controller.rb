@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 class UsersController < ApplicationController
   before_filter :fetch_user, :only => [:show, :edit, :update]
-  before_filter :authenticate_user!
+  before_filter :catch_trespassers!, :only => [:update, :change_password]
+  before_filter :authenticate_user!, :except => [:show]
 
   layout "application"
 
   def show
     @profile = @user.profile
-    @files = @user.files.paginate(:per_page => 10, :page => params[:page])
+    @files = @user.files.where{|f| !f.blocked?}.
+      paginate(:per_page => 10, :page => params[:page])
   end
 
   def edit
@@ -54,5 +56,10 @@ class UsersController < ApplicationController
   private
     def fetch_user
       @user = User.find(params[:id])
+    end
+
+    def catch_trespassers!
+      flash[:alert] = "Boa tentativa, espertalhão..."
+      redirect_to root_path
     end
 end

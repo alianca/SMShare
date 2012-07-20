@@ -47,6 +47,7 @@ Smshare::Application.routes.draw do
     resources :denuncias, :as => :user_file_reports, :controller => "user_file_reports"
     resources :usuarios, :as => :users, :controller => "users" do
       post :block, :unblock, :on => :member
+      post :toggle_admin, :on => :member
     end
     resources :arquivos, :as => :user_files, :controller => "user_files" do
       post :block, :unblock, :on => :member
@@ -70,7 +71,7 @@ Smshare::Application.routes.draw do
 
   resources :denunciar_abuso, :as => :report_abuse, :controller => "report_abuse", :only => [:index]
 
-  resources :feeds, :only => [:index, :show]
+  resources :feeds, :only => [:index, :show], :format => :xml
 
   resources :caixa_download, :controller => :box_styles, :only => [:create] do
     collection do

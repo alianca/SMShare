@@ -8,10 +8,10 @@ xml.rss :version => 2.0 do
 
     @files.each do |f|
       xml.item do
-        xml.title f.alias
+        xml.title f.name
         xml.link user_file_url(f)
         xml.guid user_file_url(f)
-        xml.description ""
+        xml.description f.description
         xml.pubDate pub_date(f.created_at)
       end
     end

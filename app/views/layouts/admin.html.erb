@@ -4,18 +4,18 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <%= title_tag "smShare - Serviço smsharing" %>
   <%= stylesheet_link_tag "formtastic", "formtastic_changes", "admin", "admin/tablesorter", stylesheet_for_controller %>
-  <%= javascript_include_tag "modernizr", "jquery", "rails", "jquery.metadata", "jquery.tablesorter", "jquery.tablesorter.pager", "admin", javascript_for_controller %>
-  <%= include_tiny_mce_if_needed %>
+  <%= javascript_include_tag "modernizr", "jquery", "rails", "jquery.metadata", "jquery.tablesorter",
+      "jquery.tablesorter.pager", "admin", "tiny_mce/tiny_mce", javascript_for_controller %>
   <%= csrf_meta_tag %>
 </head>
 <body>
-  
+
 <div id="header" class="container">
   <%= link_to image_tag("admin/logo.png"), root_path %>
   <%= render :partial => "layouts/login_bar" %>
 </div>
 
-  
+
 <div id="admin-sidebar">
   <%= render :partial => "layouts/menus/admin_sidebar" %>
 </div>
@@ -23,7 +23,7 @@
 <div id="admin-container">
   <p class="notifications notice"><%= notice %></p>
   <p class="notifications alert"><%= alert %></p>
-  
+
   <%= yield %>
 </div>
 

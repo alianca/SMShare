@@ -23,6 +23,8 @@ class UserFile
     indexes :description, :type => :string, :boost => 10
   end
 
+
+
   # Gera o JSON para o ElasticSearch
   def to_indexed_json
     {
@@ -138,6 +140,8 @@ class UserFile
     elsif (!filter.blank? || !order.blank?)
       results = UserFile.all.to_a
     end
+
+    results.delete_if {|f| f.blocked?}
 
     if !filter.blank? && filter != "all"
       category = Category.find(filter)

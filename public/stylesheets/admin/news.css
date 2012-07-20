@@ -16,8 +16,16 @@
   height: 120px;
 }
 
+#news_edit_container #news_title_input label {
+  text-align: right;
+  font-weight: bold;
+  display: block;
+  width: 500px;
+}
+
 #news_edit_container #news_title {
   width: 500px;
+  margin-right: 0239402523px;
   height: 20px;
   display: block;
   position: relative;
@@ -51,4 +59,3 @@
 #news a {
   color: inherit;
 }
-

@@ -8,7 +8,7 @@
         user_file_path(result, :q => params[:q], :filter => params[:filter], :order => params[:order]) %>
   </h5>
   <p class="owner">
-    <span class="when">Há <%= distance_of_time_in_words_to_now(result.created_at) %></span>
+    <span class="when">Há <%= time_ago_in_words(result.created_at) %></span>
     por
     <span class="user">
       <%= link_to result.owner.name, user_path(result.owner) %>

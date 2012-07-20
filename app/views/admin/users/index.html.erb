@@ -8,6 +8,7 @@
       <th>Criação</th>
       <th>Reports</th>
       <th>Bloquear</th>
+      <th>Admin</th>
     </tr>
   </thead>
   <tbody>
@@ -23,6 +24,10 @@
           <% else %>
             <%= link_to "[x]", block_admin_user_path(user), :method => :post %>
           <% end %>
+        </td>
+        <td>
+          <%= link_to(user.admin? ? "[x]" : "[+]",
+              toggle_admin_admin_user_path(user), :method => :post) %>
         </td>
       </tr>
     <% end %>

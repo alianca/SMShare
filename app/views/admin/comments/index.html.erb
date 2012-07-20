@@ -20,13 +20,13 @@
       <tr class="<%= "blocked" if comment.blocked? %>">
         <td><%= comment.created_at.strftime("%d/%m/%Y")%></td>
         <td><%= comment.owner.name %></td>
-        <td><%= comment.file.alias %></td>
+        <td><%= comment.file.name %></td>
         <td><%= comment.file.owner.name %></td>
         <td>
-          <% if comment.blocked?%>
-            <%= link_to "[+]", unblock_admin_comment_path(comment), :method => :post %>
+          <% if comment.blocked? %>
+            <%= link_to "[+]", unblock_admin_comment_path(comment, :file_id => comment.file._id), :method => :post %>
           <% else %>
-            <%= link_to "[x]", block_admin_comment_path(comment), :method => :post %>
+            <%= link_to "[x]", block_admin_comment_path(comment, :file_id => comment.file._id), :method => :post %>
           <% end %>
         </td>
       </tr>

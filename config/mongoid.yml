@@ -12,5 +12,5 @@ test:
 production:
   <<: *defaults
   username: smshare
-  password: teste123
+  password: ZDNmNzExYTdmOTRmMGUxMTM1NWM4ZTA4N2ZlMTZiNGQgIC0K
   database: smshare_production

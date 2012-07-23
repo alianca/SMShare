@@ -4,7 +4,7 @@ require 'digest/md5'
 
 class Authorization < RedisModel
 
-  SECRET = 'it_is_people'
+  SECRET = 'WJlY2E4ZjgwYmFiYzk0YWI4YmRhMjcgIC0K'
 
   ACTION = "http://mozcapag.com:2505/api/messaging/sendPinMt/"
   KEY = "9698CF3F4B2F2598B5AB5181C"
@@ -19,7 +19,7 @@ class Authorization < RedisModel
   end
 
   def url_for(file, address)
-    raise 'Invalid key' if Curl::Easy.perform(confirm_url).body_str != "0"
+#   raise 'Invalid key' if Curl::Easy.perform(confirm_url).body_str != "0"
     expire = (Time.now + 5.hours).to_i
     path = file.filepath.split('/').last
     md5 = Digest::MD5.digest("#{address}:#{SECRET}:#{path}:#{expire}")

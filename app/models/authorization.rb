@@ -11,15 +11,17 @@ class Authorization < RedisModel
   MESSAGE = "Thy download shall start soon." # TODO
 
   def self.register params
-    raise 'Invalid pin' if params[:pin].blank?
+    raise :invalid_pin if params[:pin].blank?
     self.new params[:pin], {
       :msisdn => params[:msisdn],
       :carrier_id => params[:carrier_id]
     }
   end
 
-  def url_for(file, address)
-#   raise 'Invalid key' if Curl::Easy.perform(confirm_url).body_str != "0"
+  def self.url_for(id, file, address)
+#   auth = self.find(id)
+#   raise :invalid_key if auth.nil?
+#   raise :invalid_key if Curl::Easy.perform(auth.confirm_url).body_str != "0"
     expire = (Time.now + 5.hours).to_i
     path = file.filepath.split('/').last
     md5 = Digest::MD5.digest("#{address}:#{SECRET}:#{path}:#{expire}")

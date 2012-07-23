@@ -33,8 +33,8 @@ $(document).ready(function() {
       $('#form_placeholder').show();
     }
   }
-
-
+                  
+                  
   function show_rename() {
     var show = $('#actions_forms :visible')[0] === undefined;
     hide_form();

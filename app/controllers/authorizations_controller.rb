@@ -33,9 +33,9 @@ class AuthorizationsController < ApplicationController
   end
 
   def show
-    @auth = Authorization.find params[:code]
-    raise Error.new unless @auth
-    url = @auth.url_for(@file, request.headers["X-Real-IP"])
+    code = params[:code]
+    ip = request.headers["X-Real-IP"]
+    url = Authorization.url_for(code, @file, ip)
     raise Error.new unless url
     redirect_to url
     @auth.destroy

@@ -132,8 +132,7 @@ $(document).ready(function() {
       }
     }
 
-    // TODO colocar o endereço real
-    code_options = '<script src=\"http://www.smshare.com.br/caixa_download/template';
+    code_options = '<script src="http://www.smshare.net.br/caixa_download/template';
     if (args.length > 0) {
       code_options += '?' + args.map(function(a) {
         if (a.split('=')[0] !== attribute) {

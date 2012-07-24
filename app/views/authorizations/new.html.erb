@@ -1,62 +1,79 @@
-<div id="download_box-<%= @file.id if @file %>" class="download_box">
-  <div class="box-header">
-    <% if @file %>
-      <span class="header-glass"></span>
-      <p class="filename"><em>Arquivo:</em>
-        <%= link_to truncate(@file.filename, :omission => "..." + @file.filename[-4..-1], :length => 32), user_file_path(@file) %>
-      </p>
-      <p class="filesize"><em>(<%= number_to_human_size(@file.filesize) %>)</em></p>
-      <span class="header-bottom"></span>
-    <% else %>
-      <span class="header-glass"></span>
-      <p class="filename"><em>Arquivo Indisponível</em></p>
-      <p class="filesize"><em></em></p>
-      <span class="header-bottom"></span>
-    <% end %>
-  </div>
+<div id="downbox-overlay">
+  <div id="download_box-<%= @file.id if @file %>" class="download_box">
 
-  <% if @file %>
-    <p class="call-to-action">Para baixar o arquivo, envie um SMS com a palavra</p>
-    <p class="sms"><em>SMSHARE</em> para <em>49094<span class="star">*</span></em></p>
-    <p class="price">*custo de R$ 0,86 + impostos</p>
-
-    <div class="code_area">
-      <%= form_tag authorizations_path, :class => :code, :method => :get do %>
-        <%= hidden_field_tag :file_id, @file._id %>
-        <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus" %>
-        <%= submit_tag "Download", :class => "submit" %>
+    <div class="box-header">
+      <% if @file %>
+        <span class="header-glass"></span>
+        <p class="filename"><em>Arquivo:</em>
+          <%= link_to truncate(@file.name, :omission => "..." + @file.name[-4..-1], :length => 32), user_file_path(@file) %>
+        </p>
+        <p class="filesize"><em>(<%= number_to_human_size(@file.filesize) %>)</em></p>
+        <span class="header-bottom"></span>
+      <% else %>
+        <span class="header-glass"></span>
+        <p class="filename"><em>Arquivo Indisponível</em></p>
+        <p class="filesize"><em></em></p>
+        <span class="header-bottom"></span>
       <% end %>
     </div>
 
-  <% else %>
+    <% if @file %>
+<!-- DISABLED ---
+      <p class="call-to-action">Para baixar o arquivo, envie um SMS com a palavra</p>
+      <p class="sms"><em>SMSHARE</em> para <em>49094<span class="star">*</span></em></p>
+      <p class="price">*custo de R$ 0,86 + impostos</p>
 
-    <div class="not-found">
-      <p class="bold">O arquivo que procura foi removido ou não existe</p>
-      <p>Quem sabe você pode achar o que estava procurando em nosso sistema de busca, o smSearch!</p>
+---- TEMPORARY -->
+
+      <p class="call-to-action">Conheça o mais novo serviço de compartilhamentos</p>
+      <p class="sms"><em>WWW.SMSHARE.COM.BR</em></p>
+      <p class="price">Para saber um pouco mais sobre a smShare, preencha abaixo o seu e-mail.</p>
+
+<!-- END TEMPORARY -->
 
       <div class="code_area">
-        <%= form_tag search_index_url, :id => :search_field, :method => :get do %>
-          <%= text_field_tag :q %>
-          <%= submit_tag "Buscar" %>
+        <%= form_tag authorizations_path, :class => :code, :method => :get do %>
+        <%= hidden_field_tag :file_id, @file._id %>
+<!-- DISABLED ---
+        <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus" %>
+---- TEMPORARY -->
+        <%= text_field_tag :code, "", :title => "Digite aqui seu e-mail (opcional)", :class => "code_field clear-on-focus" %>
+<!-- END TEMPORARY -->
+        <%= submit_tag "Download", :class => "submit" %>
         <% end %>
       </div>
+
+    <% else %>
+
+      <div class="not-found">
+        <p class="bold">O arquivo que procura foi removido ou não existe</p>
+        <p>Quem sabe você pode achar o que estava procurando em nosso sistema de busca, o smSearch!</p>
+
+        <div class="code_area">
+          <%= form_tag search_index_url, :id => :search_field, :method => :get do %>
+          <%= text_field_tag :q %>
+          <%= submit_tag "Buscar" %>
+          <% end %>
+        </div>
+      </div>
+
+    <% end %>
+
+    <%= link_to root_url do %>
+      <div class="logo"></div>
+    <% end %>
+
+    <%= link_to root_url, :class => :have_one do %>
+      Tenha um desses você também <span>»</span>
+    <% end %>
+
+    <div id="style-data">
+      <%= @style.to_json %>
     </div>
 
-  <% end %>
+    <div id="background-data">
+      <%= @background.image.url %>
+    </div>
 
-  <%= link_to root_url do %>
-    <div class="logo"></div>
-  <% end %>
-  <%= link_to root_url, :class => :have_one do %>
-    Tenha um desses você também <span>»</span>
-  <% end %>
-
-  <div id="style-data">
-    <%= @style.to_json %>
   </div>
-
-  <div id="background-data">
-    <%= @background.image.url %>
-  </div>
-
 </div>

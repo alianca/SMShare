@@ -47,7 +47,13 @@ function after_create_box(box, base_url) {
   install_clear_on_focus(box);
 
   set_box_style(box, style);
-  $(box).css("background-image", "url(" + background + ")");
+  $(box).css({
+    'position': 'relative',
+    'background-image': 'url(' + background + ')',
+    'margin': 'auto',
+    'top': '50%',
+    'margin-top': '-20%'
+  });
 }
 
 function get_base_url(url) {
@@ -76,10 +82,20 @@ function load_css(base_url) {
 }
 
 $(document).ready(function() {
-  $("a[rel~=\"smshare\"]").click(function (sender) {
-    sender.stopImmediatePropagation();
 
-    var button = sender;
+  $("a[rel~=\"smshare\"]").click(function(e) {
+    e.stopImmediatePropagation();
+    return false;
+  });
+
+  $("a[rel~=\"smshare\"]").hover(function(e) {
+    if ($("#downbox-overlay")[0]) {
+      return true;
+    }
+
+    e.stopImmediatePropagation();
+
+    var button = e;
     var link = button.srcElement || button.target;
 
     while (link.localName != "a") {
@@ -90,12 +106,6 @@ $(document).ready(function() {
     /* Pega os dados do link */
     var path = link.attr("href");
     var user_file_id = path.match(/arquivos\/([0-9a-f]{24})\/?$/)[1];
-
-    /* Verifica se já está aberto para poder fechar */
-    if ($("#download_box-" + user_file_id)[0]) {
-      $("#download_box-" + user_file_id).remove();
-      return false;
-    }
 
     var base_url = get_base_url(path);
     load_css(base_url);
@@ -113,8 +123,26 @@ $(document).ready(function() {
     /* Executa as funções após a criação da caixa */
     after_create_box("#download_box-" + user_file_id, base_url);
 
+    var overlay = $("#downbox-overlay");
+    $("body").prepend(overlay);
+    overlay.css({
+      'z-index': 8001,
+      'position': 'absolute',
+      'background': 'transparent',
+      'width': '500px',
+      'height': '300px',
+      'line-height': '500px',
+      'top': e.pageY - 50,
+      'left': e.pageX - 450
+    });
+
+    overlay.hover(function() {}, function() {
+      overlay.remove();
+    });
+
     /* Retorna falso para o link não ser seguido caso tudo tenha dado certo */
     return false;
-  });
+  }, function() {});
+
 
 });

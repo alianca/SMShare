@@ -1,0 +1,11 @@
+<html>
+  <head>
+    <%= stylesheet_link_tag stylesheet_for_controller %>
+    <%= javascript_include_tag "modernizr", "jquery", "rails", "application",
+        javascript_for_controller
+     %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>

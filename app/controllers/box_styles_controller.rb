@@ -31,7 +31,7 @@ class BoxStylesController < ApplicationController
     opt[:background] = @background if @background
     %~var options = '#{opt.map{|p| p.join('=')}.join('&')}';
       #{File.read(Rails.root + "public/javascripts/jquery.js")}
-      #{File.read(Rails.root + "public/javascripts/authorizations.js")}
+      #{File.read(Rails.root + "public/javascripts/downbox.js")}
      ~
   end
 

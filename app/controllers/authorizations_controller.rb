@@ -6,13 +6,9 @@ class AuthorizationsController < ApplicationController
   respond_to :html
   before_filter :fetch_file, :only => [:new, :show]
   skip_before_filter :verify_authenticity_token, :only => [:create]
+  layout 'authorizations', :only => [:new]
 
   def new
-    # Cabeçalhos necessários para o Cross Origin Resource Sharing
-    headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
-    headers['Access-Control-Allow-Headers'] = 'x-requested-with'
-    headers['Access-Control-Allow-Origin'] = '*'
-
     if params[:style]
       @style = BoxStyle.find(params[:style])
     elsif @file
@@ -29,18 +25,18 @@ class AuthorizationsController < ApplicationController
       BoxImage.default
     end
 
-    respond_with(@file, :layout => nil)
+    respond_with(@file)
   end
 
   def show
     code = params[:code]
     ip = request.headers["X-Real-IP"]
     url = Authorization.url_for(code, @file, ip)
-    raise Error.new unless url
-    redirect_to url
+    raise :invalid_pin unless url
     @auth.destroy
+    render :json => { :url => url }
   rescue
-    render :file => File.join(Rails.root + 'public/404.html')
+    render :json => { :url => nil }
   end
 
   def create

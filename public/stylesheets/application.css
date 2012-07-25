@@ -395,8 +395,13 @@ button, input, textarea, select {
   padding-right: 5px;
 }
 
+#footer #footer-menu #about-menu {
+  width: 120px;
+}
+
 #footer #footer-menu #institutional-menu {
   padding-left: 35px;
+  float: right;
 }
 
 #footer #footer-menu .section .title {
@@ -430,29 +435,15 @@ button, input, textarea, select {
   padding: 0 50px 0 45px;
 }
 
-#footer #logos #talk {
-  margin-top: 22px;
-  float: left;
-}
-
-#footer #logos #alianca {
-  margin: 19px 0 0 36px;
-  float: left;
-}
-
 #footer #logos #rss {
-    margin: 11px 23px 0 0;
-  float: right;
+  display: block;
+  margin: 11px 23px 0 0;
+  float: left;
 }
 
 #footer #logos #twitter {
   margin: 11px 27px 0 0;
-  float: right;
-}
-
-#footer #logos #certisign {
-  margin-top: 9px;
-  float: right;
+  float: left;
 }
 
 #footer #copyright {

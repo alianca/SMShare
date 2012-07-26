@@ -9,8 +9,9 @@ class UserFile
   require File.expand_path('./lib/sentenced_fields')
   include SentencedFields
 
-  FETCH_URL = "localhost:4242/files/fetch/"
-  DESTROY_URL = "localhost:4242/files/destroy/"
+  FILE_SERVER = "http://69.64.50.217:4242"
+  FETCH_URL = "/files/fetch/"
+  DESTROY_URL = "/files/destroy/"
 
   # Busca
   include Tire::Model::Search

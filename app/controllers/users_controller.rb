@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     if (@user.profile.save and @user.save)
       flash[:notice] = "As alterações do perfil foram salvas com sucesso."
     else
-      flash[:alert] = "As alterações não puderam ser salvas."
+      flash[:alert] = @user.errors.first
     end
     redirect_to :back
   end

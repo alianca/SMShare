@@ -59,7 +59,9 @@ class UsersController < ApplicationController
     end
 
     def catch_trespassers!
-      flash[:alert] = "Boa tentativa, espertalhão..."
-      redirect_to root_path
+      if params[:admin]
+        flash[:alert] = "Boa tentativa, espertalhão..."
+        redirect_to root_path
+      end
     end
 end

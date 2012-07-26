@@ -5,36 +5,38 @@
 */
 
 
-function get_real_link(button) {
-  var link = button.srcElement || button.target;
-  while (link.localName != "a") {
-    link = $(link).parent("a")[0];
+function get_real_link(link) {
+  while (link.localName != 'a') {
+    link = $(link).parent('a')[0];
   }
   return $(link);
 }
 
 
-function show_box(base, link, iframe, id, x, y) {
+function show_box(iframe, x, y) {
   var padding = parseInt(iframe.css('padding'));
   iframe.css({
-    'left': x - (padding + 5),
-    'top' : y - (padding + 10)
+    'left': Math.max(x - iframe.width() / 2 - padding, -padding),
+    'top' : Math.max(y - iframe.height() / 2 - padding, -padding)
   });
 
-  iframe.unbind('success');
-  iframe.bind('success', function() {
-    link.attr('url', iframe.attr('src'));
-    iframe.hide();
-  });
-
-  iframe.attr('src', base + '/autorizacao/new?file_id=' + id + '&' + options);
+  iframe.show();
 }
 
 
-function create_iframe() {
-  $('body').prepend('<iframe id="downbox" />');
+function create_iframe(link) {
 
-  var iframe = $('iframe#downbox');
+  var file_id = link.attr('href').match(/arquivos\/([0-9a-f]{24})\/?$/)[1];
+  var base = link.attr('href').match(/^((http:\/\/)?[^\/]*)\//)[1];
+  var url = base + '/autorizacao/new?file_id=' + file_id + '&' + options;
+
+  var iframe = $('<iframe '
+                 + 'id="downbox" '
+                 + 'class="' + file_id + '" '
+                 + 'src="' + url + '" '
+                 + '/>');
+
+  $('body').prepend(iframe);
 
   iframe.css({
     'display': 'none',
@@ -47,18 +49,6 @@ function create_iframe() {
     'height': '215px'
   });
 
-  iframe.load(function() {
-    var src = iframe.attr('src');
-
-    if (/404/.test(src)) {
-      // Download inválido
-      window.location = src;
-    }
-    else {
-      iframe.show();
-    }
-  });
-
   iframe.hover(
     /* in  */ function() {},
     /* out */ function() {
@@ -66,44 +56,36 @@ function create_iframe() {
     }
   );
 
-  iframe.success = function(f) {
-    iframe.success_h = f;
-  };
-
   return iframe;
 }
 
 
 $(document).ready(function() {
-  var iframe = create_iframe();
+  $('a[rel~="smshare"]').each(function() {
 
-  $("a[rel~=\"smshare\"]").click(function(e) {
-    e.stopImmediatePropagation();
-    var url = get_real_link(e).attr('url');
-    if (url) {
-      window.location = url;
-    }
-    return false;
-  });
+    var link = get_real_link(this);
+    var iframe = create_iframe(link);
 
-  $("a[rel~=\"smshare\"]").hover(
-    /* in  */ function(e) {
+    link.click(function(e) {
+      // Ignore clicks
       e.stopImmediatePropagation();
-      var link = get_real_link(e);
-
-      if (iframe.is(':visible') || link.attr('url')) {
-        // Se ja estiver aberto, ou ja tiver um link válido, não exibir a caixa.
-        return false;
-      }
-
-      var file_id = link.attr('href').match(/arquivos\/([0-9a-f]{24})\/?$/)[1];
-      var base = link.attr('href').match(/^([^\/]*)\//)[1];
-
-      show_box(base, link, iframe, file_id, e.pageX, e.pageY);
-
       return false;
-    },
-    /* out */ function() {}
-  );
+    });
 
+    link.hover(
+      /* in  */ function(e) {
+        e.stopImmediatePropagation();
+
+        if (iframe.is(':visible')) {
+          return false; // Não abrir duas vezes
+        }
+
+        show_box(iframe, e.pageX, e.pageY);
+
+        return false;
+      },
+      /* out */ function() {}
+    );
+
+  });
 });

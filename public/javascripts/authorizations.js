@@ -52,23 +52,28 @@ function fetch_style() {
 
 function bind_form(form) {
   form.submit(function() {
-
-    console.log("submitting through ajax");
-
-    $.ajax({
-      url: form.attr('action'),
-      data: form.serialize(),
-      type: 'GET',
-      dataType: 'JSON',
-      error: function(data) {
-        console.error(JSON.stringify(data));
-      },
-      success: function(data) {
-        var iframe = parent.$('iframe#downbox');
-        iframe.attr('src', data.url);
-        iframe.trigger('success');
-      }
-    });
+    var url = form.attr('url');
+    if (url) {
+      window.location = url;
+    }
+    else {
+      $.ajax({
+        url: form.attr('action'),
+        data: form.serialize(),
+        type: 'GET',
+        dataType: 'JSON',
+        error: function(data) {
+          console.error(data.responseText);
+        },
+        success: function(data) {
+          form.attr('url', data.url);
+          var code_field = form.find('.code_field');
+          code_field.val('Download liberado.');
+          code_field.prop('disabled', true);
+          window.location = data.url;
+        }
+      });
+    }
 
     return false;
   });

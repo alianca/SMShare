@@ -74,8 +74,8 @@
 
 #tv .slide .flash {
   position: absolute;
-  right: -35px;
-  top: -10px;
+  right: -2px;
+  top: 10px;
 }
 
 #tv .slide .flash-1 {
@@ -92,6 +92,7 @@
 
 #tv #tv-menu {
   float: right;
+  margin-left: -15px;
   margin-right: 36px;
 }
 

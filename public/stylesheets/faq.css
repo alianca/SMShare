@@ -28,7 +28,7 @@ ul#faq-tab-bar {
   width: 100%;
   list-style: none;
   margin-bottom: 4px;
-  
+
 }
 
 ul#faq-tab-bar li {
@@ -41,7 +41,7 @@ ul#faq-tab-bar li {
   margin-left: 3px;
   margin-right: 3px;
   color: #cccccc;
-  font-size: 22px;
+  font-size: 18px;
   font-weight: bold;
   vertical-align: middle;
   bottom: 4px;
@@ -75,7 +75,7 @@ p.question {
   line-height: 28px;
   background-size: 100%;
   color: #ffffff;
-  font-size: 14px;
+  font-size: 13px;
   padding-left: 5px;
   vertical-align: middle;
   margin-bottom: -11px;
@@ -92,5 +92,3 @@ p.answer {
   line-height: 28px;
   margin-bottom: -11px;
 }
-
-

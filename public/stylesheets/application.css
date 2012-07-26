@@ -22,14 +22,14 @@ body {
   margin: 0;
   background: url(/images/layouts/fundo.jpg) repeat-x;
   background-position-x: 50%;
-  font-family: 'Trebuchet MS', Arial;
-  font-size: 13px;
+  font-family: 'Trebuchet MS', Trebuchet, Arial;
+  font-size: 11px;
 }
 
 button, input, textarea, select {
-  font-family:"Trebuchet MS", Arial;
+  font-family: "Trebuchet MS", Trebuchet, Arial;
   padding:0px;
-  font-size: 13px;
+  font-size: 11px;
 }
 
 .container {

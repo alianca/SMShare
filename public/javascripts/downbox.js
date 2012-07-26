@@ -44,7 +44,7 @@ function create_iframe(link) {
     'position': 'absolute',
     'background': 'transparent',
     'border': 'none',
-    'padding': '100px',
+    'padding': '30px',
     'width': '392px',
     'height': '215px'
   });
@@ -55,6 +55,10 @@ function create_iframe(link) {
       iframe.hide();
     }
   );
+
+  iframe.ready(function() {
+    console.log(iframe);
+  });
 
   return iframe;
 }

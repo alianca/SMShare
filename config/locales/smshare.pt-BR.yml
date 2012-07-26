@@ -16,9 +16,18 @@ pt-BR:
       models:
         user:
           attributes:
+            name:
+              blank: Nome não pode ficar em branco
             email:
+              blank: E-mail não pode ficar em branco
               invalid: E-mail Inválido
+              taken: E-mail pertence a outra conta
             password:
-              confirmation: Confirmação incorreta
+              blank: Senha não pode ficar em branco
+              confirmation: As senhas diferem
             nickname:
+              blank: Nome de usuário não pode ficar em branco
               invalid: Nome de usuário inválido
+              taken: Nome de usuário não disponível
+            accepted_terms:
+              accepted: Você precisa aceitar os termos e condições.

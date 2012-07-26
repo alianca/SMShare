@@ -26,20 +26,20 @@
 ---- TEMPORARY -->
 
       <p class="call-to-action">Conheça o mais novo serviço de compartilhamentos</p>
-      <p class="sms"><em>WWW.SMSHARE.COM.BR</em></p>
+      <p class="sms"><em>WWW.<span class="test">SMSHARE</span>.COM.BR</em></p>
       <p class="price">Para saber um pouco mais sobre a smShare, preencha abaixo o seu e-mail.</p>
 
 <!-- END TEMPORARY -->
 
       <div class="code_area">
         <%= form_tag authorizations_path, :class => :code, :method => :get do %>
-        <%= hidden_field_tag :file_id, @file._id %>
+          <%= hidden_field_tag :file_id, @file._id %>
 <!-- DISABLED ---
-        <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus" %>
+          <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus" %>
 ---- TEMPORARY -->
-        <%= text_field_tag :code, "", :title => "Digite aqui seu e-mail (opcional)", :class => "code_field clear-on-focus" %>
+          <%= text_field_tag :code, "", :title => "Digite aqui seu e-mail (opcional)", :class => "code_field clear-on-focus" %>
 <!-- END TEMPORARY -->
-        <%= submit_tag "Download", :class => "submit" %>
+          <%= submit_tag "Download", :class => "submit" %>
         <% end %>
       </div>
 
@@ -51,21 +51,23 @@
 
         <div class="code_area">
           <%= form_tag search_index_url, :id => :search_field, :method => :get do %>
-          <%= text_field_tag :q %>
-          <%= submit_tag "Buscar" %>
+            <%= text_field_tag :q %>
+            <%= submit_tag "Buscar" %>
           <% end %>
         </div>
       </div>
 
     <% end %>
 
-    <%= link_to root_url do %>
-      <div class="logo"></div>
-    <% end %>
+    <div class="bottom">
+      <%= link_to root_path, :target => "_top" do %>
+        <div class="logo"></div>
+      <% end %>
 
-    <%= link_to root_url, :class => :have_one do %>
-      Tenha um desses você também <span>»</span>
-    <% end %>
+      <%= link_to new_user_registration_path, :class => :have_one, :target => "_top" do %>
+        Tenha um desses você também <span>»</span>
+      <% end %>
+    </div>
 
     <div id="style-data">
       <%= @style.to_json %>

@@ -112,7 +112,7 @@
   clear: both;
   text-align: center;
   margin: 0 !important;
-  padding: 9px 0 1px 0 !important;
+  padding: 4px 0 1px 0 !important;
 }
 
 .download_box .sms {
@@ -127,6 +127,10 @@
   font-style: normal;
 }
 
+.download_box .sms em .test {
+  color: #1d4e5d;
+}
+
 .download_box .sms .star {
   font-weight: normal;
 }
@@ -135,7 +139,7 @@
   font-size: 10px !important;
   text-align: right;
   margin: 0 !important;
-  padding: 2px 14px !important;
+  padding: 2px -2px !important;
 }
 
 .download_box form {
@@ -181,6 +185,10 @@
 
 .download_box .not-found {
   text-align: center !important;
+}
+
+.download_box .bottom {
+  display: block;
 }
 
 .download_box .logo {

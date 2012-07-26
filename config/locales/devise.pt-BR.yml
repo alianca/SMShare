@@ -24,7 +24,7 @@ pt-BR:
       send_instructions: 'Você vai receber um e-mail para confirmar sua conta.'
       confirmed: 'Sua conta foi confirmada. Você está logado.'
     registrations:
-      signed_up: 'Você criou uma nova conta. Uma confirmação foi enviada para o seu e-mail.'
+      signed_up: 'Você criou uma nova conta.'
       updated: 'Você atualizou sua conta.'
       destroyed: 'Sua conta foi cancelada.'
     unlocks:

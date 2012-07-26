@@ -6,7 +6,10 @@
     <%= image_tag "registrations/bloco_de_notas.png" %>
   </div>
 
+<!--
   <p class="call-to-action">Para criar sua conta, certifique-se de digitar um endereço de email válido, após o registro, será necessário confirma-lo em sua caixa de email. Esse passo é necessário para garantir a utilização de todas as funcões da sua conta.</p>
+-->
+  <p class="call-to-action">Faça agora o seu pré-cadastro. Você receberá um e-mail assim que sua conta for liberada.</p>
 
   <%= f.inputs :id => :user_fields do %>
     <%= f.input :name, :label => "Seu nome completo:",
@@ -25,7 +28,8 @@
   <% end %>
 
   <%= f.inputs :id => :terms_field do %>
-    <%= f.input :accepted_terms, :as => :boolean, :label => "Declaro que li e concordo com os Termos e Condições." %>
+    <%= f.input :accepted_terms, :as => :boolean, :label => "Declaro que li e concordo com os " %>
+    <%= link_to('Termos e Condições.', terms_institutional_index_path, :id => 'terms') %>
   <% end %>
 
   <%= f.actions do %>

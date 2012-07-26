@@ -153,7 +153,10 @@
 }
 
 #new_user #terms_field ol li {
+  display: inline;
   margin-bottom: 12px;
+  line-height: 12px;
+  padding-right: 5px;
   overflow: hidden;
 }
 

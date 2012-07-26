@@ -4,8 +4,8 @@
   </div>
 
   <div id="logos">
-    <%= link_to image_tag("layouts/logos/twitter.png"), "", :id => :twitter %>
-    <%= link_to image_tag("layouts/logos/rss.png"), feeds_url, :id => :rss %>
+    <%= link_to image_tag("layouts/logos/twitter.png"), "http://www.twitter.com/smsharing", :id => :twitter %>
+    <%= link_to image_tag("layouts/logos/rss.png"), feeds_path, :id => :rss %>
   </div>
 
   <div id="copyright">
@@ -13,8 +13,8 @@
 
     <br />
 
-    <%= link_to "Política de privacidade", "", :id => "policy" %>
+    <%= link_to "Política de privacidade", privacy_institutional_index_path, :id => "policy" %>
     |
-    <%= link_to "Termos de serviço", "", :id => "terms-of-use" %>
+    <%= link_to "Termos de serviço", terms_institutional_index_path, :id => "terms-of-use" %>
   </div>
 </div>

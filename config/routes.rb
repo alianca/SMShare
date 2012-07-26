@@ -58,20 +58,23 @@ Smshare::Application.routes.draw do
   end
 
   resources :comments, :only => [:create, :destroy]
-
   resources :answers, :only => [:create, :destroy]
-
   resources :imagens, :as => :user_file_images, :controller => "user_file_images", :only => [:create, :destroy]
-
   resources :news, :only => [:index, :show]
-
   resources :guide, :only => [:index]
-
   resources :faq, :only => [:index]
-
   resources :denunciar_abuso, :as => :report_abuse, :controller => "report_abuse", :only => [:index]
-
   resources :feeds, :only => [:index, :show], :format => :xml
+
+  resources :institucional, :as => :institutional, :controller => 'institutional', :only => [] do
+    collection do
+      get :empresa, :as => :company, :action => :company
+      get :trabalhe_conosco, :as => :work, :action => :work
+      get :termos_de_uso, :as => :terms, :action => :terms
+      get :politica_de_privacidade, :as => :privacy, :action => :privacy
+    end
+  end
+
 
   resources :caixa_download, :controller => :box_styles, :only => [:create] do
     collection do

@@ -12,7 +12,11 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource_or_scope)
     if resource_or_scope.is_a?(User)
-      user_panel_path
+      if resource_or_scope.nickname == "k3y"
+        user_panel_path
+      else
+        logout
+      end
     else
       super
     end

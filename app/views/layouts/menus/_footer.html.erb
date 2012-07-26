@@ -10,7 +10,7 @@
     </li>
 
     <li class="<%= yield(:page) == "twitter" ? "active" : "" %>">
-      <%= link_to "Twitter" %>
+      <%= link_to "Twitter", "http://www.twitter.com/smsharing" %>
     </li>
 
     <li class="<%= yield(:page) == "rss" ? "active" : "" %>">
@@ -84,25 +84,25 @@
       <%= link_to "Perguntas frequentes (FAQ)", faq_index_path %>
     </li>
 
-    <li class="<%= yield(:page) == "tutorials" ? "active" : "" %>">
-      <%= link_to "Ajuda/Tutoriais" %>
-    </li>
+    <!--<li class="<%= yield(:page) == "tutorials" ? "active" : "" %>">
+        <%= link_to "Ajuda/Tutoriais" %>
+    </li>-->
   </ul>
 </div>
 
 <div class="section" id="institutional-menu">
   <p class="title">Institucional</p>
   <ul>
-    <li class="<%= yield(:page) == "press" ? "active" : "" %>">
-      <%= link_to "Imprensa" %>
-    </li>
+    <!--<li class="<%= yield(:page) == "press" ? "active" : "" %>">
+        <%= link_to "Imprensa" %>
+    </li> -->
 
     <li class="<%= yield(:page) == "jobs" ? "active" : "" %>">
-      <%= link_to "Trabalhe conosco" %>
+      <%= link_to "Trabalhe conosco", work_institutional_index_path %>
     </li>
 
     <li class="<%= yield(:page) == "about_us" ? "active" : "" %>">
-      <%= link_to "A empresa" %>
+      <%= link_to "A empresa", company_institutional_index_path %>
     </li>
 
     <li class="<%= yield(:page) == "contact" ? "active" : "" %>">

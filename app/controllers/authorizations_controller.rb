@@ -30,7 +30,7 @@ class AuthorizationsController < ApplicationController
 
   def show
     code = params[:code]
-    ip = request.headers["X-Real-IP"]
+    ip = request.env["REMOTE_ADDR"]
     url = Authorization.url_for(code, @file, ip)
     raise :invalid_pin unless url
     @auth.destroy
@@ -57,7 +57,8 @@ class AuthorizationsController < ApplicationController
   end
 
   def save_download_info
-    Download.create(:file => @file, :downloaded_by_ip => request.headers['X-Real-IP'])
+    logger.info "IP: #{request.env['REMOTE_ADDR']}"
+    Download.create(:file => @file, :downloaded_by_ip => request.env['REMOTE_ADDR'])
     @file.save
   end
 

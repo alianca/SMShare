@@ -34,7 +34,7 @@ class Authorization < RedisModel
     path = file.filepath.split('/').last
     md5 = Digest::MD5.digest("#{address}:#{SECRET}:#{path}:#{expire}")
     hash = Base64.encode64(md5).tr('+/', '-_').gsub(/[=\n]/, '')
-    "/files/#{hash}/#{expire}/#{path}/#{file.filename}"
+    "http://69.64.50.217/files/#{hash}/#{expire}/#{path}/#{file.filename}"
   end
 
   private

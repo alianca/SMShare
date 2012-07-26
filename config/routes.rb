@@ -72,6 +72,7 @@ Smshare::Application.routes.draw do
       get :trabalhe_conosco, :as => :work, :action => :work
       get :termos_de_uso, :as => :terms, :action => :terms
       get :politica_de_privacidade, :as => :privacy, :action => :privacy
+      get :contato, :as => :contact, :action => :contact
     end
   end
 

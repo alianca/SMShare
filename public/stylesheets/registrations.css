@@ -112,6 +112,8 @@
 #new_user .call-to-action {
   width: 525px;
   padding: 9px 11px 0 0;
+  font-size: 14px;
+  color: red;
   float: right;
   text-indent: 35px;
   line-height: 18px;

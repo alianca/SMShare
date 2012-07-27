@@ -40,7 +40,7 @@ class UserFilesController < ApplicationController
     if @file.save and @file.valid?
       render :json => {:status => 'ok', :id => @file._id}
     else
-      render :json => {:status => 'error'}
+      render :json => {:status => 'error', :reason => @file.errors.first}
     end
   end
 

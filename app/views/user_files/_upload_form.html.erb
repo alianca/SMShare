@@ -3,6 +3,7 @@
     <%= semantic_form_for @file, :url => "http://69.64.50.217/uploads?X-Progress-ID=#{@file._id}", :html => {:multipart => true, :class => "files_form"} do |f| %>
       <%= f.inputs :class => :file_fields do %>
         <%= hidden_field_tag "X-Progress-ID", @file._id %>
+        <%= hidden_field_tag :user_id, current_user._id %>
 
         <li class="file input required" id="user_file_file_input">
           <input type="file" name="user_file[file]">

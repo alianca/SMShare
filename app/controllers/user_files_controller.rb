@@ -2,7 +2,8 @@
 
 class UserFilesController < ApplicationController
   respond_to :html, :except => [:create]
-  before_filter :authenticate_user!, :except => [:show]
+  before_filter :authenticate_user!, :except => [:show, :create]
+  before_filter :require_admin!, :only => [:new, :create]
   layout "user_panel", :except => [:show, :create]
 
   def new

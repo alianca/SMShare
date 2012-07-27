@@ -76,7 +76,7 @@ $(document).ready(function() {
     var status;
     $.ajax({
       url: "http://69.64.50.217/progress?X-Progress-ID=" + $(form).find(".file_fields input[type=hidden]").val(),
-      dataType: "jsonp",
+      dataType: "json",
       async: false,
       error: function(e) { status = 'error' },
       success: function(data) {

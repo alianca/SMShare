@@ -10,8 +10,8 @@ class UserFile
   include SentencedFields
 
   FILE_SERVER = "http://69.64.50.217:4242"
-  FETCH_URL = "/files/fetch/"
-  DESTROY_URL = "/files/destroy/"
+  FETCH_URL = FILE_SERVER + "/files/fetch/"
+  DESTROY_URL = FILE_SERVER + "/files/destroy/"
 
   # Busca
   include Tire::Model::Search

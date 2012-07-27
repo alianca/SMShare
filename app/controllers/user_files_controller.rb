@@ -34,8 +34,6 @@ class UserFilesController < ApplicationController
   end
 
   def create
-    headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
-    headers['Access-Control-Allow-Origin'] = 'www.smshare.com.br'
     @file = current_user.files.create(params[:user_file].merge(params[:user_file][:file] || {}))
     if @file.save and @file.valid?
       render :json => {:status => 'ok', :id => @file._id}

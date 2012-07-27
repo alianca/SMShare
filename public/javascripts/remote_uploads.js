@@ -1,8 +1,10 @@
 $(document).ready(function() {
 
+  var SERVER_ADDR = 'http://69.64.50.217:4242/';
+
   function track(id) {
     $.ajax({
-      url: '/files/' + id,
+      url: SERVER_ADDR + 'files/' + id,
       dataType: 'JSON',
       error: function(data) {
         console.log(JSON.stringify(data));

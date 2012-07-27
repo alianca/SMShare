@@ -74,7 +74,6 @@ $(document).ready(function() {
 
   function update_status(form) {
     var status;
-    window.domain = 'smshare.net.br';
     $.ajax({
       url: "http://69.64.50.217/progress?X-Progress-ID=" + $(form).find(".file_fields input[type=hidden]").val(),
       dataType: "json",

@@ -34,6 +34,7 @@ class AuthorizationsController < ApplicationController
     url = Authorization.url_for(code, @file, ip)
     raise :invalid_pin unless url
     @auth.destroy
+    save_download_info
     render :json => { :url => url }
   rescue
     render :json => { :url => nil }
@@ -45,7 +46,6 @@ class AuthorizationsController < ApplicationController
                                    :msisdn => xml.at('msisdn').text,
                                    :carrier_id => xml.at('carrier_id').text)
     render :text => '1'
-    save_download_info
   rescue Exception => e
     render :text => "0 # #{e.message}"
   end

@@ -2,6 +2,6 @@
 .rvmrc
 .redcar
 db/*.sqlite3
-log/*.log
+log/*
 tmp
 /public/box_images/

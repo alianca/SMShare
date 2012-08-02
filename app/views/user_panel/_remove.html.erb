@@ -5,7 +5,9 @@
                         :class => "need-files"
                       }) do |f| %>
 
-  <p>Você deseja realmente excluir os arquivos selecionados?</p>
+  <%= f.inputs do %>
+    <p>Você deseja realmente excluir os arquivos selecionados?</p>
+  <% end %>
 
   <%= f.actions do %>
     <%= f.action :submit, :as => :button, :label => "Confirmar" %>

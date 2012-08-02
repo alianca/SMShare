@@ -9,7 +9,7 @@ class UserFile
   require File.expand_path('./lib/sentenced_fields')
   include SentencedFields
 
-  FILE_SERVER = "http://69.64.50.217:4242"
+  FILE_SERVER = "http://69.64.50.217:4242"       # TODO - Colocar num arquivo de configuração
   FETCH_URL = FILE_SERVER + "/files/fetch/"
   DESTROY_URL = FILE_SERVER + "/files/destroy/"
 

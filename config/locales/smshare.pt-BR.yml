@@ -1,4 +1,7 @@
 pt-BR:
+  will_paginate:
+    previous_label: "&laquo"
+    next_label: "&raquo"
   mongoid:
     models:
       user: Usuário
@@ -7,11 +10,6 @@ pt-BR:
       user_file:
         file: Arquivo
         description: Descrição
-  will_paginate:
-    previous_label: &laquo
-    next_label: &raquo
-
-  mongoid:
     errors:
       models:
         user:

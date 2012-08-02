@@ -534,6 +534,7 @@ body {
 table.file_list {
   width: 655px;
   background-color: rgba(190,210,218,0.5);
+  margin-bottom: 30px;
   border-radius: 7px;
   -moz-border-radius: 7px;
   border-spacing: 1px 0;
@@ -751,7 +752,10 @@ table.file_list td.name {
   text-decoration: underline;
 }
 
-#actions_forms #new_folder, #actions_forms #move, #actions_forms #compress {
+#actions_forms #new_folder,
+#actions_forms #move,
+#actions_forms #compress,
+#actions_forms #remove {
   position: absolute;
   display: none;
   top: 201px;

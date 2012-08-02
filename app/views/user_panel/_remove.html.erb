@@ -1,0 +1,14 @@
+<%= semantic_form_for(:user_file,
+                      :url => user_files_path(:folder_id => params[:folder_id]),
+                      :html => {
+                        :id    => "remove",
+                        :class => "need-files"
+                      }) do |f| %>
+
+  <p>Você deseja realmente excluir os arquivos selecionados?</p>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :button, :label => "Confirmar" %>
+  <% end %>
+
+<% end %>

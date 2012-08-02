@@ -33,8 +33,8 @@ $(document).ready(function() {
       $('#form_placeholder').show();
     }
   }
-                  
-                  
+
+
   function show_rename() {
     var show = $('#actions_forms :visible')[0] === undefined;
     hide_form();
@@ -67,19 +67,7 @@ $(document).ready(function() {
     },
 
     remove: function() {
-      $.ajax({
-        url: '/painel',
-        data: $.param({
-          files: selected_ids(),
-          _method: 'DELETE',
-          authenticity_token: $('input[name=authenticity_token]').val()
-        }),
-        type: 'POST',
-        async: false,
-        complete: function() {
-          location.reload(true);
-        }
-      });
+      show_form('#remove');
     },
 
     rename: function() {
@@ -98,6 +86,7 @@ $(document).ready(function() {
 
     }
   };
+
 
   $('.actions_menu a').click(function(e) {
     var value;
@@ -176,6 +165,26 @@ $(document).ready(function() {
     });
     $('#move').submit();
   });
+
+
+  $('#remove .actions').click(function(e) {
+    e.stopImmediatePropagation();
+    $.ajax({
+      url: '/painel',
+      data: $.param({
+        files: selected_ids(),
+        _method: 'DELETE',
+        authenticity_token: $('input[name=authenticity_token]').val()
+      }),
+      type: 'POST',
+      async: false,
+      complete: function() {
+        location.reload(true);
+      }
+    });
+    return false;
+  });
+
 
 
   function follow_status(id, action, callback) {

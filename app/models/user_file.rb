@@ -128,7 +128,7 @@ class UserFile
   end
 
   def summarize_rate
-    rates = self.comments.collect{ |c| c.rate if c.rate > 0 }.compact
+    rates = self.comments.collect{ |c| c.rate if c.rate > 0 }.compact/
     rates.count > 0 ? rates.sum * 1.0 / rates.count : 0.0
   end
 

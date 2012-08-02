@@ -2,8 +2,18 @@ Smshare::Application.routes.draw do
 
   # Rotas do Devise
   # TODO atualizar isso quando a DSL de rotas do Devise 1.1 estiver estavel
-  devise_for :users, :path => "/", :path_names => { :sign_in => "login", :sign_out => "logout", :password => "login/esqueci_senha" }, :skip => [:registration]
-  devise_for :users, :path => "cadastro", :path_names => { :sign_up => "" }, :skip => [:sessions, :password], :controllers => { :registrations => "registrations" }
+  devise_for(:users,
+             :path => "/",
+             :path_names => {:sign_in => "login", :sign_out => "logout", :password => "login/esqueci_senha"},
+             :skip => [:registration],
+             :controllers => {:sessions => "sessions"})
+
+
+  devise_for(:users,
+             :path => "cadastro",
+             :path_names => {:sign_up => ""},
+             :skip => [:sessions, :password],
+             :controllers => {:registrations => "registrations"})
   devise_scope :user do
     post "cadastro/valida_campo" => "registrations#validate_field"
   end
@@ -72,7 +82,6 @@ Smshare::Application.routes.draw do
       get :trabalhe_conosco, :as => :work, :action => :work
       get :termos_de_uso, :as => :terms, :action => :terms
       get :politica_de_privacidade, :as => :privacy, :action => :privacy
-      get :contato, :as => :contact, :action => :contact
     end
   end
 

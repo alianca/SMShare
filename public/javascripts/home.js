@@ -4,10 +4,10 @@ function setAnimation(i) {
   clearTimeout(timeout);
 
   $("#tv-menu li").removeClass("active");
-  $("#tv-menu li:nth(" + i + ")").addClass("active");
+  $("#tv-" + i).addClass("active");
   /* Slide */
   $(".slide").hide();
-  $(".slide:nth(" + i + ")").show();
+  $("#slide-" + i).fadeIn(1000);
 
   timeout = setTimeout(function() {
     setAnimation((i + 1) % $("#tv-menu li").length);
@@ -15,10 +15,8 @@ function setAnimation(i) {
 }
 
 $(document).ready(function() {
-  $("#tv-menu li").each(function (i, element) {
-    $(element).click(function(sender) {
-      setAnimation(i);
-    });
+  $("#tv-menu li").each(function(i, element) {
+    $(element).click(function(sender) { setAnimation(i); });
   });
 
   setAnimation(0);

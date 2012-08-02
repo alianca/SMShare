@@ -145,11 +145,17 @@
       <% else %>
         <div class="no-comments">
           <%= image_tag("search/sem-comentarios.png") %>
-          <p>Seja o primeiro a comentar sobre esse arquivo!</p>
+          <% if current_user.nil? %>
+            <p>Você precisa ser um usuário registrado para comentar.</p>
+          <% elsif current_user == @file.owner %>
+            <p>Não é permitido comentar em seu próprio arquivo.</p>
+          <% else %>
+            <p>Seja o primeiro a comentar sobre esse arquivo!</p>
+          <% end %>
         </div>
       <% end %>
 
-      <% unless current_user == @file.owner %>
+      <% unless current_user == @file.owner or current_user.nil? %>
         <%= semantic_form_for @comment, :html => { :id => "new-comment-form" } do |f| %>
           <%= f.inputs do %>
             <%= f.hidden_field :file, :value => @file._id %>

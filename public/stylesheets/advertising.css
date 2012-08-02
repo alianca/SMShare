@@ -428,7 +428,7 @@
   width: 100px;
   height: 26px;
   padding: 0;
-   -webkit-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
   -moz-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   -o-transform: rotate(-90deg);
@@ -577,4 +577,3 @@
   padding: 0;
   background: url(/images/user_panel/field_right_26.png) no-repeat;
 }
-

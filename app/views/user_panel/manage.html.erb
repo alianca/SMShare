@@ -55,7 +55,8 @@
           <tr class="folder">
             <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file" %></td>
             <td class="name">
-              <%= link_to truncate(f.name, :length => 50, :omission => "..."), manage_user_panel_path(:folder_id => f) %>
+              <%= image_tag icon_for :folder %>
+              <b><%= link_to truncate(f.name, :length => 50, :omission => "..."), manage_user_panel_path(:folder_id => f) %></b>
             </td>
             <td class="size"><%= filesize_for_stat(f.total_size) %></td>
             <td class="created_at"><%= f.created_at.strftime("%d/%m/%Y") %></td>

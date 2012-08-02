@@ -12,6 +12,7 @@
   <div class="body">
     <% if @news %>
       <%= @news.short.html_safe %>
+      <% if @news.count > 0 %>
       <%= link_to "Ler Mais...", news_path(@news), :class => "more" %>
     <% else %>
       <p>Bem vindo ao smShare, navegue em nosso site e conheça esse novo

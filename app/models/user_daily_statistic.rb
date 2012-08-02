@@ -32,8 +32,10 @@ class UserDailyStatistic < Statistic
       g.series(:name => "Downloads", :data=> daily_statistics.collect do |ds|
                  {:name => I18n.l(ds.date, :format => I18n.t("date.formats.long")), :y => ds.downloads}
                end)
-      g.xAxis(:categories => daily_statistics.collect(&:date).collect { |d| I18n.t("date.abbr_day_names")[d.wday] })
-      g.yAxis(:title => {:text => "Downloads", :style => {:color => "#82BACE"}}, :allowDecimals => false)
+      g.xAxis(:categories => daily_statistics.collect(&:date).collect{|d| I18n.t("date.abbr_day_names")[d.wday]})
+      g.yAxis(:title => {:text => "Downloads", :style => {:color => "#82BACE"}},
+              :allowDecimals => false,
+              :min => 0)
       g.legend(:enabled => false)
       g.title nil
     end
@@ -64,7 +66,7 @@ class UserDailyStatistic < Statistic
       g.series(:name => "Downloads", :data => data.collect{ |d| d[:download] })
       g.series(:name => "2º Nivel", :data => data.collect{ |d| d[:referred] })
       g.xAxis(:categories => dates_array, :labels => { :step => (dates_array.length/8.0).ceil })
-      g.yAxis(:title => {:text => "Downloads"}, :allowDecimals => false)
+      g.yAxis(:title => {:text => "Downloads"}, :allowDecimals => false, :min => 0)
       g.legend(:enabled => false)
       g.title nil
     end

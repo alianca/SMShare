@@ -1,7 +1,7 @@
 <div id="upload_forms">
   <div id="user_files_forms">
     <%= semantic_form_for @file,
-                          :url => "http://#{$file_server}/uploads?X-Progress-ID=#{@file._id}",
+                          :url => "/uploads?X-Progress-ID=#{@file._id}",
                           :html => {:multipart => true, :class => "files_form"} do |f| %>
       <%= f.inputs :class => :file_fields do %>
         <%= hidden_field_tag "X-Progress-ID", @file._id %>

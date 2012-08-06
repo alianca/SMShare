@@ -4,7 +4,7 @@ set :deploy_to, "/home/smshare/#{application}"
 
 # Repository
 set :scm, :git
-set :repository,  "git@github.com:edricgarran/SMShare.git"
+set :repository,  "git@github.com:alianca/SMShare.git"
 
 # Run Options
 set :user, "smshare"
@@ -31,7 +31,7 @@ namespace :bundler do
     run "mkdir -p #{File.join(shared_path, 'bundle')}"
     run "ln -s #{File.join(shared_path, 'bundle')} #{File.join(current_release, '.bundle')}"
   end
-  
+
   task :install, :roles => :app do
     bundler.create_symlink
     run "cd #{current_path} && bundle install --deployment"
@@ -42,11 +42,11 @@ after "deploy:symlink", "bundler:install"
 # MongoDB Recipes
 namespace :deploy do
   task :migrate, :only => {:primary => true}, :roles => :db do; end # Ignore Migrations
-  
+
   task :seed do
     run "cd #{current_path}; rake db:seed RAILS_ENV=production"
   end
-  
+
   task :create_indexes do
     run "cd #{current_path}; rake db:create_indexes RAILS_ENV=production"
   end
@@ -56,9 +56,9 @@ after "deploy:symlink", "deploy:create_indexes"
 
 # NginX Recipes
 # namespace :nginx do
-#  desc "Change owner to www-data" 
+#  desc "Change owner to www-data"
 #  task :fix_owner, :roles => [ :app, :db, :web ] do
-#          run "#{try_sudo} chown -R www-data:www-data #{deploy_to}" 
+#          run "#{try_sudo} chown -R www-data:www-data #{deploy_to}"
 #  end
 #end
 #after "deploy:setup", "nginx:fix_owner"

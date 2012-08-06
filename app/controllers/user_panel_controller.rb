@@ -43,9 +43,14 @@ class UserPanelController < ApplicationController
   end
 
   def destroy
-    if params[:files]
-      UserFile.where(:_id.in => (params[:files].collect{ |id| BSON::ObjectId(id) })).destroy_all
-      Folder.where(:_id.in => (params[:files].collect{ |id| BSON::ObjectId(id) })).destroy_all
+    begin
+      if params[:files]
+        UserFile.where(:_id.in => (params[:files].map{ |id| BSON::ObjectId(id) })).destroy_all
+        Folder.where(:_id.in => (params[:files].map{ |id| BSON::ObjectId(id) })).destroy_all
+      end
+      flash[:notice] = "Arquivos removidos com sucesso."
+    rescue
+      flash[:alert] = "Não foi possível remover os arquivos"
     end
     render :nothing => true
   end
@@ -53,8 +58,8 @@ class UserPanelController < ApplicationController
   def move
     params[:user_file][:files].delete_if { |f| f.blank? }
     @folder = current_user.folders.find(params[:user_file][:folder])
-    @files = UserFile.where(:_id.in => (params[:user_file][:files].collect { |id| BSON::ObjectId(id) }))
-    @folders = Folder.where(:_id.in => ((params[:user_file][:files] - [params[:user_file][:folder]]).collect { |id| BSON::ObjectId(id) }))
+    @files = UserFile.where(:_id.in => (params[:user_file][:files].map{ |id| BSON::ObjectId(id) }))
+    @folders = Folder.where(:_id.in => ((params[:user_file][:files] - [params[:user_file][:folder]]).map{ |id| BSON::ObjectId(id) }))
 
     @files.each { |file| file.folder = @folder; file.save! }
     @folders.each { |folder| folder.parent = @folder; folder.save! }

@@ -9,6 +9,7 @@ class Authorization < RedisModel
   ACTION = "http://mozcapag.com:2505/api/messaging/sendPinMt/"
   KEY = "9698CF3F4B2F2598B5AB5181C"
   MESSAGE = "Thy download shall start soon." # TODO
+  FILE_SERVER = "http://#{$file_server}"
 
   def self.register params
     raise :invalid_pin if params[:pin].blank?
@@ -34,7 +35,7 @@ class Authorization < RedisModel
     path = file.filepath.split('/').last
     md5 = Digest::MD5.digest("#{address}:#{SECRET}:#{path}:#{expire}")
     hash = Base64.encode64(md5).tr('+/', '-_').gsub(/[=\n]/, '')
-    "http://69.64.50.217/files/#{hash}/#{expire}/#{path}/#{file.filename}"
+    "#{FILE_SERVER}/files/#{hash}/#{expire}/#{path}/#{file.filename}"
   end
 
   private

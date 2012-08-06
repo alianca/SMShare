@@ -2,13 +2,11 @@ class Jobs::UserFileDownloadJob
   include Resque::Plugins::Status
 
   @queue = :downloads
-  STATUS_URL = "localhost:4242/files/status/"
+  STATUS_URL = "#{$file_server}:4242/files/status/"
 
   def perform
-    puts "Starting loop"
     while true
-      puts "In loop"
-
+      puts "spinning 'round"
       begin
         result = Curl::Easy.perform(STATUS_URL + options['id'])
         status = JSON.parse(result.body_str)['ok']
@@ -19,7 +17,7 @@ class Jobs::UserFileDownloadJob
         return
       end
 
-      if status['ok']
+      if !status['ok'].nil?
         begin
           user = User.find(BSON::ObjectId(options['user_id']))
         rescue
@@ -38,12 +36,12 @@ class Jobs::UserFileDownloadJob
           puts "[ERROR] Invalid File"
           return
         end
-      elsif status['progress']
+      elsif !status['progress'].nil?
         puts status['progress'].to_json
         current = status['progress']['at']
         total = status['progress']['total']
         at(current, total, 'progress' => "%s%%" % [100.0 * current / total])
-      elsif status['error']
+      elsif !status['error'].nil?
         failed('error' => status['error'])
         puts "[ERROR] %s" % [status['error'].to_json]
         return

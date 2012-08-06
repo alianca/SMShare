@@ -2,7 +2,7 @@ $(document).ready(function() {
 
   function track(id) {
     $.ajax({
-      url: '/files/' + id,
+      url: id,
       dataType: 'JSON',
       error: function(data) {
         console.log(JSON.stringify(data));
@@ -40,7 +40,7 @@ $(document).ready(function() {
       url: $('#remote_form').prop('action'),
       data: $('#remote_form').serialize(),
       type: 'POST',
-      dataType: 'json',
+      dataType: 'JSON',
       error: function(data) {
         console.log(JSON.stringify(data));
       },

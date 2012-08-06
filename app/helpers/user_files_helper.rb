@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
+
+TYPE_NAMES_ = {
+  :grafico => "Gráfico",
+  :audio => "Áudio",
+  :video => "Vídeo",
+  :web => "Web",
+  :compactado => "Compactado",
+  :documento => "Documento",
+  :mobile => "Móvel",
+  :programa => "Programa",
+  :other => "Desconhecido"
+}
+
 module UserFilesHelper
 
   def send_tab a_tab
     content_for :send_tab, a_tab
   end
-
-  TYPE_NAMES_ = {
-    :grafico => "Gráfico",
-    :audio => "Áudio",
-    :video => "Vídeo",
-    :web => "Web",
-    :compactado => "Compactado",
-    :documento => "Documento",
-    :mobile => "Móvel",
-    :programa => "Programa",
-    :other => "Desconhecido"
-  }
 
   def type_of mime
     case mime

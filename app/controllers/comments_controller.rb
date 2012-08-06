@@ -1,9 +1,9 @@
 class CommentsController < ApplicationController
 
-  before_filter :authenticate_user!, :only => [:destroy]
+  before_filter :authenticate_user!
 
   def create
-    file = UserFile.find(params[:comment][:file])
+    file = UserFile.Zfind(params[:comment][:file])
     if file.owner != current_user
       file.comments.create(:rate => params[:comment][:rate],
                            :message => params[:comment][:message],
@@ -18,8 +18,10 @@ class CommentsController < ApplicationController
   def destroy
     file = UserFile.find(params[:file_id])
     comment = file.comments.find(params[:id])
-    comment.destroy unless comment.owner != current_user || comment.owner == nil
-    file.needs_statistics!
+    if comment.owner == current_user
+      comment.destroy
+      file.needs_statistics!
+    end
 
     redirect_to :back
   end

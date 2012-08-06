@@ -9,9 +9,9 @@ class UserFile
   require File.expand_path('./lib/sentenced_fields')
   include SentencedFields
 
-  FILE_SERVER = "http://69.64.50.217:4242"       # TODO - Colocar num arquivo de configuração
-  FETCH_URL = FILE_SERVER + "/files/fetch/"
-  DESTROY_URL = FILE_SERVER + "/files/destroy/"
+  FILE_SERVER = "http://#{$file_server}:4242"
+  FETCH_URL = "#{FILE_SERVER}/files/fetch/"
+  DESTROY_URL = "#{FILE_SERVER}/files/destroy/"
 
   # Busca
   include Tire::Model::Search
@@ -128,7 +128,7 @@ class UserFile
   end
 
   def summarize_rate
-    rates = self.comments.collect{ |c| c.rate if c.rate > 0 }.compact/
+    rates = self.comments.collect{ |c| c.rate if c.rate > 0 }.compact
     rates.count > 0 ? rates.sum * 1.0 / rates.count : 0.0
   end
 
@@ -202,8 +202,11 @@ class UserFile
   end
 
   def cleanup_file
-    res = JSON.parse(Curl::Easy.perform(DESTROY_URL + self.file_id).body_str)['ok']
-    raise res['error'] unless res == 'ok'
+    res = JSON.parse(Curl::Easy.perform(DESTROY_URL + self.file_id).body_str)
+    if !res['ok']['error'].nil? and res['ok']['error'] != 'enoent'
+      logger.error res['ok']
+      raise :cleanup_fail
+    end
   end
 
 end

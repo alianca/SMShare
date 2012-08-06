@@ -11,7 +11,7 @@
     <%= f.input :filesize, :as => :hidden %>
     <%= f.input :filetype, :as => :hidden %>
     <%= f.input :description, :as => :hidden %>
-    <%= f.input :public, :as => :hidden, :value => true %>
+    <%= f.input :public, :as => :hidden, :html_input => {:value => true} %>
   <% end %>
 
   <%= f.actions do %>

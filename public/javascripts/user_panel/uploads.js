@@ -75,7 +75,7 @@ $(document).ready(function() {
   function update_status(form) {
     var status;
     $.ajax({
-      url: "http://69.64.50.217/progress?X-Progress-ID=" + $(form).find(".file_fields #X-Progress-ID").val(),
+      url: "/progress?X-Progress-ID=" + $(form).find(".file_fields #X-Progress-ID").val(),
       dataType: "json",
       async: false,
       error: function(e) { status = 'error' },
@@ -107,7 +107,7 @@ $(document).ready(function() {
           $(form).find('.progress_info .filename').append(' - Completo');
           break;
         case 'error':
-          $(form).find('.progress_info .filename').append('Erro: ' + data);
+          $(form).find('.progress_info .filename').append(' - ' + JSON.stringify(data));
           break;
         }
         status = data.state;
@@ -157,7 +157,7 @@ $(document).ready(function() {
         type: 'POST',
         data: new FormData(form),
         cache: false,
-        dataType: 'json',
+        dataType: 'JSON',
         contentType: false,
         processData: false,
         success: function(data) {
@@ -172,7 +172,8 @@ $(document).ready(function() {
   }
 
   $('#upload_forms').append($('.files_form .actions').remove());
-  $('#upload_forms .actions').click(function() {
+  $('#upload_forms .actions').click(function(e) {
+    e.stopImmediatePropagation();
     setup_progress_bars();
     send_files();
     return false;

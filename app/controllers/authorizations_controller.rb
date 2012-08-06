@@ -32,9 +32,10 @@ class AuthorizationsController < ApplicationController
     code = params[:code]
     ip = request.env["REMOTE_ADDR"]
     url = Authorization.url_for(code, @file, ip)
-    raise :invalid_pin unless url
-    @auth.destroy
-    save_download_info
+    unless url.nil?
+      @auth.destroy
+      save_download_info
+    end
     render :json => { :url => url }
   rescue
     render :json => { :url => nil }

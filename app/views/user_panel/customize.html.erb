@@ -26,7 +26,7 @@
 
         <%= link_to image_tag("download_box/logo.png"), root_url, :class => :logo %>
         <%= link_to "", :class => :have_one do %>
-          Tenha um desses você também »</span>
+          Tenha um desses você também »
         <% end %>
       </div>
       <li><a id="generate-code">Gerar código de inserção</a></li>
@@ -36,7 +36,7 @@
       <h3>Lista de modelos</h3>
       <div class="style-list-container">
         <% @styles.each do |item| %>
-        <a class="style-list-item <%= item._id == @default_style._id ? "selected default" : "" %> id<%= item._id %>">
+          <a class="style-list-item <%= item._id == @default_style._id ? "selected default" : "" %> id<%= item._id %>">
             <div class="thumbnail">
               <div class="title"><span class="glass"></span>------<span class="right">--</span></div>
               <div class="top">---- ---- ---- ----</div>
@@ -67,83 +67,83 @@
     <span class="left"></span><%= text_field_tag :code, "", :disabled => "1" %><span class="right"></span>
   </div>
 
-  <div id="color-picker"></div>
+<div id="color-picker"></div>
 
-  <div id="bottom">
-    <div id="style-customize">
-      <h3>Personalize o modelo</h3>
-      <%= form_for :box_style, :url => {:controller => :box_styles, :action => :create} do |f| %>
-        <ol>
-          <li>Fundo da caixa: <div></div><%= f.text_field :box_background, :value => default_box_style[:box_background] %></li>
-          <li>Contorno da caixa: <div></div> <%= f.text_field :box_border, :value => default_box_style[:box_border] %></li>
-          <li>Fundo do cabeçalho: <div></div> <%= f.text_field :header_background, :value => default_box_style[:header_background] %></li>
-          <li>Texto do cabeçalho: <div></div> <%= f.text_field :header_text, :value => default_box_style[:header_text] %></li>
-          <li>Texto superior: <div></div> <%= f.text_field :upper_text, :value => default_box_style[:upper_text] %></li>
-          <li>Texto do número: <div></div> <%= f.text_field :number_text, :value => default_box_style[:number_text] %></li>
-          <li>Texto "para": <div></div> <%= f.text_field :para_text, :value => default_box_style[:para_text] %></li>
-          <li>Texto do custo: <div></div> <%= f.text_field :cost_text, :value => default_box_style[:cost_text] %></li>
-          <li>Fundo do formulário: <div></div> <%= f.text_field :form_background, :value => default_box_style[:form_background] %></li>
-          <li>Contorno do formulário: <div></div> <%= f.text_field :form_border, :value => default_box_style[:form_border] %></li>
-          <li>Texto do formulário: <div></div> <%= f.text_field :form_text, :value => default_box_style[:form_text] %></li>
-          <li>Fundo do botão: <div></div> <%= f.text_field :button_background, :value => default_box_style[:button_background] %></li>
-          <li>Texto no botão: <div></div> <%= f.text_field :button_text, :value => default_box_style[:button_text] %></li>
-          <li>Texto inferior: <div></div> <%= f.text_field :bottom_text, :value => default_box_style[:bottom_text] %></li>
-        </ol>
+<div id="bottom">
+  <div id="style-customize">
+    <h3>Personalize o modelo</h3>
+    <%= form_for :box_style, :url => {:controller => :box_styles, :action => :create} do |f| %>
+    <ol>
+      <li>Fundo da caixa: <div></div><%= f.text_field :box_background, :value => default_box_style[:box_background] %></li>
+      <li>Contorno da caixa: <div></div> <%= f.text_field :box_border, :value => default_box_style[:box_border] %></li>
+      <li>Fundo do cabeçalho: <div></div> <%= f.text_field :header_background, :value => default_box_style[:header_background] %></li>
+      <li>Texto do cabeçalho: <div></div> <%= f.text_field :header_text, :value => default_box_style[:header_text] %></li>
+      <li>Texto superior: <div></div> <%= f.text_field :upper_text, :value => default_box_style[:upper_text] %></li>
+      <li>Texto do número: <div></div> <%= f.text_field :number_text, :value => default_box_style[:number_text] %></li>
+      <li>Texto "para": <div></div> <%= f.text_field :para_text, :value => default_box_style[:para_text] %></li>
+      <li>Texto do custo: <div></div> <%= f.text_field :cost_text, :value => default_box_style[:cost_text] %></li>
+      <li>Fundo do formulário: <div></div> <%= f.text_field :form_background, :value => default_box_style[:form_background] %></li>
+      <li>Contorno do formulário: <div></div> <%= f.text_field :form_border, :value => default_box_style[:form_border] %></li>
+      <li>Texto do formulário: <div></div> <%= f.text_field :form_text, :value => default_box_style[:form_text] %></li>
+      <li>Fundo do botão: <div></div> <%= f.text_field :button_background, :value => default_box_style[:button_background] %></li>
+      <li>Texto no botão: <div></div> <%= f.text_field :button_text, :value => default_box_style[:button_text] %></li>
+      <li>Texto inferior: <div></div> <%= f.text_field :bottom_text, :value => default_box_style[:bottom_text] %></li>
+    </ol>
 
-        <div class="thumbnail">
-          <div class="title"><span class="glass"></span>------<span class="right">--</span></div>
-          <div class="top">---- ---- ---- ----</div>
-          <div class="middle">==== <span>==</span> ====</div>
-          <div class="input"><div class="thumb-button"></div></div>
-        </div>
-
-        <p>Insira abaixo o nome do modelo para adicioná-lo a Lista de Modelos.</p>
-
-        <%= f.hidden_field :box_image_id %>
-
-        <%= f.text_field :name, :title => "Dê um nome para o modelo...", :class => "name clear-on-focus" %>
-        <span class="button orange">
-          <span class="left"></span><%= f.button "Salvar" %><span class="right"></span>
-        </span>
-        <p>Após salvar seu modelo, se desejar utilizá-lo ou torná-lo padrão da sua conta, utilize o botão "Escolher Modelo" logo abaixo da Lista de Modelos.</p>
-      <% end %>
+    <div class="thumbnail">
+      <div class="title"><span class="glass"></span>------<span class="right">--</span></div>
+      <div class="top">---- ---- ---- ----</div>
+      <div class="middle">==== <span>==</span> ====</div>
+      <div class="input"><div class="thumb-button"></div></div>
     </div>
 
-    <div id="background-list">
-      <h3>Lista de fundos</h3>
-      <div class="bg-list-container">
-        <% @backgrounds.each do |item| %>
-          <a class="bg-list-item <%= item._id == @default_background._id ? "selected default" : "" %> id<%= item._id %>">
-            <div class="img-thumbnail"><span class="hidden"><%= item.image.url %></span></div>
+    <p>Insira abaixo o nome do modelo para adicioná-lo a Lista de Modelos.</p>
 
-            <%= item.name %>
+    <%= f.hidden_field :box_image_id %>
 
-            <% if item._id == @default_background._id %>
-              <%= image_tag "user_panel/default_marker.png" %>
-            <% end %>
-          </a>
-        <% end %>
-        <span class="hidden default"><%= @default_background.image.url %></span>
-      </div>
-      <%= form_for :bg, :url => {:controller => :box_images, :action => :set_default} do |f| %>
-        <%= f.hidden_field :selected_bg %>
-        <span class="button blue">
-          <span class="left"></span><%= f.button "Tornar padrão" %><span class="right"></span>
-        </span>
-      <% end %>
-    </div>
-
-    <div id="background-form">
-      <h3>Envie seu próprio fundo</h3>
-      <%= form_for :background,
-                   :html => { :multipart => true },
-                   :url => { :controller => :box_images, :action => :create } do |f| %>
-        <%= f.file_field :image %>
-        <%= f.text_field :name %>
-        <span class="button orange">
-          <span class="left"></span><%= f.button "Confirmar" %><span class="right"></span>
-        </span>
-      <% end %>
-    </div>
+    <%= f.text_field :name, :title => "Dê um nome para o modelo...", :class => "name clear-on-focus" %>
+    <span class="button orange">
+      <span class="left"></span><%= f.button "Salvar" %><span class="right"></span>
+    </span>
+    <p>Após salvar seu modelo, se desejar utilizá-lo ou torná-lo padrão da sua conta, utilize o botão "Escolher Modelo" logo abaixo da Lista de Modelos.</p>
+    <% end %>
   </div>
+
+  <div id="background-list">
+    <h3>Lista de fundos</h3>
+    <div class="bg-list-container">
+      <% @backgrounds.each do |item| %>
+      <a class="bg-list-item <%= item._id == @default_background._id ? "selected default" : "" %> id<%= item._id %>">
+        <div class="img-thumbnail"><span class="hidden"><%= item.image.url %></span></div>
+
+        <%= item.name %>
+
+        <% if item._id == @default_background._id %>
+        <%= image_tag "user_panel/default_marker.png" %>
+        <% end %>
+      </a>
+      <% end %>
+      <span class="hidden default"><%= @default_background.image.url %></span>
+    </div>
+    <%= form_for :bg, :url => {:controller => :box_images, :action => :set_default} do |f| %>
+    <%= f.hidden_field :selected_bg %>
+    <span class="button blue">
+      <span class="left"></span><%= f.button "Tornar padrão" %><span class="right"></span>
+    </span>
+    <% end %>
+  </div>
+
+  <div id="background-form">
+    <h3>Envie seu próprio fundo</h3>
+    <%= form_for :background,
+        :html => { :multipart => true },
+    :url => { :controller => :box_images, :action => :create } do |f| %>
+    <%= f.file_field :image %>
+    <%= f.text_field :name %>
+    <span class="button orange">
+      <span class="left"></span><%= f.button "Confirmar" %><span class="right"></span>
+    </span>
+    <% end %>
+  </div>
+</div>
 </div>

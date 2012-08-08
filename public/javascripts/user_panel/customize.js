@@ -1,66 +1,109 @@
 $(document).ready(function() {
 
+  /* Ignore enter keypress */
+  $('*').keypress(function(e) { return !(e.keyCode == 13); });
+
+  var selectors = {
+    'box_border': ['#download_box',
+                   '#style-customize .thumbnail'],
+
+    'box_background': ['#download_box',
+                       '#style-customize .thumbnail'],
+
+    'header_text': ['#download_box .box-header',
+                    '#download_box .filename',
+                    '#download_box .filesize',
+                    '#style-customize .thumbnail .title'],
+
+    'header_background': ['#download_box .box-header',
+                          '#style-customize .thumbnail .title'],
+
+    'upper_text': ['#download_box .call-to-action',
+                   '#style-customize .thumbnail .top'],
+
+    'para_text': ['#download_box .sms',
+                  '#style-customize .thumbnail .middle span'],
+
+    'number_text': ['#download_box .sms em',
+                    '#style-customize .thumbnail .middle span'],
+
+    'cost_text': ['#download_box .price'],
+
+    'form_background': ['#download_box .code_area',
+                        '#style-customize .thumbnail .input'],
+
+    'form_border': ['#download_box .code_area',
+                    '#style-customize .thumbnail .input'],
+
+    'form_text': ['#download_box .code_area .code_field',
+                  '#style-customize .thumbnail .input'],
+
+    'button_background': ['#download_box .code_area .submit',
+                           '#style-customize .thumbnail .input .thumb-button'],
+
+    'button_text': ['#download_box .code_area .submit'],
+
+    'bottom_text': ['#download_box .have_one']
+  };
+
+  function element(key) {
+    return $(selectors[key].join(','));
+  }
+
+
   /* Atualiza as caixas de cores na personalização */
   $("#style-customize ol li input[type=text]").change(function() {
+    // Quadradinho de cor
     $(this).parent("li").children("div").css("background-color", $(this).val());
-    switch ($(this).attr("name").match(/box_style\[([_a-z]+)\]/)[1]) {
-    case "box_border":
-      $("#download_box, style-customize .thumbnail").
-        css("border", "1px solid " + $(this).val());
-      break;
-    case "box_background":
-      $("#download_box, #style-customize .thumbnail").
-        css("background-color", $(this).val());
-      break;
-    case "header_text":
-      $("#download_box .box-header," +
-        "#download_box .filename," +
-        "#download_box .filesize," +
-        "#style-customize .thumbnail .title").css("color", $(this).val());
-      break;
-    case "header_background":
-      $("#download_box .box-header, #style-customize .thumbnail .title").
-        css("background-color", $(this).val());
-      break;
-    case "upper_text":
-      $("#download_box .call-to-action, #style-customize .thumbnail .top").
-        css("color", $(this).val());
-      break;
-    case "para_text":
-      $("#download_box .sms, #style-customize .thumbnail .middle span").
-        css("color", $(this).val());
-      break;
-    case "number_text":
-      $("#download_box .sms em, #style-customize .thumbnail .middle").
-        css("color", $(this).val());
-      break;
-    case "cost_text":
-      $("#download_box .price").css("color", $(this).val());
-      break;
-    case "form_background":
-      $("#download_box .code_area, #style-customize .thumbnail .input").
-        css("background-color", $(this).val());
-      break;
-    case "form_border":
-      $("#download_box .code_area, #style-customize .thumbnail .input").
-        css("border", "1px solid " + $(this).val());
-      break;
-    case "form_text":
-      $("#download_box .code_area .code_field").css("color", $(this).val());
-      break;
-    case "button_background":
-      $("#download_box .code_area .submit," +
-        "#style-customize .thumbnail .input .thumb-button").
-        css("background-color", $(this).val());
-      break;
-    case "button_text":
-      $("#download_box .code_area .submit").css("color", $(this).val());
-      break;
-    case "bottom_text":
-      $("#download_box .have_one").css("color", $(this).val());
-      break;
-    }
+
+    var part = $(this).attr("name").match(/box_style\[([_a-z]+)\]/)[1];
+    var value = $(this).val();
+    var comps = part.split('_');
+    var type = comps[comps.length - 1];
+
+    element(part).css((function(){
+      switch (type) {
+      case 'border':     return { 'border': '1px solid ' + value };
+      case 'background': return { 'background-color': value };
+      case 'text':       return { 'color': value };
+      }
+    })());
   });
+
+  function blocking(f) {
+    var active = false;
+    return function() {
+      if (active) { return; }
+      active = true;
+      f.apply(this, [function() {
+        active = false;
+      }]);
+    }
+  }
+
+  $('#style-customize ol li input[type=text]').click(blocking(function(done) {
+    var part = $(this).attr("name").match(/box_style\[([_a-z]+)\]/)[1];
+    var comps = part.split('_');
+    var type = comps[comps.length - 1];
+    var the_element = element(part);
+
+    var property = (function(){
+      switch (type) {
+      case 'border': return 'border-color';
+      case 'background': return 'background-color';
+      default: return 'color';
+      }
+    })();
+
+    var original = {};
+    var animated = {};
+    original[property] = the_element.css(property);
+    animated[property] = '#ffff00';
+
+    the_element.animate(animated, 'fast', function() {
+      the_element.animate(original, 'slow', done);
+    });
+  }));
 
 
   /* Ativa o color picker ao clicar na caixa de cor */
@@ -74,6 +117,17 @@ $(document).ready(function() {
     $('#color-picker').css(new_position);
     $('#color-picker').farbtastic(this);
     $('#color-picker').show('fast');
+  });
+
+
+  var box_top = $('#download_box').offset().top;
+  $(window).scroll(function() {
+    var y = $(this).scrollTop();
+
+    $('#download_box').css({
+      position: (y < box_top ? 'absolute' : 'fixed'),
+      top: (y < box_top ? box_top : 0)
+    });
   });
 
 

@@ -1397,6 +1397,7 @@ table.file_list td.name {
 
 #download_box {
   float: left;
+  z-index: 9000;
   width: 342px;
   height: 165px;
   padding: 3px 6px 7px 4px;

@@ -80,6 +80,8 @@ $(document).ready(function() {
       /* in  */ function(e) {
         e.stopImmediatePropagation();
 
+        console.log('Hover at: (' + e.pageX + ', ' + e.pageY + ')');
+
         if (iframe.is(':visible')) {
           return false; // Não abrir duas vezes
         }

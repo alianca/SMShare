@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
   /* Troca o fundo do botão em mouse over */
   $("#files_submit, #links-container a.confirmar").mouseover(function () {
     $(this).css("background", "url(/images/user_files/botao-on.png)");
@@ -14,9 +15,9 @@ $(document).ready(function() {
   });
 
   /* Altera o formato do link */
-  $("#link-type-buttons-container input[name='link-type-option']").change(function () {
-    field = $('#links-container #link-boxes-container .link-box .link-field');
-    selected = $("input[name='link-type-option']:checked").val();
+  $("#link-type-buttons-container input").change(function () {
+    var field = $('#links-container #link-boxes-container .link-box .link-field');
+    var selected = $('#link-type-buttons-container input[type=radio]:checked').val();
     if (selected == "type-html") {
       field.attr('value', '<a href=\"' + field.attr('url-text') + '\">Link</a>');
     } else if (selected == "type-forum") {

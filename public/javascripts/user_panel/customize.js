@@ -75,41 +75,40 @@ $(document).ready(function() {
     return function() {
       if (active) { return; }
       active = true;
-      f.apply(this, [function() {
-        active = false;
-      }]);
+      f.apply(this, [function() { active = false; }]);
     }
   }
 
-  $('#style-customize ol li input[type=text]').click(blocking(function(done) {
-    var part = $(this).attr("name").match(/box_style\[([_a-z]+)\]/)[1];
-    var comps = part.split('_');
-    var type = comps[comps.length - 1];
-    var the_element = element(part);
+  var animate = function(self) {
+    blocking(function(done) {
+      var part = self.attr("name").match(/box_style\[([_a-z]+)\]/)[1];
+      var comps = part.split('_');
+      var type = comps[comps.length - 1];
+      var the_element = element(part);
 
-    var property = (function(){
-      switch (type) {
-      case 'border': return 'border-color';
-      case 'background': return 'background-color';
-      default: return 'color';
-      }
+      var property = (function(){
+        switch (type) {
+        case 'border': return 'border-color';
+        case 'background': return 'background-color';
+        default: return 'color';
+        }
+      })();
+
+      var original = {};
+      var animated = {};
+      original[property] = the_element.css(property);
+      animated[property] = '#ffff00';
+
+      the_element.animate(animated, 'fast', function() {
+        the_element.animate(original, 'slow', done);
+      });
     })();
-
-    var original = {};
-    var animated = {};
-    original[property] = the_element.css(property);
-    animated[property] = '#ffff00';
-
-    the_element.animate(animated, 'fast', function() {
-      the_element.animate(original, 'slow', done);
-    });
-  }));
+  }
 
 
-  /* Ativa o color picker ao clicar na caixa de cor */
-  $('#style-customize ol li input[type=text]').click(function() {
+  function show_color_picker(self) {
     // Posiciona o color picker ao lado da caixa selecionada
-    var field_position = $(this).offset();
+    var field_position = self.offset();
     var new_position = {
       'left' : (field_position.left - 205).toString() + 'px',
       'top'  : (field_position.top).toString() + 'px'
@@ -117,19 +116,26 @@ $(document).ready(function() {
     $('#color-picker').css(new_position);
     $('#color-picker').farbtastic(this);
     $('#color-picker').show('fast');
+  }
+
+
+  /* Ativa o color picker ao clicar na caixa de cor */
+  $('#style-customize ol li input[type=text]').click(function() {
+    animate($(this));
+    show_color_picker($(this));
   });
 
+  if (/customize/g.test(window.location)) {
+    var box_top = $('#download_box').offset().top;
+    $(window).scroll(function() {
+      var y = $(this).scrollTop();
 
-  var box_top = $('#download_box').offset().top;
-  $(window).scroll(function() {
-    var y = $(this).scrollTop();
-
-    $('#download_box').css({
-      position: (y < box_top ? 'absolute' : 'fixed'),
-      top: (y < box_top ? box_top : 0)
+      $('#download_box').css({
+        position: (y < box_top ? 'absolute' : 'fixed'),
+        top: (y < box_top ? box_top : 0)
+      });
     });
-  });
-
+  }
 
   $('#style-customize ol li div').click(function() {
     $(this).parent("li").children("input[type=text]").click().focus();
@@ -158,15 +164,11 @@ $(document).ready(function() {
     thumbnail.find(".input .thumb-button").css("background-color", style.button_background);
   }
 
-  function update_thumbnails() {
-    $('#style-list .style-list-item').each(function() {
-      var thumb = $(this).find('.thumbnail');
-      var style = $.parseJSON(thumb.find('.style').text());
-      set_thumbnail_style(thumb, style);
-    });
-  }
-  update_thumbnails();
-
+  $('#style-list .style-list-item').each(function() {
+    var thumb = $(this).find('.thumbnail');
+    var style = $.parseJSON(thumb.find('.style').text());
+    set_thumbnail_style(thumb, style);
+  });
 
   $("#style-customize ol li input[type=text]").bind('changed_style', function(e, style) {
     var field_name = $(this).attr("name").match(/box_style\[([_a-z]+)\]/)[1];

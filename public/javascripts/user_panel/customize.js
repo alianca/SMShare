@@ -47,7 +47,7 @@ $(document).ready(function() {
   };
 
   function element(key) {
-    return $(selectors[key].join(','));
+    return $(selectors[key].join(', '));
   }
 
 
@@ -79,50 +79,52 @@ $(document).ready(function() {
     }
   }
 
+  function property_for_type(type) {
+    switch (type) {
+    case 'border':     return 'border-color';
+    case 'background': return 'background-color';
+    default:           return 'color';
+    }
+  }
+
   var animate = function(self) {
     blocking(function(done) {
-      var part = self.attr("name").match(/box_style\[([_a-z]+)\]/)[1];
+      var part = $(self).attr("name").match(/box_style\[([_a-z]+)\]/)[1];
       var comps = part.split('_');
       var type = comps[comps.length - 1];
-      var the_element = element(part);
+      var elements = element(part);
+      var property = property_for_type(type);
 
-      var property = (function(){
-        switch (type) {
-        case 'border': return 'border-color';
-        case 'background': return 'background-color';
-        default: return 'color';
-        }
-      })();
+      elements.each(function() {
+        var original = {};
+        var animated = {};
+        original[property] = $(this).css(property);
+        animated[property] = '#ffff00';
 
-      var original = {};
-      var animated = {};
-      original[property] = the_element.css(property);
-      animated[property] = '#ffff00';
-
-      the_element.animate(animated, 'fast', function() {
-        the_element.animate(original, 'slow', done);
+        $(this).animate(animated, 'fast').animate(original, 'slow', done);
       });
+
     })();
   }
 
 
   function show_color_picker(self) {
     // Posiciona o color picker ao lado da caixa selecionada
-    var field_position = self.offset();
+    var field_position = $(self).offset();
     var new_position = {
       'left' : (field_position.left - 205).toString() + 'px',
       'top'  : (field_position.top).toString() + 'px'
     };
     $('#color-picker').css(new_position);
-    $('#color-picker').farbtastic(this);
+    $('#color-picker').farbtastic(self);
     $('#color-picker').show('fast');
   }
 
 
   /* Ativa o color picker ao clicar na caixa de cor */
   $('#style-customize ol li input[type=text]').click(function() {
-    animate($(this));
-    show_color_picker($(this));
+    show_color_picker(this);
+    animate(this);
   });
 
   if (/customize/g.test(window.location)) {

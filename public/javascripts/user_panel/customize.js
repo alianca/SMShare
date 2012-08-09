@@ -98,7 +98,11 @@ $(document).ready(function() {
       elements.each(function() {
         var original = {};
         var animated = {};
-        original[property] = $(this).css(property);
+        if (property == 'border-color') {
+          original[property] = $(this).css('border-top-color');
+        } else {
+          original[property] = $(this).css(property);
+        }
         animated[property] = '#ffff00';
 
         $(this).animate(animated, 'fast').animate(original, 'slow', done);

@@ -14,10 +14,10 @@ function get_real_link(link) {
 
 
 function show_box(iframe, x, y) {
-  var padding = parseInt(iframe.css('padding'));
   iframe.css({
-    'left': Math.max(x - iframe.width() / 2 - padding, -padding),
-    'top' : Math.max(y - iframe.height() / 2 - padding, -padding)
+    'position': 'absolute',
+    'left': Math.max(x - iframe.outerWidth() / 2, (iframe.outerWidth() - iframe.width()) / 2),
+    'top' : Math.max(y - iframe.outerHeight() / 2, (iframe.outerHeight() - iframe.height()) / 2)
   });
 
   iframe.show();

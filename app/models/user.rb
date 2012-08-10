@@ -52,7 +52,6 @@ class User
   # Estatisticas
   embeds_one   :statistics,       :class_name => "UserStatistic"
   embeds_many  :daily_statistics, :class_name => "UserDailyStatistic"
-  after_create :build_statistics
   after_create :generate_statistics!
 
   # Perfil

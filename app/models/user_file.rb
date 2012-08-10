@@ -182,7 +182,7 @@ class UserFile
 
   def needs_statistics!
     Resque.enqueue Jobs::UserFileStatisticsJob, self._id
-    Resque.enqueue Jobs::UserStatisticsJob, self.owner._id
+    self.owner.generate_statistics!
   end
 
   def cleanup_description
@@ -204,7 +204,7 @@ class UserFile
   end
 
   def cleanup_file
-    Resque.enqueue Jobs::UserStatisticsJob, self.owner._id
+    self.owner.generate_statistics!
     res = JSON.parse(Curl::Easy.perform(DESTROY_URL + self.file_id).body_str)
     if !res['error'].nil? and res['error'] != 'enoent'
       logger.error res['error']

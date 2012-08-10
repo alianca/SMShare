@@ -72,14 +72,13 @@ $(document).ready(function() {
   }
 
 
-  function update_status(form) {
-    var status;
+  function update_status(form, done) {
     $.ajax({
       url: "/progress?X-Progress-ID=" + $(form).find(".file_fields #X-Progress-ID").val(),
       dataType: "json",
-      async: false,
       error: function(e) { status = 'error' },
       success: function(data) {
+        console.log(JSON.stringify(data));
         switch (data.state) {
         case 'uploading':
           var updated_at = new Date();
@@ -110,11 +109,20 @@ $(document).ready(function() {
           $(form).find('.progress_info .filename').append(' - ' + JSON.stringify(data));
           break;
         }
-        status = data.state;
+        done(data.state);
       }
     });
+  }
 
-    return status;
+
+  function async_for_each(list, acc, each, done) {
+    if (!list || !list[0]) {
+      done(acc);
+      return;
+    }
+    each(acc, list[0], function(next) {
+      async_for_each(list.slice(1), next, each, done);
+    });
   }
 
 
@@ -133,19 +141,24 @@ $(document).ready(function() {
       return;
     }
 
-    var uploading = forms.filter(function(form) {
-      var status = update_status(form);
-
-      if (status === 'starting' || status === 'uploading') {
-        return form;
-      } else if (status in completed) {
-        completed[status].push(form);
+    async_for_each(
+      forms, [],
+      function(uploading, form, next) {
+        update_status(form, function(status) {
+          if (status === 'starting' || status === 'uploading') {
+            uploading.push(form);
+          } else if (status in completed) {
+            completed[status].push(form);
+          }
+          next(uploading);
+        });
+      },
+      function(uploading) {
+        setTimeout(function() {
+          tick(uploading, completed);
+        }, 200);
       }
-    });
-
-    setTimeout(function() {
-      tick(uploading, completed);
-    }, 500);
+    );
   }
 
   /* Inicia os uploads */

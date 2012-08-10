@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 require File.expand_path('./lib/jobs/user_file_statistics_job')
+require File.expand_path('./lib/jobs/user_statistics_job')
 
 class UserFile
   include Mongoid::Document
@@ -181,6 +182,7 @@ class UserFile
 
   def needs_statistics!
     Resque.enqueue Jobs::UserFileStatisticsJob, self._id
+    Resque.enqueue Jobs::UserStatisticsJob, self.owner._id
   end
 
   def cleanup_description
@@ -202,9 +204,10 @@ class UserFile
   end
 
   def cleanup_file
+    Resque.enqueue Jobs::UserStatisticsJob, self.owner._id
     res = JSON.parse(Curl::Easy.perform(DESTROY_URL + self.file_id).body_str)
-    if !res['ok']['error'].nil? and res['ok']['error'] != 'enoent'
-      logger.error res['ok']
+    if !res['error'].nil? and res['error'] != 'enoent'
+      logger.error res['error']
       raise :cleanup_fail
     end
   end

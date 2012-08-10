@@ -1,0 +1,33 @@
+<div id="buttons">
+  <%= link_to user_panel_advertising_path(:tab => 'horizontals') do %>
+    <div class="button <%= 'active' if @tab == 'horizontals' %>">
+      Horizontais
+    </div>
+  <% end %>
+
+  <%= link_to user_panel_advertising_path(:tab => 'verticals') do %>
+    <div class="button <%= 'active' if @tab == 'verticals' %>">
+      Verticais
+    </div>
+  <% end %>
+
+  <%= link_to user_panel_advertising_path(:tab => 'squares') do %>
+    <div class="button <%= 'active' if @tab == 'squares' %>">
+      Quadrados
+    </div>
+  <% end %>
+
+  <%= link_to user_panel_advertising_path(:tab => 'buttons') do %>
+    <div class="button <%= 'active' if @tab == 'buttons' %>">
+      Botões
+    </div>
+  <% end %>
+
+  <%= link_to user_panel_advertising_path(:tab => 'links') do %>
+    <div class="button <%= 'active' if @tab == 'links' %>">
+      Links
+    </div>
+  <% end %>
+</div>
+
+<%= render :partial => @tab.to_s %>

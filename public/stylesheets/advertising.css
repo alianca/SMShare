@@ -1,5 +1,17 @@
+#user_panel-container iframe {
+    width: 100%;
+    height: auto;
+}
+
+#main-container {
+  width: 1040px;
+  margin-left: 100px;
+  margin-right: 0;
+}
+
 #user_panel-container {
-  width: 660px !important;
+  width: 790px !important;
+  margin-right: 0;
 }
 
 #user_panel-container p {
@@ -60,7 +72,7 @@
 }
 
 #user_panel-container table .reference {
-  width: 200px;
+  width: 10%;
   text-align: left;
 }
 
@@ -97,7 +109,7 @@
 
 #user_panel-container .button {
   display: inline-block;
-  width: 120px;
+  width: 19.7%;
   height: 30px;
   line-height: 30px;
   margin: 10px 0;
@@ -109,6 +121,7 @@
   text-align: center;
   font-size: 16px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 #user_panel-container .button.active {
@@ -134,6 +147,7 @@
   border-radius: 7px;
   -moz-border-radius: 7px;
   background-color: #7bbacf;
+  cursor: pointer;
   color: white;
 }
 
@@ -183,6 +197,10 @@
   border: 1px solid #7bbacf;
 }
 
+#user_panel-container .box img {
+    border: none;
+}
+
 #user_panel-container .box .dimensions {
   display: inline-block;
   float: right;
@@ -205,18 +223,18 @@
 }
 
 #user_panel-container .box.horizontal {
-  width: 646px;
-  height: 121px;
+  width: 790px;
+  height: 131px;
   margin: 0 0 15px 0;
 }
 
 #user_panel-container .box.horizontal .preview-container {
-  height: 90px;
+  height: 100px;
 }
 
 #user_panel-container .box.horizontal.big .preview {
-  width: 580px;
-  height: 82px;
+  width: 728px;
+  height: 90px;
 }
 
 #user_panel-container .box.horizontal.medium .preview {
@@ -487,7 +505,6 @@
   border-radius: 0 0 10px 10px;
   -moz-border-radius: 0 0 10px 10px;
   height: 40px;
-  width: 660px;
   line-height: 40px;
 }
 

@@ -60,38 +60,33 @@
 </table>
 
 <h3> <%= image_tag "user_panel/banners.png" %> Banners e Links </h3>
+
 <div id="buttons">
-  <%= link_to user_panel_advertising_path(:tab => 'horizontals') do %>
-    <div class="button <%= 'active' if @tab == 'horizontals' %>">
-      Horizontais
-    </div>
-  <% end %>
+  <div id="horizontal" class="button active">
+    Horizontais
+  </div>
 
-  <%= link_to user_panel_advertising_path(:tab => 'verticals') do %>
-    <div class="button <%= 'active' if @tab == 'verticals' %>">
-      Verticais
-    </div>
-  <% end %>
+  <div id="vertical" class="button">
+    Verticais
+  </div>
 
-  <%= link_to user_panel_advertising_path(:tab => 'squares') do %>
-    <div class="button <%= 'active' if @tab == 'squares' %>">
-      Quadrados
-    </div>
-  <% end %>
+  <div id="square" class="button">
+    Quadrados
+  </div>
 
-  <%= link_to user_panel_advertising_path(:tab => 'buttons') do %>
-    <div class="button <%= 'active' if @tab == 'buttons' %>">
-      Botões
-    </div>
-  <% end %>
+  <div id="button" class="button">
+    Botões
+  </div>
 
-  <%= link_to user_panel_advertising_path(:tab => 'links') do %>
-    <div class="button <%= 'active' if @tab == 'links' %>">
-      Links
-    </div>
-  <% end %>
+  <div id="links-box" class="button">
+    Links
+  </div>
 </div>
 
-<%= render :partial => @tab.to_s %>
-
+<div id="boxes">
+  <%= render :partial => 'horizontals' %>
+  <%= render :partial => 'verticals' %>
+  <%= render :partial => 'squares' %>
+  <%= render :partial => 'buttons' %>
+  <%= render :partial => 'links' %>
 </div>

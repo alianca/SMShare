@@ -1,18 +1,14 @@
 <div class="box big horizontal">
   <ol>
-    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:big => 'a'})) do %>
-      <li <%= "class=active" if @boxes[:big] == 'a' || @boxes[:big] == nil %> >a</li>
-    <% end %>
-    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:big => 'b'})) do %>
-      <li <%= "class=active" if @boxes[:big] == 'b' %> >b</li>
-    <% end %>
-    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:big => 'c'})) do %>
-      <li <%= "class=active" if @boxes[:big] == 'c' %> >c</li>
-    <% end %>
+    <li class="mini active">a</li>
+    <li class="mini">b</li>
+    <li class="mini">c</li>
   </ol>
 
   <div class="preview-container">
-    <div class="preview"></div>
+    <div class="preview a"> <img src="/images/advertising/banner728x90.jpg"></img> </div>
+    <div class="preview b"> <img src="/images/advertising/banner728x90.jpg"></img> </div>
+    <div class="preview c"> <img src="/images/advertising/banner728x90.jpg"></img> </div>
   </div>
 
   <div class="url-container">
@@ -22,24 +18,20 @@
     </span>
   </div>
 
-  <span class="dimensions">768x90</span>
+  <span class="dimensions">728x90</span>
 </div>
 
 <div class="box medium horizontal">
   <ol>
-    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:medium => 'a'})) do %>
-      <li <%= "class=active" if @boxes[:medium] == 'a' || @boxes[:medium] == nil %> >a</li>
-    <% end %>
-    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:medium => 'b'})) do %>
-      <li <%= "class=active" if @boxes[:medium] == 'b' %> >b</li>
-    <% end %>
-    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:medium => 'c'})) do %>
-      <li <%= "class=active" if @boxes[:medium] == 'c' %> >c</li>
-    <% end %>
+    <li class="mini active">a</li>
+    <li class="mini">b</li>
+    <li class="mini">c</li>
   </ol>
 
   <div class="preview-container">
-    <div class="preview"></div>
+    <div class="preview a"> <img src="/images/advertising/banner468x60.jpg"></img> </div>
+    <div class="preview b"> <img src="/images/advertising/banner468x60.jpg"></img> </div>
+    <div class="preview c"> <img src="/images/advertising/banner468x60.jpg"></img> </div>
   </div>
 
   <div class="url-container">
@@ -54,19 +46,15 @@
 
 <div class="box small horizontal">
   <ol>
-    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:small => 'a'})) do %>
-      <li <%= "class=active" if @boxes[:small] == 'a' || @boxes[:small] == nil %> >a</li>
-    <% end %>
-    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:small => 'b'})) do %>
-      <li <%= "class=active" if @boxes[:small] == 'b' %> >b</li>
-    <% end %>
-    <%= link_to params.merge(:boxes => (params[:boxes] || {}).merge({:small => 'c'})) do %>
-      <li <%= "class=active" if @boxes[:small] == 'c' %> >c</li>
-    <% end %>
+    <li class="mini active">a</li>
+    <li class="mini">b</li>
+    <li class="mini">c</li>
   </ol>
 
   <div class="preview-container">
-    <div class="preview"></div>
+    <div class="preview a"> <img src="/images/advertising/banner234x60.jpg"></img> </div>
+    <div class="preview b"> <img src="/images/advertising/banner234x60.jpg"></img> </div>
+    <div class="preview c"> <img src="/images/advertising/banner234x60.jpg"></img> </div>
   </div>
 
   <div class="url-container">

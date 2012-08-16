@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
+
+class Array
+  def groups_of n
+    a = dup
+    r = []
+    while a.length > n
+      r.push a.take n
+      a = a.drop n
+    end
+    r.push a if a.length > 0
+    return r
+  end
+end
+
 class PaymentRequest
   include Mongoid::Document
 
-  # Estados
-  #
-  # PagSeguro
-  # :pending -> :complete
-  #        \
-  #         > :canceled
-  #
-  # Paypal
-  # :pending -> :waiting_user -> :complete
-  #        \                \
-  #         > :canceled      > :refused_by_user
-  #
-
-  field :status, :type => Symbol, :default => :pending # Valid statuses: :complete, :pending, :canceled, :waiting_user, :refused_by_user
-  field :payment_method, :type => Symbol # Valid methods: :paypal, :pag_seguro
+  field :status, :type => Symbol, :default => :pending # Valid statuses: :complete, :pending, :failed
+  field :payment_method, :type => Symbol # Valid methods: :paypal
   field :payment_account, :type => String
   field :value, :type => Float
   field :referred_value, :type => Float
@@ -33,13 +34,13 @@ class PaymentRequest
   scope :pending, where(:status.in => [:pending, :waiting_user])
   scope :canceled, where(:status.in => [:canceled, :refused_by_user])
 
-  def value
-    self.status == :pending ? user.statistics.revenue_available_for_payment : self[:value]
-  end
+#  def value
+#    self.status == :pending ? user.statistics.revenue_available_for_payment : self[:value]
+#  end
 
-  def referred_value
-    self.status == :pending ? user.statistics.referred_revenue_available_for_payment : self[:referred_value]
-  end
+#  def referred_value
+#    self.status == :pending ? user.statistics.referred_revenue_available_for_payment : self[:referred_value]
+#  end
 
   def total
     value + referred_value
@@ -61,17 +62,51 @@ class PaymentRequest
     end
   end
 
+  SMSHARE_USER = "smshare"
+  SMSHARE_PASS = "TODO_use_real_pass"
+  SMSHARE_SIGN = "TODO_use_real_sign"
+  PAYPAL = (if Rails.env == :production
+            then "https://api-3t.paypal.com/nvp"
+            else "https://api-3t.sandbox.paypal.com/nvp"
+            end)
+
+  def self.send_payments_for_month month
+    general_info = [ "USER=#{SMSHARE_USER}",
+                     "PWD=#{SMSHARE_PASS}",
+                     "SIGNATURE=#{SMSHARE_SIGN}",
+                     "METHOD=MassPay",
+                     "CURRENCYCODE=BRL",
+                     "RECEIVERTYPE=EmailAddress" ].join('&')
+
+    self.
+      where(:status.in => [:pending, :failed]).delete_if{|r| r.request_month != month}.to_a.
+      groups_of(250).map do |group|
+      [group, group.each_with_index.map{|p, i|
+         "L_EMAIL#{i.to_s}=#{p.payment_account}&L_AMT#{i.to_s}=#{p.total.to_s}"
+       }.join('&')]
+    end.each do |r_data|
+      res = CGI.parse(Curl::Easy.perform("#{PAYPAL}?#{general_info}&#{r_data[1]}").body_str)
+      r_data[0].each{ |r|
+        r.status = (res['ACK'] == 'Failure' ? :failed : :complete)
+        r.save
+        r.user.generate_statistics!
+      }
+    end
+  end
+
   private
-    # mes começa no dia 5
-    def set_request_month
-      if requested_at.day > 5
-        self.request_month = Date.new(requested_at.year, requested_at.month, 1)
+
+  # mes começa no dia 5
+  def set_request_month
+    if requested_at.day > 5
+      self.request_month = Date.new(requested_at.year, requested_at.month, 1)
+    else
+      if requested_at.month == 1
+        self.request_month = Date.new(requested_at.year-1, 12, 1)
       else
-        if requested_at.month == 1
-          self.request_month = Date.new(requested_at.year-1, 12, 1)
-        else
-          self.request_month = Date.new(requested_at.year, requested_at.month-1, 1)
-        end
+        self.request_month = Date.new(requested_at.year, requested_at.month-1, 1)
       end
     end
+  end
+
 end

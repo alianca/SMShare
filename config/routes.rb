@@ -55,9 +55,9 @@ Smshare::Application.routes.draw do
   namespace :admin do
     resources :noticias, :as => :news, :controller => "news", :except => [:show]
     resources :denuncias, :as => :user_file_reports, :controller => "user_file_reports"
+    resources :requisicoes_de_pagamento, :as => :payment_requests, :controller => :payment_requests, :only => [:index, :create]
     resources :usuarios, :as => :users, :controller => "users" do
-      post :block, :unblock, :on => :member
-      post :toggle_admin, :on => :member
+      post :block, :unblock, :toggle_admin, :on => :member
     end
     resources :arquivos, :as => :user_files, :controller => "user_files" do
       post :block, :unblock, :on => :member

@@ -35,7 +35,8 @@ function set_box_style(box, style) {
   box.find('.call-to-action').css('color', style.upper_text);
   box.find('.sms').css('color', style.para_text);
   box.find('.sms em').css('color', style.number_text);
-  box.find('.price').css('color', style.cost_text);
+  box.find('.price-box').css('background-color', style.header_background);
+  box.find('.price').css('color', style.header_text);
   box.find('form').css('background-color', style.form_background);
   box.find('form').css('border', '1px solid ' + style.form_border);
   box.find('form .code_field').css('color', style.form_text);
@@ -83,4 +84,13 @@ $(document).ready(function() {
   var box = $('#downbox-overlay .download_box');
   set_box_style(box, fetch_style());
   bind_form(box.find('form'));
+
+  (function fade_time(which) {
+    $('.price:visible').hide();
+    $('.price.' + which).fadeIn('fast');
+    setTimeout(function(){
+      fade_time(which == 'normal' ? 'pack' : 'normal');
+    }, 3000);
+  })('normal');
+
 });

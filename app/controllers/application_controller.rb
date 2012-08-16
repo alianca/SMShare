@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   before_filter :save_reference!
   protect_from_forgery
   layout 'application'
+  respond_to :html
 
   private
 

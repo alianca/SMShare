@@ -1,17 +1,17 @@
 class PaymentRequestsController < ApplicationController
-  respond_to :html
-
   before_filter :authenticate_user!
   before_filter :fetch_payment_requests
 
-  layout "user_panel"
+  layout "user_panel", :except => []
 
   def show
     respond_with(@payment_requests)
   end
 
   def create
-    current_user.payment_requests.create(params[:payment_request])
+    current_user.payment_requests.create params[:payment_request].
+      merge({ :value => current_user.statistics.revenue_available_for_payment,
+              :referred_value => current_user.statistics.referred_revenue_available_for_payment })
     respond_with(@payment_requests, :location => user_panel_payment_requests_path)
   end
 

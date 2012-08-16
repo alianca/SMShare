@@ -3,6 +3,18 @@ body {
   margin: 10px auto;
 }
 
+#admin-container table,
+#admin-container table td {
+  font-size: 11px;
+  text-align: center;
+  border: 1px solid #efefef;
+  margin-top: 20px;
+}
+
+#admin-container table tfoot {
+  font-weight: bold;
+}
+
 #admin-sidebar {
   width: 140px;
   border-right: 1px solid orange;
@@ -16,7 +28,7 @@ body {
 
 #admin-sidebar li.menu {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 14px;
   margin-top: 10px;
 }
 
@@ -63,13 +75,13 @@ body {
   color: #A5784B;
 }
 
-#header #header-login #profile-link { 
+#header #header-login #profile-link {
   padding-right: 4px;
   border-right: 1px solid #b7dee3;
   color: #645C54;
 }
 
-#header #header-login #profile-link a { 
+#header #header-login #profile-link a {
   font-weight: bold;
 }
 

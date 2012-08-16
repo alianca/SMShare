@@ -135,14 +135,9 @@
   font-weight: normal;
 }
 
-.download_box .price {
-  font-size: 10px !important;
-  text-align: right;
-  margin: 0 !important;
-  padding: 2px -2px !important;
-}
-
 .download_box form {
+  position: relative;
+  z-index: 8000;
   width: 310px;
   height: 24px;
   margin: 4px 12px !important;
@@ -221,4 +216,40 @@
 .download_box form input[type=text] {
   border: none;
   width: 188px;
+}
+
+
+.download_box .price-spaceholder {
+  display: block;
+  height: 21px;
+  margin-bottom: -10px;
+  margin-right: 8px;
+  margin-top: 10px;
+}
+
+.download_box .price-box {
+  position: relative;
+  z-index: 7999;
+  display: block;
+  float: right;
+  line-height: 16px;
+  height: 20px;
+  width: 230px;
+  border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+}
+
+.download_box .price-box .price-glass {
+  display: block;
+  height: 8px;
+  border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.download_box .price {
+  float: right;
+  display: block;
+  font-size: 10px;
+  margin: -8px 5px;
 }

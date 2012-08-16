@@ -20,7 +20,12 @@
 
 <%= semantic_form_for payment_request_for_this_month, :url => user_panel_payment_requests_path do |f| %>
   <%= f.inputs do %>
-    <%= f.input :payment_method, :label => "Forma de pagamento", :as => :radio, :collection => [[image_tag("payment_requests/pagseguro.png"), :pag_seguro], [image_tag("payment_requests/paypal.png"), :paypal]], :input_html => {:disabled => !payment_request_for_this_month.new_record?} %>
+<!-- Pagseguro não suporta multi pagamentos -->
+    <%= f.input :payment_method, :label => "Forma de pagamento", :as => :radio, :collection => [
+      #   [image_tag("payment_requests/pagseguro.png"), :pag_seguro],
+          [image_tag("payment_requests/paypal.png"), :paypal]
+        ], :input_html => {:disabled => !payment_request_for_this_month.new_record?}
+    %>
     <%= f.input :payment_account, :label => "Conta para pagamento", :input_html => {:disabled => !payment_request_for_this_month.new_record?} %>
   <% end %>
 
@@ -49,14 +54,14 @@
   <body>
     <% @payment_requests.each do |pr| %>
       <tr class="<%= pr.status %>">
-        <th class="status"><%= pr.status %></th>
-        <th class="id"><%= pr._id %></th>
-        <th class="request_month"><%= pr.request_month %></th>
-        <th class="completed_at"><%= pr.completed_at %><%= "*" if pr.status != :complete %></th>
-        <th class="payment_method <%= pr.payment_method %>"><%= pr.payment_method %></th>
-        <th class="value"><%= "%0.2f" % pr.value %></th>
-        <th class="referred_value"><%= "%0.2f" % pr.referred_value %></th>
-        <th class="total"><%= "%0.2f" % (pr.value + pr.referred_value) %></th>
+        <td class="status"><%= pr.status %></td>
+        <td class="id"><%= pr._id %></td>
+        <td class="request_month"><%= pr.request_month %></td>
+        <td class="completed_at"><%= pr.completed_at %><%= "*" if pr.status != :complete %></td>
+        <td class="payment_method <%= pr.payment_method %>"><%= pr.payment_method %></td>
+        <td class="value"><%= "%0.2f" % pr.value %></td>
+        <td class="referred_value"><%= "%0.2f" % pr.referred_value %></td>
+        <td class="total"><%= "%0.2f" % pr.total %></td>
       </tr>
     <% end %>
   </body>

@@ -29,6 +29,7 @@ class ApplicationController < ActionController::Base
         referred_banner.got_click unless current_user == referred_user
       end
     end
+  rescue
   end
 
 end

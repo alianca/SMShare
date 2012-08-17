@@ -1,9 +1,8 @@
 Factory.define :user_file do |uf|
-  tempfile = Tempfile.new("somefile.txt")
-  tempfile.write("Hello World!")
-  tempfile.flush
-  
-  uf.file tempfile
-  uf.description "Test file with 'Hello World!'"
+  uf.filename 'fake_file.txt'
+  uf.filepath '/some/fake/path'
+  uf.filesize 42
+  uf.filetype 'text/plain'
+  uf.description "Fake test file"
   uf.owner { |owner| owner.association :user }
 end

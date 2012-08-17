@@ -1,6 +1,7 @@
 class Admin::PaymentRequestsController < AdminController
   def index
-    respond_with(@payment_requests = PaymentRequest.all)
+    respond_with(@completed = PaymentRequest.where(:status => :complete),
+                 @pending = PaymentRequest.where(:status => :pending))
   end
 
   # Efetuar pagamentos

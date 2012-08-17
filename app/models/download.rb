@@ -17,7 +17,7 @@ class Download
 
   private
     def set_downloaded_at
-      self.downloaded_at = Time.now.utc if !downloaded_at
+      self.downloaded_at ||= Time.now.utc
     end
 
     def set_filesize

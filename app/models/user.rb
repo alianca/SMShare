@@ -10,13 +10,13 @@ class User
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
-  field :sign_in_count,       :type => Integer, :default => 0
-  field :current_sign_in_at,  :type => Time
-  field :last_sign_in_at,     :type => Time
-  field :current_sign_in_ip,  :type => String
-  field :last_sign_in_ip,     :type => String
-  field :remember_created_at, :type => Time
-  field :encrypted_password,  :type => String
+  field :sign_in_count,        :type => Integer, :default => 0
+  field :current_sign_in_at,   :type => Time
+  field :last_sign_in_at,      :type => Time
+  field :current_sign_in_ip,   :type => String
+  field :last_sign_in_ip,      :type => String
+  field :remember_created_at,  :type => Time
+  field :encrypted_password,   :type => String
 
   # Define o esquema logico db.users
   field :name,                 :type => String
@@ -52,7 +52,7 @@ class User
   # Estatisticas
   embeds_one   :statistics,       :class_name => "UserStatistic"
   embeds_many  :daily_statistics, :class_name => "UserDailyStatistic"
-  after_create :generate_statistics!
+  after_create :build_statistics!
 
   # Perfil
   embeds_one   :profile, :class_name => "Profile"
@@ -124,7 +124,8 @@ class User
   def downloads_for date
     file_downloads.
       where(:downloaded_at.gte => date.to_time.utc.beginning_of_day).
-      where(:downloaded_at.lte => date.to_time.utc.end_of_day).count
+      where(:downloaded_at.lte => date.to_time.utc.end_of_day).
+      count
   end
 
   def generate_statistics!
@@ -133,6 +134,11 @@ class User
   end
 
   private
+
+  def build_statistics!
+    self.create_statistics
+    self.statistics.generate_statistics!
+  end
 
   def build_root_folder
     self.root_folder = self.folders.create(:path => "/") unless root_folder

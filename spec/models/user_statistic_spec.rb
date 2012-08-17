@@ -1,27 +1,29 @@
 require 'spec_helper'
 
 describe UserStatistic do
+
   before(:each) do
-    @user = Factory.create :user
-    @referred_user = Factory.create :user, :referrer => @user, :nickname => "other_user"
-  
-    tempfile1 = Tempfile.new("somefile.txt")
-    tempfile1.write("A"*200)
-    tempfile1.flush
-    @file1 = Factory.create :user_file, :owner => @user, :file => tempfile1    
-    tempfile2 = Tempfile.new("otherfile.txt")
-    tempfile2.write("A"*400)
-    tempfile2.flush
-    @file2 = Factory.create :user_file, :owner => @user, :file => tempfile2
-    @file3 = Factory.create :user_file, :owner => @referred_user, :file => tempfile2    
-  
-    @download1 = Factory.create :download, :file => @file1
-    @download2 = Factory.create :download, :file => @file1
-    @download3 = Factory.create :download, :file => @file2
-    @download4 = Factory.create :download, :file => @file3
-  
-    @user.statistics.generate_statistics!            
-    @user.reload
+    @users = [@user = (Factory.create :user),
+              @referred_user = (Factory.create :user, :referrer => @user, :nickname => "other_user")
+             ]
+
+    @files = [@file1 = (Factory.create :user_file, :owner => @user),
+              @file2 = (Factory.create :user_file, :owner => @user),
+              @file3 = (Factory.create :user_file, :owner => @referred_user)
+             ]
+
+    @downloads = [@download1 = (Factory.create :download, :file => @file1),
+                  @download2 = (Factory.create :download, :file => @file1),
+                  @download3 = (Factory.create :download, :file => @file2),
+                  @download4 = (Factory.create :download, :file => @file3)
+                 ]
+
+    @files.each(&:needs_statistics!)
+
+    @users.each do |u|
+      u.generate_statistics!
+      u.reload
+    end
   end
 
   it "should store the number of files" do
@@ -29,7 +31,7 @@ describe UserStatistic do
   end
 
   it "should store the size of the files" do
-    @user.statistics.files_size.should == 600
+    @user.statistics.files_size.should == 84
   end
 
   it "should store the number of times all files were downloaded" do
@@ -41,18 +43,19 @@ describe UserStatistic do
   end
 
   it "should store the bandwidth consumed by the downloads" do
-    @user.statistics.bandwidth.should == 800
+    @user.statistics.bandwidth.should == 126
   end
 
   it "should store the revenue by the downloads" do
-    @user.statistics.revenue.should == 0.0
+    (@user.statistics.revenue - 0.15).should < 0.001
   end
 
   it "should store the revenue by referred user's downloads" do
-    @user.statistics.referred_revenue.should == 0.0
+    (@user.statistics.referred_revenue - 0.01).should < 0.001
   end
 
   it "should store the date of the last update" do
     @user.statistics.updated_at.should be_instance_of(Time)
   end
+
 end

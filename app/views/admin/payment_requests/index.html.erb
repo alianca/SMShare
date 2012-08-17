@@ -4,7 +4,7 @@
   <td>
     <span>Mês:
       <select name="month">
-        <% @payment_requests.collect(&:request_month).each do |m| %>
+        <% @pending.collect(&:request_month).each do |m| %>
           <option value="<%= m %>"><%= m %></option>
         <% end %>
       </select>
@@ -13,10 +13,49 @@
   <td><%= button_tag "Pagar", :as => :submit %></td>
 <% end %>
 
+<h3>Pendentes</h3>
 <table id="users" class="tablesorter">
   <thead>
     <tr>
       <th>Status</th>
+      <th>Nome</th>
+      <th>Mês</th>
+      <th>Método</th>
+      <th>Downloads</th>
+      <th>2º Nível</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pending.each do |pr| %>
+      <tr class="request <%= pr.status %>">
+        <td><%= pr.status %></td>
+        <td><%= link_to pr.user.name, [:admin, pr.user] %></td>
+        <td><%= pr.request_month %></td>
+        <td><%= pr.payment_method %></td>
+        <td><%= "%0.2f" % pr.value %></td>
+        <td><%= "%0.2f" % pr.referred_value %></td>
+        <td><%= "%0.2f" % pr.total %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>Total</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td><%= "%0.2f" % @pending.collect(&:value).sum %></td>
+      <td><%= "%0.2f" % @pending.collect(&:referred_value).sum %></td>
+      <td><%= "%0.2f" % @pending.collect(&:total).sum %></td>
+    </tr>
+  </tfoot>
+</table>
+
+<h3>Histórico</h3>
+<table id="users" class="tablesorter">
+  <thead>
+    <tr>
       <th>Nome</th>
       <th>Mês</th>
       <th>Data de Pagamento</th>
@@ -27,12 +66,11 @@
     </tr>
   </thead>
   <tbody>
-    <% @payment_requests.each do |pr| %>
+    <% @completed.each do |pr| %>
       <tr class="request <%= pr.status %>">
-        <td><%= pr.status %></td>
         <td><%= link_to pr.user.name, [:admin, pr.user] %></td>
         <td><%= pr.request_month %></td>
-        <td><%= pr.completed_at %><%= "*" if pr.status != :complete %></td>
+        <td><%= pr.completed_at %></td>
         <td><%= pr.payment_method %></td>
         <td><%= "%0.2f" % pr.value %></td>
         <td><%= "%0.2f" % pr.referred_value %></td>
@@ -40,18 +78,15 @@
       </tr>
     <% end %>
   </tbody>
-
   <tfoot>
     <tr>
       <td>Total</td>
       <td>-</td>
       <td>-</td>
       <td>-</td>
-      <td>-</td>
-      <td><%= "%0.2f" % @payment_requests.collect(&:value).sum %></td>
-      <td><%= "%0.2f" % @payment_requests.collect(&:referred_value).sum %></td>
-      <td><%= "%0.2f" % @payment_requests.collect(&:total).sum %></td>
+      <td><%= "%0.2f" % @completed.collect(&:value).sum %></td>
+      <td><%= "%0.2f" % @completed.collect(&:referred_value).sum %></td>
+      <td><%= "%0.2f" % @completed.collect(&:total).sum %></td>
     </tr>
   </tfoot>
-
 </table>

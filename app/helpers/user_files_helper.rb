@@ -1,18 +1,7 @@
 # -*- coding: utf-8 -*-
 
-TYPE_NAMES_ = {
-  :grafico => "Gráfico",
-  :audio => "Áudio",
-  :video => "Vídeo",
-  :web => "Web",
-  :compactado => "Compactado",
-  :documento => "Documento",
-  :mobile => "Móvel",
-  :programa => "Programa",
-  :other => "Desconhecido"
-}
-
 module UserFilesHelper
+  TYPE_NAMES_ =
 
   def send_tab a_tab
     content_for :send_tab, a_tab
@@ -40,7 +29,15 @@ module UserFilesHelper
   end
 
   def name_for type
-    TYPE_NAMES_[type]
+    { :grafico => "Gráfico",
+      :audio => "Áudio",
+      :video => "Vídeo",
+      :web => "Web",
+      :compactado => "Compactado",
+      :documento => "Documento",
+      :mobile => "Móvel",
+      :programa => "Programa",
+      :other => "Desconhecido" }[type]
   end
 
   def icon_for type
@@ -50,5 +47,4 @@ module UserFilesHelper
   def thumb_for type
     "search/thumb-" + type.to_s + ".png"
   end
-
 end

@@ -63,5 +63,5 @@ group :test do
   gem 'cucumber-rails'
   gem 'cucumber'
   gem 'database_cleaner'
-  # gem 'factory_girl_rails'
+  gem 'factory_girl_rails', '~> 1.1'
 end

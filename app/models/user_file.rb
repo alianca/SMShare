@@ -84,7 +84,7 @@ class UserFile
   end
 
   def folder= a_folder
-      self.path = a_folder.path
+    self.path = "#{a_folder.path}#{a_folder._id}/"
   end
 
   def name
@@ -112,6 +112,10 @@ class UserFile
   # Validações
   validates :owner, :presence => true
   validates :description, :presence => true
+  validates :filename, :presence => true
+  validates :filepath, :presence => true
+  validates :filesize, :presence => true
+  validates :filetype, :presence => true
   before_validation :cleanup_description
 
   # Sentenced Fields para as Tags
@@ -192,7 +196,8 @@ class UserFile
   end
 
   def normalize_tags
-    tags.collect! do |tag|
+    self.tags ||= []
+    self.tags.collect! do |tag|
       tag.strip.parameterize
     end
     tags.delete("")
@@ -205,10 +210,12 @@ class UserFile
 
   def cleanup_file
     self.owner.generate_statistics!
-    res = JSON.parse(Curl::Easy.perform(DESTROY_URL + self.file_id).body_str)
-    if !res['error'].nil? and res['error'] != 'enoent'
-      logger.error res['error']
-      raise :cleanup_fail
+    if [:production, :development].include? Rails.env.to_sym
+      res = JSON.parse(Curl::Easy.perform(DESTROY_URL + self.file_id).body_str)
+      if !res['error'].nil? and res['error'] != 'enoent'
+        logger.error res['error']
+        raise :cleanup_fail
+      end
     end
   end
 

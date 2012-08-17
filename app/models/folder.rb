@@ -18,7 +18,11 @@ class Folder
   belongs_to_related :owner, :class_name => "User"
 
   def files
-    path ? owner.files.where(:path => path) : []
+    if self.parent
+      owner.files.where(:path => "#{self.path}#{self._id}/")
+    else
+      owner.files.where(:path => "/")
+    end
   end
 
   def paginate current_page, per_page
@@ -45,11 +49,9 @@ class Folder
       # Ambos
       else
         results = children.
-          order_by(:created_at => :desc).
           offset((current_page - 1) * per_page).
           limit(total_folders % per_page).to_a
         results += files.
-          order_by(:created_at => :desc).
           offset((current_page - 1) * per_page - total_folders + total_folders % per_page).
           limit(per_page-(total_folders%per_page)).to_a
 
@@ -81,7 +83,11 @@ class Folder
   def build_path
     fs = self.files
     cs = self.children
-    self.path = "#{parent.path}#{self._id}/" if parent
+    if parent
+      self.path = "#{parent.path}#{parent._id}/"
+    else
+      self.path = "/"
+    end
     fs.each { |f| f.folder = self; f.save! }
     cs.each(&:save!)
   end

@@ -13,27 +13,34 @@
 
   <%= f.inputs :id => :user_fields do %>
     <%= f.input :name, :label => "Seu nome completo:",
-                :hint => "Preencha o campo ao lado com seu nome e sobrenome completo." %>
+                :hint => "Preencha o campo ao lado com seu nome e sobrenome completo.",
+                :tabindex => 1 %>
     <%= f.input :email, :label => "Seu e-mail (válido):", :required => true,
                 :hint => "Tenha certeza que o e-mail digitado está correto e se trata
-                          de um endereço ativo para que você possa confirmar seu cadastro posteriormente." %>
+                          de um endereço ativo para que você possa confirmar seu cadastro posteriormente.",
+                :tabindex => 2 %>
     <%= f.input :nickname, :label => "Escolha um login:", :required => true,
                 :hint => "O login deve possuir pelo menos 4 caracteres. Podendo conter somente letras, números,
-                          e os símbolos ponto(.), hífen(-) e sublinhado(_)." %>
+                          e os símbolos ponto(.), hífen(-) e sublinhado(_).",
+                :tabindex => 3 %>
     <%= f.input :password, :label => "Escolha uma senha:", :required => true,
-          :hint => "Sua senha deve possuir pelo menos 5 caracteres. Recomenda-se o uso de integração de números,
-                    símbolos, letras maiúsculas e minúsculas para garantir uma maior segurança em sua conta." %>
+                :hint => "Sua senha deve possuir pelo menos 5 caracteres. Recomenda-se o uso de integração de números,
+                    símbolos, letras maiúsculas e minúsculas para garantir uma maior segurança em sua conta.",
+                :tabindex => 4 %>
     <%= f.input :password_confirmation, :label => "Confirme a senha:", :required => true,
-          :hint => "Repita pausadamente a senha informada anteriormente para garantir que não houve nenhum engano durante a digitação." %>
+                :hint => "Repita pausadamente a senha informada anteriormente para garantir que não houve nenhum engano durante a digitação.",
+                :tabindex => 5 %>
   <% end %>
 
   <%= f.inputs :id => :terms_field do %>
-    <%= f.input :accepted_terms, :as => :boolean, :label => "Declaro que li e concordo com os " %>
+    <%= f.input :accepted_terms, :as => :boolean,
+                :label => "Declaro que li e concordo com os",
+                :tabindex => 6 %>
     <%= link_to('Termos e Condições.', terms_institutional_index_path, :id => 'terms') %>
   <% end %>
 
   <%= f.actions do %>
-    <%= f.action :submit, :as => :button, :name => "Confirmar" %>
+    <%= f.action :submit, :as => :button, :name => "Confirmar", :tabindex => 7 %>
   <% end %>
 
 <% end %>

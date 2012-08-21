@@ -17,13 +17,7 @@ class Folder
   # Usuario
   belongs_to_related :owner, :class_name => "User"
 
-  def files
-    if self.parent
-      owner.files.where(:path => "#{self.path}#{self._id}/")
-    else
-      owner.files.where(:path => "/")
-    end
-  end
+  has_many_related :files, :class_name => "UserFile"
 
   def paginate current_page, per_page
     current_page = current_page.blank? ? 1 : current_page.to_i
@@ -77,6 +71,8 @@ class Folder
     self.files.each(&:destroy)
     self.children.each(&:destroy)
   end
+
+  validates :owner, :presence => true
 
   private
 

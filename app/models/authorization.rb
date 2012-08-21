@@ -35,6 +35,9 @@ class Authorization < RedisModel
     path = file.filepath.split('/').last
     md5 = Digest::MD5.digest("#{address}:#{SECRET}:#{path}:#{expire}")
     hash = Base64.encode64(md5).tr('+/', '-_').gsub(/[=\n]/, '')
+
+    # auth.destroy
+
     "#{FILE_SERVER}/files/#{hash}/#{expire}/#{path}/#{file.filename}"
   end
 

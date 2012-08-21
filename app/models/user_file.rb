@@ -61,7 +61,7 @@ class UserFile
   field :blocked, :type => Boolean, :default => false
 
   # File management
-  field :path, :type => String, :default => "/"
+  belongs_to_related :folder, :inverse_of => :files
 
   # Usuario
   belongs_to_related :owner, :class_name => "User"
@@ -77,15 +77,6 @@ class UserFile
 
   # Denuncias
   embeds_many :reports, :class_name => "UserFileReport"
-
-  # Pasta
-  def folder
-    owner.folders.where(:path => path).first
-  end
-
-  def folder= a_folder
-    self.path = "#{a_folder.path}#{a_folder._id}/"
-  end
 
   def name
     self.filename
@@ -120,6 +111,8 @@ class UserFile
 
   # Sentenced Fields para as Tags
   sentenced_fields :tags
+
+  before_save :ensure_folder
 
   # Remover arquivo fisico
   before_destroy :cleanup_file
@@ -217,6 +210,10 @@ class UserFile
         raise :cleanup_fail
       end
     end
+  end
+
+  def ensure_folder
+    self.folder ||= owner.root_folder
   end
 
 end

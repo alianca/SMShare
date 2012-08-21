@@ -7,7 +7,12 @@ class UserReference
 
   embedded_in :user, :inverse_of => :reference
 
-  validates :name, :presence => true, :uniqueness => true
+  validates :name, {
+    :presence => true,
+    :uniqueness => true
+  }
+
+  before_create :sanitize_name
 
   def signups
     referees.count
@@ -24,5 +29,11 @@ class UserReference
 
   def referees
     self.user.referred.where(:referred_by => self.name).compact
+  end
+
+  private
+
+  def sanitize_name
+    self.name.gsub! /[^\w_]/, '-'
   end
 end

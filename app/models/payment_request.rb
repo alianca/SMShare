@@ -13,6 +13,54 @@ class Array
   end
 end
 
+class PaypalRequest
+  if Rails.env == :production
+    USER = "smshare"
+    PASS = "TODO_use_real_pass"
+    URL = "https://api-3t.paypal.com/nvp/2.0"
+  else
+    USER = "smshare_test"
+    PASS = "test_pass"
+    URL = "https://api.sandbox.paypal.com/nvp"
+  end
+
+  def initialize method, params
+    @method = method
+    @params = params
+  end
+
+  def perform
+    CGI.parse(Curl::Easy.perform("#{URL}?#{serialize}").body_str)
+  end
+
+  private
+
+  def serialize
+    PaypalRequest.to_qs({ :user => USER,
+                          :pwd => PASS,
+                          :method => @method.to_s.split('_').map(&:capitalize).join('')
+                        }.merge(@params))
+  end
+
+  def self.to_qs(hash, i=nil)
+    hash.map do |k, v|
+      if v.class == Array
+          v.each_with_index.map{|e, i| self.to_qs(e, i)}.join('&')
+      else
+        "#{k.to_s.upcase}#{i ? i.to_s : ''}=" +
+          case v.class
+          when Symbol
+            v.to_s.split('_').map(&:capitalize).join('')
+          when String
+            v
+          when Fixnum
+            v.to_s
+          end
+      end
+    end.join('&')
+  end
+end
+
 class PaymentRequest
   include Mongoid::Document
 
@@ -31,22 +79,13 @@ class PaymentRequest
   validate :request_month, :uniqueness => true, :scope => [:user_id]
 
   scope :completed, where(:status => :complete)
-  scope :pending, where(:status.in => [:pending, :waiting_user])
-  scope :canceled, where(:status.in => [:canceled, :refused_by_user])
-
-#  def value
-#    self.status == :pending ? user.statistics.revenue_available_for_payment : self[:value]
-#  end
-
-#  def referred_value
-#    self.status == :pending ? user.statistics.referred_revenue_available_for_payment : self[:referred_value]
-#  end
+  scope :pending, where(:status.in => [:pending, :failed])
 
   def total
     value + referred_value
   end
 
-  def request_month
+  def readable_request_month
     I18n.translate("date.month_names")[self[:request_month].month]
   end
 
@@ -54,7 +93,11 @@ class PaymentRequest
     graph = LazyHighCharts::HighChart.new(:graph) do |g|
       payment_requests = self.order_by(:request_month.asc).limit(12)
       g.chart(:width => 635, :height => 200, :spacingLeft => -2, :zoomType => :x)
-      g.series(:name => "Valor", :type => :area, :data=> payment_requests.collect { |pr| {:name => "Valor requisitado", :y => ("%0.2f"%pr.total).to_f} })
+      g.series(:name => "Valor",
+               :type => :area,
+               :data=> payment_requests.collect do |pr|
+                 {:name => "Valor requisitado", :y => ("%0.2f"%pr.total).to_f}
+               end)
       g.xAxis(:categories => payment_requests.collect(&:request_month))
       g.yAxis(:title => {:text => "Valor"})
       g.legend(:enabled => false)
@@ -62,35 +105,37 @@ class PaymentRequest
     end
   end
 
-  SMSHARE_USER = "smshare"
-  SMSHARE_PASS = "TODO_use_real_pass"
-  SMSHARE_SIGN = "TODO_use_real_sign"
-  PAYPAL = (if Rails.env == :production
-            then "https://api-3t.paypal.com/nvp"
-            else "https://api-3t.sandbox.paypal.com/nvp"
-            end)
 
-  def self.send_payments_for_month month
-    general_info = [ "USER=#{SMSHARE_USER}",
-                     "PWD=#{SMSHARE_PASS}",
-                     "SIGNATURE=#{SMSHARE_SIGN}",
-                     "METHOD=MassPay",
-                     "CURRENCYCODE=BRL",
-                     "RECEIVERTYPE=EmailAddress" ].join('&')
+  def self.requests_for_month m
+    self.pending.where(:request_month => Date.new(Date.today.year, m, 1))
+  end
 
-    self.
-      where(:status.in => [:pending, :failed]).delete_if{|r| r.request_month != month}.to_a.
-      groups_of(250).map do |group|
-      [group, group.each_with_index.map{|p, i|
-         "L_EMAIL#{i.to_s}=#{p.payment_account}&L_AMT#{i.to_s}=#{p.total.to_s}"
-       }.join('&')]
-    end.each do |r_data|
-      res = CGI.parse(Curl::Easy.perform("#{PAYPAL}?#{general_info}&#{r_data[1]}").body_str)
-      r_data[0].each{ |r|
-        r.status = (res['ACK'] == 'Failure' ? :failed : :complete)
-        r.save
-        r.user.generate_statistics!
-      }
+  def self.payment_info_for_month m
+    self.requests_for_month(m).to_a.groups_of(250)
+  end
+
+  def self.send_payments_for_month m
+    payments = self.payment_info_for_month(m)
+    payments.each do |p|
+      request = PaypalRequest.new(:mass_pay,
+                                  {
+                                    :currencycode => 'BRL',
+                                    :receivertype => :email_address,
+                                    :payments => p.map{|p|
+                                      {
+                                        :l_email => p.payment_account.to_s,
+                                        :l_amt => p.total.to_s
+                                      }
+                                    }
+                                  }).perform
+
+      p.each do |pr|
+        if request['ACK'] == 'Success'
+          pr[0].status = :complete
+        else
+          pr[0].status = :failed
+        end
+      end
     end
   end
 

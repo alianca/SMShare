@@ -74,20 +74,20 @@
     <h3>Personalize o modelo</h3>
     <%= form_for :box_style, :url => {:controller => :box_styles, :action => :create} do |f| %>
     <ol>
-      <li>Fundo da caixa: <div></div><%= f.text_field :box_background, :value => default_box_style[:box_background] %></li>
-      <li>Contorno da caixa: <div></div> <%= f.text_field :box_border, :value => default_box_style[:box_border] %></li>
-      <li>Fundo do cabeçalho: <div></div> <%= f.text_field :header_background, :value => default_box_style[:header_background] %></li>
-      <li>Texto do cabeçalho: <div></div> <%= f.text_field :header_text, :value => default_box_style[:header_text] %></li>
-      <li>Texto superior: <div></div> <%= f.text_field :upper_text, :value => default_box_style[:upper_text] %></li>
-      <li>Texto do número: <div></div> <%= f.text_field :number_text, :value => default_box_style[:number_text] %></li>
-      <li>Texto "para": <div></div> <%= f.text_field :para_text, :value => default_box_style[:para_text] %></li>
-      <li>Texto do custo: <div></div> <%= f.text_field :cost_text, :value => default_box_style[:cost_text] %></li>
-      <li>Fundo do formulário: <div></div> <%= f.text_field :form_background, :value => default_box_style[:form_background] %></li>
-      <li>Contorno do formulário: <div></div> <%= f.text_field :form_border, :value => default_box_style[:form_border] %></li>
-      <li>Texto do formulário: <div></div> <%= f.text_field :form_text, :value => default_box_style[:form_text] %></li>
-      <li>Fundo do botão: <div></div> <%= f.text_field :button_background, :value => default_box_style[:button_background] %></li>
-      <li>Texto no botão: <div></div> <%= f.text_field :button_text, :value => default_box_style[:button_text] %></li>
-      <li>Texto inferior: <div></div> <%= f.text_field :bottom_text, :value => default_box_style[:bottom_text] %></li>
+      <li>Fundo da caixa: <div></div><%= f.text_field :box_background, :value => @default_style[:box_background] %></li>
+      <li>Contorno da caixa: <div></div> <%= f.text_field :box_border, :value => @default_style[:box_border] %></li>
+      <li>Fundo do cabeçalho: <div></div> <%= f.text_field :header_background, :value => @default_style[:header_background] %></li>
+      <li>Texto do cabeçalho: <div></div> <%= f.text_field :header_text, :value => @default_style[:header_text] %></li>
+      <li>Texto superior: <div></div> <%= f.text_field :upper_text, :value => @default_style[:upper_text] %></li>
+      <li>Texto do número: <div></div> <%= f.text_field :number_text, :value => @default_style[:number_text] %></li>
+      <li>Texto "para": <div></div> <%= f.text_field :para_text, :value => @default_style[:para_text] %></li>
+      <li>Fundo do formulário: <div></div> <%= f.text_field :form_background, :value => @default_style[:form_background] %></li>
+      <li>Contorno do formulário: <div></div> <%= f.text_field :form_border, :value => @default_style[:form_border] %></li>
+      <li>Texto do formulário: <div></div> <%= f.text_field :form_text, :value => @default_style[:form_text] %></li>
+      <li>Fundo do botão: <div></div> <%= f.text_field :button_background, :value => @default_style[:button_background] %></li>
+      <li>Texto no botão: <div></div> <%= f.text_field :button_text, :value => @default_style[:button_text] %></li>
+      <li>Texto inferior: <div></div> <%= f.text_field :bottom_text, :value => @default_style[:bottom_text] %></li>
+      <li>Texto do custo: <div></div> <%= f.text_field :cost_text, :value => @default_style[:cost_text] %></li>
     </ol>
 
     <div class="thumbnail">
@@ -136,8 +136,9 @@
   <div id="background-form">
     <h3>Envie seu próprio fundo</h3>
     <%= form_for :background,
-        :html => { :multipart => true },
-    :url => { :controller => :box_images, :action => :create } do |f| %>
+                 :html => { :multipart => true },
+                 :url => { :controller => :box_images,
+                           :action => :create } do |f| %>
     <%= f.file_field :image %>
     <%= f.text_field :name %>
     <span class="button orange">

@@ -29,13 +29,12 @@ class AuthorizationsController < ApplicationController
   end
 
   def show
-    code = params[:code]
-    ip = request.headers["X-Real-IP"]
-    url = Authorization.url_for(code, @file, ip)
+    ip = request.headers["X-Host-IP"]
+    url = Authorization.url_for(params[:code], @file, ip)
     unless url.nil?
-      @auth.destroy
       save_download_info
     end
+
     render :json => { :url => url }
   rescue
     render :json => { :url => nil }
@@ -58,8 +57,8 @@ class AuthorizationsController < ApplicationController
   end
 
   def save_download_info
-    logger.info "IP: #{request.headers["X-Real-IP"]}"
-    Download.create(:file => @file, :downloaded_by_ip => request.headers["X-Real-IP"])
+    logger.info "IP: #{request.headers["X-Host-IP"]}"
+    Download.create(:file => @file, :downloaded_by_ip => request.headers["X-Host-IP"])
     @file.save
   end
 

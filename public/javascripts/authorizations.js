@@ -67,11 +67,16 @@ function bind_form(form) {
           console.error(data.responseText);
         },
         success: function(data) {
-          form.attr('url', data.url);
-          var code_field = form.find('.code_field');
-          code_field.val('Download liberado.');
-          code_field.prop('disabled', true);
-          window.location = data.url;
+          if (data.url) {
+            form.attr('url', data.url);
+            var code_field = form.find('.code_field');
+            code_field.val('Download liberado.');
+            code_field.prop('disabled', true);
+            window.location = data.url;
+          }
+          else {
+            alert('Herpderp!');
+          }
         }
       });
     }

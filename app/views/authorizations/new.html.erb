@@ -18,6 +18,19 @@
     </div>
 
     <% if @file %>
+      <p class="call-to-action">Conheça o mais novo serviço de compartilhamentos</p>
+      <p class="sms"><em>WWW.<span class="test">SMSHARE</span>.COM.BR</em></p>
+      <p class="price">Para saber um pouco mais sobre a smShare, preencha abaixo o seu e-mail.</p>
+
+      <div class="code_area">
+        <%= form_tag authorizations_path, :class => :code, :method => :get do %>
+          <%= hidden_field_tag :file_id, @file._id %>
+          <%= text_field_tag :code, "", :title => "Digite aqui seu e-mail (opcional)", :class => "code_field clear-on-focus" %>
+          <%= submit_tag "Download", :class => "submit" %>
+        <% end %>
+      </div>
+
+<!-- NEW --
       <p class="call-to-action">Para baixar o arquivo, envie um SMS com a palavra</p>
       <p class="sms"><em>SMSHARE</em> para <em>49094<span class="star">*</span></em></p>
 
@@ -40,6 +53,7 @@
           <%= submit_tag "Download", :class => "submit" %>
         <% end %>
       </div>
+---- END -->
 
     <% else %>
 

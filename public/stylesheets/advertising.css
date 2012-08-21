@@ -128,6 +128,10 @@
   background-color: #f37f00;
 }
 
+#user_panel-container #buttons {
+    width: 800px;
+}
+
 #user_panel-container .box {
   border: 1px solid #bddce7;
   border-radius: 7px;

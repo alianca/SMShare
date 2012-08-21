@@ -8,6 +8,7 @@ $(document).ready(function() {
     $(this).addClass('active');
 
     $('#boxes .box:visible').hide();
+    $('#boxes .links-box:visible').hide();
     $('#boxes .' + $(this).prop('id')).fadeIn('fast')
   });
 

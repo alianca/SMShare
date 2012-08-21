@@ -3,9 +3,11 @@ require 'spec_helper'
 describe Folder do
   describe "Self Relations" do
     before(:each) do
-      @root_folder = Factory.create :folder
-      @child_folder1 = Factory.create :folder, :name => "foo", :parent => @root_folder
-      @child_folder2 = Factory.create :folder, :name => "boo", :parent => @root_folder
+      @u = Factory.create :user
+
+      @root_folder = Factory.create :folder, :owner => @u
+      @child_folder1 = Factory.create :folder, :name => "foo", :parent => @root_folder, :owner => @u
+      @child_folder2 = Factory.create :folder, :name => "boo", :parent => @root_folder, :owner => @u
     end
 
     it "should find it's childrens" do
@@ -21,9 +23,11 @@ describe Folder do
 
   describe "Consolidated Path" do
     it "should generate the path" do
-      @root_folder = Factory.create :folder
-      @child_folder = Factory.create :folder, :name => "foo", :parent => @root_folder
-      @grand_child_folder = Factory.create :folder, :name => "foo", :parent => @child_folder
+      @u = Factory.create :user
+
+      @root_folder = Factory.create :folder, :owner => @u
+      @child_folder = Factory.create :folder, :name => "foo", :parent => @root_folder, :owner => @u
+      @grand_child_folder = Factory.create :folder, :name => "foo", :parent => @child_folder, :owner => @u
 
       @root_folder.path.should == "/"
       @child_folder.path.should == "/#{@root_folder._id}/"
@@ -52,27 +56,20 @@ describe Folder do
   describe "Paginate" do
     before(:each) do
       @user = Factory.create :user
-      Folder.destroy_all # Isolate the test from the creating of the root_folder
-      @root_folder = Factory.create :folder, :owner => @user
-      @folder = []
-      100.times do |i|
-        @folder[i] = Factory.create :folder, :name => "Foo", :parent => @root_folder, :owner => @user
+      5.times do |i|
+        Factory.create :folder, :name => "Foo", :parent => @user.root_folder, :owner => @user
       end
-      @files = []
-      100.times do |i|
-        @files[i] = Factory.create :user_file, :owner => @user
+      5.times do |i|
+        Factory.create :user_file, :owner => @user
       end
     end
 
     it "should be able to paginate bringing the folder first" do
-      @root_folder.paginate(1, 10).to_a[0].should be_instance_of(Folder)
-      @root_folder.paginate(1, 10).to_a[9].should be_instance_of(Folder)
-      @root_folder.paginate(10, 10).to_a[0].should be_instance_of(Folder)
-      @root_folder.paginate(10, 10).to_a[9].should be_instance_of(Folder)
-      @root_folder.paginate(11, 10).to_a[0].should be_instance_of(UserFile)
-      @root_folder.paginate(11, 10).to_a[9].should be_instance_of(UserFile)
-      @root_folder.paginate(20, 10).to_a[0].should be_instance_of(UserFile)
-      @root_folder.paginate(20, 10).to_a[9].should be_instance_of(UserFile)
+      page = @user.root_folder.paginate(1, 10).to_a
+      folders = page[0..4]
+      files = page[5..9]
+      folders.map{|f| f.instance_of? Folder}.reduce{|a,b| a && b}.should == true
+      files.map{|f| f.instance_of? UserFile}.reduce{|a,b| a && b}.should == true
     end
   end
 end

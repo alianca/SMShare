@@ -9,6 +9,7 @@ pt-BR:
     failure:
       unauthenticated: 'Você precisa fazer seu login ou criar uma conta para continuar.'
       unconfirmed: 'Você precisa confirmar sua conta para continuar.'
+      already_authenticated: 'Você já está logado.'
       locked: 'Sua conta está bloqueada.'
       invalid: 'E-mail ou senha errada.'
       invalid_token: 'Token de autenticação inválido.'

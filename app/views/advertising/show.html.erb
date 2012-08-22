@@ -3,6 +3,8 @@
 
 <h3> <%= image_tag "user_panel/relatorio.png" %> Relatório </h3>
 
+<span id="user_name" style="display: none;"><%= current_user.nickname %></span>
+
 <%= form_tag user_panel_advertising_path, :id => "range", :method => :get do %>
   Período do dia
   <span class="text-field">
@@ -35,7 +37,7 @@
   </thead>
   <tbody>
     <% @references.each do |r| %>
-      <tr>
+      <tr class="reference_line">
         <td class="reference"><div><%= r.name %> <%= r.created_at.strftime("%d/%m/%Y") %></div></td>
         <td class="clicks"><div><%= r.clicks %></div></td>
         <td class="signups"><div><%= r.signups %></div></td>

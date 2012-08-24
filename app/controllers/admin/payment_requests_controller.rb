@@ -6,7 +6,12 @@ class Admin::PaymentRequestsController < AdminController
 
   # Efetuar pagamentos
   def create
-    PaymentRequest.send_payments_for_month(params[:month])
+    err = PaymentRequest.send_payments_for_month(params[:month].to_i)
+
+    unless err.empty?
+      flash[:alert] = err.first
+    end
+
     redirect_to :back
   end
 end

@@ -13,10 +13,12 @@ $(document).ready(function() {
     'header_text': ['#download_box .box-header',
                     '#download_box .filename',
                     '#download_box .filesize',
-                    '#style-customize .thumbnail .title'],
+                    '#style-customize .thumbnail .title',
+                    '#download_box .price-box'],
 
     'header_background': ['#download_box .box-header',
-                          '#style-customize .thumbnail .title'],
+                          '#style-customize .thumbnail .title',
+                          '#download_box .price-box'],
 
     'upper_text': ['#download_box .call-to-action',
                    '#style-customize .thumbnail .top'],
@@ -26,8 +28,6 @@ $(document).ready(function() {
 
     'number_text': ['#download_box .sms em',
                     '#style-customize .thumbnail .middle span'],
-
-    'cost_text': ['#download_box .price'],
 
     'form_background': ['#download_box .code_area',
                         '#style-customize .thumbnail .input'],
@@ -281,5 +281,13 @@ $(document).ready(function() {
     $(this).children("input[type=text]").select();
     e.stopImmediatePropagation();
   });
+
+  (function fade_time(which) {
+    $('.price:visible').hide();
+    $('.price.' + which).fadeIn('fast');
+    setTimeout(function(){
+      fade_time(which == 'normal' ? 'pack' : 'normal');
+    }, 3000);
+  })('normal');
 
 });

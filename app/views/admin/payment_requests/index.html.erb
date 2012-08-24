@@ -5,7 +5,7 @@
     <span>Mês:
       <select name="month">
         <% @pending.collect(&:request_month).each do |m| %>
-          <option value="<%= m %>"><%= m %></option>
+          <option value="<%= m.month %>"><%= m.month %></option>
         <% end %>
       </select>
     </span>

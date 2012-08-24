@@ -22,14 +22,37 @@ $(document).ready(function() {
   });
   $('#boxes .box .mini.active').click();
 
-  $('tr.reference_line').click(function() {
-    var tag_name = $(this).find('td.reference div').text().split(' ')[0];
+  function reset_url(field) {
     var user_name = $('#user_name').text();
-    var url = ("http://www.smshare.com.br/" +
-               "?ref=" + user_name +
-               "&ban=" + tag_name
-              );
-    $('input#url').val(url);
+    var tag_name = ($('tr.reference_line.selected td.reference div').
+                    text().
+                    split(' ')[0]);
+
+    var url = ("http://www.smshare.com.br/"
+               + "?ref=" + user_name
+               + "&ban=" + tag_name);
+
+    if (!field) {
+      field = $('input#url');
+    }
+
+    var sel = field.parents('.box').find('.mini.active').text();
+    var img = field.parent('.box').find('.preview.'+sel+' img').html();
+    var tag = ('<a href="' + url + '">'
+               + '<img src="' + img + '"></img>' +
+               '</a>');
+  }
+
+  $('tr.reference_line').click(function() {
+
+    $('input#url').each(function() {
+      var sel = $(this).parents('.box').find('.mini.active').text();
+      var img = $(this).parent('.box').find('.preview.'+sel+' img').html();
+      var tag = ('<a href="' + url + '">'
+                 + '<img src="' + img + '"></img>' +
+                 '</a>');
+      $(this).val(sel + '   ' + tag);
+    });
 
     $('tr.reference_line.selected').removeClass('selected');
     $(this).addClass('selected');

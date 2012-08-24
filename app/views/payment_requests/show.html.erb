@@ -56,7 +56,7 @@
       <tr class="<%= pr.status %>">
         <td class="status"><%= pr.status %></td>
         <td class="id"><%= pr._id %></td>
-        <td class="request_month"><%= pr.request_month %></td>
+        <td class="request_month"><%= pr.readable_request_month %></td>
         <td class="completed_at"><%= pr.completed_at %><%= "*" if pr.status != :complete %></td>
         <td class="payment_method <%= pr.payment_method %>"><%= pr.payment_method %></td>
         <td class="value"><%= "%0.2f" % pr.value %></td>

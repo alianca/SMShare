@@ -965,6 +965,41 @@ table.file_list td.name {
   border-bottom: 1px dotted #b1d7e3;
 }
 
+#download_box .price-spaceholder {
+  display: block;
+  height: 21px;
+  margin-bottom: -10px;
+  margin-right: 8px;
+  margin-top: 10px;
+}
+
+#download_box .price-box {
+  position: relative;
+  z-index: 7999;
+  display: block;
+  float: right;
+  line-height: 16px;
+  height: 20px;
+  width: 230px;
+  border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+}
+
+#download_box .price-box .price-glass {
+  display: block;
+  height: 8px;
+  border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#download_box .price {
+  float: right;
+  display: block;
+  font-size: 10px;
+  margin: -8px 5px;
+}
+
 #background-list .bg-list-item:hover, #background-list .bg-list-item.selected {
   background-color: #f3f7f9;
 }
@@ -1499,16 +1534,11 @@ table.file_list td.name {
   font-weight: normal;
 }
 
-#download_box .price {
-  font-size: 10px !important;
-  text-align: right;
-  margin: 0 !important;
-  padding: 2px 14px !important;
-}
-
 #download_box .code_area {
+  position: relative;
   width: 310px;
   height: 24px;
+  z-index: 8000;
   margin: 4px 12px !important;
   padding: 5px 4px 4px 6px !important;
   border-radius: 7px;

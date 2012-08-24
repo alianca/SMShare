@@ -3,19 +3,20 @@ require 'base64'
 require 'digest/md5'
 
 class Authorization < RedisModel
-
   SECRET = 'WJlY2E4ZjgwYmFiYzk0YWI4YmRhMjcgIC0K'
 
   ACTION = "http://mozcapag.com:2505/api/messaging/sendPinMt/"
   KEY = "9698CF3F4B2F2598B5AB5181C"
   MESSAGE = "Thy download shall start soon." # TODO
   FILE_SERVER = "http://#{$file_server}"
+  CLARO = 1 # TODO
 
   def self.register params
     raise :invalid_pin if params[:pin].blank?
     self.new params[:pin], {
       :msisdn => params[:msisdn],
-      :carrier_id => params[:carrier_id]
+      :carrier_id => params[:carrier_id],
+      :count => (params[:carrier_id] == CLARO ? 6 : 1) # TODO generalizar pra dar a quantidade certa de downloads
     }
   end
 
@@ -36,7 +37,8 @@ class Authorization < RedisModel
     md5 = Digest::MD5.digest("#{address}:#{SECRET}:#{path}:#{expire}")
     hash = Base64.encode64(md5).tr('+/', '-_').gsub(/[=\n]/, '')
 
-    # auth.destroy
+    auth.count--
+    auth.destroy unless auth.count > 0
 
     "#{FILE_SERVER}/files/#{hash}/#{expire}/#{path}/#{file.filename}"
   end

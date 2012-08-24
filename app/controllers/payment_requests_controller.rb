@@ -11,12 +11,17 @@ class PaymentRequestsController < ApplicationController
   def create
     current_user.payment_requests.create params[:payment_request].
       merge({ :value => current_user.statistics.revenue_available_for_payment,
-              :referred_value => current_user.statistics.referred_revenue_available_for_payment })
+              :referred_value => (current_user.statistics.
+                                  referred_revenue_available_for_payment)
+            })
     respond_with(@payment_requests, :location => user_panel_payment_requests_path)
   end
 
   private
-    def fetch_payment_requests
-      @payment_requests = current_user.payment_requests.order_by(:request_month.desc)
-    end
+
+  def fetch_payment_requests
+    @payment_requests = current_user.
+      payment_requests.order_by(:request_month.desc)
+  end
+
 end

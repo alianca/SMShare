@@ -17,7 +17,18 @@
 
         <p class="call-to-action">Para baixar o arquivo, envie um SMS com a palavra</p>
         <p class="sms"><em>SMSHARE</em> para <em>49094<span class="star">*</span></em></p>
-        <p class="price">*custo de R$ 0,31 + impostos</p>
+
+        <div class="price-spaceholder">
+          <div class="price-box">
+            <span class="price-glass"></span>
+            <span class="price normal">
+              *custo de R$ 0,31 + impostos por download
+            </span>
+            <span class="price pack">
+              *custo de R$ 1,99 + impostos por 6 downloads
+            </span>
+          </div>
+        </div>
 
         <div class="code_area">
           <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus"%>
@@ -87,7 +98,7 @@
       <li>Fundo do botão: <div></div> <%= f.text_field :button_background, :value => @default_style[:button_background] %></li>
       <li>Texto no botão: <div></div> <%= f.text_field :button_text, :value => @default_style[:button_text] %></li>
       <li>Texto inferior: <div></div> <%= f.text_field :bottom_text, :value => @default_style[:bottom_text] %></li>
-      <li>Texto do custo: <div></div> <%= f.text_field :cost_text, :value => @default_style[:cost_text] %></li>
+<!--  <li>Texto do custo: <div></div> <%= f.text_field :cost_text, :value => @default_style[:cost_text] %></li> -->
     </ol>
 
     <div class="thumbnail">

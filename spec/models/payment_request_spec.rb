@@ -42,21 +42,21 @@ describe PaymentRequest do
 
   describe 'Paypal Integration' do
     before(:each) do
-      @u1 = Factory.create :user
-      @u2 = Factory.create :user, :email => 'aaa@bbb.ccc', :nickname => 'aaa_' # The Tetris champion
-      @u3 = Factory.create :user, :email => 'abc@abc.abc', :nickname => 'abc_'
+      @u1 = Factory.create :user, :email => 'aaa_1345743386_per@gmail.com', :nickname => 'aaa_'
+      @u2 = Factory.create :user, :email => 'bbb_1345743485_per@gmail.com', :nickname => 'abc_'
 
       @r1 = Factory.create :payment_request, :user => @u1, :requested_at => Date.parse('01/09/2012')
       @r2 = Factory.create :payment_request, :user => @u2, :requested_at => Date.parse('02/07/2012')
-      @r3 = Factory.create :payment_request, :user => @u3, :requested_at => Date.parse('03/05/2012')
+      @r3 = Factory.create :payment_request, :user => @u2, :requested_at => Date.parse('03/05/2012')
       @r4 = Factory.create :payment_request, :user => @u2, :requested_at => Date.parse('03/06/2012')
 
-      PaymentRequest.send_payments_for_month(2)
+      @err = PaymentRequest.send_payments_for_month(2)
 
-      [@u1, @u2, @u3, @r1, @r2, @r3, @r4].map(&:reload)
+      [@u1, @u2, @r1, @r2, @r3, @r4].each(&:reload)
     end
 
     it 'should have succeeded' do
+      @err.should == []
       @r1.status.should == :pending
       @r2.status.should == :complete
       @r3.status.should == :complete
@@ -69,16 +69,14 @@ describe PaymentRequest do
     end
 
     it 'should not pay many times' do
-      PaymentRequest.requests_for_month(2).should == []
+      PaymentRequest.requests_for_month(2).to_a.should == []
     end
 
     it 'should update user statistics' do
       @u1.statistics.payments_received.should == 0.0
-      @u2.statistics.payments_received.should == 10.0
-      @u3.statistics.payments_received.should == 10.0
+      @u2.statistics.payments_received.should == 20.0
       @u1.statistics.referred_payments_received.should == 0.0
-      @u2.statistics.referred_payments_received.should == 15.5
-      @u3.statistics.referred_payments_received.should == 15.5
+      @u2.statistics.referred_payments_received.should == 31.0
     end
   end
 

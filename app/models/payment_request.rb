@@ -13,51 +13,60 @@ class Array
   end
 end
 
-class PaypalRequest
-  if Rails.env == :production
-    USER = "smshare"
-    PASS = "TODO_use_real_pass"
-    URL = "https://api-3t.paypal.com/nvp/2.0"
-  else
-    USER = "smshare_test"
-    PASS = "test_pass"
-    URL = "https://api.sandbox.paypal.com/nvp"
+class Hash
+  def rec_to_qs(i=nil)
+    map do |k, v|
+      if v.class.name == 'Array'
+        raise 'Invalid Request' if v.map(&:class).uniq != [Hash]
+        v.each_with_index.map{|e, j| e.rec_to_qs(j)}.join('&')
+      else
+        "#{k.to_s.upcase}#{i.nil? ? '' : i.to_s}=" +
+          case v.class.name
+          when 'Symbol'
+            v.to_s.split('_').map(&:capitalize).join('')
+          when 'String'
+            v
+          when 'NilClass'
+            ''
+          else
+            v.to_s
+          end
+      end
+    end.join('&')
   end
+end
 
+class PaypalRequest
   def initialize method, params
+    if Rails.env == :production
+      @user = "TODO_use_real_user"
+      @pass = "TODO_use_real_pass"
+      @sign = "TODO_use_real_sign"
+      @url  = "https://api-3t.paypal.com/nvp/2.0"
+    else
+      @user = "edric_1345742817_biz_api1.gmail.com"
+      @pass = "1345742840"
+      @sign = "ART7Ci0XzQG6QRx6ridAg2JWqs2CAdRXKqiSiESsfBEH-91jYhBj5vcG"
+      @url  = "https://api.sandbox.paypal.com/nvp"
+    end
+
     @method = method
     @params = params
   end
 
   def perform
-    CGI.parse(Curl::Easy.perform("#{URL}?#{serialize}").body_str)
+    CGI.parse(Curl::Easy.perform("#{@url}?#{serialize}").body_str)
   end
 
   private
 
   def serialize
-    PaypalRequest.to_qs({ :user => USER,
-                          :pwd => PASS,
-                          :method => @method.to_s.split('_').map(&:capitalize).join('')
-                        }.merge(@params))
-  end
-
-  def self.to_qs(hash, i=nil)
-    hash.map do |k, v|
-      if v.class == Array
-          v.each_with_index.map{|e, i| self.to_qs(e, i)}.join('&')
-      else
-        "#{k.to_s.upcase}#{i ? i.to_s : ''}=" +
-          case v.class
-          when Symbol
-            v.to_s.split('_').map(&:capitalize).join('')
-          when String
-            v
-          when Fixnum
-            v.to_s
-          end
-      end
-    end.join('&')
+    { :user => @user,
+      :pwd => @pass,
+      :signature => @sign,
+      :version => 2.3,
+      :method => @method
+    }.merge(@params).rec_to_qs
   end
 end
 
@@ -105,38 +114,31 @@ class PaymentRequest
     end
   end
 
-
-  def self.requests_for_month m
+  def self.requests_for_month(m)
     self.pending.where(:request_month => Date.new(Date.today.year, m, 1))
   end
 
-  def self.payment_info_for_month m
-    self.requests_for_month(m).to_a.groups_of(250)
-  end
+  def self.send_payments_for_month(m)
+    err = []
+    groups = self.requests_for_month(m).to_a.groups_of(250)
+    groups.each do |group|
+      res = PaypalRequest.new(:mass_pay,
+                              { :currencycode => 'BRL',
+                                :receivertype => :email_address,
+                                :payments => group.map do |pr|
+                                  { :l_email => pr.payment_account.to_s,
+                                    :l_amt => pr.total.to_s }
+                                end
+                              }).perform
+      group.each do |pr|
+        pr.status = (res['ACK'] == 'Success' ? :complete : :failed)
+      end
 
-  def self.send_payments_for_month m
-    payments = self.payment_info_for_month(m)
-    payments.each do |p|
-      request = PaypalRequest.new(:mass_pay,
-                                  {
-                                    :currencycode => 'BRL',
-                                    :receivertype => :email_address,
-                                    :payments => p.map{|p|
-                                      {
-                                        :l_email => p.payment_account.to_s,
-                                        :l_amt => p.total.to_s
-                                      }
-                                    }
-                                  }).perform
-
-      p.each do |pr|
-        if request['ACK'] == 'Success'
-          pr[0].status = :complete
-        else
-          pr[0].status = :failed
-        end
+      if res['ACK'] != 'Success'
+        err += res['L_LONGMESSAGE0']
       end
     end
+    return err
   end
 
   private

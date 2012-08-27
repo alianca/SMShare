@@ -891,8 +891,6 @@ table.file_list td.name {
   display: none;
 }
 
-
-
 #block_user_input {
   display: none;
   position: absolute;
@@ -902,8 +900,6 @@ table.file_list td.name {
   left: 0;
   z-index: 1;
 }
-
-
 
 /* Personalização da caixa de download */
 

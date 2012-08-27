@@ -71,13 +71,5 @@ describe PaymentRequest do
     it 'should not pay many times' do
       PaymentRequest.requests_for_month(2).to_a.should == []
     end
-
-    it 'should update user statistics' do
-      @u1.statistics.payments_received.should == 0.0
-      @u2.statistics.payments_received.should == 20.0
-      @u1.statistics.referred_payments_received.should == 0.0
-      @u2.statistics.referred_payments_received.should == 31.0
-    end
   end
-
 end

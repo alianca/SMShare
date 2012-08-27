@@ -123,7 +123,7 @@ class PaymentRequest
     groups = self.requests_for_month(m).to_a.groups_of(250)
     groups.each do |group|
       res = PaypalRequest.new(:mass_pay,
-                              { :currencycode => 'BRL',
+                              { :currencycode => (Rails.env == :production ? 'BRL' : 'USD'),
                                 :receivertype => :email_address,
                                 :payments => group.map do |pr|
                                   { :l_email => pr.payment_account.to_s,
@@ -131,11 +131,12 @@ class PaymentRequest
                                 end
                               }).perform
       group.each do |pr|
-        pr.status = (res['ACK'] == 'Success' ? :complete : :failed)
+        pr.status = (res['ACK'].to_s =~ /^Success/ ? :complete : :failed)
+        pr.save
       end
 
-      if res['ACK'] != 'Success'
-        err += res['L_LONGMESSAGE0']
+      if group.first.status == :failed
+        err += "#{res['ACK']}[#{res['CODE']}]: #{res['L_LONGMESSAGE0']}" 
       end
     end
     return err

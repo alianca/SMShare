@@ -1,39 +1,20 @@
 # -*- coding: utf-8 -*-
 
-class Array
-  def groups_of n
-    a = dup
-    r = []
-    while a.length > n
-      r.push a.take n
-      a = a.drop n
-    end
-    r.push a if a.length > 0
-    return r
-  end
-end
-
-class Hash
-  def rec_to_qs(i=nil)
-    map do |k, v|
-      if v.class.name == 'Array'
-        raise 'Invalid Request' if v.map(&:class).uniq != [Hash]
-        v.each_with_index.map{|e, j| e.rec_to_qs(j)}.join('&')
-      else
-        "#{k.to_s.upcase}#{i.nil? ? '' : i.to_s}=" +
-          case v.class.name
-          when 'Symbol'
-            v.to_s.split('_').map(&:capitalize).join('')
-          when 'String'
-            v
-          when 'NilClass'
-            ''
-          else
-            v.to_s
-          end
-      end
-    end.join('&')
-  end
+def to_nvp(hash, i=nil)
+  hash.map do |k, v|
+    if v.class.name == 'Array'
+      raise 'Invalid Request' if v.map(&:class).uniq != [Hash]
+      v.each_with_index.map{|e,j| to_nvp(e, j)}.join('&')
+    else
+      "#{i.nil? ? '' : 'L_'}#{k.to_s.upcase}#{i.nil? ? '' : i.to_s}=" +
+        case v.class.name
+        when 'Symbol': v.to_s.camelize
+        when 'String': v
+        when 'NilClass': ''
+        else v.to_s
+        end
+    end 
+  end.join('&')
 end
 
 class PaypalRequest
@@ -61,19 +42,20 @@ class PaypalRequest
   private
 
   def serialize
-    { :user => @user,
+    to_nvp({
+      :user => @user,
       :pwd => @pass,
       :signature => @sign,
       :version => 2.3,
       :method => @method
-    }.merge(@params).rec_to_qs
+    }.merge(@params))
   end
 end
 
 class PaymentRequest
   include Mongoid::Document
 
-  field :status, :type => Symbol, :default => :pending # Valid statuses: :complete, :pending, :failed
+  field :status, :type => Symbol, :default => :pending # Valid statuses: :completed, :pending, :failed
   field :payment_method, :type => Symbol # Valid methods: :paypal
   field :payment_account, :type => String
   field :value, :type => Float
@@ -87,7 +69,7 @@ class PaymentRequest
   before_validation :set_request_month
   validate :request_month, :uniqueness => true, :scope => [:user_id]
 
-  scope :completed, where(:status => :complete)
+  scope :completed, where(:status => :completed)
   scope :pending, where(:status.in => [:pending, :failed])
 
   def total
@@ -114,32 +96,34 @@ class PaymentRequest
     end
   end
 
-  def self.requests_for_month(m)
-    self.pending.where(:request_month => Date.new(Date.today.year, m, 1))
-  end
 
-  def self.send_payments_for_month(m)
+  def self.send_payments(group)
     err = []
-    groups = self.requests_for_month(m).to_a.groups_of(250)
-    groups.each do |group|
-      res = PaypalRequest.new(:mass_pay,
-                              { :currencycode => (Rails.env == :production ? 'BRL' : 'USD'),
-                                :receivertype => :email_address,
-                                :payments => group.map do |pr|
-                                  { :l_email => pr.payment_account.to_s,
-                                    :l_amt => pr.total.to_s }
-                                end
-                              }).perform
-      group.each do |pr|
-        pr.status = (res['ACK'].to_s =~ /^Success/ ? :complete : :failed)
-        pr.save
-      end
+    while group.count > 250
+      err += self.send_payments(group.take 250)
+      group = group.drop 250
+    end
 
-      if group.first.status == :failed
-        err += "#{res['ACK']}[#{res['CODE']}]: #{res['L_LONGMESSAGE0']}" 
+    res = PaypalRequest.new(:mass_pay, {
+      :currencycode => (Rails.env == :production ? 'BRL' : 'USD'),
+      :receivertype => :email_address,
+      :payments => group.map {|pr| {:email => pr.payment_account.to_s, :amt => pr.total.to_s}}
+    }).perform
+
+    if res['ACK'].to_s =~ /^Success/
+      group.each do |pr|
+        pr.status = :completed
+        pr.completed_at = Date.today
+        pr.save!
+      end
+    else
+      err.push res['L_LONGMESSAGE_0']
+      group.each do |pr|
+        pr.status = :failed
+        pr.save!
       end
     end
-    return err
+    err.compact
   end
 
   private

@@ -18,58 +18,42 @@ describe PaymentRequest do
       @request.total.should == 25.50
     end
   end
-
-  describe 'Search' do
-    it 'should be able to filter requests by month' do
-      @user = Factory.create :user
-      @r1 = Factory.create :payment_request, :user => @user, :requested_at => Date.parse('01/06/2012')
-      @r2 = Factory.create :payment_request, :user => @user, :requested_at => Date.parse('02/05/2012')
-      @r3 = Factory.create :payment_request, :user => @user, :requested_at => Date.parse('02/06/2012')
-
-      PaymentRequest.requests_for_month(1).to_a.should == [@r1, @r2]
-      PaymentRequest.requests_for_month(2).to_a.should == [@r3]
-    end
-
-    it 'should consider years correctly' do
-      @user = Factory.create :user
-      @r1 = Factory.create :payment_request, :user => @user, :requested_at => Date.parse('01/05/2012')
-      @r2 = Factory.create :payment_request, :user => @user, :requested_at => Date.parse('01/06/2012')
-
-      PaymentRequest.requests_for_month(1).to_a.should == [@r2]
-      PaymentRequest.requests_for_month(12).to_a.should_not == [@r1]
-    end
-  end
-
+  
   describe 'Paypal Integration' do
     before(:each) do
       @u1 = Factory.create :user, :email => 'aaa_1345743386_per@gmail.com', :nickname => 'aaa_'
       @u2 = Factory.create :user, :email => 'bbb_1345743485_per@gmail.com', :nickname => 'abc_'
-
-      @r1 = Factory.create :payment_request, :user => @u1, :requested_at => Date.parse('01/09/2012')
-      @r2 = Factory.create :payment_request, :user => @u2, :requested_at => Date.parse('02/07/2012')
-      @r3 = Factory.create :payment_request, :user => @u2, :requested_at => Date.parse('03/05/2012')
-      @r4 = Factory.create :payment_request, :user => @u2, :requested_at => Date.parse('03/06/2012')
-
-      @err = PaymentRequest.send_payments_for_month(2)
-
-      [@u1, @u2, @r1, @r2, @r3, @r4].each(&:reload)
     end
 
-    it 'should have succeeded' do
-      @err.should == []
-      @r1.status.should == :pending
-      @r2.status.should == :complete
-      @r3.status.should == :complete
-      @r4.status.should == :pending
+    describe 'Simple Payments' do
+      it 'should have succeeded' do
+        @r1 = Factory.create :payment_request, :user => @u1
+        @r2 = Factory.create :payment_request, :user => @u2
+        @r3 = Factory.create :payment_request, :user => @u2
+        @r4 = Factory.create :payment_request, :user => @u2
+        PaymentRequest.send_payments([@r2, @r3])
+        [@u1, @u2, @r1, @r2, @r3, @r4].each(&:reload)
+
+        @r1.status.should == :pending
+        @r2.status.should == :completed
+        @r3.status.should == :completed
+        @r4.status.should == :pending
+        PaymentRequest.pending.to_a.should include(@r1, @r4)
+        PaymentRequest.completed.to_a.should include(@r2, @r3)
+      end
     end
 
-    it 'should find the right requests' do
-      PaymentRequest.pending.to_a.should == [@r1, @r4]
-      PaymentRequest.completed.to_a.should == [@r2, @r3]
-    end
+    describe 'Mass Payments' do
+      before(:each) do
+        @users = [@u1, @u2]
+        @requests = 1000.times.map { |i| Factory.create :payment_request, :user => @users[i%2] }
+        PaymentRequest.send_payments(@requests)
+        (@users + @requests).each(&:reload)
+      end
 
-    it 'should not pay many times' do
-      PaymentRequest.requests_for_month(2).to_a.should == []
+      it 'should succeed' do
+        @requests.map(&:status).uniq.should == [:complete]
+      end
     end
   end
 end

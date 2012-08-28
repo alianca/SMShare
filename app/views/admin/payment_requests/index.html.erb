@@ -1,56 +1,52 @@
 <h2>Requisições de Pagamento</h2>
 
 <%= form_tag do |f| %>
-  <td>
-    <span>Mês:
-      <select name="month">
-        <% @pending.collect(&:request_month).each do |m| %>
-          <option value="<%= m.month %>"><%= m.month %></option>
-        <% end %>
-      </select>
-    </span>
-  </td>
-  <td><%= button_tag "Pagar", :as => :submit %></td>
-<% end %>
-
-<h3>Pendentes</h3>
-<table id="users" class="tablesorter">
-  <thead>
-    <tr>
-      <th>Status</th>
-      <th>Nome</th>
-      <th>Mês</th>
-      <th>Método</th>
-      <th>Downloads</th>
-      <th>2º Nível</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @pending.each do |pr| %>
-      <tr class="request <%= pr.status %>">
-        <td><%= pr.status %></td>
-        <td><%= link_to pr.user.name, [:admin, pr.user] %></td>
-        <td><%= pr.request_month %></td>
-        <td><%= pr.payment_method %></td>
-        <td><%= "%0.2f" % pr.value %></td>
-        <td><%= "%0.2f" % pr.referred_value %></td>
-        <td><%= "%0.2f" % pr.total %></td>
+  <h3>Pendentes</h3>
+  <table id="users" class="tablesorter">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Status</th>
+        <th>Nome</th>
+        <th>Mês</th>
+        <th>Método</th>
+        <th>Downloads</th>
+        <th>2º Nível</th>
+        <th>Total</th>
       </tr>
-    <% end %>
-  </tbody>
-  <tfoot>
-    <tr>
-      <td>Total</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td><%= "%0.2f" % @pending.collect(&:value).sum %></td>
-      <td><%= "%0.2f" % @pending.collect(&:referred_value).sum %></td>
-      <td><%= "%0.2f" % @pending.collect(&:total).sum %></td>
-    </tr>
-  </tfoot>
-</table>
+    </thead>
+    <tbody>
+      <% @pending.each do |pr| %>
+        <tr class="request <%= pr.status %>">
+          <td><input name="requests[]" type="checkbox" value="<%= pr._id %>"</td>
+          <td><%= pr.status %></td>
+          <td><%= link_to pr.user.name, [:admin, pr.user] %></td>
+          <td><%= pr.request_month %></td>
+          <td><%= pr.payment_method %></td>
+          <td><%= "%0.2f" % pr.value %></td>
+          <td><%= "%0.2f" % pr.referred_value %></td>
+          <td><%= "%0.2f" % pr.total %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>Total</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td><%= "%0.2f" % @pending.collect(&:value).sum %></td>
+        <td><%= "%0.2f" % @pending.collect(&:referred_value).sum %></td>
+        <td><%= "%0.2f" % @pending.collect(&:total).sum %></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <button type="submit">
+    Enviar Pagamentos
+  </button>
+<% end %>
 
 <h3>Histórico</h3>
 <table id="users" class="tablesorter">

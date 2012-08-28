@@ -5,5 +5,5 @@ db/*.sqlite3
 log/*
 tmp
 /public/box_images/
-*/**.swp
-*/**~
+*.swp
+*~

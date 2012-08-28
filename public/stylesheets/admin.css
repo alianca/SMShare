@@ -1,6 +1,8 @@
 body {
   width: 950px;
   margin: 10px auto;
+  background-color: white;
+  color: black;
 }
 
 #admin-container table,

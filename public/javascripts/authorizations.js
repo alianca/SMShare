@@ -75,7 +75,7 @@ function bind_form(form) {
             window.location = data.url;
           }
           else {
-            alert('Herpderp!');
+            alert('Error!');
           }
         }
       });

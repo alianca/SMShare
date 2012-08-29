@@ -19,36 +19,21 @@ end
 
 class PaypalRequest
   def initialize method, params
-    if Rails.env == :production
-      @user = "TODO_use_real_user"
-      @pass = "TODO_use_real_pass"
-      @sign = "TODO_use_real_sign"
-      @url  = "https://api-3t.paypal.com/nvp/2.0"
-    else
-      @user = "edric_1345742817_biz_api1.gmail.com"
-      @pass = "1345742840"
-      @sign = "ART7Ci0XzQG6QRx6ridAg2JWqs2CAdRXKqiSiESsfBEH-91jYhBj5vcG"
-      @url  = "https://api.sandbox.paypal.com/nvp"
-    end
-
     @method = method
     @params = params
   end
 
   def perform
-    CGI.parse(Curl::Easy.perform("#{@url}?#{serialize}").body_str)
-  end
-
-  private
-
-  def serialize
-    to_nvp({
-      :user => @user,
-      :pwd => @pass,
-      :signature => @sign,
+    request = Curl::Easy.new $paypal_url
+    request.post_body = to_nvp({
+      :user => $paypal_user,
+      :pwd => $paypal_pass,
+      :signature => $paypal_sign,
       :version => 2.3,
       :method => @method
     }.merge(@params))
+    request.perform
+    CGI.parse(request.body_str)
   end
 end
 
@@ -107,7 +92,9 @@ class PaymentRequest
     res = PaypalRequest.new(:mass_pay, {
       :currencycode => (Rails.env == :production ? 'BRL' : 'USD'),
       :receivertype => :email_address,
-      :payments => group.map {|pr| {:email => pr.payment_account.to_s, :amt => pr.total.to_s}}
+      :payments => group.map do |pr|
+        {:email => pr.payment_account.to_s, :amt => pr.total.to_s}
+      end
     }).perform
 
     if res['ACK'].to_s =~ /^Success/

@@ -52,7 +52,7 @@ describe PaymentRequest do
       end
 
       it 'should succeed' do
-        @requests.map(&:status).uniq.should == [:complete]
+        @requests.map(&:status).uniq.should == [:completed]
       end
     end
   end

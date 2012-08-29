@@ -7,7 +7,12 @@ class Admin::PaymentRequestsController < AdminController
   # Efetuar pagamentos
   def create
     @requests = PaymentRequest.where(:_id.in => params[:requests])
-    PaymentRequest.send_payments(@requests)
+    err = PaymentRequest.send_payments(@requests)
+    if !err.empty?
+      flash[:alert] = err.first
+    else
+      flash[:notice] = "Pagamentos enviados."
+    end
   rescue
     flash[:alert] = "Erro ao enviar as requisições de pagamento"
   ensure

@@ -21,35 +21,9 @@ class Folder
 
   def paginate current_page, per_page
     current_page = current_page.blank? ? 1 : current_page.to_i
-    total_folders = children.count
-    total_files = files.count
-    total_results = total_folders + total_files
-    WillPaginate::Collection.create(current_page, per_page, total_results) do |pager|
-
-      # Somente pastas
-      if current_page*per_page <= total_folders
-        results = children.
-          order_by(:created_at => :desc).
-          offset((current_page - 1) * per_page).
-          limit(per_page)
-
-      # Somente arquivos
-      elsif (current_page - 1) * per_page > total_folders
-        results = files.
-          order_by(:created_at => :desc).
-          offset((current_page - 1) * per_page-total_folders).
-          limit(per_page)
-
-      # Ambos
-      else
-        results = children.
-          offset((current_page - 1) * per_page).
-          limit(total_folders % per_page).to_a
-        results += files.
-          offset((current_page - 1) * per_page - total_folders + total_folders % per_page).
-          limit(per_page-(total_folders%per_page)).to_a
-
-      end
+    content = [children, files].map{|i| i.order_by(:created_at => :desc)}.sum
+    WillPaginate::Collection.create(current_page, per_page, content.count) do |pager|
+      results = content.drop((current_page - 1) * per_page).take(per_page)
       pager.replace(results.to_a)
     end
   end

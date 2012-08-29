@@ -46,7 +46,7 @@ describe PaymentRequest do
     describe 'Mass Payments' do
       before(:each) do
         @users = [@u1, @u2]
-        @requests = 1000.times.map { |i| Factory.create :payment_request, :user => @users[i%2] }
+        @requests = 300.times.map { |i| Factory.create :payment_request, :user => @users[i%2] }
         PaymentRequest.send_payments(@requests)
         (@users + @requests).each(&:reload)
       end

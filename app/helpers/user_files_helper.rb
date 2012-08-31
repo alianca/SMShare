@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 module UserFilesHelper
-  TYPE_NAMES_ =
-
   def send_tab a_tab
     content_for :send_tab, a_tab
   end

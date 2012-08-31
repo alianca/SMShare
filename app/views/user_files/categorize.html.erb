@@ -4,33 +4,52 @@
   <p class="categorize-info">Preencha o(s) campo(s) abaixo com tags relacionadas ao(s) arquivo(s),
     separando-as por vírgula e selecione as categorias referentes ao seu conteúdo.</p>
 
-  <ol id="categories-list">
-    <% Category.all.each do |category| %>
-    <li>
-      <p class="name"><%= category.name %></p>
-      <%= check_box_tag "user_file[category_ids][]", category._id %>
-    </li>
-    <% end %>
-  </ol>
-
-  <%= semantic_form_for :files, :url => {:action => :update_categories} do |f| %>
-    <% i = 0 %>
-    <% @files.each do |file| %>
-      <%= f.semantic_fields_for file._id.to_s do |fi| %>
-        <%= fi.inputs do %>
-          <p class="filename">
-          <%= truncate(file.filename, :ommission => "..." + file.filename[[-file.filename.length, -5].max..-1], :length => 32) %></p>
-          <%= fi.input :sentenced_tags,
-                       :label => "Tags",
-                       :input_html => { :title => "Ex.: zumbi, mortos-vivos, apocalipse, suspense",
-                                        :class => "clear-on-focus sentenced_tags" } %>
-          <%= fi.input :categories, :as => :check_boxes, :collection => Category.all.collect { |c| [nil, c._id] } %>
+  <%= form_tag :action => :update_categories do |f| %>
+    <table id="categories-list">
+      <thead>
+        <th></th>
+        <% Category.all.each_with_index do |category, i| %>
+          <th class="<%= cycle "even", "odd" %>
+                     <%= i == 0 ? "left" : "" %>
+                     <%= i == Category.count - 1 ? "right" : "" %>">
+            <p class="name"><%= category.name %></p>
+            <%= check_box_tag "all", category._id %>
+          </th>
         <% end %>
-        <% i += 1 %>
-      <% end %>
-    <% end %>
-    <%= f.actions do %>
-      <%= f.action :submit, :as => :button, :label => "Confirmar" %>
-    <% end %>
+      </thead>
+
+      <tbody>
+        <% @files.each_with_index do |file, j| %>
+          <tr>
+            <td class="outside-field">
+              <p class="filename">
+              <%= truncate(file.filename, :ommission => "..." + file.filename[[-file.filename.length, -5].max..-1], :length => 32) %></p>
+              <%= text_field_tag "user_files[#{file._id}][sentenced_tags]", {}, {
+                    :title => "Ex.: zumbi, mortos-vivos, apocalipse, suspense",
+                    :class => "clear-on-focus sentenced_tags"
+                  }
+               %>
+            </td>
+            <% Category.all.each_with_index do |c, i| %>
+              <td class="<%= [cycle("even", "odd"),
+                              (i == 0 ? "left" : nil),
+                              (i == Category.count - 1 ? "right" : nil),
+                              (j == @files.count - 1 ? "last" : nil)
+                             ].compact.join(' ')
+                          %>">
+            
+                <%= check_box_tag "user_files[#{file._id}][categories][]", c._id %>
+              </td>
+            <% end %>
+            <% cycle("even", "odd") if Category.count.odd? %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div id="submit-wrapper">
+      <button type="submit">
+        Confirmar
+      </button>
+    </div>
   <% end %>
 </div>

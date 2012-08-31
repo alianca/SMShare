@@ -58,7 +58,7 @@ li.tab-content.remote-tab {
 }
 
 #categorize-container {
-  width: 635px;
+  width: 655px;
   background: rgba(180, 217, 230, 0.5);
   padding: 8px 10px;
   border-radius: 7px;
@@ -70,126 +70,126 @@ li.tab-content.remote-tab {
 }
 
 #categorize-container #categories-list {
-  list-style-type: none;
-  width: 392px;
-  background: url(/images/user_files/categorizar/fundo-cabecalho.png);
-  margin: 0 0 0 241px;
-  padding: 0;
-  padding-left: 5px;
-  overflow: auto;
-}
-
-#categorize-container #categories-list li {
-  display: inline-block;
-  float: left;
-  text-align: center;
-  overflow: hidden;
-  width: 56px;
-  margin: 0 auto;
-  padding: 0;
-}
-
-#categorize-container #categories-list .name {
-  font-size: 10px;
-  height: 28px;
-  width: 56px;
+  width: 382px;
   margin: 0;
   padding: 0;
-  overflow-y: hidden;
+  overflow: auto;
+  border-collapse: collapse;
 }
 
+#categorize-container #categories-list tr {
+  text-align: center;
+  overflow: hidden;
+}
+
+#categorize-container #categories-list thead {
+  font-size: 8px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#categorize-container #categories-list th.even {
+  background: #b8d8e2;
+}
+
+#categorize-container #categories-list th.odd {
+  background: #c5dfe7;
+}
+
+#categorize-container #categories-list th.left {
+    border-radius: 7px 0 0 0;
+    -moz-border-radius: 7px 0 0 0;
+}
+
+#categorize-container #categories-list th.right {
+    border-radius: 0 7px 0 0;
+    -moz-border-radius: 0 7px 0 0;
+}
+
+#categorize-container #categories-list td,
+#categorize-container #categories-list th {
+    width: 54px;
+    margin: 0;
+    padding: 2px;
+}
+
+#categorize-container #categories-list th p {
+    height: 26px;
+    margin: 0;
+}
 
 #categorize-container #categories-list .checkbox {
-  width: 56px;
-  margin: 0 15px;
+  width: 41px;
+  height: 25px;
+  bottom: 5px;
+  margin-left: 15px;
   padding: 0;
 }
 
-#categorize-container form li {
-  margin-bottom: 0;
-  height: 30px;
+#categorize-container #categories-list td .checkbox {
+  margin-top: 22px;
+}
+
+#categorize-container #categories-list td.odd.left {
+  background: url(/images/user_files/categorizar/fundo-arquivo.png) no-repeat;
+  background-position: -241px;
+}
+
+#categorize-container #categories-list td.odd {
+  background: #c6e2eb;
+}
+
+#categorize-container #categories-list td.even {
+  background: #cee6ee;
+}
+
+#categorize-container #categories-list td.right.last {
+    border-radius: 0 0 7px 0;
+    -moz-border-radius: 0 0 7px 0;
+}
+
+#categorize-container #categories-list .outside-field {
+  background: url(/images/user_files/categorizar/fundo-arquivo.png) no-repeat;
+  height: 56px;
+  width: 239px;
+  text-align: left;
   overflow: hidden;
+  border-radius: 0 0 0 7px;
+  -moz-border-radius: 0 0 0 7px;
 }
 
-#categorize-container form li.string.required label {
-  display: none;
-}
-
-#categorize-container form li.string.required label,
-#categorize-container form li.check_boxes .label {
-  display: none;
-  width: 0;
-}
-
-#categorize-container form fieldset {
-  overflow: hidden;
-}
-
-#categorize-container form fieldset.inputs {
-  background: url(/images/user_files/categorizar/fundo-arquivo.png) repeat-y;
-  width: 638px;
-  height: 58px;
-  overflow: hidden;
-  border-radius: 0 0 7px 7px;
-  -moz-border-radius: 0 0 7px 7px;
-}
-
-#categorize-container form .filename {
-  float: left;
+#categorize-container .filename {
   font-weight: bold;
   color: white;
-  width: 227px;
-  padding: 5px 7px;
+  margin: 0 2px 3px 5px;
 }
 
-#categorize-container form li.string.required {
+#categorize-container .sentenced_tags {
   clear: both;
   float: left;
-  width: 242px;
-}
-
-#categorize-container form li.string.required input {
   background: transparent;
   border: 0;
-  width: 232px;
-  max-width: 232px;
-  height: 30px;
-  line-height: 24px;
-  padding: 0 5px;
-  font-size: 11px;
-  overflow: hidden;
-}
-
-#categorize-container form li.check_boxes {
-  float: left;
-  width: 392px;
-  overflow: hidden;
-}
-
-
-#categorize-container form li.check_boxes ol {
-  list-style-type: none;
-  width: 392px;
-  padding: 0 20px;
-}
-
-#categorize-container form li.check_boxes li {
-  display: inline-block;
-  width: 52px;
+  width: 224px;
+  max-width: 224px;
   height: 28px;
-  text-align: center;
-  margin: 0;
-  padding: 0;
+  line-height: 24px;
+  padding: 5px 5px 0 5px;
+  font-size: 11px;
+  overflow: scroll;
 }
 
-#categorize-container .actions {
-  margin: 10px 0 0 345px;
+#categorize-container #submit-wrapper {
+    height: 43px;
+    width: 100%;
 }
 
-#categorize-container .actions button {
+#categorize-container button {
+  float: right;
   border: 0;
   width: 132px;
   height: 33px;
+  margin: 10px 0 0 345px;
   color: white;
   background: url(/images/user_files/botao-off.png);
 }

@@ -53,11 +53,13 @@ class UserFilesController < ApplicationController
   end
 
   def update_categories
-    @files = params[:files].collect do |file_id, file_params|
+    @files = params[:user_files].collect do |file_id, file_params|
       file = UserFile.find(file_id)
-      file.category_ids = file_params[:categories].
-        delete_if{ |c| c.blank? }.
-        collect{ |c| BSON::ObjectId(c) }
+      unless file_params[:categories].nil?
+        file.category_ids = file_params[:categories].
+          delete_if{ |c| c.blank? }.
+          collect{ |c| BSON::ObjectId(c) }
+      end
       file.sentenced_tags = file_params[:sentenced_tags]
       file.save! ? file : nil
     end.compact

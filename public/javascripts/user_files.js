@@ -1,17 +1,20 @@
 $(document).ready(function() {
 
   /* Troca o fundo do botão em mouse over */
-  $("#files_submit, #links-container a.confirmar").mouseover(function () {
+  $("button[type=submit]").mouseover(function () {
     $(this).css("background", "url(/images/user_files/botao-on.png)");
   });
 
   /* Volta o fundo padrão quando perde o mouse over */
-  $("#files_submit, #links-container a.confirmar").mouseout(function () {
+  $("button[type=submit]").mouseout(function () {
     $(this).css("background", "url(/images/user_files/botao-off.png)");
   });
 
-  $("#categories-list input[type=checkbox]").change(function () {
-    $("#user_file_categories_input input[value=" + this.value + "]").attr("checked", $(this).attr("checked"));
+  $("#categories-list input[name=all][type=checkbox]").change(function () {
+    console.log($(this).prop("checked"));
+        var cb = $("input[type=checkbox][value=" + this.value + "][name!=all]");
+    cb.prop("checked", $(this).prop("checked"));
+    cb.change();
   });
 
   /* Altera o formato do link */
@@ -57,4 +60,4 @@ $(document).ready(function() {
 });
 
 /* Faz pre-cache das imagens do cadastro */
-cache_images("/images/user_files/botao-on.png");
+cache_images("/images/user_files/botao-on.png", "/images/user_files/botao-off.png");

@@ -41,21 +41,17 @@ $(document).ready(function() {
     var tag = ('<a href="' + url + '">'
                + '<img src="' + img + '"></img>' +
                '</a>');
+
+    field.val(tag);
   }
 
   $('tr.reference_line').click(function() {
-
-    $('input#url').each(function() {
-      var sel = $(this).parents('.box').find('.mini.active').text();
-      var img = $(this).parent('.box').find('.preview.'+sel+' img').html();
-      var tag = ('<a href="' + url + '">'
-                 + '<img src="' + img + '"></img>' +
-                 '</a>');
-      $(this).val(sel + '   ' + tag);
-    });
-
     $('tr.reference_line.selected').removeClass('selected');
     $(this).addClass('selected');
+
+    $('input#url').each(function() {
+      reset_url($(this));
+    });
   });
   $('tr.reference_line')[0].click();
 });

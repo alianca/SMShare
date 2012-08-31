@@ -52,7 +52,7 @@
       <% end %>
       <% @resources.each do |f| %>
         <% if f.instance_of? Folder %>
-          <tr class="folder">
+          <tr class="item folder">
             <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file" %></td>
             <td class="name">
               <%= image_tag icon_for :folder %>
@@ -64,7 +64,7 @@
             <td class="revenue"><%= revenue_for_stat(f.total_revenue) %></td>
           </tr>
         <% elsif f.instance_of? UserFile %>
-          <tr class="file">
+          <tr class="item file">
             <td class="select"><%= check_box_tag "files[]", f._id, false, :class => "select_file", :filepath => f.filepath, :filename => f.filename %></td>
             <td class="name">
               <%= image_tag icon_for type_of f.filetype %>

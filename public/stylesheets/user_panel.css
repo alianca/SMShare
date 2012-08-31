@@ -540,6 +540,15 @@ table.file_list {
   border-spacing: 1px 0;
 }
 
+table.file_list tbody tr {
+    cursor: point;
+}
+
+table.file_list tr.item:hover td {
+    background: #efefef;
+    cursor: pointer;
+}
+
 table.file_list td {
   margin: 0 2px;
 }

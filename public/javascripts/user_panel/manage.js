@@ -185,7 +185,18 @@ $(document).ready(function() {
     return false;
   });
 
-
+  $('.file_list tr.item td').click(function(e) {
+    if ($(e.target).is('a')) {
+      e.stopPropagation();
+    } else if ($(e.target).is('td')) {
+      e.stopImmediatePropagation();
+      var cb = $(this).parents('tr').find('.select_file');
+      cb.prop('checked', !cb.prop('checked'));
+      cb.change();
+      return false;
+    }
+    return true;
+  });
 
   function follow_status(id, action, callback) {
     $.ajax({

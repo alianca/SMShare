@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 class UserFilesController < ApplicationController
-  respond_to :html, :except => [:create]
-  before_filter :authenticate_user!, :except => [:show, :create]
+  respond_to :html, :except => [:create, :remote]
+  before_filter :authenticate_user!, :except => [:show, :create, :remote]
   before_filter :require_admin!, :only => [:new]
-  protect_from_forgery :except => :create
-  layout "user_panel", :except => [:show, :create]
+  protect_from_forgery :except => [:create, :remote]
+  layout "user_panel", :except => [:show, :create, :remote]
 
   def new
     respond_with(@file = UserFile.new)
@@ -45,11 +45,8 @@ class UserFilesController < ApplicationController
     end
   end
 
-  def create_multi
-    @files = JSON.parse(params[:files]).
-      map{ |f| current_user.files.create(f) }.
-      delete_if{ |f| !f.save }
-    redirect_to categorize_user_files_path(:files => @files)
+  def remote
+    create
   end
 
   def update_categories

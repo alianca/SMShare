@@ -23,13 +23,13 @@ Smshare::Application.routes.draw do
       get :categorizar, :action => :categorize, :as => :categorize
       post :update_categories
       get :links
-      post :create_multi
+      post :remote
     end
   end
 
   resources :uploads, :as => :user_files, :controller => :user_files, :only => [:create]
 
-  resources :file_manager, :as => :remote_uploads, :controller => :remote_uploads, :only => [:new, :create, :show]
+  resources :file_manager, :as => :remote_uploads, :controller => :remote_uploads, :only => [:new]
 
   resource :painel, :as=> :user_panel, :controller => :user_panel, :only => [:show, :destroy, :edit, :create] do
     member do

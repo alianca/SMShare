@@ -549,6 +549,10 @@ table.file_list tr.item:hover td {
     cursor: pointer;
 }
 
+table.file_list tr.item td.selected {
+    background: #dfdfdf;
+}
+
 table.file_list td {
   margin: 0 2px;
 }

@@ -262,6 +262,11 @@ $(document).ready(function() {
     update_rename_form();
     update_toolbar_buttons();
     toggle_all_files(selected_all());
+    if ($(this).prop('checked')) {
+        $(this).parent('td').parent('tr').find('td').addClass('selected');
+    } else {
+        $(this).parent('td').parent('tr').find('td').removeClass('selected');
+    }
   });
 
 

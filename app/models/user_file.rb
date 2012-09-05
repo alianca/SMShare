@@ -10,10 +10,6 @@ class UserFile
   require File.expand_path('./lib/sentenced_fields')
   include SentencedFields
 
-  FILE_SERVER = "http://#{$file_server}:4242"
-  FETCH_URL = "#{FILE_SERVER}/files/fetch/"
-  DESTROY_URL = "#{FILE_SERVER}/files/destroy/"
-
   # Busca
   include Tire::Model::Search
   include Tire::Model::Callbacks
@@ -155,14 +151,6 @@ class UserFile
     results
   end
 
-  def self.download(user, url, description)
-    result = Curl::Easy.perform(FETCH_URL + CGI::escape(url) + '/' + CGI::escape(description))
-    res = JSON.parse(result.body_str)['ok']
-    Jobs::UserFileDownloadJob.create(:user_id => user._id, :id => "%s" % [res])
-  rescue
-    nil
-  end
-
   # Atalho para as estatísticas para ordenação
 
   def downloads_count
@@ -204,7 +192,7 @@ class UserFile
   def cleanup_file
     self.owner.generate_statistics!
     if [:production, :development].include? Rails.env.to_sym
-      res = JSON.parse(Curl::Easy.perform(DESTROY_URL + self.file_id).body_str)
+      res = JSON.parse(Curl::Easy.perform("#{$file_server}:4242/files/destroy/#{self.file_id}").body_str)
       if !res['error'].nil? and res['error'] != 'enoent'
         logger.error res['error']
         raise :cleanup_fail

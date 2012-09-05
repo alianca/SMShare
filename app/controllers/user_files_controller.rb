@@ -1,15 +1,9 @@
 # -*- coding: utf-8 -*-
 
-class UserFilesController < ApplicationController
-  respond_to :html, :except => [:create, :remote]
-  before_filter :authenticate_user!, :except => [:show, :create, :remote]
-  before_filter :require_admin!, :only => [:new]
-  protect_from_forgery :except => [:create, :remote]
-  layout "user_panel", :except => [:show, :create, :remote]
-
-  def new
-    respond_with(@file = UserFile.new)
-  end
+class UserFilesController < FilesController
+  respond_to :html
+  before_filter :authenticate_user!, :except => [:show]
+  layout "user_panel", :except => [:show]
 
   def show
     @file = UserFile.find(params[:id])
@@ -33,20 +27,6 @@ class UserFilesController < ApplicationController
     else
       redirect_to :back
     end
-  end
-
-  def create
-    @user = User.find(params[:user_id])
-    @file = @user.files.create(params[:user_file].merge(params[:user_file][:file] || {}))
-    if @file.save
-      render :json => {:status => 'ok', :id => @file._id}
-    else
-      render :json => {:status => 'error', :reason => @file.errors.first}
-    end
-  end
-
-  def remote
-    create
   end
 
   def update_categories

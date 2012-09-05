@@ -1,3 +1,23 @@
+function round2(n) {
+  return Math.round(n * 100) / 100;
+}
+
+var units = {
+  0: 'B',
+  1: 'KB',
+  2: 'MB',
+  3: 'TB',
+}
+
+function human(n) {
+  var unit = 0;
+  while (n > 1024) {
+    unit++;
+    n /= 1024;
+  }
+  return round2(n).toString() + units[unit];
+}
+
 $(document).ready(function() {
 
   function track(id) {
@@ -5,10 +25,11 @@ $(document).ready(function() {
     function loop() {
       setTimeout(function() {
         track(id);
-      }, 500);
+      }, 1000);
     }
     
     $.get('/files/status/' + id, {}, function(data) {
+      console.log(JSON.stringify(data));
       var status = data.ok;
 
       if (status.error) {
@@ -16,26 +37,43 @@ $(document).ready(function() {
         return;
       }
 
+      if (status == 'nothing') {
+        loop();
+        return;
+      }
+
       switch (status.phase) {
       case 'starting':
-        inform_progress('Inciando transferencia remota.')
+        inform_progress('Inciando transferência remota.')
         loop();
         break;
       case 'working':
-        inform_progress(status.done + '/' + status.total + ' - '
-          + status.done/status.total*100 + '%');
+        var round = round2(status.done/status.total * 100);
+        var h_done = human(status.done);
+        var h_total = human(status.total)
+        inform_progress(h_done+'/'+h_total+': '+round+'%');
         loop();
         break;
       case 'done':
         inform_progress('Transferência remota completa.');
-        $.post('/arquivos/remote', status.file, function(data) {
-          setTimeout(function() {
-            window.location = '/arquivos/categorizar?files[]=' + status.file.file_id;
-          }, 3000);
-        });
+        $('#user_file_filename').prop('value', status.file.filename);
+        $('#user_file_filepath').prop('value', status.file.filepath);
+        $('#user_file_filesize').prop('value', status.file.filesize);
+        $('#user_file_filetype').prop('value', status.file.filetype);
+        setTimeout(function() {
+          $.post($('#remote_form').prop('action'),
+                 $('#remote_form').serialize(),
+                 function(data) {
+                    if (data.status == 'ok') {
+                      window.location = '/arquivos/categorizar?files[]=' + data.id;
+                    } else {
+                      inform_error(data.reason);
+                    }
+                 });
+        }, 3000);
         break;
       }
-    }).error(function() {
+    }).error(function(e) {
       inform_error('Ocorreu um erro ao tentar obter status do upload remoto.'); 
     });
   }
@@ -49,12 +87,14 @@ $(document).ready(function() {
     }
 
     $.get('/files/fetch/' + url+ '/' + description, function(data) {
-      console.dir(data);
+      console.log("Fetch: " + JSON.stringify(data));
       if (!data.ok) {
-        inform_error("O serviço de transfêrencia remota não está disponível.");
+        inform_error(data.error);
         return;
       }
       track(data.ok);
+    }).error(function() {
+      inform_error("O serviço de tranferência remota está indisponível");
     });
 
     return false;

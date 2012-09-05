@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-class RemoteUploadsController < ApplicationController
+class RemoteUploadsController < FilesController
   layout 'user_panel'
-
-  def new
-    @file = UserFile.new
-  end
 end

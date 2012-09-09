@@ -1,21 +1,25 @@
-<%= semantic_form_for(:user_file,
-                      :url => remote_uploads_path(:folder_id => params[:folder_id]),
-                      :html => {
-                        :id => "compress",
-                        :class => "need-files"
-                      }) do |f| %>
-
+<%= semantic_form_for(
+      :user_file,
+      :url => remote_uploads_path(:folder_id => params[:folder_id]),
+      :html => {
+        :id => "compress",
+        :class => "need-files"
+      }
+    ) do |f|
+ %>
   <%= f.inputs do %>
     <%= f.input :filename, :label => "Nome do arquivo:" %>
     <%= f.input :filepath, :as => :hidden %>
     <%= f.input :filesize, :as => :hidden %>
     <%= f.input :filetype, :as => :hidden %>
-    <%= f.input :description, :as => :hidden %>
-    <%= f.input :public, :as => :hidden, :html_input => {:value => true} %>
+    <%= f.input :description, :as => :hidden, :input_html => {
+          :value => "Arquivo compactado"
+        }
+     %>
   <% end %>
 
   <%= f.actions do %>
     <%= f.action :submit, :as => :button, :label => "Confirmar" %>
   <% end %>
-
 <% end %>
+

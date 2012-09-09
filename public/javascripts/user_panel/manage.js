@@ -198,40 +198,21 @@ $(document).ready(function() {
     return true;
   });
 
-  function follow_status(id, action, callback) {
-    $.ajax({
-      url: '/files/' + action + '_status/' + id,
-      dataType: 'JSON',
-      type: 'GET',
-      error: function(e) {
-        inform_error(e.responseText);
-      },
-      success: function(data) {
-        console.log(data);
-        if (data.code === 'ok' && data.value.status !== 'error') {
-          if (data.value.status === 'starting') {
-            inform_progress('Iniciando ' + action);
-          }
-          else if (data.value.status === 'working') {
-            inform_progress('Progresso da ' + action + ': '
-                            + data.value.current + ' / ' + data.value.total
-                            + (data.value.current / data.value.total * 100)
-                            + '%');
-          }
-
-          if (data.value.status === 'done') {
-            callback(data.value);
-            inform_progress(action + ' completa.');
-            return;
-          }
-
-          setTimeout(function() {
-            follow_status(id, action, callback);
-          }, 500);
-        }
-        else {
-          inform_error(data.value);
-        }
+  function follow_status(id, callback) {
+    function loop() {
+      setTimeout(function(){
+        follow_status(id, callback);
+      }, 500);
+    }
+    $.get('/files/status/' + id, function(data) {
+      console.log(JSON.stringify(data));
+      if (data.error) {
+        inform_error(data.error);
+        return;
+      }
+      callback(data.ok);
+      if (data.ok.phase != 'done') {
+        loop();
       }
     });
   }
@@ -268,9 +249,48 @@ $(document).ready(function() {
         $(this).parent('td').parent('tr').find('td').removeClass('selected');
     }
   });
-
-
   // Update page in case of coming back with saved state
   $('.select_file').change();
+
+
+  $('#compress .actions').click(function(e) {
+    e.stopImmediatePropagation();
+    e.preventDefault();
+    var args = $('#compress #user_file_filename').prop('value');
+    var paths = selected_paths();
+    for (var k in paths) {
+      args += '/' + k + '::' + paths[k];
+    }
+    $.get('/files/compress/' + args, [], function(data) {
+      follow_status(data.ok, function(status) {
+        switch (status.phase) {
+          case 'starting':
+            inform_progress('Iniciando compactação.');
+            break;
+          case 'working':
+            inform_progress('Compactando ' + status.current);
+            break;
+          case 'done':
+            inform_progress('Compactação completa.');
+            $('#compress #user_file_filename').prop('value', status.filename);
+            $('#compress #user_file_filesize').prop('value', status.filesize);
+            $('#compress #user_file_filetype').prop('value', status.filetype);
+            $('#compress #user_file_filepath').prop('value', status.filepath);
+            $.post($('#compress').prop('action'),
+                   $('#compress').serialize(),
+                   function(data) {
+                     window.location = '/arquivos/categorizar?files[]='+data.id;
+                   });
+            break;
+        }
+      });
+    }).error(function() {
+      inform_error(
+        'O serviço de compactação de arquivos está temporariamente indisponível.'
+      );
+    });
+
+    return false;
+  });
 
 });

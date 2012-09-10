@@ -256,7 +256,11 @@ $(document).ready(function() {
   $('#compress .actions').click(function(e) {
     e.stopImmediatePropagation();
     e.preventDefault();
-    var args = $('#compress #user_file_filename').prop('value');
+    var args = encodeURIComponent($('#compress #user_file_filename').prop('value'));
+    if (!args || args == "") {
+      inform_error("Nome do arquivo não pode ficar em branco.");
+      return;
+    }
     var paths = selected_paths();
     for (var k in paths) {
       args += '/' + k + '::' + paths[k];

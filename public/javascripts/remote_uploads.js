@@ -25,7 +25,7 @@ $(document).ready(function() {
     function loop() {
       setTimeout(function() {
         track(id);
-      }, 1000);
+      }, 500);
     }
     
     $.get('/files/status/' + id, {}, function(data) {

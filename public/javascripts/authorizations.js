@@ -89,13 +89,4 @@ $(document).ready(function() {
   var box = $('#downbox-overlay .download_box');
   set_box_style(box, fetch_style());
   bind_form(box.find('form'));
-
-  (function fade_time(which) {
-    $('.price:visible').hide();
-    $('.price.' + which).fadeIn('fast');
-    setTimeout(function(){
-      fade_time(which == 'normal' ? 'pack' : 'normal');
-    }, 3000);
-  })('normal');
-
 });

@@ -6,6 +6,10 @@
 
 /* @group Reset */
 
+#downbox {
+    height: 250px;
+}
+
 #downbox-overlay {
   margin: auto;
   position: relative;
@@ -28,7 +32,7 @@
   position: absolute;
   z-index: 9999;
   width: 342px !important;
-  height: 165px !important;
+  height: 200px !important;
   padding: 3px 6px 7px 4px !important;
   font-family: 'Trebuchet MS', Arial !important;
   font-size: 13px !important;
@@ -184,6 +188,9 @@
 
 .download_box .bottom {
   display: block;
+  margin-top: 5px;
+  margin-bottom: -10px;
+  height: 20px;
 }
 
 .download_box .logo {
@@ -192,7 +199,7 @@
   width: 86px;
   height: 23px;
   margin-left: 13px;
-  margin-top: 3px;
+  margin-top: 8px;
   background: url(/images/download_box/logo.png) no-repeat;
 }
 
@@ -218,25 +225,15 @@
   width: 188px;
 }
 
-
-.download_box .price-spaceholder {
-  display: block;
-  height: 21px;
-  margin-bottom: -10px;
-  margin-right: 8px;
-  margin-top: 10px;
-}
-
 .download_box .price-box {
-  position: relative;
-  z-index: 7999;
   display: block;
-  float: right;
+  margin: 3px auto;
+  text-align: center;
   line-height: 16px;
-  height: 20px;
-  width: 230px;
-  border-radius: 5px 5px 0 0;
-  -moz-border-radius: 5px 5px 0 0;
+  height: 16px;
+  width: 320px;
+  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
 }
 
 .download_box .price-box .price-glass {
@@ -248,8 +245,7 @@
 }
 
 .download_box .price {
-  float: right;
   display: block;
-  font-size: 10px;
-  margin: -8px 5px;
+  font-size: 11px;
+  margin: -8px;
 }

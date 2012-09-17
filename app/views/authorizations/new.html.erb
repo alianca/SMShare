@@ -18,6 +18,8 @@
     </div>
 
     <% if @file %>
+
+<!-- Free version
       <p class="call-to-action">Conheça o mais novo serviço de compartilhamentos</p>
       <p class="sms"><em>WWW.<span class="test">SMSHARE</span>.COM.BR</em></p>
       <p class="price">Para saber um pouco mais sobre a smShare, preencha abaixo o seu e-mail.</p>
@@ -29,31 +31,36 @@
           <%= submit_tag "Download", :class => "submit" %>
         <% end %>
       </div>
-
-<!-- NEW
-      <p class="call-to-action">Para baixar o arquivo, envie um SMS com a palavra</p>
-      <p class="sms"><em>SMSHARE</em> para <em>49602<span class="star">*</span></em></p>
-
-      <div class="price-spaceholder">
-        <div class="price-box">
-          <span class="price-glass"></span>
-          <span class="price normal">
-            *custo de R$ 0,31 + impostos por download
-          </span>
-          <span class="price pack">
-            *custo de R$ 1,99 + impostos por 6 downloads
-          </span>
-        </div>
-      </div>
+-->
+<!-- NEW -->
+      <p class="call-to-action">Para comprar o arquivo, envie um SMS com a palavra</p>
+      <p class="sms"><em>SMXR</em> para <em>49602</em></p>
 
       <div class="code_area">
         <%= form_tag authorizations_path, :class => :code, :method => :get do %>
           <%= hidden_field_tag :file_id, @file._id %>
-          <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus" %>
+          <%= text_field_tag :code, "",
+                :title => "Digite a senha que recebeu por sms",
+                :class => "code_field clear-on-focus"
+           %>
           <%= submit_tag "Download", :class => "submit" %>
         <% end %>
       </div>
- END -->
+
+      <div class="price-box">
+        <span class="price-glass"></span>
+        <span class="price">
+          Custo de R$ 0,31+tributos: 1 download (para Vivo, Claro e Tim)
+        </span>
+      </div>
+
+      <div class="price-box">
+        <span class="price-glass"></span>
+        <span class="price">
+          Custo de R$ 1,99+tributos 6 downloads (apenas para Oi)
+        </span>
+      </div>
+<!-- END -->
 
     <% else %>
 

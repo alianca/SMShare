@@ -46,7 +46,7 @@ function create_iframe(link) {
     'border': 'none',
     'padding': '30px',
     'width': '392px',
-    'height': '215px'
+    'height': '235px'
   });
 
   iframe.hover(

@@ -29,8 +29,8 @@ class AuthorizationsController < ApplicationController
   end
 
   def show
-    ip = request.headers["X-Host-IP"]
-    puts "Authorized: #{request.headers["X-Host-IP"]}"
+    ip = client_ip
+    logger.info "Authorized: #{client_ip}"
     url = Authorization.url_for(params[:code], @file, ip)
     unless url.nil?
       save_download_info
@@ -38,7 +38,7 @@ class AuthorizationsController < ApplicationController
 
     render :json => { :url => url }
   rescue Exception => err
-    puts "Error: #{err}"
+    logger.error "Error: #{err}"
     render :json => { :url => nil }
   end
 
@@ -54,13 +54,17 @@ class AuthorizationsController < ApplicationController
 
   private
 
+  def client_ip
+    request.headers["HTTP_X_FORWARDED_FOR"]
+  end
+
   def fetch_file
     @file = UserFile.find(params[:file_id])
   end
 
   def save_download_info
-    logger.info "IP: #{request.headers["X-Host-IP"]}"
-    Download.create(:file => @file, :downloaded_by_ip => request.headers["X-Host-IP"])
+    logger.info "IP: #{client_ip}"
+    Download.create(:file => @file, :downloaded_by_ip => client_ip)
     @file.save
   end
 

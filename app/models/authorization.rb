@@ -7,8 +7,6 @@ class Authorization < RedisModel
 
   ACTION = "http://mozcapag.com:2505/api/messaging/sendPinMt/"
   KEY = "9698CF3F4B2F2598B5AB5181C"
-  MESSAGE = "Thy download shall shortly start." # TODO
-  FILE_SERVER = "http://#{$file_server}"
   OI = 1 # TODO
 
   def self.register params
@@ -16,7 +14,7 @@ class Authorization < RedisModel
     self.new params[:pin], {
       :msisdn => params[:msisdn],
       :carrier_id => params[:carrier_id],
-      :count => (params[:carrier_id] == OI ? 6 : 1) # TODO generalizar pra dar a quantidade certa de downloads
+      :count => (params[:carrier_id] == OI ? 6 : 1)
     }
   end
 
@@ -33,16 +31,24 @@ class Authorization < RedisModel
     #auth.count--
     #auth.destroy unless auth.count > 0
 
-    "#{FILE_SERVER}/files/#{hash}/#{expire}/#{path}/#{file.filename}"
+    "http://#{$file_server}/files/#{hash}/#{expire}/#{path}/#{file.filename}"
   end
 
-  private
+private
+  
+  def message
+    if self.carrier_id == OI
+      "Digite XXXXXX no campo do site para baixar 6 conteudos (RS 1,99+tributos). Acesso tarifado ao conteúdo extra: wap.smsha.re"
+    else
+      "Digite XXXXXX no campo do site para baixar seu conteudo (RS 0,31+tributos). Acesso tarifado ao conteúdo extra: wap.smsha.re"
+    end
+  end
 
   def confirm_url
     args = {
       :key => KEY,
       :pin => self.id,
-      :text => MESSAGE,
+      :text => self.message,
       :phone => self.msisdn,
       :carrier_id => self.carrier_id
     }

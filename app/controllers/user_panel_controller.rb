@@ -3,7 +3,6 @@
 class UserPanelController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
-  before_filter :require_admin!
   before_filter :fetch_folder, :only => [:create, :manage, :compress]
 
   layout 'user_panel'

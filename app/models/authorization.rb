@@ -9,28 +9,21 @@ class Authorization < RedisModel
   KEY = "9698CF3F4B2F2598B5AB5181C"
   MESSAGE = "Thy download shall start soon." # TODO
   FILE_SERVER = "http://#{$file_server}"
-  CLARO = 1 # TODO
+  OI = 1 # TODO
 
   def self.register params
     raise :invalid_pin if params[:pin].blank?
     self.new params[:pin], {
       :msisdn => params[:msisdn],
       :carrier_id => params[:carrier_id],
-      :count => (params[:carrier_id] == CLARO ? 6 : 1) # TODO generalizar pra dar a quantidade certa de downloads
+      :count => (params[:carrier_id] == OI ? 6 : 1) # TODO generalizar pra dar a quantidade certa de downloads
     }
   end
 
   def self.url_for(id, file, address)
-    # auth = self.find(id)
-    # raise :invalid_key if auth.nil?
-    # raise :invalid_key if Curl::Easy.perform(auth.confirm_url).body_str != "0"
-
-    ## Instead of authorizing, store the email.
-    begin
-      PreSignup.create(:email => id).save!
-    rescue
-      # Doesn't matter if invalid
-    end
+    auth = self.find(id)
+    raise :invalid_key if auth.nil?
+    raise :invalid_key if Curl::Easy.perform(auth.confirm_url).body_str != "0"
 
     expire = (Time.now + 5.hours).to_i
     path = file.filepath.split('/').last

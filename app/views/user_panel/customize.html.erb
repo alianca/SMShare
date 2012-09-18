@@ -15,30 +15,37 @@
           <span class="header-bottom"></span>
         </div>
 
-        <p class="call-to-action">Para baixar o arquivo, envie um SMS com a palavra</p>
-        <p class="sms"><em>SMSHARE</em> para <em>49602<span class="star">*</span></em></p>
+        <p class="call-to-action">Para comprar o arquivo, envie um SMS com a palavra</p>
+        <p class="sms"><em>SMXR</em> para <em>49602</em></p>
 
-        <div class="price-spaceholder">
-          <div class="price-box">
-            <span class="price-glass"></span>
-            <span class="price normal">
-              *custo de R$ 0,31 + impostos por download
-            </span>
-            <span class="price pack">
-              *custo de R$ 1,99 + impostos por 6 downloads
-            </span>
-          </div>
-        </div>
 
         <div class="code_area">
-          <%= text_field_tag :code, "", :title => "Digite aqui a senha que recebeu", :class => "code_field clear-on-focus"%>
+          <%= text_field_tag :code, "",
+                :title => "Digite a senha que recebeu por sms",
+                :class => "code_field clear-on-focus"
+           %>
           <%= button_tag "Download", :class => "submit" %>
+        </div>
+
+        <div class="price-box">
+          <span class="price-glass"></span>
+          <span class="price">
+            Custo de R$ 0,31+tributos: 1 download (para Vivo, Claro e Tim)
+          </span>
+        </div>
+
+        <div class="price-box">
+          <span class="price-glass"></span>
+          <span class="price">
+            Custo de R$ 1,99+tributos: 6 downloads (apenas para Oi)
+          </span>
         </div>
 
         <%= link_to image_tag("download_box/logo.png"), root_url, :class => :logo %>
         <%= link_to "", :class => :have_one do %>
           Tenha um desses você também »
         <% end %>
+
       </div>
       <li><a id="generate-code">Gerar código de inserção</a></li>
     </div>

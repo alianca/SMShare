@@ -32,13 +32,8 @@ $(document).ready(function() {
       console.log(JSON.stringify(data));
       var status = data.ok;
 
-      if (status.error) {
-        inform_error(JSON.stringify(status.error));
-        return;
-      }
-
-      if (status == 'nothing') {
-        loop();
+      if (status.phase == "error") {
+        inform_error(JSON.stringify(status.reason));
         return;
       }
 
@@ -56,10 +51,11 @@ $(document).ready(function() {
         break;
       case 'done':
         inform_progress('Transferência remota completa.');
-        $('#user_file_filename').prop('value', status.file.filename);
-        $('#user_file_filepath').prop('value', status.file.filepath);
-        $('#user_file_filesize').prop('value', status.file.filesize);
-        $('#user_file_filetype').prop('value', status.file.filetype);
+        $('#user_file_filename').prop('value', status.filename);
+        $('#user_file_filepath').prop('value', status.filepath);
+        $('#user_file_filesize').prop('value', status.filesize);
+        $('#user_file_filetype').prop('value', status.filetype);
+        $('#user_file_description').prop('value', status.description);
         setTimeout(function() {
           $.post($('#remote_form').prop('action'),
                  $('#remote_form').serialize(),
@@ -79,7 +75,9 @@ $(document).ready(function() {
   }
 
   $('#remote_form .actions').click(function() {
-    var url = encodeURIComponent($('#user_file_url').val());
+    var url = encodeURIComponent(
+      encodeURIComponent($('#user_file_url').val())
+    );
     var description = $('#user_file_description').val();
     
     if (description == '' || description == $('#user_file_description').prop('title')) {

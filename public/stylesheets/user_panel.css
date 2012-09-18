@@ -974,24 +974,15 @@ table.file_list td.name {
   border-bottom: 1px dotted #b1d7e3;
 }
 
-#download_box .price-spaceholder {
-  display: block;
-  height: 21px;
-  margin-bottom: -10px;
-  margin-right: 8px;
-  margin-top: 10px;
-}
-
 #download_box .price-box {
-  position: relative;
-  z-index: 7999;
   display: block;
-  float: right;
+  margin: 3px auto;
   line-height: 16px;
-  height: 20px;
-  width: 230px;
-  border-radius: 5px 5px 0 0;
-  -moz-border-radius: 5px 5px 0 0;
+  text-align: center;
+  height: 16px;
+  width: 320px;
+  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
 }
 
 #download_box .price-box .price-glass {
@@ -1003,10 +994,9 @@ table.file_list td.name {
 }
 
 #download_box .price {
-  float: right;
   display: block;
-  font-size: 10px;
-  margin: -8px 5px;
+  font-size: 11px;
+  margin: -8px;
 }
 
 #background-list .bg-list-item:hover, #background-list .bg-list-item.selected {
@@ -1186,7 +1176,7 @@ table.file_list td.name {
 
 #style-list .style-list-container {
   width: 270px;
-  height: 165px;
+  height: 200px;
   padding: 5px;
   border-radius: 7px;
   -moz-border-radius: 7px;
@@ -1443,7 +1433,7 @@ table.file_list td.name {
   float: left;
   z-index: 9000;
   width: 342px;
-  height: 165px;
+  height: 200px;
   padding: 3px 6px 7px 4px;
   font-family: 'Trebuchet MS', Arial;
   font-size: 13px;
@@ -1583,8 +1573,12 @@ table.file_list td.name {
 }
 
 #download_box .logo {
+  display: inline;
   float: left;
-  padding: 3px 12px !important;
+  width: 86px;
+  height: 23px;
+  margin-left: 13px;
+  margin-top: 8px;
 }
 
 #download_box .have_one {

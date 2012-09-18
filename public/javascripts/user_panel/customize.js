@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   /* Ignore enter keypress */
-  $('*').keypress(function(e) { return !(e.keyCode == 13); });
+  $('*').keypress(function(e) { return e.keyCode != 13; });
 
   var selectors = {
     'box_border': ['#download_box',
@@ -281,13 +281,5 @@ $(document).ready(function() {
     $(this).children("input[type=text]").select();
     e.stopImmediatePropagation();
   });
-
-  (function fade_time(which) {
-    $('.price:visible').hide();
-    $('.price.' + which).fadeIn('fast');
-    setTimeout(function(){
-      fade_time(which == 'normal' ? 'pack' : 'normal');
-    }, 3000);
-  })('normal');
 
 });

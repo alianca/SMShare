@@ -18,21 +18,6 @@
     </div>
 
     <% if @file %>
-
-<!-- Free version
-      <p class="call-to-action">Conheça o mais novo serviço de compartilhamentos</p>
-      <p class="sms"><em>WWW.<span class="test">SMSHARE</span>.COM.BR</em></p>
-      <p class="price">Para saber um pouco mais sobre a smShare, preencha abaixo o seu e-mail.</p>
-
-      <div class="code_area">
-        <%= form_tag authorizations_path, :class => :code, :method => :get do %>
-          <%= hidden_field_tag :file_id, @file._id %>
-          <%= text_field_tag :code, "", :title => "Digite aqui seu e-mail (opcional)", :class => "code_field clear-on-focus" %>
-          <%= submit_tag "Download", :class => "submit" %>
-        <% end %>
-      </div>
--->
-<!-- NEW -->
       <p class="call-to-action">Para comprar o arquivo, envie um SMS com a palavra</p>
       <p class="sms"><em>SMXR</em> para <em>49602</em></p>
 
@@ -60,7 +45,6 @@
           Custo de R$ 1,99+tributos 6 downloads (apenas para Oi)
         </span>
       </div>
-<!-- END -->
 
     <% else %>
 

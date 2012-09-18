@@ -22,7 +22,10 @@
       <p class="sms"><em>SMXR</em> para <em>49602</em></p>
 
       <div class="code_area">
-        <%= form_tag authorizations_path, :class => :code, :method => :get do %>
+        <%= form_tag authorizations_path,
+              :class => :code,
+              :method => :get do
+         %>
           <%= hidden_field_tag :file_id, @file._id %>
           <%= text_field_tag :code, "",
                 :title => "Digite a senha que recebeu por sms",

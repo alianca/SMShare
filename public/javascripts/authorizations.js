@@ -67,6 +67,7 @@ function bind_form(form) {
           console.error(data.responseText);
         },
         success: function(data) {
+          console.log(JSON.stringify(data));
           if (data.url) {
             form.attr('url', data.url);
             var code_field = form.find('.code_field');
@@ -75,7 +76,6 @@ function bind_form(form) {
             window.location = data.url;
           }
           else {
-            alert('Error!');
           }
         }
       });

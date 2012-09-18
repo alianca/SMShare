@@ -36,7 +36,8 @@ class AuthorizationsController < ApplicationController
     end
 
     render :json => { :url => url }
-  rescue
+  rescue Exception => err
+    puts "Error: #{err}"
     render :json => { :url => nil }
   end
 

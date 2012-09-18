@@ -133,8 +133,6 @@ class User
     self.statistics.generate_statistics!
   end
 
-  after_authentication :generate_statistics!
-
   private
 
   def build_statistics!

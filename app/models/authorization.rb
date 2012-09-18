@@ -38,9 +38,9 @@ private
   
   def message
     if self.carrier_id == OI
-      "Digite XXXXXX no campo do site para baixar 6 conteudos (RS 1,99+tributos). Acesso tarifado ao conteúdo extra: wap.smsha.re"
+      "Digite XXXXXX no campo do site para baixar 6 conteúdos (RS 1,99+tributos). Acesso tarifado ao conteúdo extra: wap.smsha.re"
     else
-      "Digite XXXXXX no campo do site para baixar seu conteudo (RS 0,31+tributos). Acesso tarifado ao conteúdo extra: wap.smsha.re"
+      "Digite XXXXXX no campo do site para baixar seu conteúdo (RS 0,31+tributos). Acesso tarifado ao conteúdo extra: wap.smsha.re"
     end
   end
 

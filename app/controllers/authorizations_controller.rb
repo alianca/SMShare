@@ -30,6 +30,7 @@ class AuthorizationsController < ApplicationController
 
   def show
     ip = request.headers["X-Host-IP"]
+    puts "Authorized: #{request.headers["X-Host-IP"]}"
     url = Authorization.url_for(params[:code], @file, ip)
     unless url.nil?
       save_download_info

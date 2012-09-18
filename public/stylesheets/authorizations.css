@@ -31,7 +31,7 @@
 .download_box {
   position: absolute;
   z-index: 9999;
-  width: 342px !important;
+  width: 370px !important;
   height: 200px !important;
   padding: 3px 6px 7px 4px !important;
   font-family: 'Trebuchet MS', Arial !important;
@@ -45,7 +45,7 @@
 
 .download_box .box-header {
   display: block;
-  width: 352px;
+  width: 380px;
   height: 28px;
   margin-left: -4px;
   margin-top: -3px;
@@ -57,7 +57,7 @@
 
 .download_box .box-header .header-glass {
   display: block;
-  width: 352px;
+  width: 380px;
   height: 15px;
   margin-bottom: -15px;
   border-radius: 5px 5px 0 0;
@@ -67,7 +67,7 @@
 
 .download_box .box-header .header-bottom {
   display: block;
-  width: 352px;
+  width: 380px;
   height: 1px;
   margin-top: 27px;
   background-color: rgba(255,255,255,0.1);
@@ -142,12 +142,12 @@
 .download_box form {
   position: relative;
   z-index: 8000;
-  width: 310px;
-  height: 24px;
-  margin: 4px 12px !important;
-  padding: 5px 4px 4px 6px !important;
-  border-radius: 7px;
-  -moz-border-radius: 7px;
+  width: 349px;
+  height: 22px;
+  margin: 4px auto !important;
+  padding: 4px 4px 3px 4px !important;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
   background-image: url(/images/download_box/campo_sombra.png);
   background-repeat: no-repeat;
 }
@@ -157,9 +157,8 @@
   border: 0 !important;
   outline: 0 !important;
   background: transparent !important;
-  width: 194px;
-  font-size: 12px !important;
-  height: 23px;
+  font-size: 13px !important;
+  height: 21px;
 }
 
 .download_box form input[type=submit] {
@@ -167,7 +166,7 @@
   font-size: 12px !important;
   border: 0 !important;
   width: 112px;
-  height: 23px;
+  height: 21px;
   background: url(/images/download_box/botao-brilho.png) no-repeat;
   background-position: 1px 1px;
   border-radius: 5px;
@@ -198,7 +197,7 @@
   float: left;
   width: 86px;
   height: 23px;
-  margin-left: 13px;
+  margin-left: 10px;
   margin-top: 8px;
   background: url(/images/download_box/logo.png) no-repeat;
 }
@@ -207,7 +206,7 @@
   float: right;
   margin: 0 !important;
   text-decoration: none !important;
-  padding: 7px 15px 0 0 !important;
+  padding: 12px 10px 0 0 !important;
 }
 
 .download_box .have_one span {
@@ -222,23 +221,23 @@
 
 .download_box form input[type=text] {
   border: none;
-  width: 188px;
+  width: 220px;
 }
 
 .download_box .price-box {
   display: block;
   margin: 3px auto;
   text-align: center;
-  line-height: 16px;
-  height: 16px;
-  width: 320px;
+  line-height: 20px;
+  height: 20px;
+  width: 360px;
   border-radius: 5px 5px 5px 5px;
   -moz-border-radius: 5px 5px 5px 5px;
 }
 
 .download_box .price-box .price-glass {
   display: block;
-  height: 8px;
+  height: 10px;
   border-radius: 5px 5px 0 0;
   -moz-border-radius: 5px 5px 0 0;
   background-color: rgba(255, 255, 255, 0.1);
@@ -246,6 +245,6 @@
 
 .download_box .price {
   display: block;
-  font-size: 11px;
-  margin: -8px;
+  font-size: 12px;
+  margin: -10px;
 }

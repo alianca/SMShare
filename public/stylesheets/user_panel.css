@@ -931,7 +931,7 @@ table.file_list td.name {
 #view {
   display: block;
   float: left;
-  width: 320px;
+  width: 360px;
   margin-bottom: 20px;
 }
 
@@ -946,12 +946,12 @@ table.file_list td.name {
 
 #background-list {
   display: block;
-  width: 320px;
+  width: 370px;
   margin-bottom: 50px;
 }
 
 #background-list .bg-list-container {
-  width: 340px;
+  width: 370px;
   height: 380px;
   padding: 5px;
   border-radius: 7px;
@@ -977,17 +977,17 @@ table.file_list td.name {
 #download_box .price-box {
   display: block;
   margin: 3px auto;
-  line-height: 16px;
+  line-height: 20px;
   text-align: center;
-  height: 16px;
-  width: 320px;
+  height: 20px;
+  width: 360px;
   border-radius: 5px 5px 5px 5px;
   -moz-border-radius: 5px 5px 5px 5px;
 }
 
 #download_box .price-box .price-glass {
   display: block;
-  height: 8px;
+  height: 10px;
   border-radius: 5px 5px 0 0;
   -moz-border-radius: 5px 5px 0 0;
   background-color: rgba(255, 255, 255, 0.1);
@@ -995,11 +995,12 @@ table.file_list td.name {
 
 #download_box .price {
   display: block;
-  font-size: 11px;
-  margin: -8px;
+  font-size: 12px;
+  margin: -10px;
 }
 
-#background-list .bg-list-item:hover, #background-list .bg-list-item.selected {
+#background-list .bg-list-item:hover,
+#background-list .bg-list-item.selected {
   background-color: #f3f7f9;
 }
 
@@ -1035,12 +1036,12 @@ table.file_list td.name {
 
 #background-list form .button {
   float: right;
-  margin-right: -30px;
+  margin-right: -15px;
 }
 
 #background-form {
   float: left;
-  width: 320px;
+  width: 360px;
   padding: 10px;
   background-color: #d9ecf2;
   border-radius: 7px;
@@ -1136,20 +1137,21 @@ table.file_list td.name {
 
 #code-area {
   display: none;
-  width: 659px;
+  width: 655px;
+  margin-top: 200px;
 }
 
 #code-area input {
-  width: 650px;
+  width: 640px;
   margin-bottom: 10px;
 }
 
-#background-form  form .file-field {
-  width: 310px;
+#background-form form .file-field {
+  width: 350px;
 }
 
-#background-form  form .file-field .file-name {
-  width: 188px;
+#background-form form .file-field .file-name {
+  width: 228px;
 }
 
 #background-form .file_field input[type=file] {
@@ -1170,12 +1172,12 @@ table.file_list td.name {
 
 #style-list {
   float: left;
-  margin-left: 55px;
-  width: 285px;
+  margin-left: 45px;
+  width: 265px;
 }
 
 #style-list .style-list-container {
-  width: 270px;
+  width: 250px;
   height: 200px;
   padding: 5px;
   border-radius: 7px;
@@ -1185,13 +1187,14 @@ table.file_list td.name {
   overflow-y: scroll;
 }
 
-#style-list .style-list-item:hover, #style-list .style-list-item.selected {
+#style-list .style-list-item:hover,
+#style-list .style-list-item.selected {
   background-color: #f3f7f9;
 }
 
 #style-list .style-list-item {
   float: left;
-  width: 260px;
+  width: 240px;
   height: 34px;
   line-height: 32px;
   padding: 2px 0;
@@ -1304,7 +1307,7 @@ table.file_list td.name {
 #style-customize {
   float: right;
   margin-right: 20px;
-  width: 285px;
+  width: 265px;
   margin-bottom: 30px;
 }
 
@@ -1332,25 +1335,25 @@ table.file_list td.name {
   border: 1px solid #7bbacf;
   background-color: #ffffff;
   z-index: 2;
-  border-radius: 7px;
-  -moz-border-radius: 7px;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
 }
 
 #style-customize form input[type=text] {
   float: right;
-  width: 77px;
+  width: 67px;
   height: 24px;
   border: 1px solid #7bbacf;
   color: #8e8e8e;
   text-align: center;
-  margin-right: 20px;
-  border-radius: 7px;
-  -moz-border-radius: 7px;
+  margin-right: 10px;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
 }
 
 #style-customize form input[type=text].name {
   float: left;
-  width: 190px;
+  width: 170px;
   height: 26px;
   text-align: left;
   margin: 0;
@@ -1374,7 +1377,7 @@ table.file_list td.name {
 }
 
 .button.orange span {
-  top: -8px;
+  top: -7px;
   padding-bottom: 30px;
 }
 
@@ -1397,7 +1400,7 @@ table.file_list td.name {
 }
 
 .button.blue span {
-  top: -5px;
+  top: -4px;
   padding-bottom: 24px;
 }
 
@@ -1432,7 +1435,7 @@ table.file_list td.name {
 #download_box {
   float: left;
   z-index: 9000;
-  width: 342px;
+  width: 370px;
   height: 200px;
   padding: 3px 6px 7px 4px;
   font-family: 'Trebuchet MS', Arial;
@@ -1442,12 +1445,12 @@ table.file_list td.name {
   -moz-border-radius: 7px;
   box-shadow: 1px 1px 1px 1px rgba(50,50,50,0.2);
   background-repeat: no-repeat;
-  background-size: 355px 175px;
+  background-size: 380px 200px;
 }
 
 #download_box .box-header {
   display: block;
-  width: 352px;
+  width: 380px;
   height: 28px;
   margin-left: -4px;
   margin-top: -3px;
@@ -1459,7 +1462,7 @@ table.file_list td.name {
 
 #download_box .box-header .header-glass {
   display: block;
-  width: 352px;
+  width: 380px;
   height: 15px;
   margin-bottom: -15px;
   border-radius: 5px 5px 0 0;
@@ -1469,7 +1472,7 @@ table.file_list td.name {
 
 #download_box .box-header .header-bottom {
   display: block;
-  width: 352px;
+  width: 380px;
   height: 1px;
   margin-top: 27px;
   background-color: rgba(255,255,255,0.1);
@@ -1480,7 +1483,7 @@ table.file_list td.name {
   margin: 0;
   font-size: 12px;
   padding: 6px 3px 6px 14px;
-  max-width: 243px;
+  max-width: 273px;
   height: 14px;
   margin-top: -5px;
 }
@@ -1514,7 +1517,7 @@ table.file_list td.name {
   clear: both;
   text-align: center;
   margin: 0 !important;
-  padding: 9px 0 1px 0 !important;
+  padding: 4px 0 1px 0 !important;
 }
 
 #download_box .sms {
@@ -1535,13 +1538,13 @@ table.file_list td.name {
 
 #download_box .code_area {
   position: relative;
-  width: 310px;
-  height: 24px;
   z-index: 8000;
-  margin: 4px 12px !important;
-  padding: 5px 4px 4px 6px !important;
-  border-radius: 7px;
-  -moz-border-radius: 7px;
+  width: 349px;
+  height: 22px;
+  margin: 4px auto !important;
+  padding: 4px 4px 3px 4px !important;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
   background-image: url(/images/download_box/campo_sombra.png);
   background-repeat: no-repeat;
 }
@@ -1551,9 +1554,9 @@ table.file_list td.name {
   border: 0 !important;
   outline: 0 !important;
   background: transparent !important;
-  width: 194px;
-  font-size: 12px !important;
-  height: 23px;
+  font-size: 13px !important;
+  width: 220px;
+  height: 21px;
 }
 
 #download_box .code_area .submit {
@@ -1561,7 +1564,7 @@ table.file_list td.name {
   font-size: 12px !important;
   border: 0 !important;
   width: 112px;
-  height: 23px;
+  height: 21px;
   background: url(/images/download_box/botao-brilho.png) no-repeat;
   background-position: 1px 1px;
   border-radius: 5px;
@@ -1577,7 +1580,7 @@ table.file_list td.name {
   float: left;
   width: 86px;
   height: 23px;
-  margin-left: 13px;
+  margin-left: 10px;
   margin-top: 8px;
 }
 
@@ -1585,7 +1588,7 @@ table.file_list td.name {
   float: right;
   margin: 0 !important;
   text-decoration: none !important;
-  padding: 7px 15px 0 0 !important;
+  padding: 12px 10px 0 0 !important;
 }
 
 #download_box .have_one span {

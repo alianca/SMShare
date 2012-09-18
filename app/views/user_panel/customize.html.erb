@@ -21,7 +21,7 @@
 
         <div class="code_area">
           <%= text_field_tag :code, "",
-                :title => "Digite a senha que recebeu por sms",
+                :title => "Digite a senha que recebeu por SMS",
                 :class => "code_field clear-on-focus"
            %>
           <%= button_tag "Download", :class => "submit" %>
@@ -41,13 +41,17 @@
           </span>
         </div>
 
-        <%= link_to image_tag("download_box/logo.png"), root_url, :class => :logo %>
+        <%= link_to image_tag("download_box/logo.png"), root_url,
+              :class => :logo
+         %>
         <%= link_to "", :class => :have_one do %>
           Tenha um desses você também »
         <% end %>
 
       </div>
-      <li><a id="generate-code">Gerar código de inserção</a></li>
+      <div id="code-region">
+        <li><a id="generate-code">Gerar código de inserção</a></li>
+      </div>
     </div>
 
     <div id="style-list">

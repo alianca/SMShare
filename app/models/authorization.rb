@@ -19,19 +19,19 @@ class Authorization < RedisModel
   end
 
   def self.url_for(id, file, address)
-    #auth = self.find(id)
-    #raise :invalid_key if auth.nil?
-    #raise :invalid_key if Curl::Easy.perform(auth.confirm_url).body_str != "0"
+    auth = self.find(id)
+    raise :invalid_key if auth.nil?
+    raise :invalid_key if Curl::Easy.perform(auth.confirm_url).body_str != "0"
 
     expire = (Time.now + 5.hours).to_i
     path = file.filepath.split('/').last
     md5 = Digest::MD5.digest("#{address}:#{SECRET}:#{path}:#{expire}")
     hash = Base64.encode64(md5).tr('+/', '-_').gsub(/[=\n]/, '')
 
-    #auth.count--
-    #auth.destroy unless auth.count > 0
+    auth.count--
+    auth.destroy unless auth.count > 0
 
-    "http://#{$file_server}/files/#{hash}/#{expire}/#{path}/#{file.filename}"
+    "HTTP://#{$file_server}/files/#{hash}/#{expire}/#{path}/#{file.filename}"
   end
 
 private

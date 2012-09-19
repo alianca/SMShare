@@ -1651,7 +1651,7 @@ table.file_list td.name {
 
 }
 
-#config-profile #configs .left {
+#config-profile #configs .inputs .left {
   display: block;
   height: 90px;
   width: 90px;
@@ -1660,7 +1660,7 @@ table.file_list td.name {
   float: left;
 }
 
-#config-profile #configs .right {
+#config-profile #configs .inputs .right {
   display: inline-block;
   height: 90px;
   width: 90px;
@@ -1725,23 +1725,32 @@ table.file_list td.name {
 
 #config-profile #configs form .actions .button .left {
   position: relative;
+  display: inline-block;
   width: 5px;
   height: 26px;
   padding: 0;
   top: 0;
-  margin-right: 0px;
+  margin-right: -3px;
 }
 
 #config-profile #configs form .actions .button .right {
   position: relative;
+  display: inline-block;
   width: 6px;
   height: 26px;
   padding: 0;
   top: 0;
-  margin-left: -6px;
+  margin-left: -3px;
 }
 
-#config-profile #configs form .buttons .button button {
+#config-profile #configs form .actions .button button {
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  top: -9px;
+  padding: 0;
+  font-size: 11px;
+  height: 26px;
   width: 114px;
 }
 

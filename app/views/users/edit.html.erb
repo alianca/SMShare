@@ -42,7 +42,9 @@
 
       <%= u.actions do %>
         <span class="button blue">
-          <span class="left"></span><%= u.action :submit, :as => :button, :label => "Salvar" %><span class="right"></span>
+          <span class="left"></span>
+            <button type="submit" name="button">Salvar</button>
+          <span class="right"></span>
         </span>
       <% end %>
 

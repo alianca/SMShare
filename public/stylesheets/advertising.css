@@ -100,16 +100,6 @@
     font-weight: bold;
 }
 
-#user_panel-container #range .text-field input[type=text] {
-    position: relative;
-    top: -7px;
-}
-
-#user_panel-container #range .text-field {
-    position: relative;
-    top: 8px;
-}
-
 #user_panel-container .buttons {
     width: 100%;
     text-align: center;
@@ -203,7 +193,6 @@
 
 #user_panel-container .url-container input[type=text] {
     position: relative;
-    top: -1px;
     height: 26px;
     padding: 0;
     border: 1px solid #7bbacf;
@@ -527,13 +516,8 @@
 #user_panel-container .links-box form input[type=text] {
     width: 175px;
     position: relative;
-    top: -8px;
 }
 
-#user_panel-container .links-box form .text-field {
-    position: relative;
-    top: 8px;
-}
 
 #user_panel-container .submit_blue {
     height: 28px;
@@ -548,7 +532,10 @@
 #user_panel-container .submit_blue input[type=submit] {
     border: none;
     display: inline-block;
+    position: relative;
     color: white;
+    font-size: 11px;
+    top: 1px;
     height: 28px;
     margin: 0;
     background: url(/images/user_panel/blue_button_middle.png) repeat-x;
@@ -557,7 +544,7 @@
 #user_panel-container .submit_blue .left {
     display: inline-block;
     position: relative;
-    top: 8px;
+    top: 9px;
     height: 26px;
     width: 8px;
     margin: 0;
@@ -567,7 +554,7 @@
 #user_panel-container .submit_blue .right {
     display: inline-block;
     position: relative;
-    top: 8px;
+    top: 9px;
     height: 26px;
     width: 8px;
     margin: 0;
@@ -576,23 +563,26 @@
 
 #user_panel-container .text-field {
     display: inline-block;
+    position: relative;
+    margin-top: -8px;
     height: 26px;
     line-height: 26px;
 }
 
 #user_panel-container .text-field input[type=text] {
     border: none;
-    height: 29px;
+    height: 26px;
     position: relative;
-    top: -8px;
     margin: 0;
     background: url(/images/user_panel/field_middle_26.png) repeat-x;
 }
 
 #user_panel-container .text-field .left {
     display: inline-block;
+    position: relative;
     height: 26px;
     width: 4px;
+    top: 9px;
     margin: 0;
     padding: 0;
     background: url(/images/user_panel/field_left_26.png) no-repeat;
@@ -600,8 +590,10 @@
 
 #user_panel-container .text-field .right {
     display: inline-block;
+    position: relative;
     height: 26px;
     width: 8px;
+    top: 9px;
     margin: 0;
     padding: 0;
     background: url(/images/user_panel/field_right_26.png) no-repeat;

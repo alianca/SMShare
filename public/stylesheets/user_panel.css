@@ -1,7 +1,7 @@
 /* @group Defaults */
 
 body {
-  position: relative;
+  position: relative/
   background: url(/images/user_panel/fundo.jpg) no-repeat 50% 0;
   height: 100%;
 }
@@ -772,6 +772,12 @@ table.file_list td.name {
   text-decoration: underline;
 }
 
+#actions_forms .actions {
+  height: 100%;
+  padding: -3px;
+  margin: -3px;
+}
+
 #actions_forms #new_folder,
 #actions_forms #move,
 #actions_forms #compress,
@@ -781,6 +787,7 @@ table.file_list td.name {
   top: 201px;
   width: 648px;
   height: 27px;
+  line-height: 27px;
   padding: 3px 3px;
   background: white;
   border: 1px solid #F37F00;
@@ -827,18 +834,14 @@ table.file_list td.name {
 
 #actions_forms #move #user_file_folder {
   border: 0;
-  min-width: 140px;
-  max-width: 405px;
+  width: 200px;
   height: 23px;
   margin-top: 2px;
+  overflow: hidden;
 }
 
 #actions_forms .inputs {
   float: left;
-}
-
-#actions_forms #rename .inputs {
-  float: none;
 }
 
 #actions_forms #rename .field {
@@ -881,9 +884,20 @@ table.file_list td.name {
   background: url(/images/user_files/botao-rename-off.png);
 }
 
+#actions_forms #remove p {
+  float: left;
+  display: inline;
+}
+
 #actions_forms .actions {
   float: left;
-  padding: 2px 0 2px 15px !important;
+  padding: 2px 0 2px 15px;
+}
+
+#actions_forms #rename .actions {
+  height: 35px;
+  line-height: 35px;
+  padding-left: 10px;
 }
 
 #actions_forms button, #actions_forms .compress-button {
@@ -1893,6 +1907,7 @@ table.file_list td.name {
 #personal-data .actions {
   padding: 0;
   margin: 0;
+  margin-left: 235px;
   overflow: hidden;
 }
 
@@ -1926,7 +1941,31 @@ table.file_list td.name {
   padding-bottom: 10px;
 }
 
+#actions_forms .styled_select {
+  display: inline-block;
+  float: left;
+  overflow: hidden;
+}
 
-.styled_select .right {
-  margin-left: -4px;
+#actions_forms .styled_select .left {
+  display: inline-block;
+  position: relative;
+  margin-bottom: -14px;
+  padding-bottom: 26px;
+  margin-right: -3px;
+}
+
+#actions_forms .styled_select .custom-select {
+  display: inline-block;
+  position: relative;
+  margin-right: -2px;
+  z-index: 10000;
+}
+
+#actions_forms .styled_select .right {
+  display: inline-block;
+  position: relative;
+  margin-bottom: -14px;
+  padding-bottom: 26px;
+  margin-left: -3px;
 }

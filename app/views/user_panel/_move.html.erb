@@ -4,10 +4,22 @@
   <% end %>
 
   <%= f.inputs do %>
-    <%= f.input :folder, :label => "Destino:", :as => :select, :include_blank => false, :collection => folders_to_move %>
+    <span class="styled_select text_field_small">
+      <label for="user_file_folder">Destino:</label>
+      <span class="select_container">
+        <span class="left"></span>
+        <select id="user_file_folder">
+          <% folders_to_move.each do |folder, id| %>
+            <option value="<%= id %>"><%= folder %></option>
+          <% end %>
+        </select>
+        <span class="right"></span>
+      </span>
+    </span>
   <% end %>
 
-  <%= f.actions do %>
-    <%= f.action :submit, :as => :button, :label => "Confirmar" %>
-  <% end %>
+  <fieldset class="actions">
+    <button type="submit">Confirmar</button>
+  </fieldset>
+
 <% end %>

@@ -1941,6 +1941,10 @@ table.file_list td.name {
   padding-bottom: 10px;
 }
 
+.styled_select .right {
+  margin-left: -3px;
+}
+
 #actions_forms .styled_select {
   display: inline-block;
   float: left;

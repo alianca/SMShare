@@ -19,9 +19,10 @@
         %>
       <% end %>
 
-      <%= f.inputs :class => :public_field do %>
-        <%= f.input :public, :as => :boolean, :default => true, :label => "Arquivo público (?)" %>
-      <% end %>
+      <fieldset class="public_field">
+        <label for="user_file_public">Arquivo público (?)</label>
+        <input type="checkbox" id="user_file_public" name="user_file[public]" value=1 checked>
+      </fieldset>
 
       <%= f.actions do %>
         <%= f.action :submit, :as => :button, :label => "Enviar" %>

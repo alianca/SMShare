@@ -163,15 +163,22 @@ body {
 
 #remote_form .public_field,
 #upload_forms .public_field {
-  float: right;
+  position: relative;
+  padding-left: 8px;
+  padding-top: 5px;
+  line-height: 25px;
   height: 34px;
   overflow: hidden;
 }
 
 #remote_form .public_field label,
 #upload_forms .public_field label {
-  padding: 9px 3px 0 0;
   color: #34378A;
+}
+#remote_form .public_field .checkbox,
+#upload_forms .public_field .checkbox {
+  position: relative;
+  background-position: 0px -20px;
 }
 
 #remote_form fieldset.actions,
@@ -1770,10 +1777,6 @@ table.file_list td.name {
 #personal-data .fields.top {
   width: 365px;
   height: 174px;
-}
-
-#personal-data .optional-forms {
-  margin-left: 40px;
 }
 
 #personal-data .fields select,

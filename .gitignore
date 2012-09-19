@@ -6,4 +6,6 @@ log/*
 tmp
 /public/box_images/
 *.swp
+*.swo
 *~
+tools

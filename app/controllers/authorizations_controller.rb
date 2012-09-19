@@ -36,17 +36,19 @@ class AuthorizationsController < ApplicationController
       save_download_info
     end
 
-    render :json => { :url => url }
+    render :json => {:url => url}
   rescue Exception => err
     logger.error "Error: #{err}"
-    render :json => { :url => nil }
+    render :json => {:url => nil}
   end
 
   def create
     xml = Nokogiri::XML.fragment(request.body.read)
-    @auth = Authorization.register(:pin => xml.at('pin').text,
-                                   :msisdn => xml.at('msisdn').text,
-                                   :carrier_id => xml.at('carrier_id').text)
+    @auth = Authorization.register(
+      :pin        => xml.at('pin').text,
+      :msisdn     => xml.at('msisdn').text,
+      :carrier_id => xml.at('carrier_id').text
+    )
     render :text => '1'
   rescue Exception => e
     render :text => "0 # #{e.message}"

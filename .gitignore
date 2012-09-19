@@ -1,4 +1,5 @@
 .bundle
+start.sh
 .rvmrc
 .redcar
 db/*.sqlite3

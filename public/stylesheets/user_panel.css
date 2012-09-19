@@ -204,9 +204,15 @@ body {
   width: 471px;
 }
 
+#remote_form .file-field,
+#upload_forms .file-field {
+  top: -13px;
+}
+
 #remote_form .file-field .file-name,
 #upload_forms .file-field .file-name {
   width: 343px;
+  margin-bottom: -19px;
 }
 
 #remote_form fieldset.actions li,

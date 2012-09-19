@@ -123,10 +123,6 @@ body {
   overflow: hidden;
 }
 
-#multi_form {
-  display: none;
-}
-
 #remote_form .file_fields,
 #upload_forms .file_fields {
   float: left;
@@ -167,7 +163,6 @@ body {
   padding-left: 8px;
   padding-top: 5px;
   line-height: 25px;
-  height: 81px;
   margin-bottom: 10px;
   overflow: hidden;
 }
@@ -188,7 +183,9 @@ body {
   float: right;
   overflow: auto;
   border: 0;
-  margin: -89px 0 0 0;
+  position: relative;
+  top: -99px;
+  margin: 0;
   padding: 0;
 }
 
@@ -219,7 +216,6 @@ body {
 #upload_forms fieldset.actions li {
   padding-right: 0;
   overflow: auto;
-  margin-bottom: 1.5em;
   margin: 0;
   padding: 0;
 }
@@ -251,6 +247,10 @@ body {
 .more-urls {
   clear: both;
   height: 20px;
+}
+
+.files_form {
+  height: 104px;
 }
 
 .files_form .more-urls {

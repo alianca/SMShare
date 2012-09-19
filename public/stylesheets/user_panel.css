@@ -167,7 +167,8 @@ body {
   padding-left: 8px;
   padding-top: 5px;
   line-height: 25px;
-  height: 34px;
+  height: 81px;
+  margin-bottom: 10px;
   overflow: hidden;
 }
 
@@ -187,7 +188,7 @@ body {
   float: right;
   overflow: auto;
   border: 0;
-  margin: -85px 0 0 0;
+  margin: -89px 0 0 0;
   padding: 0;
 }
 

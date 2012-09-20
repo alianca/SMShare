@@ -16,9 +16,22 @@ Smshare::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   # Ocultar deprecation warnings enquanto as gems ainda não estão 100% rails3
-  config.active_support.deprecation = :log
+  # config.active_support.deprecation = :log
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => "baci.lindsaar.net",
+    :user_name            => "dev.smshare.dev@gmail.com",
+    :password             => "evildal3k",
+    :authentication       => "plain",
+    :enable_starttls_auto => true
+  }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
 end

@@ -16,8 +16,10 @@ function get_real_link(link) {
 function show_box(iframe, x, y) {
   iframe.css({
     'position': 'absolute',
-    'left': Math.max(x - iframe.outerWidth() / 2, (iframe.outerWidth() - iframe.width()) / 2),
-    'top' : Math.max(y - iframe.outerHeight() / 2, (iframe.outerHeight() - iframe.height()) / 2)
+    'left': Math.max(x - iframe.outerWidth() / 2,
+      (iframe.outerWidth() - iframe.width()) / 2),
+    'top' : Math.max(y - iframe.outerHeight() / 2,
+      (iframe.outerHeight() - iframe.height()) / 2)
   });
 
   iframe.show();
@@ -26,9 +28,11 @@ function show_box(iframe, x, y) {
 
 function create_iframe(link) {
 
-  var file_id = link.attr('href').match(/arquivos\/([0-9a-f]{24})\/?$/)[1];
+  var file_id = link.attr('href').
+    match(/arquivos\/([0-9a-f]{24})\/?$/)[1];
   var base = link.attr('href').match(/^((http:\/\/)?[^\/]*)\//)[1];
-  var url = base + '/autorizacao/new?file_id=' + file_id + '&' + options;
+  var url = base + '/autorizacao/new?file_id=' +
+    file_id + '&' + options;
 
   var iframe = $('<iframe '
                  + 'id="downbox" '
@@ -70,17 +74,9 @@ $(document).ready(function() {
     var link = get_real_link(this);
     var iframe = create_iframe(link);
 
-    link.click(function(e) {
-      // Ignore clicks
-      e.stopImmediatePropagation();
-      return false;
-    });
-
     link.hover(
       /* in  */ function(e) {
         e.stopImmediatePropagation();
-
-        console.log('Hover at: (' + e.pageX + ', ' + e.pageY + ')');
 
         if (iframe.is(':visible')) {
           return false; // Não abrir duas vezes

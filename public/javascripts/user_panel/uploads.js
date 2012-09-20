@@ -71,10 +71,10 @@ $(document).ready(function() {
     }).join('&');
   }
 
-
+  var FILE="69.64.50.217";
   function update_status(form, done) {
     $.ajax({
-      url: "/progress?X-Progress-ID=" + $(form).find(".file_fields #X-Progress-ID").val(),
+      url: FILE+"/progress?X-Progress-ID=" + $(form).find(".file_fields #X-Progress-ID").val(),
       dataType: "json",
       error: function(e) { status = 'error' },
       success: function(data) {

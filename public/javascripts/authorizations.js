@@ -76,6 +76,8 @@ function bind_form(form) {
             window.location = data.url;
           }
           else {
+            code_field.prop("title", "Pin inválido.");
+            code_field.val("");
           }
         }
       });

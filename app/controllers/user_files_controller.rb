@@ -6,12 +6,17 @@ class UserFilesController < FilesController
   layout "user_panel", :except => [:show]
 
   def show
-    @file = UserFile.find(params[:id])
-    @mime = @file.filetype
-    @comment = Comment.new
-    @owner = current_user._id == @file.owner._id
+    @file            = UserFile.find(params[:id])
+    @mime            = @file.filetype
+    @comment         = Comment.new
+    @owner           = current_user._id == @file.owner._id
     @user_file_image = UserFileImage.new
-    @comments = @file.comments.to_a.delete_if{|c| c.blocked?}.paginate(:per_page => 6, :page => params[:page])
+    @comments        = @file.comments.to_a.
+                         delete_if{|c| c.blocked?}.
+                         paginate(
+                           :per_page => 6,
+                           :page     => params[:page]
+                         )
     render(:show, :layout => 'application')
   end
 
@@ -23,7 +28,9 @@ class UserFilesController < FilesController
   def categorize
     unless params[:files].blank?
       params[:files].delete_if{ |f| f.blank? }
-      respond_with(@files = current_user.files.find(params[:files]))
+      respond_with(
+        @files = current_user.files.find(params[:files])
+      )
     else
       redirect_to :back
     end
@@ -34,14 +41,16 @@ class UserFilesController < FilesController
       file = UserFile.find(file_id)
       unless file_params[:categories].nil?
         file.category_ids = file_params[:categories].
-          delete_if{ |c| c.blank? }.
-          collect{ |c| BSON::ObjectId(c) }
+          delete_if{|c| c.blank?}.
+          collect{|c| BSON::ObjectId(c)}
       end
       file.sentenced_tags = file_params[:sentenced_tags]
       file.save! ? file : nil
     end.compact
 
-    respond_with(@file, :location => links_user_files_path(:files => @files))
+    respond_with(@file, {
+      :location => links_user_files_path(:files => @files)
+    })
   end
 
 end

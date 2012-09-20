@@ -1,7 +1,6 @@
 class FilesController < ApplicationController
   respond_to :html, :except => [:create]
   before_filter :authenticate_user!
-  before_filter :require_admin! # Apenas enquanto o login estiver bloqueado
   protect_from_forgery
 
   def new

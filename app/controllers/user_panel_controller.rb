@@ -3,30 +3,50 @@
 class UserPanelController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
-  before_filter :fetch_folder, :only => [:create, :manage, :compress]
+  before_filter :fetch_folder, :only => [
+    :create,
+    :manage,
+    :compress
+  ]
 
   layout 'user_panel'
 
   def show
     @file = UserFile.new
-    @today_downloads = UserDailyStatistic.today_downloads_for current_user
-    @today_referred_downloads = UserDailyStatistic.today_referred_downloads_for current_user
-    @today_total_revenue = UserDailyStatistic.today_total_revenue_for current_user
+    @today_downloads = UserDailyStatistic.
+      today_downloads_for current_user
+    @today_referred_downloads = UserDailyStatistic.
+      today_referred_downloads_for current_user
+    @today_total_revenue = UserDailyStatistic.
+      today_total_revenue_for current_user
 
-    @yesterday_downloads = UserDailyStatistic.yesterday_downloads_for current_user
-    @yesterday_referred_downloads = UserDailyStatistic.yesterday_referred_downloads_for current_user
-    @yesterday_total_revenue = UserDailyStatistic.yesterday_total_revenue_for current_user
+    @yesterday_downloads = UserDailyStatistic.
+      yesterday_downloads_for current_user
+    @yesterday_referred_downloads = UserDailyStatistic.
+      yesterday_referred_downloads_for current_user
+    @yesterday_total_revenue = UserDailyStatistic.
+      yesterday_total_revenue_for current_user
 
-    @this_month_downloads = UserDailyStatistic.this_month_downloads_for current_user
-    @this_month_referred_downloads = UserDailyStatistic.this_month_referred_downloads_for current_user
-    @this_month_total_revenue = UserDailyStatistic.this_month_total_revenue_for current_user
+    @this_month_downloads = UserDailyStatistic.
+      this_month_downloads_for current_user
+    @this_month_referred_downloads = UserDailyStatistic.
+      this_month_referred_downloads_for current_user
+    @this_month_total_revenue = UserDailyStatistic.
+      this_month_total_revenue_for current_user
 
-    @last_month_downloads = UserDailyStatistic.last_month_downloads_for current_user
-    @last_month_referred_downloads = UserDailyStatistic.last_month_referred_downloads_for current_user
-    @last_month_total_revenue = UserDailyStatistic.last_month_total_revenue_for current_user
+    @last_month_downloads = UserDailyStatistic.
+      last_month_downloads_for current_user
+    @last_month_referred_downloads = UserDailyStatistic.
+      last_month_referred_downloads_for current_user
+    @last_month_total_revenue = UserDailyStatistic.
+      last_month_total_revenue_for current_user
 
-    @most_downloaded_files = current_user.files.order_by(:"statistics.downloads").limit(10).to_a
-    @most_downloaded_files.sort! { |x, y| (y.statistics.downloads || 0) <=> (x.statistics.downloads || 0) }
+    @most_downloaded_files = current_user.files.
+      order_by(:"statistics.downloads").limit(10).to_a
+#    @most_downloaded_files.sort! { |x, y|
+#      (y.statistics.downloads || 0) <=>
+#      (x.statistics.downloads || 0)
+#    }
   end
 
   def create

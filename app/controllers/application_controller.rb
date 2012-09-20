@@ -25,8 +25,12 @@ class ApplicationController < ActionController::Base
       referred_user = User.where(:nickname => params[:ref]).first
       if params[:ban]
         cookies[:referred_banner] = params[:ban]
-        referred_banner = referred_user.references.where(:name => params[:ban]).first
-        referred_banner.got_click unless current_user == referred_user
+        referred_banner = referred_user.references.where(
+          :name => params[:ban]
+        ).first
+        unless current_user == referred_user
+          referred_banner.got_click
+        end
       end
     end
   rescue

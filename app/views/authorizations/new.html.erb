@@ -1,13 +1,23 @@
 <div id="downbox-overlay">
-  <div id="download_box-<%= @file.id if @file %>" class="download_box">
+  <div id="download_box-<%= @file.id if @file %>"
+       class="download_box">
 
     <div class="box-header">
       <% if @file %>
         <span class="header-glass"></span>
-        <p class="filename"><em>Arquivo:</em>
-          <%= link_to truncate(@file.name, :omission => "..." + @file.name[-4..-1], :length => 32), user_file_path(@file) %>
+        <p class="filename">
+          <em>Arquivo:</em>
+          <%= link_to truncate(@file.name, {
+            :omission => "...#{@file.name[-4..-1]}",
+            :length   => 32
+          }), user_file_path(@file)
+          %>
         </p>
-        <p class="filesize"><em>(<%= number_to_human_size(@file.filesize) %>)</em></p>
+        <p class="filesize">
+          <em>&#40;<%=
+            number_to_human_size(@file.filesize)
+          %>&#41;</em>
+        </p>
         <span class="header-bottom"></span>
       <% else %>
         <span class="header-glass"></span>
@@ -18,7 +28,9 @@
     </div>
 
     <% if @file %>
-      <p class="call-to-action">Para comprar o arquivo, envie um SMS com a palavra</p>
+      <p class="call-to-action">
+        Para comprar o arquivo, envie um SMS com a palavra
+      </p>
       <p class="sms"><em>SMXR</em> para <em>49602</em></p>
 
       <div class="code_area">
@@ -38,25 +50,35 @@
       <div class="price-box">
         <span class="price-glass"></span>
         <span class="price">
-          Custo de R$ 0,31+tributos: 1 download (para Vivo, Claro e Tim)
+          Custo de R$ 0,31+tributos: 1 download
+          (para Vivo, Claro e Tim)
         </span>
       </div>
 
       <div class="price-box">
         <span class="price-glass"></span>
         <span class="price">
-          Custo de R$ 1,99+tributos 6 downloads (apenas para Oi)
+          Custo de R$ 1,99+tributos 6 downloads
+          (apenas para Oi)
         </span>
       </div>
 
     <% else %>
 
       <div class="not-found">
-        <p class="bold">O arquivo que procura foi removido ou não existe</p>
-        <p>Quem sabe você pode achar o que estava procurando em nosso sistema de busca, o smSearch!</p>
+        <p class="bold">
+          O arquivo que procura foi removido ou não existe
+        </p>
+        <p>
+          Quem sabe você pode achar o que estava procurando em
+          nosso sistema de busca, o smSearch!
+        </p>
 
         <div class="code_area">
-          <%= form_tag search_index_url, :id => :search_field, :method => :get do %>
+          <%= form_tag search_index_url, {
+            :id     => :search_field,
+            :method => :get
+          } do %>
             <%= text_field_tag :q %>
             <%= submit_tag "Buscar" %>
           <% end %>
@@ -70,7 +92,10 @@
         <div class="logo"></div>
       <% end %>
 
-      <%= link_to new_user_registration_path, :class => :have_one, :target => "_top" do %>
+      <%= link_to new_user_registration_path, {
+        :class  => :have_one,
+        :target => "_top"
+      } do %>
         Tenha um desses você também <span>»</span>
       <% end %>
     </div>

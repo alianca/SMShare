@@ -36,14 +36,19 @@ class Authorization < RedisModel
     )
     hash = Base64.encode64(md5).tr('+/', '-_').gsub(/[=\n]/, '')
 
-    "HTTP://#{$file_server}/files/#{hash}/#{expire}/#{path}/#{file.filename}"
+    "HTTP://#{$file_server}/files/#{hash}/#{expire}/#{path}/"+
+      "#{file.filename}"
   end
   
   def message
     if self.carrier_id == OI
-      "Digite XXXXXX no campo do site para baixar 6 conteúdos (RS 1,99+tributos). Acesso tarifado ao conteúdo extra: wap.smsha.re"
+      "Digite #{self.id} no campo do site para baixar 6 conteúdos"+
+        " (RS 1,99+tributos). Acesso tarifado ao conteúdo extra: "+
+        "wap.smsha.re"
     else
-      "Digite XXXXXX no campo do site para baixar seu conteúdo (RS 0,31+tributos). Acesso tarifado ao conteúdo extra: wap.smsha.re"
+      "Digite #{self.id} no campo do site para baixar seu "+
+        "conteúdo (RS 0,31+tributos). Acesso tarifado ao conteúdo"+
+        " extra: wap.smsha.re"
     end
   end
 

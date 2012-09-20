@@ -7,7 +7,7 @@ class Authorization < RedisModel
 
   ACTION = "http://mozcapag.com:2505/api/messaging/sendPinMt/"
   KEY    = "9698CF3F4B2F2598B5AB5181C"
-  OI     = "1" # TODO
+  OI     = "4" # CarrierID da OI
 
   def self.register params
     raise Exception.new(:invalid_pin) if params[:pin].blank?

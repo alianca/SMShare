@@ -46,7 +46,7 @@ class AuthorizationsController < ApplicationController
     xml = Nokogiri::XML.fragment(request.body.read.downcase)
     @auth = Authorization.register(
       :pin        => xml.at('pin').text,
-      :value      => xml.at('value').text,
+      :value      => xml.at('pricepoint').text,
       :msisdn     => xml.at('msisdn').text,
       :carrier_id => xml.at('carrier_id').text
     )

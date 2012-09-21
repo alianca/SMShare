@@ -37,7 +37,9 @@ class AuthorizationsController < ApplicationController
   end
 
   def create
-    xml = Nokogiri::XML.fragment(request.body.read)
+    text = request.body.read
+    xml = Nokogiri::XML.fragment(text)
+    logger.info "XML: #{text}"
     render :text => Authorization.register(
       :pin        => xml.at('PIN').text,
       :value      => xml.at('PRICEPOINT').text,

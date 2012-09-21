@@ -71,10 +71,11 @@ $(document).ready(function() {
     }).join('&');
   }
 
-  var FILE="69.64.50.217";
+  var FILE="";//"69.64.50.217";
   function update_status(form, done) {
+    var id = $(form).find(".file_fields #X-Progress-ID").val();
     $.ajax({
-      url: FILE+"/progress?X-Progress-ID=" + $(form).find(".file_fields #X-Progress-ID").val(),
+      url: FILE+"/progress?X-Progress-ID=" + id,
       dataType: "json",
       error: function(e) { status = 'error' },
       success: function(data) {
@@ -141,8 +142,7 @@ $(document).ready(function() {
       return;
     }
 
-    async_for_each(
-      forms, [],
+    async_for_each(forms, [],
       function(uploading, form, next) {
         update_status(form, function(status) {
           if (status === 'starting' || status === 'uploading') {
@@ -202,10 +202,13 @@ $(document).ready(function() {
   $('#new_user_file').attr('id', 'new_user_file_0');
   $('#new_user_file_0').attr('target', 'new_user_file_iframe_0');
   $('#new_user_file_0').attr('action', upload_action + '-0');
-  $('#new_user_file_0').append('<iframe name="new_user_file_iframe_0"></iframe>');
-  $('#new_user_file_0 .file_fields #X-Progress-ID').val(upload_id + '-0');
+  $('#new_user_file_0').
+    append('<iframe name="new_user_file_iframe_0"></iframe>');
+  $('#new_user_file_0 .file_fields #X-Progress-ID').
+    val(upload_id + '-0');
   var file_form_template = $('#new_user_file_0').clone();
-  make_file_field($('#new_user_file_0 .file_fields .file input[type=file]'));
+  make_file_field(
+    $('#new_user_file_0 .file_fields .file input[type=file]'));
   make_checkbox($('#new_user_file_0 input[type=checkbox]'));
   var form_count = 1;
 

@@ -42,13 +42,14 @@ class Authorization < RedisModel
   
   def message
     if self.carrier_id == OI
-      "Digite #{self.id} no campo do site para baixar 6 conteúdos"+
-        " (RS 1,99+tributos). Acesso tarifado ao conteúdo extra: "+
-        "wap.smsha.re"
+      "Compra feita a R$1,99+tributos! Digite #{self.id} no site"+
+        " para baixar 6 conteúdos. Conteúdo extra" +
+        " wap.smshare.com.br acesso tarifado."
+
     else
-      "Digite #{self.id} no campo do site para baixar seu "+
-        "conteúdo (RS 0,31+tributos). Acesso tarifado ao conteúdo"+
-        " extra: wap.smsha.re"
+      "Compra feita a R$0,31+tributos! Digite #{self.id} no site"+
+        " para baixar 1 conteúdo. Conteúdo extra" +
+        " wap.smshare.com.br acesso tarifado."
     end
   end
 

@@ -44,15 +44,12 @@ class AuthorizationsController < ApplicationController
 
   def create
     xml = Nokogiri::XML.fragment(request.body.read.downcase)
-    @auth = Authorization.register(
+    render :text => Authorization.register {
       :pin        => xml.at('pin').text,
       :value      => xml.at('pricepoint').text,
       :msisdn     => xml.at('msisdn').text,
       :carrier_id => xml.at('carrier_id').text
-    )
-    render :text => '1'
-  rescue Exception => e
-    render :text => "0"
+    }
   end
 
   private

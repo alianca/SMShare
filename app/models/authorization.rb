@@ -10,7 +10,7 @@ class Authorization < RedisModel
   OI     = "4" # CarrierID da OI
 
   def self.register params
-    raise Exception.new(:invalid_pin) if params[:pin].blank?
+    return "0" if params[:pin].blank?
     auth = self.new params[:pin], {
       :msisdn     => params[:msisdn],
       :value      => params[:value],

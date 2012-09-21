@@ -77,7 +77,7 @@ function bind_form(form) {
           }
           else {
             code_field.prop("title", "Pin inválido.");
-            code_field.val("");
+            code_field.val("Pin inválido.");
           }
         }
       });

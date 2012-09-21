@@ -34,7 +34,6 @@ class AuthorizationsController < ApplicationController
 
   def show
     ip = client_ip
-    logger.info "Authorized: #{client_ip}"
     url = Authorization.url_for(params[:code], @file, ip)
     save_download_info unless url.nil?
     render :json => {:url => url}
@@ -44,12 +43,14 @@ class AuthorizationsController < ApplicationController
     text = request.body.read
     xml = Nokogiri::XML.fragment(text)
     logger.info "XML: #{text}"
-    render :text => Authorization.register(
+    error_code = Authorization.register(
       :pin        => xml.at('PIN').text,
       :value      => xml.at('PRICEPOINT').text,
       :msisdn     => xml.at('MSISDN').text,
       :carrier_id => xml.at('CARRIER_ID').text
     )
+    logger.info(error_code == "1" ? "Sucesso." : "Falha.")
+    render :text => error_code 
   end
 
   private

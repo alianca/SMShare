@@ -11,18 +11,21 @@ class Authorization < RedisModel
 
   def self.register params
     raise Exception.new(:invalid_pin) if params[:pin].blank?
-    self.new params[:pin], {
+    auth = self.new params[:pin], {
       :msisdn     => params[:msisdn],
       :value      => params[:value],
       :carrier_id => params[:carrier_id],
       :count      => params[:carrier_id] == OI ? 6 : 1
     }
+    auth.check
   end
 
   def self.url_for(id, file, address)
     auth = self.find(id)
-    raise Exception.new("not_key") if auth.nil?
-    auth.check
+    raise Exception.new("invalid_key") if auth.nil?
+    
+    auth.count--
+    auth.destroy unless auth.count > 0
 
     expire = (Time.now + 5.hours).to_i
     path = file.filepath.split('/').last
@@ -37,10 +40,10 @@ class Authorization < RedisModel
 
   def check
     if Curl::Easy.perform(confirm_url).body_str != "0"
-      raise Exception.new("invalid_key")
+      self.destroy
+      return "0"
     end
-    self.count--
-    self.destroy unless self.count > 0
+    return "1"
   end
   
   def message

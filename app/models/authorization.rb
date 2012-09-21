@@ -22,7 +22,7 @@ class Authorization < RedisModel
 
   def self.url_for(id, file, address)
     auth = self.find(id)
-    raise Exception.new("invalid_key") if auth.nil?
+    return nil if auth.nil?
     
     auth.count--
     auth.destroy unless auth.count > 0

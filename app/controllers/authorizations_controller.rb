@@ -35,11 +35,6 @@ class AuthorizationsController < ApplicationController
     unless url.nil?
       save_download_info
     end
-
-    render :json => {:url => url}
-  rescue Exception => err
-    logger.error "Error: #{err}"
-    render :json => {:url => nil}
   end
 
   def create

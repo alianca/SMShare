@@ -44,7 +44,9 @@ class Authorization < RedisModel
   def check
     url = confirm_url
     Rails.logger.info "Sending MT: #{url}"
-    if Curl::Easy.perform(confirm_url).body_str != "0"
+    got = Curl::Easy.perform(confirm_url).body_str
+    Rails.logger.info "Response: #{got}"
+    if got == "0"
       self.destroy
       return "0"
     end

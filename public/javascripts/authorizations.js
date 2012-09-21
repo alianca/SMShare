@@ -68,9 +68,9 @@ function bind_form(form) {
         },
         success: function(data) {
           console.log(JSON.stringify(data));
+          var code_field = form.find('.code_field');
           if (data.url) {
             form.attr('url', data.url);
-            var code_field = form.find('.code_field');
             code_field.val('Download liberado.');
             code_field.prop('disabled', true);
             window.location = data.url;

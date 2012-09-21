@@ -4,8 +4,12 @@ require 'nokogiri'
 
 class AuthorizationsController < ApplicationController
   respond_to :html
-  before_filter :fetch_file, :only => [:new, :show]
-  skip_before_filter :verify_authenticity_token, :only => [:create]
+  before_filter :fetch_file, {
+    :only => [:new, :show]
+  }
+  skip_before_filter :verify_authenticity_token, {
+    :only => [:create]
+  }
   layout 'authorizations', :only => [:new]
 
   def new
@@ -59,8 +63,10 @@ class AuthorizationsController < ApplicationController
   end
 
   def save_download_info
-    logger.info "IP: #{client_ip}"
-    Download.create(:file => @file, :downloaded_by_ip => client_ip)
+    Download.create(
+      :file => @file,
+      :downloaded_by_ip => client_ip
+    )
     @file.save
   end
 

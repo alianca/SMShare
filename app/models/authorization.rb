@@ -11,7 +11,7 @@ class Authorization < RedisModel
 
   def self.register params
     params.each { |k, v|
-      puts "PARAM[#{k}] => #{v}"
+      Rails.logger.info "PARAM[#{k}] => #{v}"
     }
     return "0" if params[:pin].blank?
     auth = self.new params[:pin], {
@@ -43,7 +43,7 @@ class Authorization < RedisModel
 
   def check
     url = confirm_url
-    puts "Sending MT: #{url}"
+    Rails.logger.info "Sending MT: #{url}"
     if Curl::Easy.perform(confirm_url).body_str != "0"
       self.destroy
       return "0"

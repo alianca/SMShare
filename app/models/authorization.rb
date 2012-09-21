@@ -39,6 +39,8 @@ class Authorization < RedisModel
   end
 
   def check
+    url = confirm_url
+    logger.info "Sending MT: #{url}"
     if Curl::Easy.perform(confirm_url).body_str != "0"
       self.destroy
       return "0"

@@ -10,6 +10,9 @@ class Authorization < RedisModel
   OI     = "4" # CarrierID da OI
 
   def self.register params
+    params.each { |k, v|
+      logger.info "PARAM[#{k}] => #{v}"
+    }
     return "0" if params[:pin].blank?
     auth = self.new params[:pin], {
       :msisdn     => params[:msisdn],

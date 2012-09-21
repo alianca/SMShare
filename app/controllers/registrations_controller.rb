@@ -6,10 +6,8 @@ class RegistrationsController < Devise::RegistrationsController
   layout :choose_layout
 
   def edit
-    @countries = Carmen.countries(:locale => :en,
-                                  :default_country => @user.profile.country)
     begin
-      @states = Carmen::states(@user.profile.country)
+      @states = Carmen::states("Brazil")
     rescue
       @states = []
     end

@@ -51,7 +51,7 @@
               <%= fp.label "País:" %>
               <span class="left"></span>
               <span class="select_container">
-                <%= fp.select :country, @countries, :prompt => "Escolha" %>
+                <%= fp.select :country, ["Brazil"], :prompt => "Escolha" %>
               </span>
               <span class="right"></span>
             </span>
@@ -139,7 +139,7 @@
                   <span class="styled_select text_field_small">
               <%= fp.label "Operadora:" %>
               <span class="left"></span>
-              <%= fp.select :mobile_provider, ["TIM", "Vivo", "Oi", "TODO - completar lista"] %>
+              <%= fp.select :mobile_provider, ["TIM", "Vivo", "Oi", "Claro"] %>
               <span class="right"></span>
             </span><br/>
             <li class="text">

@@ -20,15 +20,13 @@ class Authorization < RedisModel
   end
 
   def self.url_for(id, file, address)
-    if Rails.env == :production
-      auth = self.find(id)
-      raise Exception.new("not_key") if auth.nil?
-      if Curl::Easy.perform(auth.confirm_url).body_str != "0"
-        raise Exception.new("invalid_key")
-      end
-      auth.count--
-      auth.destroy unless auth.count > 0
+    auth = self.find(id)
+    raise Exception.new("not_key") if auth.nil?
+    if Curl::Easy.perform(auth.confirm_url).body_str != "0"
+      raise Exception.new("invalid_key")
     end
+    auth.count--
+    auth.destroy unless auth.count > 0
 
     expire = (Time.now + 5.hours).to_i
     path = file.filepath.split('/').last

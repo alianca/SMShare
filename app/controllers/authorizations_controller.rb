@@ -31,18 +31,18 @@ class AuthorizationsController < ApplicationController
   def show
     ip = client_ip
     logger.info "Authorized: #{client_ip}"
-    url = Authorization.url_for(params[:code].downcase, @file, ip)
+    url = Authorization.url_for(params[:code], @file, ip)
     save_download_info unless url.nil?
     render :json => {:url => url}
   end
 
   def create
-    xml = Nokogiri::XML.fragment(request.body.read.downcase)
+    xml = Nokogiri::XML.fragment(request.body.read)
     render :text => Authorization.register(
-      :pin        => xml.at('pin').text,
-      :value      => xml.at('pricepoint').text,
-      :msisdn     => xml.at('msisdn').text,
-      :carrier_id => xml.at('carrier_id').text
+      :pin        => xml.at('PIN').text,
+      :value      => xml.at('PRICEPOINT').text,
+      :msisdn     => xml.at('MSISDN').text,
+      :carrier_id => xml.at('CARRIER_ID').text
     )
   end
 

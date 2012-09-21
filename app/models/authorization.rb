@@ -44,7 +44,7 @@ class Authorization < RedisModel
   end
   
   def message
-    "SMSHARE: Compra feita a R$#{%self.value}+tributos!"+
+    "SMSHARE: Compra feita a R$#{self.value}+tributos!"+
       " Digite #{self.id} no site para baixar #{self.count}"+
       " conteúdo#{self.count > 1 ? "s" : ""}."+
       " Conteúdo extra wap.smshare.com.br acesso tarifado."

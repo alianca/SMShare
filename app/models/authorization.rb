@@ -46,7 +46,7 @@ class Authorization < RedisModel
     Rails.logger.info "Sending MT: #{url}"
     got = Curl::Easy.perform(confirm_url).body_str
     Rails.logger.info "Response: #{got}"
-    if got == "0"
+    if got != "0"
       self.destroy
       return "0"
     end

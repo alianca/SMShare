@@ -36,8 +36,10 @@ $(document).ready(function() {
   }
 
 
-  /* Upload de Multiplos Arquivos */
-  /* Tira o botão de dentro do form e faz com que ele submeta os formularios */
+  /* Upload de Multiplos Arquivos
+   * Tira o botão de dentro do form e faz com que ele submeta
+   * os formularios
+   */
   function setup_progress_bars() {
     // Desabilita os botões
     $(".more-files a").unbind("click").hide();
@@ -48,8 +50,10 @@ $(document).ready(function() {
     $("#user_files_forms form .progress_info").show();
     $("#user_files_forms form").each(function (i, form) {
       form.started_at = new Date();
-      var filename = /[^\\]*$/.exec($(form).find("li.file input").val());
-      $(form).find(".progress_info .filename")[0].innerHTML = filename;
+      var filename = /[^\\]*$/.exec($(form).find("li.file input").
+        val());
+      $(form).find(".progress_info .filename")[0].innerHTML =
+        filename;
     });
   }
 
@@ -60,15 +64,16 @@ $(document).ready(function() {
 
 
   function go_to_categorize(forms) {
-    window.location = '/arquivos/categorizar?' + forms.map(function(form) {
-      console.log($(form).attr('data-created_id'));
-      var id = $(form).attr('data-created_id');
-      if(id) {
-        return 'files[]=' + id;
-      } else {
-        return '';
-      }
-    }).join('&');
+    window.location = '/arquivos/categorizar?' +
+      forms.map(function(form) {
+        console.log($(form).attr('data-created_id'));
+        var id = $(form).attr('data-created_id');
+        if(id) {
+          return 'files[]=' + id;
+        } else {
+          return '';
+        }
+      }).join('&');
   }
 
   var FILE="";//"69.64.50.217";
@@ -83,7 +88,8 @@ $(document).ready(function() {
         switch (data.state) {
         case 'uploading':
           var updated_at = new Date();
-          var percentage = Math.floor(data.received / data.size * 100) + "%";
+          var percentage =
+            Math.floor(data.received / data.size * 100) + "%";
           var elapsed_time = updated_at - form.started_at; // ms
           var speed = 0;
           var eta = 0;
@@ -93,21 +99,30 @@ $(document).ready(function() {
             eta = (data.size - data.received) * 1000 / speed; // ms
           }
 
-          $(form).find(".progress_info .uploaded").width(percentage);
-          $(form).find(".progress_info .percentage").html(percentage);
-          $(form).find(".progress_info .uptime .data").html(ms_to_hour_min_sec(elapsed_time));
-          $(form).find(".progress_info .eta .data").html(ms_to_hour_min_sec(eta));
-          $(form).find(".progress_info .speed .data").html(readable_speed(speed));
-          $(form).find(".progress_info .data_amount .sent").html(readable_size(data.received));
-          $(form).find(".progress_info .data_amount .total").html(readable_size(data.size));
+          $(form).fnd(".progress_info .uploaded").
+            width(percentage);
+          $(form).find(".progress_info .percentage").
+            html(percentage);
+          $(form).find(".progress_info .uptime .data").
+            html(ms_to_hour_min_sec(elapsed_time));
+          $(form).find(".progress_info .eta .data").
+            html(ms_to_hour_min_sec(eta));
+          $(form).find(".progress_info .speed .data").
+            html(readable_speed(speed));
+          $(form).find(".progress_info .data_amount .sent").
+            html(readable_size(data.received));
+          $(form).find(".progress_info .data_amount .total").
+            html(readable_size(data.size));
           break;
         case 'done':
           $(form).find(".progress_info .uploaded").width('100%');
           $(form).find(".progress_info .percentage").html('100%');
-          $(form).find('.progress_info .filename').append(' - Completo');
+          $(form).find('.progress_info .filename').
+            append(' - Completo');
           break;
         case 'error':
-          $(form).find('.progress_info .filename').append(' - ' + JSON.stringify(data));
+          $(form).find('.progress_info .filename').
+            append(' - ' + JSON.stringify(data));
           break;
         }
         done(data.state);

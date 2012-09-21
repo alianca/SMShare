@@ -43,7 +43,7 @@ class AuthorizationsController < ApplicationController
   end
 
   def create
-    xml = Nokogiri::XML.fragment(request.body.read)
+    xml = Nokogiri::XML.fragment(request.body.read.downcase)
     @auth = Authorization.register(
       :pin        => xml.at('pin').text,
       :value      => xml.at('value').text,

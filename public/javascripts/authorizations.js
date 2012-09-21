@@ -1,5 +1,8 @@
 function install_clear_on_focus(box) {
-  /* Escreve o texto do title no text_field, dessa maneira fazendo com que se o usuario desabilitou o javascript o text_field não vai conter lixo */
+  /* Escreve o texto do title no text_field, dessa maneira
+   * fazendo com que se o usuario desabilitou o javascript
+   * o text_field não vai conter lixo
+   */
   box.find(".clear-on-focus").each(function () {
     if($(this).val() == "") {
       $(this).val($(this).attr("title"));
@@ -13,7 +16,9 @@ function install_clear_on_focus(box) {
     }
   });
 
-  /* Retorna ao texto se o text_field está vazio quando ele perder o foco */
+  /* Retorna ao texto se o text_field está vazio quando ele
+   * perder o foco
+   */
   box.find(".clear-on-focus").blur(function() {
     if($(this).val() == "") {
       $(this).val($(this).attr("title"));
@@ -31,17 +36,22 @@ function set_box_style(box, style) {
   box.find('.box-header').css('color', style.header_text);
   box.find('.filename').css('color', style.header_text);
   box.find('.filesize').css('color', style.header_text);
-  box.find('.box-header').css('background-color', style.header_background);
+  box.find('.box-header').
+    css('background-color', style.header_background);
   box.find('.call-to-action').css('color', style.upper_text);
   box.find('.sms').css('color', style.para_text);
   box.find('.sms em').css('color', style.number_text);
-  box.find('.price-box').css('background-color', style.header_background);
+  box.find('.price-box').
+    css('background-color', style.header_background);
   box.find('.price').css('color', style.header_text);
   box.find('form').css('background-color', style.form_background);
   box.find('form').css('border', '1px solid ' + style.form_border);
-  box.find('form .code_field').css('color', style.form_text);
-  box.find('form input[type=submit]').css('background-color', style.button_background);
-  box.find('form input[type=submit]').css('color', style.button_text);
+  box.find('form .code_field').
+    css('color', style.form_text);
+  box.find('form input[type=submit]').
+    css('background-color', style.button_background);
+  box.find('form input[type=submit]').
+    css('color', style.button_text);
   box.find('.have_one').css('color', style.bottom_text);
 }
 

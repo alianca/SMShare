@@ -15,7 +15,7 @@ class Authorization < RedisModel
       :msisdn     => params[:msisdn],
       :value      => params[:value],
       :carrier_id => params[:carrier_id],
-      :count      => params[:carrier_id] == OI ? 6 : 1
+      :count      => (params[:value].to_f / 0.31).floor.to_i
     }
     auth.check
   end

@@ -32,9 +32,8 @@ class AuthorizationsController < ApplicationController
     ip = client_ip
     logger.info "Authorized: #{client_ip}"
     url = Authorization.url_for(params[:code].downcase, @file, ip)
-    unless url.nil?
-      save_download_info
-    end
+    save_download_info unless url.nil?
+    render :json => {:url => url}
   end
 
   def create

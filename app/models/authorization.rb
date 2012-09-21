@@ -6,7 +6,7 @@ class Authorization < RedisModel
   SECRET = 'WJlY2E4ZjgwYmFiYzk0YWI4YmRhMjcgIC0K'
 
   ACTION = "http://mozcapag.com:2505/api/messaging/sendPinMt/"
-  KEY    = "9698CF3F4B2F2598B5AB5181C"
+  KEY    = "9698VE1EF4C2DF4003FF4940F"
   OI     = "4" # CarrierID da OI
 
   def self.register params
@@ -22,11 +22,7 @@ class Authorization < RedisModel
   def self.url_for(id, file, address)
     auth = self.find(id)
     raise Exception.new("not_key") if auth.nil?
-    if Curl::Easy.perform(auth.confirm_url).body_str != "0"
-      raise Exception.new("invalid_key")
-    end
-    auth.count--
-    auth.destroy unless auth.count > 0
+    auth.check
 
     expire = (Time.now + 5.hours).to_i
     path = file.filepath.split('/').last
@@ -38,11 +34,19 @@ class Authorization < RedisModel
     "HTTP://#{$file_server}/files/#{hash}/#{expire}/#{path}/"+
       "#{file.filename}"
   end
+
+  def check
+    if Curl::Easy.perform(confirm_url).body_str != "0"
+      raise Exception.new("invalid_key")
+    end
+    self.count--
+    self.destroy unless self.count > 0
+  end
   
   def message
     "SMSHARE: Compra feita a R$#{"%0.2f"%self.value}+tributos!"+
       " Digite #{self.id} no site para baixar #{self.count}"+
-      " conteúdo#{self.count>1 ? "s" : ""}."+
+      " conteúdo#{self.count > 1 ? "s" : ""}."+
       " Conteúdo extra wap.smshare.com.br acesso tarifado."
   end
 

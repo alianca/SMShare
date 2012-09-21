@@ -52,7 +52,7 @@ class AuthorizationsController < ApplicationController
     )
     render :text => '1'
   rescue Exception => e
-    render :text => "0 # #{e.message}"
+    render :text => "0"
   end
 
   private

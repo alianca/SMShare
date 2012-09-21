@@ -13,6 +13,7 @@ class Authorization < RedisModel
     raise Exception.new(:invalid_pin) if params[:pin].blank?
     self.new params[:pin], {
       :msisdn     => params[:msisdn],
+      :value      => params[:value],
       :carrier_id => params[:carrier_id],
       :count      => params[:carrier_id] == OI ? 6 : 1
     }
@@ -41,16 +42,10 @@ class Authorization < RedisModel
   end
   
   def message
-    if self.carrier_id == OI
-      "Compra feita a R$1,99+tributos! Digite #{self.id} no site"+
-        " para baixar 6 conteúdos. Conteúdo extra" +
-        " wap.smshare.com.br acesso tarifado."
-
-    else
-      "Compra feita a R$0,31+tributos! Digite #{self.id} no site"+
-        " para baixar 1 conteúdo. Conteúdo extra" +
-        " wap.smshare.com.br acesso tarifado."
-    end
+    "SMSHARE: Compra feita a R$#{"%0.2f"%self.value}+tributos!"+
+      " Digite #{self.id} no site para baixar #{self.count}"+
+      " conteúdo#{self.count>1 ? "s" : ""}."+
+      " Conteúdo extra wap.smshare.com.br acesso tarifado."
   end
 
   def confirm_url

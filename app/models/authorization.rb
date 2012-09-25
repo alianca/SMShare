@@ -27,8 +27,8 @@ class Authorization < RedisModel
     auth = self.find(id)
     return nil if auth.nil?
     
-    auth.count--
-    auth.destroy unless auth.count > 0
+    auth.count = (auth.count.to_i - 1).to_s
+    auth.destroy unless auth.count.to_i > 0
 
     expire = (Time.now + 5.hours).to_i
     path = file.filepath.split('/').last
@@ -54,9 +54,10 @@ class Authorization < RedisModel
   end
   
   def message
-    "SMSHARE: Compra feita a RS#{self.value}+tributos!"+
-      " Digite #{self.id} no site para baixar #{self.count}"+
-      " conteudo#{self.count.to_i > 1 ? "s" : ""}."+
+    "SMSHARE: Digite #{self.id} no site para baixar"+
+      " #{self.count==1?"seu":self.count.to_s}"+
+      " conteudo#{self.count.to_i > 1 ? "s" : ""}"+
+      " (RS #{self.value.to_s}+tributos)."+
       " Conteudo extra wap.smshare.com.br acesso tarifado."
   end
 

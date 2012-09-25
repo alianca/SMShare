@@ -62,12 +62,14 @@ function fetch_style() {
 }
 
 function bind_form(form) {
+  var submitting = false;
   form.submit(function() {
     var url = form.attr('url');
     if (url) {
       window.location = url;
     }
-    else {
+    else if (!submitting) {   // Block button to avoid missclicks
+      submitting = true;
       $.ajax({
         url: form.attr('action'),
         data: form.serialize(),
@@ -75,6 +77,7 @@ function bind_form(form) {
         dataType: 'JSON',
         error: function(data) {
           console.error(data.responseText);
+          submitting = false;
         },
         success: function(data) {
           console.log(JSON.stringify(data));
@@ -88,6 +91,7 @@ function bind_form(form) {
           else {
             code_field.prop("title", "Pin inválido.");
             code_field.val("Pin inválido.");
+            submitting = false;
           }
         }
       });

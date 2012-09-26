@@ -44,6 +44,8 @@ class PaymentRequest
   field :payment_method, :type => Symbol # Valid methods: :paypal
   field :payment_account, :type => String
   field :value, :type => Float
+  field :downloads, :type => Integer
+  field :referred_downloads, :type => Integer
   field :referred_value, :type => Float
   field :completed_at, :type => Date
   field :requested_at, :type => Date, :default => Date.today

@@ -6,11 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
   layout :choose_layout
 
   def edit
-    begin
-      @states = Carmen::states("Brazil")
-    rescue
-      @states = []
-    end
+    respond_with(@states = Carmen.states("BR"))
   end
 
   def validate_field
@@ -24,7 +20,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     if params[:user][:admin]
-      flash[:alert] = "Boa tentativa, espertalhão"
+      flash[:alert] = "Protip: don't."
       redirect_to :back
     else
       super # completes registration and yields @user

@@ -87,8 +87,8 @@
                 <span class="left"></span>
                 <%= fp.input :birthday, :as => :date,
                              :use_month_numbers => true,
-                             :start_year => 1800,
-                             :end_year => DateTime.now.year,
+                             :start_year => DateTime.now.year,
+                             :end_year => 1900,
                              :input_html => { :class => :date_field } %>
                 <span class="right"></span>
               </span>

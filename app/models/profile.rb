@@ -18,6 +18,7 @@ class Profile
   field :mobile_phone_area, :type => String
   field :mobile_provider, :type => String
   field :website, :type => String
+  field :count, :type => Integer, :default => 0
 
   # Campos da configuração
   field :show_name, :type => Boolean
@@ -32,5 +33,10 @@ class Profile
   mount_uploader :avatar, AvatarUploader, :mount_on => :filename
 
   embedded_in :user, :inverse_of => :profile
+
+  def has_been_seen
+    self.count += 1
+    self.save
+  end
 
 end

@@ -21,10 +21,10 @@
           <td><input name="requests[]" type="checkbox" value="<%= pr._id %>"</td>
           <td><%= pr.status %></td>
           <td><%= link_to pr.user.name, [:admin, pr.user] %></td>
-          <td><%= pr.request_month %></td>
+          <td><%= pr.readable_request_month %></td>
           <td><%= pr.payment_method %></td>
-          <td><%= "%0.2f" % pr.value %></td>
-          <td><%= "%0.2f" % pr.referred_value %></td>
+          <td><%= pr.downloads %></td>
+          <td><%= pr.referred_downloads %></td>
           <td><%= "%0.2f" % pr.total %></td>
         </tr>
       <% end %>
@@ -36,8 +36,8 @@
         <td>-</td>
         <td>-</td>
         <td>-</td>
-        <td><%= "%0.2f" % @pending.collect(&:value).sum %></td>
-        <td><%= "%0.2f" % @pending.collect(&:referred_value).sum %></td>
+        <td><%= @pending.collect(&:downloads).sum %></td>
+        <td><%= @pending.collect(&:referred_downloads).sum %></td>
         <td><%= "%0.2f" % @pending.collect(&:total).sum %></td>
       </tr>
     </tfoot>
@@ -65,11 +65,11 @@
     <% @completed.each do |pr| %>
       <tr class="request <%= pr.status %>">
         <td><%= link_to pr.user.name, [:admin, pr.user] %></td>
-        <td><%= pr.request_month %></td>
+        <td><%= pr.readable_request_month %></td>
         <td><%= pr.completed_at %></td>
         <td><%= pr.payment_method %></td>
-        <td><%= "%0.2f" % pr.value %></td>
-        <td><%= "%0.2f" % pr.referred_value %></td>
+        <td><%= pr.downloads %></td>
+        <td><%= pr.referred_downloads %></td>
         <td><%= "%0.2f" % pr.total %></td>
       </tr>
     <% end %>
@@ -80,8 +80,8 @@
       <td>-</td>
       <td>-</td>
       <td>-</td>
-      <td><%= "%0.2f" % @completed.collect(&:value).sum %></td>
-      <td><%= "%0.2f" % @completed.collect(&:referred_value).sum %></td>
+      <td><%= @completed.collect(&:downloads).sum %></td>
+      <td><%= @completed.collect(&:referred_downloads).sum %></td>
       <td><%= "%0.2f" % @completed.collect(&:total).sum %></td>
     </tr>
   </tfoot>

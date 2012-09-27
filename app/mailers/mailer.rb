@@ -1,12 +1,8 @@
 class Mailer < ActionMailer::Base
   default :from => "no-reply@smshare.com.br"
 
-  def welcome_email
-    User.each do |user|
-      mail {
-        :to      => user.email,
-        :subject => "Welcome to SMShare!"
-      }
-    end
+  def welcome_email(user)
+    @user = user
+    mail(:to => user.email, :subject => "[smShare] Cadastros liberados!")
   end
 end

@@ -3,6 +3,6 @@ class Mailer < ActionMailer::Base
 
   def welcome_email(user)
     @user = user
-    mail(:to => user.email, :subject => "Welcome to SMShare!")
+    mail(:to => user.email, :subject => "[smShare] Cadastros liberados!")
   end
 end

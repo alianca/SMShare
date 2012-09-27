@@ -1,0 +1,2 @@
+class AdvantagesController < ApplicationController
+end

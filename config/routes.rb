@@ -176,6 +176,10 @@ Smshare::Application.routes.draw do
     :only => [:index]
   }
 
+  resources :advantages, {
+    :only => [:index]
+  }
+
   resources :faq, {
     :only => [:index]
   }

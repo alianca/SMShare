@@ -1,0 +1,129 @@
+<% page :advantages %>
+
+<div id="advantages-container">
+  <div id="advantages-header">
+    <div id="advantages-image">
+      Vantagens
+      <span id="advantages-sub">
+        Tenha vantagens conosco
+      </span>
+    </div>
+
+    <p>Em 2009, ainda sem nome, é idealizado o projeto de compartilhamento de arquivos integrado ao serviço de micro-pagamento que posteriormente ganharia o nome de smShare.</p>
+  </div>
+
+  <div id="content">
+    <table>
+      <thead>
+        <th></th>
+        <th class="<%= cycle "even", "odd" %> top-left">Média de ganhos para cada 1000 downloads</th>
+        <th class="<%= cycle "even", "odd" %>">Tamanho máximo por arquivo enviado</th>
+        <th class="<%= cycle "even", "odd" %>">Tempo de espera para liberar o arquivo</th>
+        <th class="<%= cycle "even", "odd" %>">Limite da velocidade do download</th>
+        <th class="<%= cycle "even", "odd" %>">Permite pausar o download e usar acelerador</th>
+        <th class="<%= cycle "even", "odd" %> top-right">Tempo para deletar arquivos inativos</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="top-left white shiny"><%= icon :smshare %>smShare</td>
+          <td class="<%= cycle "even", "odd" %> shiny">R$50,00 + <em>R$10 do 2º nível</em></td>
+          <td class="<%= cycle "even", "odd" %> shiny">4gb</td>
+          <td class="<%= cycle "even", "odd" %> shiny">Direto</td>
+          <td class="<%= cycle "even", "odd" %> shiny">Ilimitada</td>
+          <td class="<%= cycle "even", "odd" %> shiny"><%= icon :yep %></td>
+          <td class="<%= cycle "even", "odd" %> shiny">Ilimitado</td>
+          <th class="<%= cycle "even", "odd" %> top-right even cost">Custo para se ter os mesmos benefícios oferecidos pela smShare</td>
+        </tr>
+        <%= cycle "","" %>
+        <tr>
+          <td class="white"><%= icon :media_fire %>MediaFire</td>
+          <td class="<%= cycle "even", "odd" %>"><%= icon :nope %></td>
+          <td class="<%= cycle "even", "odd" %>">200mb</td>
+          <td class="<%= cycle "even", "odd" %>">Direto</td>
+          <td class="<%= cycle "even", "odd" %>">Ilimitada</td>
+          <td class="<%= cycle "even", "odd" %>"><%= icon :yep %></td>
+          <td class="<%= cycle "even", "odd" %>">90 dias</td>
+          <td class="<%= cycle "even", "odd" %>">U$9,00</td>
+        </tr>
+        <%= cycle "","" %>
+        <tr>
+          <td class="white"><%= icon :depositfiles %>DepositFiles</td>
+          <td class="<%= cycle "even", "odd" %>">U$6,00 + <em>20% das vendas</em></td>
+          <td class="<%= cycle "even", "odd" %>">2gb</td>
+          <td class="<%= cycle "even", "odd" %>">60s</td>
+          <td class="<%= cycle "even", "odd" %>">Limitada</td>
+          <td class="<%= cycle "even", "odd" %>"><%= icon :nope %></td>
+          <td class="<%= cycle "even", "odd" %>">30 dias</td>
+          <td class="<%= cycle "even", "odd" %>">U$11,95</td>
+        </tr>
+        <%= cycle "","" %>
+        <tr>
+          <td class="white"><%= icon :shared4 %>4Shared</td>
+          <td class="<%= cycle "even", "odd" %>"><%= icon :nope %></td>
+          <td class="<%= cycle "even", "odd" %>">2gb</td>
+          <td class="<%= cycle "even", "odd" %>">20s</td>
+          <td class="<%= cycle "even", "odd" %>">Limitada</td>
+          <td class="<%= cycle "even", "odd" %>"><%= icon :nope %></td>
+          <td class="<%= cycle "even", "odd" %>">90 dias</td>
+          <td class="<%= cycle "even", "odd" %>">U$9,95</td>
+        </tr>
+        <%= cycle "","" %>
+        <tr>
+          <td class="white"><%= icon :rapidshare %>RapidShare</td>
+          <td class="<%= cycle "even", "odd" %>"><%= icon :nope %></td>
+          <td class="<%= cycle "even", "odd" %>">Ilimitado</td>
+          <td class="<%= cycle "even", "odd" %>">Direto</td>
+          <td class="<%= cycle "even", "odd" %>">Limitada</td>
+          <td class="<%= cycle "even", "odd" %>"><%= icon :nope %></td>
+          <td class="<%= cycle "even", "odd" %>">30 dias</td>
+          <td class="<%= cycle "even", "odd" %>">U$9,90</td>
+        </tr>
+        <%= cycle "","" %>
+        <tr>
+          <td class="white"><%= icon :uploaded %>Uploaded</td>
+          <td class="<%= cycle "even", "odd" %>">APENAS VENDAS <em>60% das vendas</em></td>
+          <td class="<%= cycle "even", "odd" %>">1gb</td>
+          <td class="<%= cycle "even", "odd" %>">30s</td>
+          <td class="<%= cycle "even", "odd" %>">Limitada</td>
+          <td class="<%= cycle "even", "odd" %>"><%= icon :nope %></td>
+          <td class="<%= cycle "even", "odd" %>">90 dias</td>
+          <td class="<%= cycle "even", "odd" %>">U$9,99</td>
+        </tr>
+        <%= cycle "","" %>
+        <tr>
+          <td class="white"><%= icon :hotfile %>HotFile</td>
+          <td class="<%= cycle "even", "odd" %>">APENAS VENDAS <em>50% das vendas</em></td>
+          <td class="<%= cycle "even", "odd" %>">400mb</td>
+          <td class="<%= cycle "even", "odd" %>">15s</td>
+          <td class="<%= cycle "even", "odd" %>">Limitada</td>
+          <td class="<%= cycle "even", "odd" %>"><%= icon :nope %></td>
+          <td class="<%= cycle "even", "odd" %>">90 dias</td>
+          <td class="<%= cycle "even", "odd" %>">U$9,00</td>
+        </tr>
+        <%= cycle "","" %>
+        <tr>
+          <td class="white"><%= icon :filefactory %>FileFactory</td>
+          <td class="<%= cycle "even", "odd" %>">U$1,50 + <em>20% das vendas</em></td>
+          <td class="<%= cycle "even", "odd" %>">Ilimitado</td>
+          <td class="<%= cycle "even", "odd" %>">60s</td>
+          <td class="<%= cycle "even", "odd" %>">Limitada</td>
+          <td class="<%= cycle "even", "odd" %>"><%= icon :nope %></td>
+          <td class="<%= cycle "even", "odd" %>">90 dias</td>
+          <td class="<%= cycle "even", "odd" %>">U$12,00</td>
+        </tr>
+        <%= cycle "","" %>
+        <tr>
+          <td class="white bottom-left"><%= icon :crocko %>Crocko</td>
+          <td class="<%= cycle "even", "odd" %>"><%= icon :nope %></td>
+          <td class="<%= cycle "even", "odd" %>">2gb</td>
+          <td class="<%= cycle "even", "odd" %>">20s</td>
+          <td class="<%= cycle "even", "odd" %>">Limitada</td>
+          <td class="<%= cycle "even", "odd" %>"><%= icon :nope %></td>
+          <td class="<%= cycle "even", "odd" %>">90 dias</td>
+          <td class="<%= cycle "even", "odd" %> bottom-right">U$11,95</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

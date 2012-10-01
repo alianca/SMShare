@@ -168,15 +168,33 @@ Smshare::Application.routes.draw do
     :only       => [:create, :destroy]
   }
 
-  resources :news, {
+  resources :noticias, {
+    :as => :news,
+    :controller => :news,
     :only => [:index, :show]
   }
 
-  resources :guide, {
+  resources :guia_geral, {
+    :as => :guide,
+    :controller => :guide,
     :only => [:index]
   }
 
-  resources :advantages, {
+  resources :ciclo_pagamento, {
+    :as => :cycles,
+    :controller => :cycles,
+    :only => [:index]
+  }
+
+  resources :lucre_mais, {
+    :as => :optimization,
+    :controller => :optimization,
+    :only => [:index]
+  }
+
+  resources :vantagens, {
+    :as => :advantages,
+    :controller => :advantages,
     :only => [:index]
   }
 

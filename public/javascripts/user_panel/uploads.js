@@ -99,7 +99,7 @@ $(document).ready(function() {
             eta = (data.size - data.received) * 1000 / speed; // ms
           }
 
-          $(form).fnd(".progress_info .uploaded").
+          $(form).find(".progress_info .uploaded").
             width(percentage);
           $(form).find(".progress_info .percentage").
             html(percentage);

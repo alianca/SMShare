@@ -128,17 +128,21 @@ class UserFile
     tire.search(:page => page, :per_page => 10) do
       query do
         boolean do
-          q.downcase.split(' ').each do |sub|
-            must do
-              fuzzy :_all, sub.downcase, {
-                :min_similarity => 0.6,
-                :prefix_length => 2
-              }
+          if q.blank? then
+            should { string '_all:*' }
+          else
+            q.downcase.split(' ').each do |sub|
+              should do
+                fuzzy :_all, sub.downcase, {
+                  :min_similarity => 0.6,
+                  :prefix_length => 3
+                }
+              end
             end
           end
+          must { string "category:#{f}" } unless f.blank?
         end
-      end unless q.blank?
-      filter :category => [f] unless f.blank?
+      end
       sort { by o, :desc } unless o.blank?
     end
   end

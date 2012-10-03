@@ -22,6 +22,10 @@ img {
   border: 0;
 }
 
+h2, h3 {
+  color: #423B35;
+}
+
 body {
   margin: 0;
   background: url(/images/layouts/fundo.jpg) repeat-x;

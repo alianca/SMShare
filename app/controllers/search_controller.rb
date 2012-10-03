@@ -2,8 +2,7 @@ class SearchController < ApplicationController
   before_filter :only => [:index, :show]
 
   def index
-    @files = UserFile.find_filter_and_order(params[:q], params[:filter], params[:order]).
-      paginate(:per_page => 10, :page => params[:page])
+    @files = UserFile.find_filter_and_order(params[:q], params[:filter], params[:order], params[:page])
 
     respond_to do |f|
       f.html {}

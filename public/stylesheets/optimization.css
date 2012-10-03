@@ -1,0 +1,26 @@
+body {
+  font-size: 12px;
+}
+
+#content .item {
+  display: block;
+  margin: 5px auto;
+  width: 800px;
+}
+
+#content .item .item-name {
+  display: block;
+  width: 100%;
+  height: 28px;
+  line-height: 28px;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  padding-left: 10px;
+  background: url(/images/mark-open.png);
+}
+
+#content .item .item-name.closed {
+  background: url(/images/mark-closed.png);
+}
+

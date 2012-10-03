@@ -3,7 +3,7 @@
 class UserDailyStatistic < Statistic
   include Mongoid::Document
 
-  field :date, :type => Date
+  field :date, :required => true, :type => Date
   field :downloads, :type => Integer
   field :referred_downloads, :type => Integer
   field :revenue, :type => Float
@@ -29,10 +29,15 @@ class UserDailyStatistic < Statistic
     graph = LazyHighCharts::HighChart.new(:graph) do |g|
       g.chart(:width => 280, :height => 150, :spacingLeft => -2)
       g.colors(["#82BACE"])
-      g.series(:name => "Downloads", :data=> daily_statistics.collect do |ds|
-                 {:name => I18n.l(ds.date, :format => I18n.t("date.formats.long")), :y => ds.downloads}
-               end)
-      g.xAxis(:categories => daily_statistics.collect(&:date).collect{|d| I18n.t("date.abbr_day_names")[d.wday]})
+      data = daily_statistics.collect do |ds|
+        {:name => I18n.l(ds.date, :format => I18n.t("date.formats.long")),
+         :y => ds.downloads
+        }
+      end
+      g.series(:name => "Downloads", :data => data)
+      g.xAxis(:categories => daily_statistics.collect(&:date).collect{|d|
+        I18n.t("date.abbr_day_names")[d.wday]
+      })
       g.yAxis(:title => {:text => "Downloads", :style => {:color => "#82BACE"}},
               :allowDecimals => false,
               :min => 0)

@@ -9,8 +9,7 @@ class UsersController < ApplicationController
   def show
     @profile = @user.profile
     @profile.has_been_seen
-    @files = @user.files.where{|f| !f.blocked?}.
-      paginate(:per_page => 10, :page => params[:page])
+    @files = UserFile.for_user @user._id
   end
 
   def edit

@@ -14,7 +14,7 @@
     <% end %>
 
     <% @files.each do |search_item| %>
-      <%= render :partial => "result", :object => result_for_search_item(search_item) %>
+      <%= render :partial => "result", :object => search_item %>
     <% end %>
 
     <%= will_paginate @files %>

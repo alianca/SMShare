@@ -1,6 +1,7 @@
 pt-BR:
   will_paginate:
     previous_label: "&laquo"
+    page_gap: "..."
     next_label: "&raquo"
   mongoid:
     models:

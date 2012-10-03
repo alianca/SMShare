@@ -8,9 +8,9 @@ class Folder
   field :path, :type => String, :default => nil
 
   # Relações da arvore
-  belongs_to_related :parent, :class_name => "Folder"
-  has_many_related :children, :class_name => "Folder", :foreign_key => :parent_id
-  before_validation :build_path
+  belongs_to_related :parent,   :class_name => "Folder"
+  has_many_related   :children, :class_name => "Folder", :foreign_key => :parent_id
+  before_save  :build_path
 
   before_destroy(:perform_mass_filicide)
 

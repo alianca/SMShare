@@ -137,11 +137,11 @@ class User
 
   def build_statistics!
     self.create_statistics
-    self.statistics.generate_statistics!
+    self.generate_statistics!
   end
 
   def build_root_folder
-    self.root_folder = self.folders.create(:path => "/") unless root_folder
+    self.root_folder ||= self.folders.create(:path => "/")
   end
 
 end

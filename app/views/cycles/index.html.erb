@@ -1,0 +1,113 @@
+<% page :cycles %>
+<% tab :webmaster %>
+<div id="page-container">
+  <div id="page-header">
+    <div id="page-image">
+      Ciclo Financeiro
+      <span id="page-sub">
+        Ciclo de Pagamento do smShare
+      </span>
+    </div>
+
+    <p>Nesta página será possível compreender com maior clareza o ciclo de
+      pagamento do smShare, assim, antes mesmo de requisitar seus pagamentos,
+      já saberá qual a data limite para seu recebimento. Antes de qualquer coisa,
+      recomendamos que leia a seção de Pagamentos de nosso FAQ, onde ficará a
+      par das questões básicas relacionadas ao nosso sistema de pagamento.
+    </p>
+  </div>
+
+  <div id="content">
+    <p>O smShare trabalha com ciclos de pagamentos fechados, ou seja, com períodos do mês destinados apenas para os pagamentos
+      dos usuários. Essa medida é essencial para que possamos garantir um maior repasse aos webmasters, de forma que eles tenham um maior
+      lucro pelo download realizados por seus usuários. Os ciclos fechados de pagamento funcionam da seguinte maneira:
+    </p>
+
+    <p>As <b>requisições</b> realizadas <b>antes</b> do <b>dia 14</b> do mês corrente, são analisadas e então <b>pagas</b> na <b>segunda</b> <b>quinzena</b> do <b>mês</b> <b>seguinte</b>.</p>
+
+    <%= image_tag "cycles/t1.png" %>
+
+    <p><b>Requisições</b> realizadas <b>após</b> o <b>dia</b> <b>14</b> do mês corrente, são <b>acumuladas</b> às requisições efetuadas na primeira quinzena do mês
+      seguinte, sendo <b>pagas</b> na <b>segunda</b> <b>quinzena</b> do <b>segundo</b> <b>mês</b> <b>após</b> o mês corrente.
+    </p>
+
+    <%= image_tag "cycles/t2.png" %>
+
+    <p><b><span class="big">Para entender melhor</span>, simularemos algumas situações para ilustrar nosso ciclo de pagamento.i</b></p>
+
+    <p>Digamos que o mês atual seja <b>Abril</b> e estamos no <b>dia</b> <b>11</b>, você está conosco desde o dia 08 e durante esse período você já foi capaz
+      de <b>acumular</b> <b>R$55</b>, ou seja, já atingiu o <b>mínimo</b> <b>de</b> <b>R$50</b> para pagamento.
+    </p>
+
+    <p>Caso você faça sua requisição de pagamento, hoje, dia 13, o montante acumulado durante essa primeira quinzena de Abril, será o
+      valor <b>pago durante a segunda quinzena de Maio</b>.
+    </p>
+
+    <p><b>P:</b> <i>Quer dizer que independente se minha requisição fosse feita hoje, dia 11 ou qualquer outro dia até o dia 14 desse mês, o valor do
+      fechamento seria o mesmo?</i>
+    </p>
+    <p><b>R:</b> Exato, uma vez acumulado o mínimio necessário para pagamento, você poderá fazer sua requisição, e após realizada, o montante
+      acumulado ficará em aberto até o dia 14 às 23h59. Até esse horário, seus lucros continuarão se acumulando, e uma vez fechados,
+      representarão o valor exato que deverá receber na segunda quinzena do mês seguinte.
+    </p>
+
+    <%= image_tag "cycles/t3.png" %>
+
+    <p>Agora, digamos que você esteja no dia <b>13 de Abril</b> e seu lucro até o momento tenha sido <b>de R$40, abaixo do mínimo</b> requirido
+      para o pagamento. Dessa forma, será necessário <b>esperar</b> até que esse montante represente <b>R$50 ou mais</b>, para que assim possa fazer
+      sua requisição. Alguns dias se passaram e agora estamos no dia <b>17 de Abril</b>, você conseguiu <b>acumular R$52</b> em sua conta, e agora
+      deseja <b>requisitar</b> seu <b>pagamento</b>. Considerando que estamos na <b>segunda</b> <b>quinzena</b> do mês corrente, o valor requisitado não
+      entrará no mesmo ciclo de pagamento exemplificado na simulação anterior. Nesse caso, sua <b>requisição</b> realizada no dia <b>17 de Abril</b>,
+      ficará <b>em</b> <b>aberto</b> e acumulando seus lucros, <b>até dia 14 de Maio</b> às 23h59, <b>não sendo necessário</b> assim, que você faça <b>uma nova
+      requisição</b> no próximo mês, Maio, já que essa requisição realizada na segunda quinzena de Abril, se extenderá até a primeira quinzena
+      de Maio.
+    </p>
+
+    <%= image_tag "cycles/t4.png" %>
+
+    <p>Como sua <b>requisição</b> foi realizada na <b>segunda</b> <b>quinzena</b> de <b>Abril</b> e acumulou-se ao <b>ciclo</b> <b>de</b> pagamento de Maio, o montante
+      acumulado, será <b>pago</b> conforme o <b>ciclo</b> <b>de</b> <b>Maio</b>, ou seja, na <b>segunda quinzena de Junho</b>.
+    </p>
+
+    <p>Perceba que os pagamentos são realizados durante a segunda quinzena, podendo ser feitos logo no dia 15, ou apenas no último dia
+      do mês. Para isso, fique atento na data limite par pagamento prevista em sua <%= link_to "tabela de pagamentos", user_panel_payment_requests_path %>.
+    </p>
+
+    <p>Após requisitar seu pagamento, acompanhe a coluna de <b>status</b> da tabela, as <b>cores</b> dos sinalizadores <b>indicam</b> a <b>situação</b> atual de
+      sua requisição.
+    </p>
+
+    <p><%= image_tag "cycles/gray.png", :class => :color_icon %>
+      <span class="color gray">Cinza</span>,
+      indica que seu pagamento está <b>pendente</b>. É possível identificar a data limite prevista para seu pagamento logo ao lado,
+      indicada na cor cinza.
+    </p>
+
+    <p><%= image_tag "cycles/red.png", :class => :color_icon %>
+      <span class="color red">Vermelho</span>, 
+      sinaliza que seu pagamento foi <b>bloqueado</b> pela equipe da smShare, normalmente você será informado do motivo do
+      bloqueio através de seu email de cadastro. A data em que o bloqueio foi realizado, será informada também em vermelho logo na
+      coluna ao lado.
+    </p>
+
+    <p><%= image_tag "cycles/white.png", :class => :color_icon %>
+      <span class="color white">Branco</span>,
+      indica que seu pagamento já foi enviado para o Paypal ou PagSeguro, e está <b>aguardando</b> pelo retorno destes, para
+      <b>confirmar</b> que a conta informada na requisição está <b>válida</b> e apta para receber o pagamento.
+    </p>
+
+    <p><%= image_tag "cycles/yellow.png", :class => :color_icon %>
+      <span class="color yellow">Amarelo</span>
+      sinaliza que o Paypal ou PagSeguro retornaram uma confirmação negativa sobre sua conta, seja por que esta está
+      bloqueada ou por ser inexistente. Nesses casos, o montante não pago será extornado para o campo de "Saldo disponível". Confira
+      se o email foi corretamente preenchido, tenha certeza que sua conta está desbloqueada no Paypal ou PagSeguro, e faça uma nova
+      requisição. A data em que houve o <b>estorno</b> do pagamento será indicada também em amarelo logo na coluna ao lado.
+    </p>
+
+    <p><%= image_tag "cycles/green.png", :class => :color_icon %>
+      <span class="color green">Verde</span>,
+      por fim, indica que seu <b>pagamento</b> foi realizado com <b>sucesso</b>. Confira a data exata do pagamento na coluna ao lado.
+    </p>
+
+  </div>
+</div>

@@ -10,7 +10,7 @@
           <%= link_to truncate(@file.name, {
             :omission => "...#{@file.name[-4..-1]}",
             :length   => 32
-          }), user_file_path(@file)
+          }), user_file_path(@file), :target => "_blank"
           %>
         </p>
         <p class="filesize">
@@ -88,13 +88,13 @@
     <% end %>
 
     <div class="bottom">
-      <%= link_to root_path, :target => "_top" do %>
+      <%= link_to root_path, :target => "_blank" do %>
         <div class="logo"></div>
       <% end %>
 
       <%= link_to new_user_registration_path, {
         :class  => :have_one,
-        :target => "_top"
+        :target => "_blank"
       } do %>
         Tenha um desses você também <span>»</span>
       <% end %>

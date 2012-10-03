@@ -1,4 +1,4 @@
-<div id="search-result-<%= result._id %>" class="search-result">
+<div id="search-result-<%= result.id %>" class="search-result">
   <div class="filetype">
       <div><%= image_tag thumb_for type_of result.filetype %></div>
       <span><%= result.file_extension %></span>
@@ -11,15 +11,15 @@
     <span class="when">Há <%= time_ago_in_words(result.created_at) %></span>
     por
     <span class="user">
-      <%= link_to result.owner.name, user_path(result.owner) %>
-      <%= link_to image_tag("search/small_rss.png"), feed_path(result.owner), :class => "rss" %>
+      <%= link_to result.owner_name, user_path(result.owner_id) %>
+      <%= link_to image_tag("search/small_rss.png"), feed_path(result.owner_id), :class => "rss" %>
     </span>
   </p>
   <p class="description"><%= result.description %><br/></p>
   <p class="comments"><%= pluralize(result.comments_count, "comentário") %></p>
-  <p class="rate"><%= "Nota %0.1f" % (result.statistics.rate || 0.0) %></p>
+  <p class="rate"><%= "Nota %0.1f" % (result.rate || 0.0) %></p>
   <p class="download">
-    <span class="download-link"><%= link_to "Baixar Arquivo", user_file_path(result), :rel => "smshare" %></span>
+    <span class="download-link"><%= link_to "Baixar Arquivo", user_file_path(result.id), :rel => "smshare" %></span>
     <span class="filesize"><%= filesize_for_stat(result.filesize) %></span>
   </p>
   <p class="statistics"><%= pluralize(result.downloads_count, "download") %></p>

@@ -16,6 +16,6 @@ module SearchHelper
   end
 
   def result_for_search_item search_item
-    search_item.class.find(search_item.id)
+    #search_item.class.find(search_item.id)
   end
 end

@@ -43,7 +43,15 @@
     </li>
 
     <li class="<%= yield(:page) == "advantages" ? "active" : "" %>">
-      <%= link_to "Tenha vantagens" %>
+      <%= link_to "Tenha vantagens", advantages_path %>
+    </li>
+
+    <li class="<%= yield(:page) == "cycles" ? "active" : "" %>">
+      <%= link_to "Ciclo de Pagamentos", cycles_path %>
+    </li>
+
+    <li class="<%= yield(:page) == "optimization" ? "active" : "" %>">
+      <%= link_to "Aumente seus ganhos", optimization_index_path %>
     </li>
   </ul>
 </div>

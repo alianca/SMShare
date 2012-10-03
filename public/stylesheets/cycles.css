@@ -1,0 +1,51 @@
+#page-image {
+  width: 330px;
+}
+
+#page-sub {
+  width: 330px;
+}
+
+body {
+  font-size: 12px;
+}
+
+.big {
+  font-size: 16px;
+}
+
+.color {
+  font-weight: bold;
+  text-shadow: 1px 1px rgba(0,0,0, 0.1);
+}
+
+.gray {
+  color: #a4a4a4;
+}
+
+.red {
+  color: #da4e4e;
+}
+
+.white {
+  color: white;
+}
+
+.yellow {
+  color: #ffa500;
+}
+.green {
+  color: #03b300;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+}
+
+img.color_icon {
+  float: left;
+  margin: 5px;
+  width: 24px;
+  height: 24px;
+}

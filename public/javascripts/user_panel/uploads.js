@@ -76,11 +76,10 @@ $(document).ready(function() {
       }).join('&');
   }
 
-  var FILE="";//"69.64.50.217";
   function update_status(form, done) {
     var id = $(form).find(".file_fields #X-Progress-ID").val();
     $.ajax({
-      url: FILE+"/progress?X-Progress-ID=" + id,
+      url: "/progress?X-Progress-ID=" + id,
       dataType: "json",
       error: function(e) { status = 'error' },
       success: function(data) {
@@ -121,8 +120,7 @@ $(document).ready(function() {
             append(' - Completo');
           break;
         case 'error':
-          $(form).find('.progress_info .filename').
-            append(' - ' + JSON.stringify(data));
+          alert(JSON.stringify(data));
           break;
         }
         done(data.state);
@@ -199,11 +197,25 @@ $(document).ready(function() {
     tick(forms);
   }
 
+  function blank(field) {
+    return field.val().trim() == "" || field.val() == field.prop('title');
+  }
+
   $('#upload_forms').append($('.files_form .actions').remove());
   $('#upload_forms .actions').click(function(e) {
     e.stopImmediatePropagation();
-    setup_progress_bars();
-    send_files();
+    var ok = true;
+    $('#upload_forms #user_file_description').each(function(){
+      if (blank($(this))) {
+        ok = false;
+      }
+    });
+    if (ok) {
+      setup_progress_bars();
+      send_files();
+    } else {
+      alert("Descrição não pode ficar vazia!");
+    }
     return false;
   });
 

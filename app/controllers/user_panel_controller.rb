@@ -75,17 +75,18 @@ class UserPanelController < ApplicationController
   end
 
   def move
-    params[:user_file][:files].delete_if { |f| f.blank? }
+    ids = params[:user_file][:files].delete_if(&:blank?)
     @folder = current_user.folders.find(params[:user_file][:folder])
-    @files = UserFile.where(:_id.in => (params[:user_file][:files].map{ |id| BSON::ObjectId(id) }))
-    @folders = Folder.where(:_id.in => ((params[:user_file][:files] - [params[:user_file][:folder]]).map{ |id| BSON::ObjectId(id) }))
+    @files = UserFile.where(:_id.in => ids.map{|id| BSON::ObjectId(id)})
+    @folders = Folder.where(:_id.in => (ids - [params[:user_file][:folder]]).map{|id| BSON::ObjectId(id)})
 
     @files.each { |file| file.folder = @folder; file.save! }
     @folders.each { |folder| folder.parent = @folder; folder.save! }
 
     flash[:notice] = "Arquivos movidos com sucesso."
     respond_with(@folder, :location => manage_user_panel_path(:folder_id => @folder.parent))
-  rescue
+  rescue Exception => e
+    logger.error e.to_s
     flash[:alert] = "Não foi possível mover os arquivos."
     redirect_to :back
   end

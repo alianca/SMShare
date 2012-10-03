@@ -14,35 +14,33 @@ class UserFile
   include Tire::Model::Search
   include Tire::Model::Callbacks
   mapping do # TODO ajustar os boosts
-    indexes :filename, :type => :string, :boost => 10
-    indexes :filetype, :type => :string, :boost => 2
-    indexes :tags, :type => :string, :index_name => :tag, :boost => 5
-    indexes :categories, :type => :string, :index_name => :category, :boost => 5
-    indexes :description, :type => :string, :boost => 10
+    indexes :filename,       :type => :string,  :boost => 10
+    indexes :filetype,       :type => :string,  :boost => 2
+    indexes :tags,           :type => :string,  :boost => 5,  :index_name => :tag
+    indexes :categories,     :type => :string,  :boost => 5,  :index_name => :category
+    indexes :description,    :type => :string,  :boost => 10
   end
 
   # Gera o JSON para o ElasticSearch
   def to_indexed_json
     {
-      :id => self._id.to_s,
-      :filename => self.filename,
-      :filetype => self.filetype,
-      :filesize => self.filesize,
-      :tag => self.tags,
-      :category => self.categories.collect(&:name),
-      :description => self.description,
-      :created_at => self.created_at,
+      :id              => self._id.to_s,
+      :filename        => self.filename,
+      :filetype        => self.filetype,
+      :filesize        => self.filesize,
+      :tag             => self.tags,
+      :category        => self.categories.collect(&:_id),
+      :description     => self.description,
+      :created_at      => self.created_at,
       :downloads_count => self.downloads_count,
-      :comments_count => self.comments_count,
-      :rate => self.statistics.rate,
-      # Campos que precisam ser indexados pois
-      # o ElasticSearch não rematerializa os resultados de busca
-      :owner_id => self.owner_id,
+      :comments_count  => self.comments_count,
+      :rate            => self.statistics.rate,
+      :owner_id        => self.owner_id.to_s,
+      :owner_name      => self.owner.name,
     }.to_json
   end
 
   # Define o esquema logico db.user_files
-  # filename já é criado pelo CarrierWave
 
   # Storage fields
   field :filename, :type => String
@@ -126,29 +124,30 @@ class UserFile
     rates.count > 0 ? rates.sum * 1.0 / rates.count : 0.0
   end
 
-  def self.find_filter_and_order(query, filter, order)
-    results = []
-    if !query.blank?
-      results = self.tire.search(query).to_a
-    elsif (!filter.blank? || !order.blank?)
-      results = UserFile.all.to_a
+  def self.find_filter_and_order(q, f, o, page=0)
+    tire.search(:page => page, :per_page => 10) do
+      query do
+        boolean do
+          q.downcase.split(' ').each do |sub|
+            must do
+              fuzzy :_all, sub.downcase, {
+                :min_similarity => 0.6,
+                :prefix_length => 2
+              }
+            end
+          end
+        end
+      end unless q.blank?
+      filter :category => [f] unless f.blank?
+      sort { by o, :desc } unless o.blank?
     end
+  end
 
-    results.delete_if {|f| f.blocked?}
-
-    if !filter.blank? && filter != "all"
-      category = Category.find(filter)
-      results.delete_if{ |f| !category.file_ids.include? f._id }
+  def self.for_user(user_id, page=0)
+    tire.search(:page => page, :per_page => 10) do
+      query { string "owner_id:#{user_id}" }
+      sort {by :created_at, :desc}
     end
-
-    if !order.blank?
-      begin
-        results.sort!{ |a,b| b.send(order) <=> a.send(order) }
-      rescue
-      end
-    end
-
-    results
   end
 
   # Atalho para as estatísticas para ordenação

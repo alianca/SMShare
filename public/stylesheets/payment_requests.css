@@ -122,3 +122,7 @@ form.payment_request .actions button {
   height: 30px;
   background: url(/images/payment_requests/fundo_botao.png);
 }
+
+form.payment_request .actions button[disabled] {
+  background: url(/images/payment_requests/fundo_botao_disabled.png);
+}

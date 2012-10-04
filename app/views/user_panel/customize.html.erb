@@ -162,7 +162,7 @@
                  :url => { :controller => :box_images,
                            :action => :create } do |f| %>
     <%= f.file_field :image %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, :title => "Dê um nome para o seu fundo.", :class => "name clear-on-focus" %>
     <span class="button orange">
       <span class="left"></span><%= f.button "Confirmar" %><span class="right"></span>
     </span>

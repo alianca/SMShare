@@ -56,6 +56,8 @@ class PaymentRequest
   before_validation :set_request_month
   validate :request_month, :uniqueness => true, :scope => [:user_id]
 
+  validate :value, :numericality => {:greater_than_or_equal_to => 50}
+
   scope :completed, where(:status => :completed)
   scope :pending, where(:status.in => [:pending, :failed])
 

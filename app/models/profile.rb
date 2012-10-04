@@ -10,7 +10,7 @@ class Profile
   field :address, :type => String
   field :marital_status, :type => String
   field :gender, :type => String
-  field :birthday, :type => Date
+  field :birthday_, :type => Date
   field :company, :type => String
   field :phone_number, :type => String
   field :phone_area, :type => String
@@ -33,6 +33,25 @@ class Profile
   mount_uploader :avatar, AvatarUploader, :mount_on => :filename
 
   embedded_in :user, :inverse_of => :profile
+
+  def birthday
+    self.birthday_ ||= Date.new
+  end
+
+  def method_missing method_sym, *args
+    case method_sym.to_s
+    when /^birthday_(.+)=$/
+      self.birthday_ = Date.new(
+        $1 == 'year'  ? args[0].to_i : birthday_year,
+        $1 == 'month' ? args[0].to_i : birthday_month,
+        $1 == 'day'   ? args[0].to_i : birthday_day
+      )
+    when /^birthday_(.+)$/
+      self.birthday.send($1.to_sym)
+    else
+      super
+    end
+  end
 
   def has_been_seen
     self.count += 1

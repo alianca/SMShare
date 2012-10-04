@@ -83,7 +83,10 @@ $(document).ready(function() {
     },
 
     properties: function() {
-
+      window.location = '/arquivos/categorizar?' +
+        selected_ids().
+        map(function(id) { return 'files[]=' + id; }).
+        join('&');
     }
   };
 

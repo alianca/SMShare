@@ -125,7 +125,7 @@ class UserFile
   end
 
   def self.find_filter_and_order(q, f, o, page=0)
-    tire.search(:page => page, :per_page => 10) do
+    tire.search(:page => page, :per_page => 25) do
       query do
         boolean do
           if q.blank? then

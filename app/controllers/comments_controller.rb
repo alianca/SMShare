@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-    file = UserFile.Zfind(params[:comment][:file])
+    file = UserFile.find(params[:comment][:file])
     if file.owner != current_user
       file.comments.create(:rate => params[:comment][:rate],
                            :message => params[:comment][:message],

@@ -44,15 +44,6 @@ class UsersController < ApplicationController
     redirect_to :back
   end
 
-  def states_for_country
-    begin
-      @states = Carmen::states(params[:country])
-    rescue
-      @states = []
-    end
-    render :json => @states.to_json
-  end
-
   private
     def fetch_user
       @user = User.find(params[:id])

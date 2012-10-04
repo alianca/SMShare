@@ -31,7 +31,14 @@
 
   <%= f.actions do %>
     <% if payment_request_for_this_month.new_record? %>
-      <%= f.action :submit, :as => :button, :label => "Solicitar Pagamento" %>
+      <%= f.action :submit, {
+            :as => :button,
+            :label => "Solicitar Pagamento",
+            :button_html => {
+              :disabled => (total_revenue_available_for_payment.to_f < 50)
+            }
+          }
+      %>
     <% else %>
       <%= f.action :submit, :as => :button, :label => "Pagamento Solicitado", :button_html => {:disabled => true} %>
     <% end %>

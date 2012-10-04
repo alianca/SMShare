@@ -22,6 +22,10 @@ class BoxStyle
 
   has_one_related :box_image, :foreign_key => :box_style_id
 
+  validates :name, :presence => true
+
+  before_validation :remove_invalid_name
+
   def box_image
     BoxImage.find(self.box_image_id)
   rescue
@@ -32,9 +36,12 @@ class BoxStyle
     BoxStyle.where(:name => "Estilo smShare").first
   end
 
-  def self.defaults
-    styles = BoxStyle.where(:user => nil).to_a
-    styles.sort { |a, b| a.order <=> b.order }
+  def self.default_list
+    self.where(:user_id => nil)
+  end
+
+  def remove_invalid_name
+    self.name = "" if name == "Dê um nome para o modelo..."
   end
 
 end

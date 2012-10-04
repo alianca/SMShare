@@ -1,15 +1,15 @@
 <div id="search-order">
   <ul>
-    <li class="order-by-date">
+    <li class="order-by-date <%= params[:order] == 'created_at' ? 'selected' : '' %>">
       <%= link_to "Arquivos recentes", search_index_path(:order => 'created_at', :q => params[:q], :filter => params[:filter]), :class => "order-by" %>
     </li>
-    <li class="order-by-downloads">
+    <li class="order-by-downloads <%= params[:order] == 'downloads_count' ? 'selected' : '' %>">
       <%= link_to "Arquivos mais baixados", search_index_path(:order => 'downloads_count', :q => params[:q], :filter => params[:filter]), :class => "order-by" %>
     </li>
-    <li class="order-by-comments">
+    <li class="order-by-comments <%= params[:order] == 'comments_count' ? 'selected' : '' %>">
       <%= link_to "Arquivos mais comentados", search_index_path(:order => 'comments_count', :q => params[:q], :filter => params[:filter]), :class => "order-by" %>
     </li>
-    <li class="order-by-rate">
+    <li class="order-by-rate <%= params[:order] == 'rate' ? 'selected' : '' %>">
       <%= link_to "Arquivos favoritos", search_index_path(:order => 'rate', :q => params[:q], :filter => params[:filter]), :class => "order-by" %>
     </li>
   </ul>

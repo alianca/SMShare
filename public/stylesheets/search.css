@@ -69,9 +69,14 @@
   -moz-border-radius: 7px 0 0 7px;
 }
 
+
 #search-order a.order-by{
   text-decoration: none;
   color: #f37f00;
+}
+
+#search-order ul li.selected a.order-by {
+  color: white;
 }
 
 #search-order ul li.order-by-date {
@@ -88,6 +93,10 @@
 
 #search-order ul li.order-by-rate {
   background: white url(/images/search/icone-nota.png) no-repeat 5px 3px;
+}
+
+#search-order ul li.selected {
+  background-color: #82BACE;
 }
 
 #search-results, #user-profile {

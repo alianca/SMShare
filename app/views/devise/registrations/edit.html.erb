@@ -2,7 +2,7 @@
 
 <div id="personal-data">
 
-  <%= semantic_form_for @user, :url => registration_path(:user), :method => :post do |f| %>
+  <%= semantic_form_for @user, :url => registration_path(:user), :method => :put do |f| %>
     <h2>Meus Dados</h2>
 
     <%= f.inputs do %>
@@ -85,11 +85,11 @@
               <span class="styled_select text_field_small">
                 <%= fp.label "Aniversário:" %>
                 <span class="left"></span>
-                <%= fp.input :birthday, :as => :date,
-                             :use_month_numbers => true,
-                             :start_year => DateTime.now.year,
-                             :end_year => 1900,
-                             :input_html => { :class => :date_field } %>
+                <span class="date_field">
+                  <%= fp.select :'birthday_day',   (1..31) %>
+                  <%= fp.select :'birthday_month', (1..12) %>
+                  <%= fp.select :'birthday_year',  (100.years.ago.year..Time.now.year).to_a.reverse %>
+                </span>
                 <span class="right"></span>
               </span>
             </span><br/>
@@ -105,7 +105,11 @@
             <span class="styled_select text_field_small">
               <%= fp.label "Estado:" %>
               <span class="left"></span>
-              <%= fp.select :state, @states, :prompt => "Escolha" %>
+              <select id="user_profile_state" name="user[profile][state]">
+                <%= @states.each do |state, abbrev| %>
+                  <option value="<%= abbrev %>" <%= current_user.profile.state == abbrev ? "selected" : "" %>><%= state %></option>
+                <% end %>
+              </select>
               <span class="right"></span>
             </span><br/>
             <li class="text">

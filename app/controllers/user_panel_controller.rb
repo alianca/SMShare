@@ -42,11 +42,7 @@ class UserPanelController < ApplicationController
       last_month_total_revenue_for current_user
 
     @most_downloaded_files = current_user.files.
-      order_by(:"statistics.downloads").limit(10).to_a
-#    @most_downloaded_files.sort! { |x, y|
-#      (y.statistics.downloads || 0) <=>
-#      (x.statistics.downloads || 0)
-#    }
+      order_by(:"statistics.downloads".desc).limit(10).to_a
   end
 
   def create
@@ -56,7 +52,7 @@ class UserPanelController < ApplicationController
 
   def manage
     @new_folder = @folder.children.new(:owner => current_user)
-    @resources = @folder.paginate(params[:page], 10)
+    @resources = @folder.paginate(params[:page], 50)
     @active = [:files, :manage]
     @active_footer = :manage_files
   end
@@ -112,9 +108,9 @@ class UserPanelController < ApplicationController
   end
 
   def customize
-    @styles = (BoxStyle.defaults + current_user.box_styles.all).uniq
+    @styles = (BoxStyle.default_list + current_user.box_styles).uniq
     @default_style = current_user.default_box_style
-    @backgrounds = (BoxImage.default_list + current_user.box_images.all).uniq
+    @backgrounds = (BoxImage.default_list + current_user.box_images).uniq
     @default_background = current_user.default_box_image
   end
 

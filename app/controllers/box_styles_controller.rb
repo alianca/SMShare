@@ -2,7 +2,12 @@
 class BoxStylesController < ApplicationController
 
   def create
-    current_user.box_styles.create(params[:box_style])
+    style = current_user.box_styles.create(params[:box_style])
+    if style.valid?
+      flash[:notice] = "Estilo criado com sucesso."
+    else
+      flash[:alert] = "Você deve dar um nome para o seu estilo."
+    end
     redirect_to :back
   end
 

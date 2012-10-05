@@ -2,13 +2,12 @@
   <div id="footer-menu">
     <%= render :partial => "layouts/menus/footer" %>
   </div>
+  <div id="footer-end">
 
-  <div id="logos">
-    <%= link_to image_tag("layouts/logos/twitter.png"), "http://www.twitter.com/smsharing", :id => :twitter %>
-    <%= link_to image_tag("layouts/logos/rss.png"), feeds_path, :id => :rss %>
-  </div>
+  <%= link_to image_tag("layouts/logos/twitter.png"), "http://www.twitter.com/smsharing", :id => :twitter %>
 
   <div id="copyright">
+
     &copy; Copyright 2010 smShare. Todos os direitos reservados.
 
     <br />
@@ -16,5 +15,9 @@
     <%= link_to "Política de privacidade", privacy_institutional_index_path, :id => "policy" %>
     |
     <%= link_to "Termos de serviço", terms_institutional_index_path, :id => "terms-of-use" %>
+
+  </div>
+
+  <%= link_to image_tag("layouts/logos/rss.png"), feeds_path, :id => :rss %>
   </div>
 </div>

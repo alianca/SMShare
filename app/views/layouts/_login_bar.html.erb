@@ -14,8 +14,7 @@
         <%= label_tag :login_password, "Senha" %>
         <%= f.password_field :password, :id => :login_password, :class => "clear-on-focus", :title => "suasenha" %>
 
-        <%= f.submit "Entrar" %>
-
+        <%= f.submit "Entrar", :id => :user_submit %>
         <div><%= link_to "Esqueceu sua senha?", new_user_password_path, :id => :password %></div>
       <% end %>
     </li>

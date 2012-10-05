@@ -8,7 +8,7 @@
       <li><%= link_to "Envie seus arquivos", new_user_file_path %></li>
       <li><%= link_to "Tenha vantagens", advantages_path %></li>
       <li><%= link_to "Ciclo de pagamento", cycles_path %></li>
-      <li><%= link_to "Aumente seus ganhos", optimization_index_path %></li>
+      <li id="last"><%= link_to "Aumente seus ganhos", optimization_index_path %></li>
     </ul>
   </li>
 
@@ -18,14 +18,14 @@
       <li><%= link_to "Arquivos mais recentes", search_index_path(:order => 'created_at', :q => params[:q], :filter => params[:filter]) %></li>
       <li><%= link_to "Arquivos mais baixados", search_index_path(:order => 'downloads_count', :q => params[:q], :filter => params[:filter]) %></li>
       <li><%= link_to "Arquivos mais comentados", search_index_path(:order => 'comments_count', :q => params[:q], :filter => params[:filter]) %></li>
-      <li><%= link_to "Arquivos favoritos", search_index_path(:order => 'rate', :q => params[:q], :filter => params[:filter]) %></li>
+      <li id="last"><%= link_to "Arquivos favoritos", search_index_path(:order => 'rate', :q => params[:q], :filter => params[:filter]) %></li>
     </ul>
   </li>
 
   <li class="title about dropdown <%= yield(:tab) == "about" ? "active" : "" %>">
     <ul>
       <li><%= link_to "Guia geral", guide_index_path %></li>
-      <li><%= link_to "Perguntas frequentes", faq_index_path %></li>
+      <li id="last"><%= link_to "Perguntas frequentes", faq_index_path %></li>
     </ul>
   </li>
 </ul>

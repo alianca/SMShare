@@ -41,11 +41,13 @@
 
 #tv .slide .title {
   float: left;
-  font-size: 30px;
-  letter-spacing: -1px;
+  font-size: 32px;
+  letter-spacing: -0.025em;
   margin: 15px 0 0 15px;
   width: 450px;
   line-height: 30px;
+  color: #645c54;
+  font-weight:normal;
 }
 
 #tv .slide .line {
@@ -79,11 +81,21 @@
 }
 
 #tv .slide .flash-1 {
-  top: 0;
+  right: -30px;
+  top: 10px;
 }
 
+#tv .slide .flash-2 {
+  right: -15px;
+  top: -10px;
+}
+#tv .slide .flash-3 {
+  right: -20px;
+  top: -10px;
+}
 #tv .slide .flash-4 {
-  top: -5px;
+  right: -25px;
+  top: -20px;
 }
 
 /* @end */
@@ -155,15 +167,27 @@
   float: left;
   display: inline-block;
   width: 309px;
-  height: 67px;
-  background: url(/images/home/registrar.png) no-repeat;
+  height: 58px;
+  padding:9px 0 0 0;
+  background: #7BBACF;
+  -webkit-border-radius: 0px 0px 9px 9px;
+  border-radius: 0px 0px 9px 9px;
   color: white;
   text-decoration: none;
   text-align: center;
   margin: 4px 0 0 50px;
-  text-shadow: rgba(0,0,0,0.3) 1px 1px 2px;
+  text-shadow: rgba(0,0,0,0.3) 1px 1px 1px;
+  font-size: 30px;
+  line-height:23px;
 }
 
+#signup-button:hover {
+  background: #F27F00;
+}
+
+#signup-button span {
+  font-size: 22px;
+}
 #signup-button #signup-line1 {
   font-size: 28px;
   font-weight: bold;
@@ -195,7 +219,7 @@
   padding: 10px 30px 0 0;
   height: 19px;
   line-height: 10px;
-  background: url(/images/home/news.png) no-repeat 141px 0;
+  background: url(/images/home/news.png) no-repeat 151px 0;
 }
 
 #news .body {

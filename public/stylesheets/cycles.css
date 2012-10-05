@@ -1,13 +1,5 @@
-#page-image {
-  width: 330px;
-}
-
-#page-sub {
-  width: 330px;
-}
-
-body {
-  font-size: 12px;
+#pag_header {
+  height: 110px;
 }
 
 .big {

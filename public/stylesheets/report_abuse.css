@@ -1,59 +1,6 @@
-#report-abuse-container {
-  background-color: rgba(180, 217, 230, 0.5);
-  border-radius: 10px;
-  -moz-border-radius: 10px;
-  padding: 10px 15px 50px 15px;
-  color: #423b35;
-  line-height: 20px;
+#pag_header {
+  height:90px;
 }
-
-#report-abuse-container #header {
-  display: block;
-  width: 100%;
-  height: 80px;
-}
-
-#report-abuse-container #header .title {
-  display: block;
-  float: left;
-  width: 188px;
-  height: 80px;
-}
-
-#report-abuse-container #header .title p {
-  font-weight: bold;
-  text-align: center;
-}
-
-#report-abuse-container #header .title .line1 {
-  width: 188px;
-  height: 52px;
-  background: white;
-  color: #7bbacf;
-  line-height: 52px;
-  font-size: 40px;
-  margin: 0;
-}
-
-#report-abuse-container #header .title .line2 {
-  width: 188px;
-  height: 28px;
-  background: #7bbacf;
-  color: white;
-  line-height: 28px;
-  font-size: 18px;
-  margin: 0;
-}
-
-#report-abuse-container #header .title img {
-  margin: 71px 0 0 67px;
-}
-
-#report-abuse-container #header p.right {
-  width: 500px;
-  float: right;
-}
-
 #report-abuse-container p {
   display: inline-block;
   text-indent: 15px;

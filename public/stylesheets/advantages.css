@@ -40,7 +40,7 @@ table td {
 table td em {
   display: block;
   font-style: normal;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 table td.white {
@@ -61,6 +61,11 @@ table td.shiny {
   color: #f37f00;
 }
 
+table .top-title {
+  line-height: 13px;
+  font-size:11px;
+}
+
 table td.odd {
   background-color: #cde6ed;
   background-image: url(/images/advantages/bg-light.png);
@@ -74,11 +79,15 @@ table td.even {
 table .top-left {
   border-radius: 6px 0 0 0;
   -moz-border-radius: 6px 0 0 0;
+  line-height: 13px;
+  font-size:11px;
 }
 
 table .top-right {
   border-radius: 0 6px 0 0;
   -moz-border-radius: 0 6px 0 0;
+  line-height: 13px;
+  font-size:11px;
 }
 
 table .bottom-right {

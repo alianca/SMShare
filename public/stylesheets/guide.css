@@ -1,29 +1,3 @@
-#guide-container {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: rgba(180,217,230,0.48);
-  border-radius: 10px;
-  padding: 15px;
-  width: 90%;
-}
-
-#guide-header {
-  width: 100%;
-  height: 130px;
-}
-
-#guide-header p {
-  width: 60%;
-  display: block;
-  float: right;
-  position: relative;
-  top: -10px;
-  right: 20px;
-  text-align: justify;
-  text-indent: 30px;
-}
-
 #content {
   display: table;
   position: relative;
@@ -55,24 +29,19 @@ li.guide-item {
 
 div.title {
   display: block;
-  position: relative;
   width: 100%;
   height: 28px;
-  line-height: 28px;
   vertical-align: center;
   font-size: 17px;
-  font-weight: bold;
-  font-family: "Trebuchet MS";
+  line-height:27px;
 }
 
 div.title span {
+  display:block;
+  float:left;
   height: 28px;
-  position: relative;
-  top: 0px;
-  line-height: 28px;
-  padding-bottom: 1px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding: 0px 4px 0px 5px;
+  margin: 0 4px 0 0;
   font-size: 21px;
 }
 
@@ -104,9 +73,9 @@ p.text {
   position: relative;
   vertical-align: middle;
   text-align: justify;
-  margin-bottom: 9px;
-  margin-top: 9px;
-  color: #000000;
+  margin: 9px 5px 12px 5px;
+  line-height: 19px;
+  color: #423b35;
 }
 
 .arrow {
@@ -142,31 +111,4 @@ p.text {
   font-weight: bold;
   font-size: 38px;
   color: #dc7300;
-}
-
-#guide-image {
-  display: block;
-  float: left;
-  width: 208px;
-  height: 80px;
-  font-family: "Trebuchet MS";
-  font-size: 40px;
-  font-weight: bold;
-  text-align: center;
-  color: #7bbacf;
-  background-color: #ffffff;
-}
-
-#guide-sub {
-  display: block;
-  float: bottom;
-  position: relative;
-  bottom: -1px;
-  width: 208px;
-  height: 30px;
-  font-size: 18px;
-  line-height: 30px;
-  vertical-align: center;
-  background-color: #7bbacf;
-  color: #ffffff;
 }

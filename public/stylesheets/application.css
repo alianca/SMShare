@@ -31,7 +31,8 @@ body {
   background: url(/images/layouts/fundo.jpg) repeat-x;
   background-position-x: 50%;
   font-family: 'Trebuchet MS', Trebuchet, Arial;
-  font-size: 11px;
+  font-size: 12px;
+  color: #423b35;
 }
 
 button, input, textarea, select {
@@ -43,6 +44,7 @@ button, input, textarea, select {
 .container {
   width: 940px;
   margin: 0 auto 0 auto;
+  line-height: 19px;
 }
 
 .special-s {
@@ -51,6 +53,57 @@ button, input, textarea, select {
 
 .special-s span {
   text-decoration: overline;
+}
+
+#titulos_box {
+  display: block;
+  float: left;
+  margin: 0 0 0 -3px;
+}
+
+#titulos_main {
+  height: 50px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #7bbacf;
+  background-color: #ffffff;
+  padding: 0 10px 0 10px;
+  letter-spacing: -1px;
+  line-height: normal;
+  margin: 0 0 0 -10px;
+}
+#titulos_sub {
+  height: 25px;
+  font-size: 18px;
+  background-color: #7bbacf;
+  color: #ffffff;
+  padding: 5px 10px 0px 10px;
+}
+#first {
+  width: 530px;
+  display: block;
+  float: right;
+  position: relative;
+  top: -5px;
+  right: 0px;
+  text-align: justify;
+  line-height:19px;
+  text-indent: 30px;
+}
+#pag_header {
+  width: 100%;
+  height: 130px;
+}
+#pag_container {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(180,217,230,0.48);
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  padding: 15px 30px 15px 30px;
+  width: 90%;
+  text-align: justify;
 }
 
 /* @end */
@@ -101,18 +154,19 @@ button, input, textarea, select {
 
 #header #header-login a:hover {
   color: #A5784B;
+  border-bottom: 0px;
 }
 
 #header #header-login #login-link {
-  background: url(/images/layouts/login.png) no-repeat 0px 2px;
-  padding: 1px 5px 5px 20px;
-  border-right: 1px solid #b7dee3;
+  background: url(/images/layouts/login.png) no-repeat 0px 3px;
+  padding: 1px 10px 5px 21px;
 }
 
 #header #header-login #signup-link {
-  background: url(/images/layouts/registrar.png) no-repeat 0px 2px;
-  margin-left: 8px;
-  padding: 1px 0px 5px 20px;
+  background: url(/images/layouts/registrar.png) no-repeat 10px 2px;
+  margin-left: 2px;
+  padding: 1px 0px 5px 31px;
+  border-left: 1px solid #b7dee3;
 }
 
 #header #header-login #profile-link {
@@ -136,33 +190,41 @@ button, input, textarea, select {
   float: left;
 }
 
-#login-link #password {
-  float: right;
-  font-size: 12px;
-}
 
 #login-link #password {
+  float: right;
+  font-size: 10px;
   text-decoration: none;
+  margin:-2px 0 0 0;
   border: none !important;
 }
 
 #header #header-login #login-form {
   display: inline;
   margin-right: 5px;
+  margin:0px;
 }
 
 #header #header-login #login-form label {
   display: none;
 }
 
+#header #header-login #login_email {
+  margin:0 0 0 4px;
+}
+
+#header #header-login #input_entrar {
+  margin:20px 0 0 4px;
+}
+
 #header #header-login #login-form input {
-  background: url(/images/layouts/login/campo.png);
+  background: url(/images/layouts/login/campo.png) no-repeat 0px 0px;
   color: #8E8E8E;
-  font-size: 12px;
+  font-size: 11px;
   border: 0 solid transparent;
   width: 102px;
-  height: 16px;
-  padding: 5px 2px 2px 5px;
+  height: 17px;
+  padding: 4px 2px 3px 5px;
 }
 
 #header #header-login #login-form input[type=submit] {
@@ -170,8 +232,8 @@ button, input, textarea, select {
   color: white;
   width: 53px;
   height: 23px;
-  padding: 0px 0px 0px 0px;
-
+  padding: 0px;
+  margin: 0px;
   cursor: pointer;
 }
 
@@ -256,12 +318,12 @@ button, input, textarea, select {
   display: none;
   position: absolute;
   z-index: 999;
-  padding: 1px 1px 5px 1px;
+  padding: 2px 2px 2px 2px;
   background-color: white;
-  -moz-border-radius-bottomleft: 4px;
-  -webkit-border-bottom-left-radius: 4px;
-  -moz-border-radius-bottomright: 4px;
-  -webkit-border-bottom-right-radius: 4px;
+  -webkit-border-radius: 0px 0px 4px 4px;
+  border-radius: 0px 0px 4px 4px;
+  -webkit-box-shadow:  0px 2px 1px 1px rgba(0, 0, 0, 0.1);       
+  box-shadow:  0px 2px 1px 1px rgba(0, 0, 0, 0.1);
   margin-top: 38px;
 }
 
@@ -271,15 +333,20 @@ button, input, textarea, select {
 
 #header #header-menu .dropdown li {
   color: #34378A;
-  padding: 3px 5px 3px 6px;
+  padding: 3px 8px 3px 6px;
   list-style-image: url(/images/layouts/menu/bullet-normal.png);
   list-style-position: inside;
+}
+
+#header #header-menu #last {
+  -webkit-border-radius: 0px 0px 4px 4px;
+  border-radius: 0px 0px 4px 4px;
 }
 
 #header #header-menu .dropdown li:hover {
   background-color: #f27f00;
   color: white;
-  padding: 3px 4px 3px 5px;
+  padding: 3px 7px 3px 5px;
   list-style-image: url(/images/layouts/menu/bullet-mouseover.png);
 }
 
@@ -330,12 +397,18 @@ button, input, textarea, select {
 #search #firefox-addon {
   float: right;
   padding: 0 0 0 10px;
-  margin: 9px 10px 0 0;
+  height: 17px;
+  margin: 6px 5px 0 0;
   font-size: 11px;
   color: #8E8E8E;
   background: url(/images/layouts/plus-sign.png) no-repeat 0 50%;
   text-decoration: none;
 }
+
+#search #firefox-addon:hover {
+  text-decoration: underline;
+}
+
 
 #search #search-form {
   float: right;
@@ -346,14 +419,21 @@ button, input, textarea, select {
   padding:0px;
 }
 
+#search #search-inputs {
+  float: right;
+  margin: 8px 5px 0px 0px;
+}
+
 #search #search-form #q {
-  width: 228px;
+  width: 225px;
   border: 0 solid transparent;
   background-color: transparent;
   color: #8E8E8E;
   height: 26px;
-  margin: 7px 0px 0px 73px;
+  margin: -1px 5px 0px 73px;
   padding:0px;
+  font-size: 11px;
+  float:left;
 }
 
 #search #search-form #search-button {
@@ -365,6 +445,8 @@ button, input, textarea, select {
   padding:0px;
   margin:0px;
   cursor: pointer;
+  font-size: 12px;
+  float:right;
 }
 
 /* @end */
@@ -374,10 +456,9 @@ button, input, textarea, select {
 #footer {
   clear: both;
   height: 230px;
-  margin-top: 16px;
+  margin-top: 30px;
   width: 100%;
-  background: url(/images/layouts/rodape.png) repeat-x;
-  background-position-x: 50%;
+  background: url(/images/layouts/rodape.png) repeat-x top;
   color: #9c938a;
 }
 
@@ -394,7 +475,7 @@ button, input, textarea, select {
 }
 
 #footer #footer-menu .section {
-  padding-left: 29px;
+  padding-left: 35px;
   float: left;
 }
 
@@ -403,13 +484,10 @@ button, input, textarea, select {
   padding-right: 5px;
 }
 
-#footer #footer-menu #about-menu {
-  width: 120px;
-}
 
 #footer #footer-menu #institutional-menu {
   padding-left: 35px;
-  float: right;
+  float: left;
 }
 
 #footer #footer-menu .section .title {
@@ -439,27 +517,33 @@ button, input, textarea, select {
 
 /* @group Footer Logos */
 
-#footer #logos {
-  padding: 0 50px 0 45px;
+#footer #footer-end {
+ margin: 0px auto 0px auto;
+ text-align:center;
 }
 
-#footer #logos #rss {
-  display: block;
-  margin: 11px 23px 0 0;
-  float: left;
+#footer #rss {
+  margin: 13px 75px 0 0;
+  float: right;
 }
 
-#footer #logos #twitter {
-  margin: 11px 27px 0 0;
+#footer #twitter {
+  margin: 13px 0 0 75px;
   float: left;
 }
 
 #footer #copyright {
-  margin: 21px 0 0 302px;
+  margin: 21px auto 0 auto;
   text-align: center;
   font-size: 12px;
+  float:left;
+  width:690px;
 }
 
+#footer #copyright a:hover {
+  color:#7a7168;
+  text-decoration:underline;
+}
 #footer #copyright #policy, #footer #copyright #terms-of-use {
   line-height: 18px;
   font-weight: bold;

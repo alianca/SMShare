@@ -13,7 +13,13 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource_or_scope)
     if resource_or_scope.is_a?(User)
-      session.delete(:last_page) || user_panel_path
+      last = session.delete(:last_page)
+      logger.info "#{resource_or_scope.name} logged in from #{last}"
+      if /\/smsearch/.match last
+        last
+      else
+        user_panel_path
+      end
     else
       super
     end

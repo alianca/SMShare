@@ -72,14 +72,6 @@ class UserFile
   # Denuncias
   embeds_many :reports, :class_name => "UserFileReport"
 
-  def name
-    self.filename
-  end
-
-  def name= new_name
-    self.filename = new_name
-  end
-
   # Downloads
   has_many_related :downloads, :foreign_key => :file_id
 
@@ -205,6 +197,28 @@ class UserFile
 
   def ensure_folder
     self.folder ||= owner.root_folder
+  end
+
+  # Fileman interface
+
+  def name
+    self.filename
+  end
+
+  def name= a
+    self.filename= a
+  end
+
+  def total_size
+    filesize
+  end
+
+  def total_downloads
+    downloads_count
+  end
+
+  def total_revenue
+    self.statistics.revenue
   end
 
 end

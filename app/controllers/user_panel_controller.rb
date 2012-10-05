@@ -51,8 +51,23 @@ class UserPanelController < ApplicationController
   end
 
   def manage
+    @order_by = (params[:order] || :name).to_sym
+    @order_dir = (params[:dir] || :desc).to_sym
+    @resources = [@folder.children, @folder.files].
+      map do |c|
+        c.sort do |a,b|
+          min = (@order_dir == :asc ? a : b)
+          max = (@order_dir == :asc ? b : a)
+          logger.info "Sorting: #{min.name}, #{max.name}"
+          min.send(@order_by) <=> max.send(@order_by)
+        end
+      end.
+      flatten.
+      paginate(
+        :page => params[:page],
+        :per_page => 50
+      )
     @new_folder = @folder.children.new(:owner => current_user)
-    @resources = @folder.paginate(params[:page], 50)
     @active = [:files, :manage]
     @active_footer = :manage_files
   end

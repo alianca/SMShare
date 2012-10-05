@@ -609,18 +609,38 @@ table.file_list thead .titles td {
   font-weight: bold;
 }
 
-table.file_list thead .order td {
+table.file_list thead .order td,
+table.file_list tfoot .order td {
   height: 7px;
   background-color: white;
+  text-align: center;
+}
+
+table.file_list thead .order td a,
+table.file_list tfoot .order td a {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+}
+
+table.file_list thead .order td .up,
+table.file_list tfoot .order td .up {
+  background: url(/images/user_panel/order-up.png) no-repeat;
+}
+
+table.file_list thead .order td .down,
+table.file_list tfoot .order td .down {
+  background: url(/images/user_panel/order-down.png) no-repeat;
+}
+
+table.file_list thead .order td {
   border-radius: 7px 7px 0 0;
   -moz-border-radius: 7px 7px 0 0;
 }
 
 table.file_list tfoot .order td {
-  height: 7px;
   background-color: white;
   border-radius: 0 0 7px 7px;
-  -moz-border-radius: 0 0 7px 7px;
 }
 
 table.file_list tfoot .pagination td {

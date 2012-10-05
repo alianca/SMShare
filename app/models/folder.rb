@@ -19,25 +19,12 @@ class Folder
 
   has_many_related :files, :class_name => "UserFile"
 
-  def paginate current_page, per_page
-    current_page = current_page.blank? ? 1 : current_page.to_i
-    content = [children, files].map{|i| i.order_by(:created_at => :desc)}.sum
-    WillPaginate::Collection.create(current_page, per_page, content.count) do |pager|
-      results = content.drop((current_page - 1) * per_page).take(per_page)
-      pager.replace(results.to_a)
+  def method_missing method_sym
+    if method_sym.to_s =~ /^total_(.+)$/
+      (files + children).map(&method_sym).sum
+    else
+      super
     end
-  end
-
-  def total_revenue
-    files.collect{|f| f.statistics.revenue}.sum + children.collect(&:total_revenue).sum
-  end
-
-  def total_size
-    files.collect(&:filesize).sum + children.collect(&:total_size).sum
-  end
-
-  def total_downloads
-    files.collect(&:downloads_count).sum + children.collect(&:total_downloads).sum
   end
 
   # Remove a pasta e o conteúdo recursivamente

@@ -19,26 +19,83 @@
       </tr>
       <tr class="order">
         <td class="select"></td>
-        <td class="name"></td>
-        <td class="size"></td>
-        <td class="created_at"></td>
-        <td class="downloads"></td>
-        <td class="revenue"></td>
+        <td class="name">
+         <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :name,
+            :dir       => :asc
+          ), :class => "up" %>
+          
+          <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :name,
+            :dir       => :desc
+          ), :class => "down" %>
+        </td>
+        <td class="size">
+         <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :total_size,
+            :dir       => :asc
+          ), :class => "up" %>
+          
+          <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :total_size,
+            :dir       => :desc
+          ), :class => "down" %>
+        </td>
+        <td class="created_at">
+         <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :created_at,
+            :dir       => :asc
+          ), :class => "up" %>
+          
+          <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :created_at,
+            :dir       => :desc
+          ), :class => "down" %>
+        </td>
+        <td class="downloads">
+         <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :total_downloads,
+            :dir       => :asc
+          ), :class => "up" %>
+          
+          <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :total_downloads,
+            :dir       => :desc
+          ), :class => "down" %>
+        </td>
+        <td class="revenue">
+         <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :total_revenue,
+            :dir       => :asc
+          ), :class => "up" %>
+          
+          <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :total_revenue,
+            :dir       => :desc
+          ), :class => "down" %>
+        </td>
       </tr>
     </thead>
-    <tfoot>
-      <tr class="order">
-        <td class="select"></td>
-        <td class="name"></td>
-        <td class="size"></td>
-        <td class="created_at"></td>
-        <td class="downloads"></td>
-        <td class="revenue"></td>
-      </tr>
-      <tr class="pagination">
-        <td colspan="6"><%= will_paginate @resources %></td>
-      </tr>
-    </tfoot>
     <tbody>
       <% unless @folder.parent.nil? %>
         <tr class="folder">
@@ -78,6 +135,89 @@
         <% end %>
       <% end %>
     </tbody>
+    <tfoot>
+      <tr class="order">
+        <td class="select"></td>
+        <td class="name">
+         <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :name,
+            :dir       => :asc
+          ), :class => "up" %>
+          
+          <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :name,
+            :dir       => :desc
+          ), :class => "down" %>
+        </td>
+        <td class="size">
+         <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :total_size,
+            :dir       => :asc
+          ), :class => "up" %>
+          
+          <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :total_size,
+            :dir       => :desc
+          ), :class => "down"%>
+        </td>
+        <td class="created_at">
+         <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :created_at,
+            :dir       => :asc
+          ), :class => "up" %>
+          
+          <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :created_at,
+            :dir       => :desc
+          ), :class => "down" %>
+        </td>
+        <td class="downloads">
+         <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :total_downloads,
+            :dir       => :asc
+          ), :class => "up" %>
+          
+          <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :total_downloads,
+            :dir       => :desc
+          ), :class => "down" %>
+        </td>
+        <td class="revenue">
+         <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :total_revenue,
+            :dir       => :asc
+          ), :class => "up" %>
+          
+          <%= link_to "", manage_user_panel_path(
+            :folder_id => @folder,
+            :page      => params[:page],
+            :order     => :total_revenue,
+            :dir       => :desc
+          ), :class => "down" %>
+        </td>
+      </tr>
+      <tr class="pagination">
+        <td colspan="6"><%= will_paginate @resources %></td>
+      </tr>
+    </tfoot>
   </table>
 <% end %>
 

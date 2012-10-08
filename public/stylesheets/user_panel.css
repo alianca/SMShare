@@ -2,7 +2,7 @@
 
 body {
   position: relative/
-  background: url(/images/user_panel/fundo.jpg) no-repeat 50% 0;
+  background: url(/images/user_panel/fundo.jpg) repeat-x 50% 0;
   height: 100%;
 }
 
@@ -47,9 +47,11 @@ body {
 #sidebar {
   float: left;
   width: 182px;
-  margin: 1px 0 0 34px;
-  padding: 5px;
-  background: url(/images/user_panel/menu.png);
+  margin: 1px 0 30px 34px;
+  padding: 5px 5px 0px 5px;
+  background: #D9ECF2;
+  -webkit-border-radius: 6px 6px 0px 6px;
+  border-radius: 6px 6px 0px 6px;
   font-size: 14px;
 }
 
@@ -113,17 +115,28 @@ input.name {
 
 #sidebar li ul.dropdown {
   display: none;
-  width: 147px;
-  height: 76px;
-  margin: 10px 0 5px -10px;
-  padding: 5px 15px;
-  background: url(/images/user_panel/menu/fundo-active.png);
+  width: 154px;
+  margin: 10px 0 0 0;
+  padding: 4px 0px 3px 12px;
+  background-color:#FFFFFF;
+  line-height: 19px;
+  -webkit-box-shadow:  -5px 0px 0px 0px rgba(123, 186, 207, 1);
+  box-shadow:  -5px 0px 0px 0px rgba(123, 186, 207, 1);
+  -webkit-border-radius: 6px 0px 6px 6px;
+  border-radius: 6px 0px 6px 6px;
+}
+
+#sidebar li ul.dropdown.active {
+  -webkit-box-shadow:  -5px 0px 0px 0px rgba(246, 157, 69, 1);
+  box-shadow:  -5px 0px 0px 0px rgba(246, 157, 69, 1);
+  -webkit-border-radius: 6px 0px 6px 6px;
+  border-radius: 6px 0px 6px 6px;
 }
 
 #sidebar li ul.dropdown li {
   list-style-image: url(/images/user_panel/menu/bullet-off.png);
   list-style-position: inside;
-  margin: 10px 0;
+  margin: 5px 0;
   font-size: 11px;
 }
 
